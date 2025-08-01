@@ -1,7 +1,7 @@
-# MedQuiz Pro - Project Instructions
+# UsmleTrivia - Project Instructions
 
 ## 🎯 Project Overview
-MedQuiz Pro is a comprehensive medical quiz application built with React + Vite and Appwrite. It features a responsive design that seamlessly transitions between desktop CRM-style dashboard and mobile app experience.
+UsmleTrivia is a comprehensive medical quiz application built with React + Vite and Appwrite. It features a responsive design that seamlessly transitions between desktop CRM-style dashboard and mobile app experience.
 
 ## 🏗️ Tech Stack
 - **Frontend**: React 18 + TypeScript + Vite
@@ -160,3 +160,10 @@ npm run preview     # Preview production build
 4. Keep bundle size optimized
 5. Document complex logic with comments
 6. Use semantic HTML for accessibility
+
+## Instructions
+1. We need to test or unit after big changes to make sure everything work before moving forward.
+2. Make sure you MCP on first intention and then ClI tools.
+3. Make sure you use appwrite mcp and use other mcp like chadcn and Superclaude to manage our context usage.
+4. Use on first intentions exa search to check for developers curated and uptodate informations and help you fix bugs better.
+5. Any time user prompt you to change or implement something you have to always get the latest full context of the database , its data and schema etc.. before making changes even if there is nothing to do with the db.
