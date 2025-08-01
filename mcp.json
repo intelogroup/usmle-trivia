@@ -1,0 +1,60 @@
+{
+  "mcpServers": {
+    "appwrite": {
+      "command": "uvx",
+      "args": ["mcp-server-appwrite", "--databases", "--users", "--storage"],
+      "env": {
+        "APPWRITE_PROJECT_ID": "${APPWRITE_PROJECT_ID}",
+        "APPWRITE_API_KEY": "${APPWRITE_API_KEY}",
+        "APPWRITE_ENDPOINT": "${APPWRITE_ENDPOINT}",
+        "APPWRITE_DATABASE_ID": "medquiz"
+      }
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"],
+      "env": {
+        "PLAYWRIGHT_BROWSER": "chromium",
+        "PLAYWRIGHT_DEVICE_LIST": "iPhone 15,Desktop Chrome,Desktop Safari",
+        "PLAYWRIGHT_HEADLESS": "false",
+        "PLAYWRIGHT_BASE_URL": "http://localhost:5173"
+      }
+    },
+    "playwright-accessibility": {
+      "command": "npx", 
+      "args": ["playwright-accessibility-mcp-server"],
+      "env": {
+        "ACCESSIBILITY_STANDARDS": "WCAG21AA,Section508",
+        "GENERATE_REPORTS": "true"
+      }
+    },
+    "lighthouse": {
+      "command": "uvx",
+      "args": ["mcp-server-lighthouse"],
+      "env": {
+        "LIGHTHOUSE_CONFIG": "mobile,desktop",
+        "PERFORMANCE_BUDGET": "90",
+        "ACCESSIBILITY_BUDGET": "100"
+      }
+    },
+    "sentry": {
+      "command": "uvx",
+      "args": ["mcp-server-sentry"],
+      "env": {
+        "SENTRY_DSN": "${SENTRY_DSN}",
+        "SENTRY_ENVIRONMENT": "development"
+      }
+    }
+  },
+  "clientInfo": {
+    "name": "MedQuiz Pro",
+    "version": "1.0.0",
+    "description": "USMLE Medical Quiz Application"
+  },
+  "capabilities": {
+    "roots": {
+      "listChanged": true
+    },
+    "sampling": {}
+  }
+}
