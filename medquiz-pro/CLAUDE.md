@@ -161,7 +161,7 @@ npm run preview     # Preview production build
 5. Document complex logic with comments
 6. Use semantic HTML for accessibility
 
-## Instructions
+## Important Instructions
 1. We need to test or unit after big changes to make sure everything work before moving forward.
 2. Make sure you MCP on first intention and then ClI tools.
 3. Make sure you use appwrite mcp and use other mcp like chadcn and Superclaude to manage our context usage.
