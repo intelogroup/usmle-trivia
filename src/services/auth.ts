@@ -1,6 +1,7 @@
 import { account, databases, COLLECTIONS, DATABASE_ID } from './appwrite';
 import { ID } from 'appwrite';
 import type { IUser } from '../types';
+import { ErrorHandler } from '../utils/errorHandler';
 
 export const authService = {
   async createAccount(email: string, password: string, name: string) {
@@ -31,8 +32,11 @@ export const authService = {
       
       return { account: response, user: userDoc };
     } catch (error) {
-      console.error('Error creating account:', error);
-      throw error;
+      throw await ErrorHandler.handleError(
+        error,
+        'Account Creation',
+        { email, name }
+      );
     }
   },
 
@@ -42,8 +46,11 @@ export const authService = {
       const user = await this.getCurrentUser();
       return { session, user };
     } catch (error) {
-      console.error('Error logging in:', error);
-      throw error;
+      throw await ErrorHandler.handleError(
+        error,
+        'User Login',
+        { email }
+      );
     }
   },
 
@@ -51,8 +58,10 @@ export const authService = {
     try {
       await account.deleteSession('current');
     } catch (error) {
-      console.error('Error logging out:', error);
-      throw error;
+      throw await ErrorHandler.handleError(
+        error,
+        'User Logout'
+      );
     }
   },
 
@@ -81,6 +90,8 @@ export const authService = {
         updatedAt: new Date(userDoc.updatedAt),
       };
     } catch (error) {
+      // Silent fail for getCurrentUser - just return null
+      // This is expected when user is not authenticated
       return null;
     }
   },
@@ -101,8 +112,11 @@ export const authService = {
       
       return response;
     } catch (error) {
-      console.error('Error updating profile:', error);
-      throw error;
+      throw await ErrorHandler.handleError(
+        error,
+        'Profile Update',
+        { userId }
+      );
     }
   },
 
@@ -113,8 +127,11 @@ export const authService = {
         `${window.location.origin}/reset-password`
       );
     } catch (error) {
-      console.error('Error resetting password:', error);
-      throw error;
+      throw await ErrorHandler.handleError(
+        error,
+        'Password Reset',
+        { email }
+      );
     }
   },
 
@@ -122,8 +139,10 @@ export const authService = {
     try {
       await account.updatePassword(newPassword, password);
     } catch (error) {
-      console.error('Error updating password:', error);
-      throw error;
+      throw await ErrorHandler.handleError(
+        error,
+        'Password Update'
+      );
     }
   },
 };
