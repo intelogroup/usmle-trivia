@@ -389,7 +389,7 @@ export class ErrorHandler {
    * Utility methods
    */
   private static generateErrorId(): string {
-    return `err_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return `err_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
   }
 
   private static getHashedUserId(): string | undefined {

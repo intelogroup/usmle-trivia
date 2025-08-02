@@ -19,8 +19,10 @@ export const Login: React.FC = () => {
     try {
       await login(formData.email, formData.password);
       navigate('/dashboard');
-    } catch {
-      setError('Invalid email or password');
+    } catch (error) {
+      // Extract meaningful error message
+      const errorMessage = error instanceof Error ? error.message : 'Invalid email or password';
+      setError(errorMessage);
     }
   };
 

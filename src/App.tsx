@@ -8,6 +8,7 @@ import { Progress } from './pages/Progress';
 import { Leaderboard } from './pages/Leaderboard';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
+import { NotificationSystem } from './components/ui/NotificationSystem';
 import { useAppStore } from './store';
 import { authService } from './services/auth';
 
@@ -52,6 +53,7 @@ function App() {
 
   return (
     <Router>
+      <NotificationSystem />
       <Routes>
         {/* Public routes */}
         <Route path="/" element={<Landing />} />
