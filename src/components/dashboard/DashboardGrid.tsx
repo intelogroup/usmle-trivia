@@ -3,7 +3,6 @@ import { Trophy, Target, TrendingUp, Flame, Calendar, Clock, Award, BookOpen } f
 import { StatsCard } from './StatsCard';
 import { QuizModeSelector } from './QuizModeSelector';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
-import { useAppStore } from '../../store';
 
 // Mock data - in real app, this would come from API/database
 const mockStats = {
@@ -32,20 +31,8 @@ const mockTopPerformers = [
 ];
 
 export const DashboardGrid: React.FC = () => {
-  const { user } = useAppStore();
-
   return (
     <div className="grid gap-6">
-      {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg p-6">
-        <h1 className="text-3xl font-bold mb-2">
-          Welcome back, {user?.name || 'Medical Student'}! 👋
-        </h1>
-        <p className="text-blue-100">
-          Ready to advance your medical knowledge? Let's continue your journey to USMLE success.
-        </p>
-      </div>
-
       {/* Stats Grid */}
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         <StatsCard
