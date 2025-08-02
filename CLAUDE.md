@@ -1,5 +1,25 @@
 # 🏥 MedQuiz Pro - Strategic Development Guide (2025)
 
+## ⚠️ **IMPORTANT INSTRUCTION FOR CLAUDE CODE AGENTS**
+
+**🤖 If you are a Claude Code agent working on this project, FIRST read the `DEVELOPER_HANDOFF.md` file before proceeding with any development tasks. This file contains critical project status, implementation details, database schemas, environment configuration, and current system architecture.**
+
+**Command to read the handoff document:**
+```bash
+cat DEVELOPER_HANDOFF.md
+```
+
+The handoff document provides:
+- Complete project status and current implementation
+- Database schema and environment variables
+- Key components and their functionality
+- Deployment instructions and troubleshooting
+- Development workflow and maintenance tasks
+
+**After reading DEVELOPER_HANDOFF.md, you can use this CLAUDE.md file for project vision and strategic guidance.**
+
+---
+
 ## 🎯 Project Vision
 Build a comprehensive medical quiz application for USMLE preparation that rivals UWorld and AMBOSS, featuring modern React architecture, Appwrite backend, and industry-leading user experience.
 
