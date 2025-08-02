@@ -34,8 +34,8 @@ export const Register: React.FC = () => {
     try {
       await register(formData.email, formData.password, formData.name);
       navigate('/dashboard');
-    } catch (err: any) {
-      setError(err.message || 'Registration failed. Please try again.');
+    } catch (err: unknown) {
+      setError((err instanceof Error ? err.message : String(err)) || 'Registration failed. Please try again.');
     }
   };
 

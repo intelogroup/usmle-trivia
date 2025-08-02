@@ -4,11 +4,11 @@ import { ErrorHandler, MedicalAppError } from '../utils/errorHandler';
 export function useAsyncError() {
   const [error, setError] = useState<MedicalAppError | null>(null);
 
-  const handleAsyncError = useCallback(async (
-    asyncFn: () => Promise<any>,
+  const handleAsyncError = useCallback(async <T>(
+    asyncFn: () => Promise<T>,
     context?: string,
-    additionalContext?: Record<string, any>
-  ) => {
+    additionalContext?: Record<string, unknown>
+  ): Promise<T> => {
     try {
       setError(null);
       return await asyncFn();

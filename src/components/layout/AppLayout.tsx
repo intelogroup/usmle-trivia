@@ -2,6 +2,7 @@ import React from 'react';
 import { useResponsive } from '../../hooks/useResponsive';
 import { DesktopLayout } from './DesktopLayout';
 import { MobileLayout } from './MobileLayout';
+import { DatabaseSeeder } from '../dev/DatabaseSeeder';
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -17,6 +18,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       ) : (
         <DesktopLayout>{children}</DesktopLayout>
       )}
+      <DatabaseSeeder />
     </div>
   );
 };

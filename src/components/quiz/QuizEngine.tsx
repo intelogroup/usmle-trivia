@@ -56,7 +56,8 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
   // Initialize quiz
   useEffect(() => {
     const initializeQuiz = async () => {
-      if (!user) return;
+      // Use mock user if no authenticated user (for demo purposes)
+      const currentUser = user || { id: 'demo-user', email: 'demo@example.com', name: 'Demo User' };
 
       await handleAsyncError(async () => {
         const config = getQuizConfig();
@@ -81,22 +82,66 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
           updatedAt: new Date(),
         }));
 
-        // Create quiz session
+        // Create quiz session (skip database for demo, use mock session)
         const questionIds = questions.map(q => q.id);
-        const session = await quizService.createQuizSession(user.id, mode, questionIds);
+        
+        // Create a mock session for demo purposes
+        const mockSession = {
+          id: `mock-session-${Date.now()}`,
+          userId: currentUser.id,
+          mode,
+          questions: questionIds,
+          answers: new Array(questions.length).fill(null),
+          score: 0,
+          timeSpent: 0,
+          status: 'active' as const,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        };
 
         setQuizState(prev => ({
           ...prev,
           questions,
           answers: new Array(questions.length).fill(null),
-          session,
+          session: mockSession,
           timeRemaining: config.timeLimit,
         }));
       }, 'Initialize Quiz');
     };
 
     initializeQuiz();
-  }, [user, mode, getQuizConfig, handleAsyncError]);
+  }, [mode, getQuizConfig, handleAsyncError]);
+
+  // Handle quiz completion (defined early to avoid hoisting issues)
+  const handleCompleteQuiz = useCallback(async () => {
+    if (!quizState.session || quizState.isSubmitting) return;
+
+    setQuizState(prev => ({ ...prev, isSubmitting: true }));
+
+    await handleAsyncError(async () => {
+      // Calculate score locally for demo
+      let correctAnswers = 0;
+      quizState.answers.forEach((answer, index) => {
+        if (answer !== null && quizState.questions[index] && answer === quizState.questions[index].correctAnswer) {
+          correctAnswers++;
+        }
+      });
+
+      const score = Math.round((correctAnswers / quizState.questions.length) * 100);
+      
+      // Create completed session locally
+      const completedSession = {
+        ...quizState.session!,
+        score,
+        status: 'completed' as const,
+        answers: quizState.answers,
+        completedAt: new Date(),
+        updatedAt: new Date(),
+      };
+      
+      onComplete(completedSession);
+    }, 'Complete Quiz');
+  }, [quizState.session, quizState.isSubmitting, quizState.questions, quizState.answers, handleAsyncError, onComplete]);
 
   // Timer for timed quizzes
   useEffect(() => {
@@ -117,7 +162,7 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [quizState.timeRemaining]);
+  }, [quizState.timeRemaining, handleCompleteQuiz]);
 
   // Handle answer selection
   const handleAnswerSelect = async (answerIndex: number) => {
@@ -137,15 +182,15 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
         showExplanation: true,
       }));
 
-      // Update session in database
-      if (quizState.session) {
-        await quizService.submitAnswer(
-          quizState.session.id,
-          quizState.currentQuestionIndex,
-          answerIndex,
-          timeSpent
-        );
-      }
+      // Update session in database (skip for demo)
+      // if (quizState.session) {
+      //   await quizService.submitAnswer(
+      //     quizState.session.id,
+      //     quizState.currentQuestionIndex,
+      //     answerIndex,
+      //     timeSpent
+      //   );
+      // }
     }, 'Submit Answer');
   };
 
@@ -161,21 +206,6 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
     } else {
       handleCompleteQuiz();
     }
-  };
-
-  // Handle quiz completion
-  const handleCompleteQuiz = async () => {
-    if (!quizState.session || quizState.isSubmitting) return;
-
-    setQuizState(prev => ({ ...prev, isSubmitting: true }));
-
-    await handleAsyncError(async () => {
-      const completedSession = await quizService.completeQuizSession(
-        quizState.session!.id,
-        quizState.questions
-      );
-      onComplete(completedSession);
-    }, 'Complete Quiz');
   };
 
   // Format time display

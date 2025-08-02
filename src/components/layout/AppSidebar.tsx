@@ -90,6 +90,7 @@ export const AppSidebar: React.FC = () => {
   };
 
   const isActive = (href: string) => {
+    if (!location.pathname) return false;
     return location.pathname === href || location.pathname.startsWith(href + '/');
   };
 

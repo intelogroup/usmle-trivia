@@ -89,7 +89,7 @@ export const authService = {
         createdAt: new Date(userDoc.createdAt),
         updatedAt: new Date(userDoc.updatedAt),
       };
-    } catch (error) {
+    } catch {
       // Silent fail for getCurrentUser - just return null
       // This is expected when user is not authenticated
       return null;

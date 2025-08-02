@@ -36,7 +36,7 @@ export class MedicalAppError extends Error {
   public readonly type: ErrorType;
   public readonly severity: ErrorSeverity;
   public readonly code?: string;
-  public readonly context?: Record<string, any>;
+  public readonly context?: Record<string, unknown>;
   public readonly userMessage: string;
   public readonly timestamp: Date;
 
@@ -45,7 +45,7 @@ export class MedicalAppError extends Error {
     type: ErrorType = ErrorType.UNKNOWN,
     severity: ErrorSeverity = ErrorSeverity.MEDIUM,
     code?: string,
-    context?: Record<string, any>
+    context?: Record<string, unknown>
   ) {
     super(message);
     this.name = 'MedicalAppError';
@@ -91,7 +91,7 @@ interface ErrorReport {
   sessionId?: string;
   userAgent?: string;
   url?: string;
-  context?: Record<string, any>;
+  context?: Record<string, unknown>;
 }
 
 // Central error handler class
@@ -126,7 +126,7 @@ export class ErrorHandler {
   static async handleError(
     error: Error | unknown,
     context?: string,
-    additionalContext?: Record<string, any>
+    additionalContext?: Record<string, unknown>
   ): Promise<MedicalAppError> {
     const medicalError = this.normalizeError(error, context, additionalContext);
     
@@ -148,7 +148,7 @@ export class ErrorHandler {
   private static normalizeError(
     error: Error | unknown,
     context?: string,
-    additionalContext?: Record<string, any>
+    additionalContext?: Record<string, unknown>
   ): MedicalAppError {
     // Handle Appwrite specific errors
     if (error instanceof AppwriteException) {
@@ -204,7 +204,7 @@ export class ErrorHandler {
   private static handleAppwriteError(
     error: AppwriteException,
     context?: string,
-    additionalContext?: Record<string, any>
+    additionalContext?: Record<string, unknown>
   ): MedicalAppError {
     const { code, message, type } = error;
 
@@ -342,7 +342,7 @@ export class ErrorHandler {
         },
         body: JSON.stringify(report)
       });
-    } catch (error) {
+    } catch {
       throw new Error('Failed to send error report');
     }
   }
@@ -359,7 +359,7 @@ export class ErrorHandler {
     for (const report of errors) {
       try {
         await this.sendToMonitoring(report);
-      } catch (error) {
+      } catch {
         // Re-queue failed reports
         this.errorQueue.push(report);
       }
@@ -403,7 +403,7 @@ export class ErrorHandler {
     return sessionStorage.getItem('session_id') || undefined;
   }
 
-  private static sanitizeContext(context?: Record<string, any>): Record<string, any> | undefined {
+  private static sanitizeContext(context?: Record<string, unknown>): Record<string, unknown> | undefined {
     if (!context) return undefined;
 
     // Remove sensitive data from context

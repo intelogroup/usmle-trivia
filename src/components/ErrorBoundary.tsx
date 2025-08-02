@@ -16,7 +16,7 @@ export class MedicalErrorBoundary extends React.Component<ErrorBoundaryProps, Er
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(_error: Error): ErrorBoundaryState {
+  static getDerivedStateFromError(): ErrorBoundaryState {
     return { hasError: true };
   }
 

@@ -22,6 +22,7 @@ export const BottomNav: React.FC = () => {
   const location = useLocation();
   
   const isActive = (href: string) => {
+    if (!location.pathname) return false;
     return location.pathname === href || location.pathname.startsWith(href + '/');
   };
   

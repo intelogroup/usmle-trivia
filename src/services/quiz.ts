@@ -416,7 +416,7 @@ export const quizService = {
       try {
         const question = await this.createQuestion(questionData);
         createdQuestions.push(question);
-      } catch (error) {
+      } catch {
         console.error('Failed to create question:', questionData.question.substring(0, 50) + '...');
       }
     }

@@ -19,7 +19,7 @@ export const Login: React.FC = () => {
     try {
       await login(formData.email, formData.password);
       navigate('/dashboard');
-    } catch (err) {
+    } catch {
       setError('Invalid email or password');
     }
   };
