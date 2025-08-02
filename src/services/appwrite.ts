@@ -12,13 +12,11 @@ export const storage = new Storage(client);
 export const teams = new Teams(client);
 
 // Database constants
-export const DATABASE_ID = 'medquiz';
+export const DATABASE_ID = '688cbab3000f24cafc0c';
 export const COLLECTIONS = {
   USERS: 'users',
   QUESTIONS: 'questions',
   QUIZ_SESSIONS: 'quiz_sessions',
-  ANSWERS: 'answers',
-  LEADERBOARD: 'leaderboard',
 } as const;
 
 // Storage constants

@@ -4,10 +4,10 @@
       "command": "uvx",
       "args": ["mcp-server-appwrite", "--databases", "--users", "--storage"],
       "env": {
-        "APPWRITE_PROJECT_ID": "${APPWRITE_PROJECT_ID}",
-        "APPWRITE_API_KEY": "${APPWRITE_API_KEY}",
-        "APPWRITE_ENDPOINT": "${APPWRITE_ENDPOINT}",
-        "APPWRITE_DATABASE_ID": "medquiz"
+        "APPWRITE_PROJECT_ID": "688cb738000d2fbeca0a",
+        "APPWRITE_API_KEY": "standard_b22ff614f85dc9a8732a8782c082461714c3d20cf55be3096b9bd8e8b0adcb113326fa3a88edf5c87ea588973d7a3017b38cce11ead7dc582aeb713f08ff5b45926fee6ccea370266fc7ed8a304533fd9e0725d87b3ff77d04bc19b9b38d999c6448474652875b94dbb3d713f7b85bfe16779df81ceb97f4ed04aaefc4ac119f",
+        "APPWRITE_ENDPOINT": "https://nyc.cloud.appwrite.io/v1",
+        "APPWRITE_DATABASE_ID": "688cbab3000f24cafc0c"
       }
     },
     "playwright": {

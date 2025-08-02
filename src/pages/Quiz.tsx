@@ -1,41 +1,107 @@
-import React from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { ArrowLeft, Play } from 'lucide-react';
+import { QuizEngine } from '../components/quiz/QuizEngine';
+import { QuizResults } from '../components/quiz/QuizResults';
+import { quizModes } from '../data/sampleQuestions';
+import type { QuizSession } from '../services/quiz';
+
+type QuizMode = 'quick' | 'timed' | 'custom';
+type QuizState = 'setup' | 'active' | 'results';
 
 export const Quiz: React.FC = () => {
   const { mode } = useParams<{ mode?: string }>();
   const location = useLocation();
+  const navigate = useNavigate();
   const quizMode = location.state?.mode;
   
-  if (!mode) {
+  const [quizState, setQuizState] = useState<QuizState>('setup');
+  const [completedSession, setCompletedSession] = useState<QuizSession | null>(null);
+  
+  const isValidMode = (m: string | undefined): m is QuizMode => {
+    return m === 'quick' || m === 'timed' || m === 'custom';
+  };
+  
+  const handleBack = () => {
+    navigate('/');
+  };
+  
+  const handleStartQuiz = () => {
+    setQuizState('active');
+  };
+  
+  const handleQuizComplete = (session: QuizSession) => {
+    setCompletedSession(session);
+    setQuizState('results');
+  };
+  
+  const handleRetryQuiz = () => {
+    setQuizState('setup');
+    setCompletedSession(null);
+  };
+  
+  const handleHomeReturn = () => {
+    navigate('/');
+  };
+  
+  if (!mode || !isValidMode(mode)) {
     return (
       <div className="space-y-6">
         <h1 className="text-3xl font-bold">Quiz</h1>
         <Card>
           <CardContent className="pt-6">
             <p className="text-muted-foreground text-center">
-              Please select a quiz mode from the dashboard to get started.
+              Please select a valid quiz mode from the dashboard to get started.
             </p>
+            <div className="text-center mt-4">
+              <Button onClick={handleBack}>Back to Dashboard</Button>
+            </div>
           </CardContent>
         </Card>
       </div>
     );
   }
+  
+  // Show quiz engine when active
+  if (quizState === 'active') {
+    return (
+      <QuizEngine 
+        mode={mode}
+        onBack={() => setQuizState('setup')}
+        onComplete={handleQuizComplete}
+      />
+    );
+  }
+  
+  // Show results when completed
+  if (quizState === 'results' && completedSession) {
+    return (
+      <QuizResults 
+        session={completedSession}
+        onHome={handleHomeReturn}
+        onRetry={handleRetryQuiz}
+      />
+    );
+  }
+  
+  // Get quiz mode configuration
+  const modeConfig = quizModes[mode];
 
+  // Quiz setup screen
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-4">
-        <Button variant="ghost" size="icon" onClick={() => window.history.back()}>
+        <Button variant="ghost" size="icon" onClick={handleBack}>
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div>
           <h1 className="text-3xl font-bold">
-            {mode.charAt(0).toUpperCase() + mode.slice(1)} Quiz
+            {modeConfig.name}
           </h1>
           <p className="text-muted-foreground">
-            {quizMode?.description || 'Test your medical knowledge'}
+            {modeConfig.description}
           </p>
         </div>
       </div>
@@ -71,7 +137,7 @@ export const Quiz: React.FC = () => {
           )}
 
           <div className="pt-4">
-            <Button className="w-full" size="lg">
+            <Button className="w-full" size="lg" onClick={handleStartQuiz}>
               <Play className="w-4 h-4 mr-2" />
               Start Quiz
             </Button>
