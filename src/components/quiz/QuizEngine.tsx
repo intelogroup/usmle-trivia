@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { ArrowLeft, Clock, CheckCircle, XCircle, BookOpen } from 'lucide-react';
-import { quizService, type Question, type QuizSession } from '../../services/quiz';
+import { type Question, type QuizSession } from '../../services/quiz';
 import { useAppStore } from '../../store';
 import { getRandomQuestions } from '../../data/sampleQuestions';
 import { useAsyncError } from '../../hooks/useAsyncError';
@@ -169,7 +169,8 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
     if (quizState.hasAnswered || !quizState.session) return;
 
     await handleAsyncError(async () => {
-      const timeSpent = Math.floor((Date.now() - quizState.startTime.getTime()) / 1000);
+      // Track time spent for potential future use
+      // const timeSpent = Math.floor((Date.now() - quizState.startTime.getTime()) / 1000);
       
       // Update local state
       const newAnswers = [...quizState.answers];
