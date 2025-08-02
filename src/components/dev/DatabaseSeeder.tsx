@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { databases, DATABASE_ID, COLLECTIONS } from '../../services/appwrite';
 import { ID } from 'appwrite';
 import { sampleQuestions } from '../../data/sampleQuestions';
