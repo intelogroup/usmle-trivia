@@ -88,3 +88,6 @@ logs
 
 # Storybook build outputs
 storybook-static
+
+# Netlify
+.netlify/
