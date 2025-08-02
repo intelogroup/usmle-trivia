@@ -53,7 +53,17 @@ export const QuizModeSelector: React.FC = () => {
   const navigate = useNavigate();
 
   const handleStartQuiz = (mode: QuizMode) => {
-    navigate(`/quiz/${mode.id}`, { state: { mode } });
+    // Create a safe version of mode without React components
+    const safeMode = {
+      id: mode.id,
+      title: mode.title,
+      description: mode.description,
+      color: mode.color,
+      features: mode.features,
+      duration: mode.duration,
+      questions: mode.questions,
+    };
+    navigate(`/app/quiz/${mode.id}`, { state: { mode: safeMode } });
   };
 
   return (

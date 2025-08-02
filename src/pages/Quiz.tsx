@@ -17,6 +17,9 @@ export const Quiz: React.FC = () => {
   const navigate = useNavigate();
   const quizMode = location.state?.mode;
   
+  // Debug logging
+  console.log('Quiz Debug:', { mode, pathname: location.pathname, quizMode });
+  
   const [quizState, setQuizState] = useState<QuizState>('setup');
   const [completedSession, setCompletedSession] = useState<QuizSession | null>(null);
   
@@ -25,7 +28,7 @@ export const Quiz: React.FC = () => {
   };
   
   const handleBack = () => {
-    navigate('/');
+    navigate('/app/dashboard');
   };
   
   const handleStartQuiz = () => {
@@ -43,7 +46,7 @@ export const Quiz: React.FC = () => {
   };
   
   const handleHomeReturn = () => {
-    navigate('/');
+    navigate('/app/dashboard');
   };
   
   if (!mode || !isValidMode(mode)) {

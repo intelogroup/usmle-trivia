@@ -43,9 +43,9 @@ const navigationItems: SidebarNavItem[] = [
     icon: Brain,
     href: '#',
     subItems: [
-      { id: 'quick', label: 'Quick Quiz', icon: Zap, href: '/quiz/quick' },
-      { id: 'timed', label: 'Timed Quiz', icon: Clock, href: '/quiz/timed' },
-      { id: 'custom', label: 'Custom Quiz', icon: Settings, href: '/quiz/custom' },
+      { id: 'quick', label: 'Quick Quiz', icon: Zap, href: '/app/quiz/quick' },
+      { id: 'timed', label: 'Timed Quiz', icon: Clock, href: '/app/quiz/timed' },
+      { id: 'custom', label: 'Custom Quiz', icon: Settings, href: '/app/quiz/custom' },
     ]
   },
   {

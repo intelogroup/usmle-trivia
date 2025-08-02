@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AppLayout } from './components/layout/AppLayout';
+import { Landing } from './pages/Landing';
 import { Dashboard } from './pages/Dashboard';
 import { Quiz } from './pages/Quiz';
 import { Progress } from './pages/Progress';
@@ -33,28 +34,25 @@ function App() {
     <Router>
       <Routes>
         {/* Public routes */}
+        <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         
-        {/* Main app routes - temporarily allowing access without auth for demo */}
-        <Route
-          path="/*"
-          element={
-            <AppLayout>
-              <Routes>
-                <Route path="/" element={<Navigate to="/dashboard" />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/quiz" element={<Quiz />} />
-                <Route path="/quiz/:mode" element={<Quiz />} />
-                <Route path="/progress" element={<Progress />} />
-                <Route path="/leaderboard" element={<Leaderboard />} />
-                <Route path="/review" element={<div>Review Page</div>} />
-                <Route path="/analytics" element={<div>Analytics Page</div>} />
-                <Route path="/profile" element={<div>Profile Page</div>} />
-              </Routes>
-            </AppLayout>
-          }
-        />
+        {/* Protected app routes */}
+        <Route path="/app" element={<AppLayout />}>
+          <Route index element={<Navigate to="/app/dashboard" />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="quiz" element={<Quiz />} />
+          <Route path="quiz/:mode" element={<Quiz />} />
+          <Route path="progress" element={<Progress />} />
+          <Route path="leaderboard" element={<Leaderboard />} />
+          <Route path="review" element={<div>Review Page</div>} />
+          <Route path="analytics" element={<div>Analytics Page</div>} />
+          <Route path="profile" element={<div>Profile Page</div>} />
+        </Route>
+        
+        {/* Legacy dashboard route redirect */}
+        <Route path="/dashboard" element={<Navigate to="/app/dashboard" />} />
       </Routes>
     </Router>
   );

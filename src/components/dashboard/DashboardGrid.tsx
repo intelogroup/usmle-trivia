@@ -2,37 +2,31 @@ import React from 'react';
 import { Trophy, Target, TrendingUp, Flame, Calendar, Clock, Award, BookOpen } from 'lucide-react';
 import { StatsCard } from './StatsCard';
 import { QuizModeSelector } from './QuizModeSelector';
+import { QuizSessionCards } from './QuizSessionCards';
+import { NewUserDashboard } from './NewUserDashboard';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
 import { useAppStore } from '../../store';
 
-// Mock data - in real app, this would come from API/database
-const mockStats = {
-  totalPoints: 1250,
-  quizzesCompleted: 28,
-  accuracy: 78,
-  currentStreak: 7,
-  weeklyProgress: 85,
-  timeSpent: 120, // minutes
-  achievements: 5,
-  topicsCompleted: 12,
-};
-
-const mockRecentActivity = [
-  { date: '2 hours ago', activity: 'Completed Anatomy Quiz', score: '8/10' },
-  { date: 'Yesterday', activity: 'Finished Pharmacology Review', score: '15/20' },
-  { date: '2 days ago', activity: 'Quick Quiz - Mixed Topics', score: '7/8' },
-  { date: '3 days ago', activity: 'Timed Challenge', score: '18/25' },
-];
-
-const mockTopPerformers = [
-  { rank: 1, name: 'Alex Chen', points: 2150, accuracy: 92 },
-  { rank: 2, name: 'Sarah Johnson', points: 1980, accuracy: 89 },
-  { rank: 3, name: 'Mike Rodriguez', points: 1850, accuracy: 87 },
-  { rank: 4, name: 'You', points: mockStats.totalPoints, accuracy: mockStats.accuracy },
-];
 
 export const DashboardGrid: React.FC = () => {
   const { user } = useAppStore();
+
+  // Check if user is new (no quizzes completed)
+  const isNewUser = !user || user.totalQuizzes === 0;
+
+  // Show new user dashboard for users with no quiz history
+  if (isNewUser) {
+    return <NewUserDashboard userName={user?.name} />;
+  }
+
+  // Use real user data for existing users
+  const userStats = {
+    totalPoints: user?.points || 0,
+    quizzesCompleted: user?.totalQuizzes || 0,
+    accuracy: user?.accuracy || 0,
+    currentStreak: user?.streak || 0,
+    level: user?.level || 1,
+  };
 
   return (
     <div className="grid gap-6">
@@ -46,32 +40,32 @@ export const DashboardGrid: React.FC = () => {
         </p>
       </div>
 
-      {/* Stats Grid */}
+      {/* Stats Grid - Real User Data */}
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         <StatsCard
           title="Total Points"
-          value={mockStats.totalPoints.toLocaleString()}
+          value={userStats.totalPoints.toLocaleString()}
           icon={Trophy}
           trend="+12%"
           color="blue"
         />
         <StatsCard
           title="Quizzes Completed"
-          value={mockStats.quizzesCompleted}
+          value={userStats.quizzesCompleted}
           icon={Target}
           trend="+3 this week"
           color="green"
         />
         <StatsCard
           title="Accuracy Rate"
-          value={`${mockStats.accuracy}%`}
+          value={`${userStats.accuracy}%`}
           icon={TrendingUp}
           trend="+5% improvement"
           color="purple"
         />
         <StatsCard
           title="Current Streak"
-          value={`${mockStats.currentStreak} days`}
+          value={`${userStats.currentStreak} days`}
           icon={Flame}
           trend="Keep it up!"
           color="orange"
@@ -81,26 +75,26 @@ export const DashboardGrid: React.FC = () => {
       {/* Secondary Stats */}
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         <StatsCard
-          title="Weekly Progress"
-          value={`${mockStats.weeklyProgress}%`}
-          icon={Calendar}
-          color="green"
+          title="User Level"
+          value={`Level ${userStats.level}`}
+          icon={Award}
+          color="purple"
         />
         <StatsCard
           title="Study Time"
-          value={`${mockStats.timeSpent}m`}
+          value="120m"
           icon={Clock}
           color="blue"
         />
         <StatsCard
           title="Achievements"
-          value={mockStats.achievements}
+          value="5"
           icon={Award}
           color="purple"
         />
         <StatsCard
-          title="Topics Mastered"
-          value={mockStats.topicsCompleted}
+          title="Topics Practiced"
+          value="12"
           icon={BookOpen}
           color="orange"
         />
@@ -113,27 +107,8 @@ export const DashboardGrid: React.FC = () => {
           <QuizModeSelector />
         </div>
 
-        {/* Recent Activity */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Recent Activity</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {mockRecentActivity.map((activity, index) => (
-                <div key={index} className="flex justify-between items-start">
-                  <div className="flex-1">
-                    <p className="text-sm font-medium">{activity.activity}</p>
-                    <p className="text-xs text-muted-foreground">{activity.date}</p>
-                  </div>
-                  <span className="text-sm font-semibold text-green-600">
-                    {activity.score}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        {/* Quiz Session Cards */}
+        <QuizSessionCards />
       </div>
 
       {/* Bottom Grid */}

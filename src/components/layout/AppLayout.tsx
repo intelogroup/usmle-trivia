@@ -1,22 +1,19 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 import { useResponsive } from '../../hooks/useResponsive';
 import { DesktopLayout } from './DesktopLayout';
 import { MobileLayout } from './MobileLayout';
 import { DatabaseSeeder } from '../dev/DatabaseSeeder';
 
-interface AppLayoutProps {
-  children: React.ReactNode;
-}
-
-export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
+export const AppLayout: React.FC = () => {
   const { isMobile } = useResponsive();
   
   return (
     <div className="min-h-screen bg-background">
       {isMobile ? (
-        <MobileLayout>{children}</MobileLayout>
+        <MobileLayout><Outlet /></MobileLayout>
       ) : (
-        <DesktopLayout>{children}</DesktopLayout>
+        <DesktopLayout><Outlet /></DesktopLayout>
       )}
       <DatabaseSeeder />
     </div>
