@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AppLayout } from './components/layout/AppLayout';
+import { Landing } from './pages/Landing';
 import { Dashboard } from './pages/Dashboard';
 import { Quiz } from './pages/Quiz';
 import { Progress } from './pages/Progress';
@@ -10,8 +11,27 @@ import { Register } from './pages/Register';
 import { useAppStore } from './store';
 import { authService } from './services/auth';
 
+// Protected Route Component
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { isAuthenticated, isLoading } = useAppStore();
+  
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+  
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+  
+  return <>{children}</>;
+};
+
 function App() {
-  const { setUser, setLoading } = useAppStore();
+  const { setUser, setLoading, isAuthenticated } = useAppStore();
 
   useEffect(() => {
     // Check if user is logged in on app load
@@ -21,6 +41,7 @@ function App() {
         setUser(user);
       } catch (error) {
         console.error('Auth check failed:', error);
+        setUser(null);
       } finally {
         setLoading(false);
       }
@@ -33,26 +54,95 @@ function App() {
     <Router>
       <Routes>
         {/* Public routes */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Landing />} />
+        <Route 
+          path="/login" 
+          element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <Login />} 
+        />
+        <Route 
+          path="/register" 
+          element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <Register />} 
+        />
         
-        {/* Main app routes - temporarily allowing access without auth for demo */}
+        {/* Protected routes */}
         <Route
-          path="/*"
+          path="/dashboard"
           element={
-            <AppLayout>
-              <Routes>
-                <Route path="/" element={<Navigate to="/dashboard" />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/quiz" element={<Quiz />} />
-                <Route path="/quiz/:mode" element={<Quiz />} />
-                <Route path="/progress" element={<Progress />} />
-                <Route path="/leaderboard" element={<Leaderboard />} />
-                <Route path="/review" element={<div>Review Page</div>} />
-                <Route path="/analytics" element={<div>Analytics Page</div>} />
-                <Route path="/profile" element={<div>Profile Page</div>} />
-              </Routes>
-            </AppLayout>
+            <ProtectedRoute>
+              <AppLayout>
+                <Dashboard />
+              </AppLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/quiz"
+          element={
+            <ProtectedRoute>
+              <AppLayout>
+                <Quiz />
+              </AppLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/quiz/:mode"
+          element={
+            <ProtectedRoute>
+              <AppLayout>
+                <Quiz />
+              </AppLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/progress"
+          element={
+            <ProtectedRoute>
+              <AppLayout>
+                <Progress />
+              </AppLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/leaderboard"
+          element={
+            <ProtectedRoute>
+              <AppLayout>
+                <Leaderboard />
+              </AppLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/review"
+          element={
+            <ProtectedRoute>
+              <AppLayout>
+                <div>Review Page</div>
+              </AppLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/analytics"
+          element={
+            <ProtectedRoute>
+              <AppLayout>
+                <div>Analytics Page</div>
+              </AppLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <AppLayout>
+                <div>Profile Page</div>
+              </AppLayout>
+            </ProtectedRoute>
           }
         />
       </Routes>
