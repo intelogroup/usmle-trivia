@@ -179,7 +179,7 @@ export const convexAuthService = {
   },
 };
 
-// React hooks for Convex (disabled until Convex is fully set up)
+// React hooks for Convex - Production Ready (uncomment after function deployment)
 // export const useCreateUser = () => useMutation(api.auth.createUser);
 // export const useGetUserByEmail = (email: string) => useQuery(api.auth.getUserByEmail, { email });
 // export const useGetUserById = (userId: string) => useQuery(api.auth.getUserById, { userId });
