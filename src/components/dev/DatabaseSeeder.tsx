@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { databases, DATABASE_ID, COLLECTIONS } from '../../services/appwrite';
-import { ID } from 'appwrite';
+import { convexQuizService } from '../../services/convexQuiz';
 import { sampleQuestions } from '../../data/sampleQuestions';
 
 export function DatabaseSeeder() {
@@ -18,71 +17,44 @@ export function DatabaseSeeder() {
     setResults([]);
     const logs: string[] = [];
 
-    logs.push(`🌱 Starting database seeding...`);
+    logs.push(`🌱 Starting database seeding with Convex...`);
     logs.push(`📊 Found ${sampleQuestions.length} questions to seed`);
     setResults([...logs]);
 
-    let successCount = 0;
-    let errorCount = 0;
-
-    for (let i = 0; i < sampleQuestions.length; i++) {
-      const question = sampleQuestions[i];
+    try {
+      // Use batch create for better performance
+      const createdQuestions = await convexQuizService.seedQuestions(sampleQuestions);
       
-      try {
-        // Transform the question data to match database schema
-        const questionDoc = {
-          question: question.question,
-          options: JSON.stringify(question.options),
-          correctAnswer: question.correctAnswer,
-          explanation: question.explanation,
-          category: question.category,
-          difficulty: question.difficulty,
-          usmleCategory: question.usmleCategory,
-          tags: JSON.stringify(question.tags),
-          medicalReferences: JSON.stringify(question.medicalReferences || []),
-          lastReviewed: new Date().toISOString(),
-        };
+      const successCount = createdQuestions.length;
+      const errorCount = sampleQuestions.length - successCount;
 
-        // Create the question document
-        const result = await databases.createDocument(
-          DATABASE_ID,
-          COLLECTIONS.QUESTIONS,
-          ID.unique(),
-          questionDoc
-        );
+      createdQuestions.forEach((question, index) => {
+        logs.push(`✅ Question ${index + 1}/${sampleQuestions.length}: ${question.category} - ${question.difficulty}`);
+        logs.push(`   ID: ${question._id}`);
+      });
 
-        const successMsg = `✅ Question ${i + 1}/${sampleQuestions.length}: ${question.category} - ${question.difficulty}`;
-        logs.push(successMsg);
-        logs.push(`   ID: ${result.$id}`);
-        setResults([...logs]);
-        successCount++;
-        
-      } catch (error: any) {
-        const errorMsg = `❌ Failed to seed question ${i + 1}: ${error.message}`;
-        const questionPreview = `   Question: ${question.question.substring(0, 50)}...`;
-        logs.push(errorMsg);
-        logs.push(questionPreview);
-        setResults([...logs]);
-        errorCount++;
+      // Final summary
+      logs.push('');
+      logs.push('🎯 Seeding Summary:');
+      logs.push(`✅ Successfully seeded: ${successCount} questions`);
+      logs.push(`❌ Failed to seed: ${errorCount} questions`);
+
+      if (successCount === sampleQuestions.length) {
+        logs.push('🚀 Database seeding completed successfully!');
+        logs.push('💡 You can now test the quiz functionality with real medical questions.');
+      } else if (successCount > 0) {
+        logs.push('⚠️  Partial success. Some questions were seeded successfully.');
+      } else {
+        logs.push('💥 No questions were seeded. Check the Convex configuration.');
       }
+
+      setResults([...logs]);
+    } catch (error: any) {
+      logs.push(`❌ Failed to seed questions: ${error.message}`);
+      logs.push('💥 Check the Convex configuration and deployment.');
+      setResults([...logs]);
     }
 
-    // Final summary
-    logs.push('');
-    logs.push('🎯 Seeding Summary:');
-    logs.push(`✅ Successfully seeded: ${successCount} questions`);
-    logs.push(`❌ Failed to seed: ${errorCount} questions`);
-
-    if (successCount === sampleQuestions.length) {
-      logs.push('🚀 Database seeding completed successfully!');
-      logs.push('💡 You can now test the quiz functionality with real medical questions.');
-    } else if (successCount > 0) {
-      logs.push('⚠️  Partial success. Some questions were seeded successfully.');
-    } else {
-      logs.push('💥 No questions were seeded. Check the database configuration and permissions.');
-    }
-
-    setResults([...logs]);
     setIsSeeding(false);
   };
 

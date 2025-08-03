@@ -1,6 +1,4 @@
-import { databases, DATABASE_ID, COLLECTIONS } from './appwrite';
-import { ID } from 'appwrite';
-import { ErrorHandler } from '../utils/errorHandler';
+import { convexQuizService, type ConvexQuizSession, type ConvexQuestion } from './convexQuiz';
 import type { QuestionData } from '../data/sampleQuestions';
 
 export interface QuizSession {
@@ -32,6 +30,41 @@ export interface Question {
   updatedAt: Date;
 }
 
+// Helper function to convert Convex session to our format
+function convertConvexSession(session: ConvexQuizSession): QuizSession {
+  return {
+    id: session._id,
+    userId: session.userId,
+    mode: session.mode,
+    questions: session.questions,
+    answers: session.answers,
+    score: session.score,
+    timeSpent: session.timeSpent,
+    status: session.status,
+    completedAt: session.completedAt ? new Date(session.completedAt) : undefined,
+    createdAt: new Date(session._creationTime),
+    updatedAt: new Date(session._creationTime),
+  };
+}
+
+// Helper function to convert Convex question to our format
+function convertConvexQuestion(question: ConvexQuestion): Question {
+  return {
+    id: question._id,
+    question: question.question,
+    options: question.options,
+    correctAnswer: question.correctAnswer,
+    explanation: question.explanation,
+    category: question.category,
+    difficulty: question.difficulty,
+    usmleCategory: question.usmleCategory,
+    tags: question.tags,
+    medicalReferences: question.medicalReferences,
+    createdAt: new Date(question._creationTime),
+    updatedAt: new Date(question._creationTime),
+  };
+}
+
 export const quizService = {
   /**
    * Create a new quiz session
@@ -41,80 +74,16 @@ export const quizService = {
     mode: 'quick' | 'timed' | 'custom',
     questionIds: string[]
   ): Promise<QuizSession> {
-    try {
-      const sessionData = {
-        userId,
-        mode,
-        questions: JSON.stringify(questionIds),
-        answers: JSON.stringify(new Array(questionIds.length).fill(null)),
-        score: 0,
-        timeSpent: 0,
-        status: 'active',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      };
-
-      const response = await databases.createDocument(
-        DATABASE_ID,
-        COLLECTIONS.QUIZ_SESSIONS,
-        ID.unique(),
-        sessionData
-      );
-
-      return {
-        id: response.$id,
-        userId: response.userId,
-        mode: response.mode,
-        questions: JSON.parse(response.questions),
-        answers: JSON.parse(response.answers),
-        score: response.score,
-        timeSpent: response.timeSpent,
-        status: response.status,
-        completedAt: response.completedAt ? new Date(response.completedAt) : undefined,
-        createdAt: new Date(response.createdAt),
-        updatedAt: new Date(response.updatedAt),
-      };
-    } catch (error) {
-      throw await ErrorHandler.handleError(
-        error,
-        'Create Quiz Session',
-        { userId, mode, questionCount: questionIds.length }
-      );
-    }
+    const convexSession = await convexQuizService.createQuizSession(userId, mode, questionIds);
+    return convertConvexSession(convexSession);
   },
 
   /**
    * Get a quiz session by ID
    */
   async getQuizSession(sessionId: string): Promise<QuizSession | null> {
-    try {
-      const response = await databases.getDocument(
-        DATABASE_ID,
-        COLLECTIONS.QUIZ_SESSIONS,
-        sessionId
-      );
-
-      return {
-        id: response.$id,
-        userId: response.userId,
-        mode: response.mode,
-        questions: JSON.parse(response.questions),
-        answers: JSON.parse(response.answers),
-        score: response.score,
-        timeSpent: response.timeSpent,
-        status: response.status,
-        completedAt: response.completedAt ? new Date(response.completedAt) : undefined,
-        createdAt: new Date(response.createdAt),
-        updatedAt: new Date(response.updatedAt),
-      };
-    } catch (error) {
-      await ErrorHandler.handleError(
-        error,
-        'Get Quiz Session',
-        { sessionId }
-      );
-      return null;
-    }
+    const convexSession = await convexQuizService.getQuizSession(sessionId);
+    return convexSession ? convertConvexSession(convexSession) : null;
   },
 
   /**
@@ -126,194 +95,32 @@ export const quizService = {
     answer: number,
     timeSpent: number
   ): Promise<QuizSession> {
-    try {
-      // First get the current session
-      const currentSession = await this.getQuizSession(sessionId);
-      if (!currentSession) {
-        throw new Error('Quiz session not found');
-      }
-
-      // Update the answers array
-      const updatedAnswers = [...currentSession.answers];
-      updatedAnswers[questionIndex] = answer;
-
-      const updateData = {
-        answers: JSON.stringify(updatedAnswers),
-        timeSpent,
-        updatedAt: new Date().toISOString(),
-      };
-
-      const response = await databases.updateDocument(
-        DATABASE_ID,
-        COLLECTIONS.QUIZ_SESSIONS,
-        sessionId,
-        updateData
-      );
-
-      return {
-        id: response.$id,
-        userId: response.userId,
-        mode: response.mode,
-        questions: JSON.parse(response.questions),
-        answers: JSON.parse(response.answers),
-        score: response.score,
-        timeSpent: response.timeSpent,
-        status: response.status,
-        completedAt: response.completedAt ? new Date(response.completedAt) : undefined,
-        createdAt: new Date(response.createdAt),
-        updatedAt: new Date(response.updatedAt),
-      };
-    } catch (error) {
-      throw await ErrorHandler.handleError(
-        error,
-        'Submit Quiz Answer',
-        { sessionId, questionIndex, answer }
-      );
-    }
+    const convexSession = await convexQuizService.submitAnswer(sessionId, questionIndex, answer, timeSpent);
+    return convertConvexSession(convexSession);
   },
 
   /**
    * Complete a quiz session and calculate score
    */
-  async completeQuizSession(sessionId: string, questions: Question[]): Promise<QuizSession> {
-    try {
-      const currentSession = await this.getQuizSession(sessionId);
-      if (!currentSession) {
-        throw new Error('Quiz session not found');
-      }
-
-      // Calculate score
-      let correctAnswers = 0;
-      currentSession.answers.forEach((answer, index) => {
-        if (answer !== null && questions[index] && answer === questions[index].correctAnswer) {
-          correctAnswers++;
-        }
-      });
-
-      const score = Math.round((correctAnswers / questions.length) * 100);
-
-      const updateData = {
-        score,
-        status: 'completed',
-        completedAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      };
-
-      const response = await databases.updateDocument(
-        DATABASE_ID,
-        COLLECTIONS.QUIZ_SESSIONS,
-        sessionId,
-        updateData
-      );
-
-      return {
-        id: response.$id,
-        userId: response.userId,
-        mode: response.mode,
-        questions: JSON.parse(response.questions),
-        answers: JSON.parse(response.answers),
-        score: response.score,
-        timeSpent: response.timeSpent,
-        status: response.status,
-        completedAt: response.completedAt ? new Date(response.completedAt) : undefined,
-        createdAt: new Date(response.createdAt),
-        updatedAt: new Date(response.updatedAt),
-      };
-    } catch (error) {
-      throw await ErrorHandler.handleError(
-        error,
-        'Complete Quiz Session',
-        { sessionId }
-      );
-    }
+  async completeQuizSession(sessionId: string, finalTimeSpent: number): Promise<QuizSession> {
+    const convexSession = await convexQuizService.completeQuizSession(sessionId, finalTimeSpent);
+    return convertConvexSession(convexSession);
   },
 
   /**
    * Get user's quiz history
    */
   async getUserQuizHistory(userId: string, limit: number = 10): Promise<QuizSession[]> {
-    try {
-      const response = await databases.listDocuments(
-        DATABASE_ID,
-        COLLECTIONS.QUIZ_SESSIONS,
-        [
-          `userId=${userId}`,
-          `status=completed`,
-          `orderBy=createdAt:desc`,
-          `limit=${limit}`
-        ]
-      );
-
-      return response.documents.map(doc => ({
-        id: doc.$id,
-        userId: doc.userId,
-        mode: doc.mode,
-        questions: JSON.parse(doc.questions),
-        answers: JSON.parse(doc.answers),
-        score: doc.score,
-        timeSpent: doc.timeSpent,
-        status: doc.status,
-        completedAt: doc.completedAt ? new Date(doc.completedAt) : undefined,
-        createdAt: new Date(doc.createdAt),
-        updatedAt: new Date(doc.updatedAt),
-      }));
-    } catch (error) {
-      await ErrorHandler.handleError(
-        error,
-        'Get User Quiz History',
-        { userId, limit }
-      );
-      return [];
-    }
+    const convexSessions = await convexQuizService.getUserQuizHistory(userId, limit);
+    return convexSessions.map(convertConvexSession);
   },
 
   /**
    * Create a question in the database
    */
   async createQuestion(questionData: QuestionData): Promise<Question> {
-    try {
-      const dbQuestionData = {
-        question: questionData.question,
-        options: JSON.stringify(questionData.options),
-        correctAnswer: questionData.correctAnswer,
-        explanation: questionData.explanation,
-        category: questionData.category,
-        difficulty: questionData.difficulty,
-        usmleCategory: questionData.usmleCategory,
-        tags: JSON.stringify(questionData.tags),
-        medicalReferences: JSON.stringify(questionData.medicalReferences || []),
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      };
-
-      const response = await databases.createDocument(
-        DATABASE_ID,
-        COLLECTIONS.QUESTIONS,
-        ID.unique(),
-        dbQuestionData
-      );
-
-      return {
-        id: response.$id,
-        question: response.question,
-        options: JSON.parse(response.options),
-        correctAnswer: response.correctAnswer,
-        explanation: response.explanation,
-        category: response.category,
-        difficulty: response.difficulty,
-        usmleCategory: response.usmleCategory,
-        tags: JSON.parse(response.tags),
-        medicalReferences: JSON.parse(response.medicalReferences || '[]'),
-        createdAt: new Date(response.createdAt),
-        updatedAt: new Date(response.updatedAt),
-      };
-    } catch (error) {
-      throw await ErrorHandler.handleError(
-        error,
-        'Create Question',
-        { category: questionData.category, difficulty: questionData.difficulty }
-      );
-    }
+    const convexQuestion = await convexQuizService.createQuestion(questionData);
+    return convertConvexQuestion(convexQuestion);
   },
 
   /**
@@ -326,101 +133,35 @@ export const quizService = {
       limit?: number;
     }
   ): Promise<Question[]> {
-    try {
-      const queries = [];
-      
-      if (filters?.category) {
-        queries.push(`category=${filters.category}`);
-      }
-      
-      if (filters?.difficulty) {
-        queries.push(`difficulty=${filters.difficulty}`);
-      }
-      
-      if (filters?.limit) {
-        queries.push(`limit=${filters.limit}`);
-      }
-
-      const response = await databases.listDocuments(
-        DATABASE_ID,
-        COLLECTIONS.QUESTIONS,
-        queries
-      );
-
-      return response.documents.map(doc => ({
-        id: doc.$id,
-        question: doc.question,
-        options: JSON.parse(doc.options),
-        correctAnswer: doc.correctAnswer,
-        explanation: doc.explanation,
-        category: doc.category,
-        difficulty: doc.difficulty,
-        usmleCategory: doc.usmleCategory,
-        tags: JSON.parse(doc.tags),
-        medicalReferences: JSON.parse(doc.medicalReferences || '[]'),
-        createdAt: new Date(doc.createdAt),
-        updatedAt: new Date(doc.updatedAt),
-      }));
-    } catch (error) {
-      await ErrorHandler.handleError(
-        error,
-        'Get Questions',
-        { filters }
-      );
-      return [];
-    }
+    const convexQuestions = await convexQuizService.getQuestions(filters);
+    return convexQuestions.map(convertConvexQuestion);
   },
 
   /**
    * Get a single question by ID
    */
   async getQuestion(questionId: string): Promise<Question | null> {
-    try {
-      const response = await databases.getDocument(
-        DATABASE_ID,
-        COLLECTIONS.QUESTIONS,
-        questionId
-      );
-
-      return {
-        id: response.$id,
-        question: response.question,
-        options: JSON.parse(response.options),
-        correctAnswer: response.correctAnswer,
-        explanation: response.explanation,
-        category: response.category,
-        difficulty: response.difficulty,
-        usmleCategory: response.usmleCategory,
-        tags: JSON.parse(response.tags),
-        medicalReferences: JSON.parse(response.medicalReferences || '[]'),
-        createdAt: new Date(response.createdAt),
-        updatedAt: new Date(response.updatedAt),
-      };
-    } catch (error) {
-      await ErrorHandler.handleError(
-        error,
-        'Get Question',
-        { questionId }
-      );
-      return null;
-    }
+    const convexQuestion = await convexQuizService.getQuestion(questionId);
+    return convexQuestion ? convertConvexQuestion(convexQuestion) : null;
   },
 
   /**
    * Batch create questions from sample data
    */
   async seedQuestions(questionsData: QuestionData[]): Promise<Question[]> {
-    const createdQuestions: Question[] = [];
-    
-    for (const questionData of questionsData) {
-      try {
-        const question = await this.createQuestion(questionData);
-        createdQuestions.push(question);
-      } catch {
-        console.error('Failed to create question:', questionData.question.substring(0, 50) + '...');
-      }
-    }
-    
-    return createdQuestions;
+    const convexQuestions = await convexQuizService.seedQuestions(questionsData);
+    return convexQuestions.map(convertConvexQuestion);
+  },
+
+  /**
+   * Get random questions for quiz
+   */
+  async getRandomQuestions(
+    count: number,
+    difficulty?: string,
+    category?: string
+  ): Promise<Question[]> {
+    const convexQuestions = await convexQuizService.getRandomQuestions(count, difficulty, category);
+    return convexQuestions.map(convertConvexQuestion);
   }
 };
