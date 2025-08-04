@@ -65,47 +65,49 @@ export const QuizModeSelector: React.FC = () => {
         </p>
       </CardHeader>
       <CardContent>
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-3">
           {quizModes.map((mode) => (
             <div
               key={mode.id}
-              className="group relative overflow-hidden rounded-lg border bg-background p-4 hover:shadow-md transition-all duration-200 cursor-pointer"
+              className="group relative overflow-hidden rounded-xl border bg-background p-6 hover:shadow-custom-lg transition-all duration-300 cursor-pointer animate-in hover:scale-105"
               onClick={() => handleStartQuiz(mode)}
             >
               {/* Gradient accent */}
-              <div className={cn('h-1 bg-gradient-to-r rounded-t-lg', mode.color)} />
+              <div className={cn('absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r rounded-t-xl', mode.color)} />
               
-              <div className="pt-4">
+              <div className="pt-2">
                 {/* Icon and title */}
-                <div className="flex items-center gap-3 mb-3">
-                  <div className={cn('p-2 rounded-lg bg-gradient-to-br text-white', mode.color)}>
-                    <mode.icon className="h-5 w-5" />
+                <div className="flex items-start gap-4 mb-4">
+                  <div className={cn('p-3 rounded-xl bg-gradient-to-br text-white shadow-custom transition-transform duration-200 group-hover:scale-110', mode.color)}>
+                    <mode.icon className="h-6 w-6" />
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-lg">{mode.title}</h3>
-                    <p className="text-sm text-muted-foreground">{mode.description}</p>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-xl mb-1">{mode.title}</h3>
+                    <p className="text-muted-foreground">{mode.description}</p>
                   </div>
                 </div>
 
                 {/* Features */}
-                <div className="space-y-2 mb-4">
+                <div className="space-y-3 mb-6">
                   {mode.features.map((feature, index) => (
-                    <div key={index} className="flex items-center gap-2 text-sm">
-                      <CheckCircle className="h-3 w-3 text-green-500" />
-                      <span className="text-muted-foreground">{feature}</span>
+                    <div key={index} className="flex items-center gap-3">
+                      <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
+                      <span className="text-sm text-muted-foreground">{feature}</span>
                     </div>
                   ))}
                 </div>
 
                 {/* Stats */}
-                <div className="flex justify-between items-center text-xs text-muted-foreground mb-4">
-                  <span>{mode.questions} questions</span>
-                  <span>{mode.duration}</span>
+                <div className="flex justify-between items-center text-sm text-muted-foreground mb-6 py-3 px-4 bg-muted/50 rounded-lg">
+                  <span className="font-medium">{mode.questions} questions</span>
+                  <span className="font-medium">{mode.duration}</span>
                 </div>
 
                 {/* Action button */}
                 <Button 
-                  className="w-full group-hover:shadow-sm"
+                  variant="gradient"
+                  size="lg"
+                  className="w-full group-hover:shadow-custom-md"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleStartQuiz(mode);

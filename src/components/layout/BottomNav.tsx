@@ -27,21 +27,27 @@ export const BottomNav: React.FC = () => {
   };
   
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-background border-t z-40">
-      <div className="flex justify-around items-center h-16">
+    <nav className="fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-md border-t z-40 shadow-custom-lg">
+      <div className="flex justify-around items-center h-20 px-2">
         {mobileNavItems.map((item) => (
           <Link
             key={item.id}
             to={item.href}
             className={cn(
-              "flex flex-col items-center justify-center flex-1 h-full",
-              "text-muted-foreground hover:text-foreground transition-colors",
-              "tap-highlight-transparent",
-              isActive(item.href) && "text-primary"
+              "flex flex-col items-center justify-center flex-1 h-full min-h-[48px] rounded-lg transition-all duration-200",
+              "text-muted-foreground hover:text-foreground",
+              "tap-highlight-transparent active:scale-95",
+              isActive(item.href) && "text-primary bg-primary/10"
             )}
           >
-            <item.icon className="h-5 w-5 mb-1" />
-            <span className="text-xs">{item.label}</span>
+            <item.icon className={cn(
+              "h-6 w-6 mb-1 transition-transform duration-200",
+              isActive(item.href) && "scale-110"
+            )} />
+            <span className={cn(
+              "text-xs font-medium",
+              isActive(item.href) && "font-semibold"
+            )}>{item.label}</span>
           </Link>
         ))}
       </div>
