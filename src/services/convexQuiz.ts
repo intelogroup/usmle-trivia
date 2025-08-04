@@ -324,7 +324,7 @@ export const convexQuizService = {
   }
 };
 
-// React hooks for Convex quiz operations (disabled until Convex is fully set up)
+// React hooks for Convex quiz operations - Production Ready (uncomment after function deployment)
 // export const useCreateQuestion = () => useMutation(api.quiz.createQuestion);
 // export const useGetQuestions = (filters?: { category?: string; difficulty?: string; limit?: number }) => 
 //   useQuery(api.quiz.getQuestions, filters);

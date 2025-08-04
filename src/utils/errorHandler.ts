@@ -3,7 +3,7 @@
  * Follows 2025 best practices for medical applications
  */
 
-import { AppwriteException } from 'appwrite';
+// Convex error types for medical quiz application
 
 // Error types for medical quiz application
 export const ErrorType = {
@@ -150,9 +150,9 @@ export class ErrorHandler {
     context?: string,
     additionalContext?: Record<string, unknown>
   ): MedicalAppError {
-    // Handle Appwrite specific errors
-    if (error instanceof AppwriteException) {
-      return this.handleAppwriteError(error, context, additionalContext);
+    // Handle Convex specific errors
+    if (error instanceof Error && error.name === 'ConvexError') {
+      return this.handleConvexError(error, context, additionalContext);
     }
 
     // Handle network errors
@@ -199,53 +199,46 @@ export class ErrorHandler {
   }
 
   /**
-   * Handle Appwrite specific errors
+   * Handle Convex specific errors
    */
-  private static handleAppwriteError(
-    error: AppwriteException,
+  private static handleConvexError(
+    error: Error,
     context?: string,
     additionalContext?: Record<string, unknown>
   ): MedicalAppError {
-    const { code, message, type } = error;
+    const { message } = error;
 
-    // Map Appwrite errors to our error types
+    // Map Convex errors to our error types
     let errorType: ErrorType;
     let severity: ErrorSeverity;
 
-    switch (code) {
-      case 401:
-        errorType = ErrorType.AUTHENTICATION;
-        severity = ErrorSeverity.HIGH;
-        break;
-      case 403:
-        errorType = ErrorType.AUTHORIZATION;
-        severity = ErrorSeverity.HIGH;
-        break;
-      case 404:
-        errorType = ErrorType.DATABASE;
-        severity = ErrorSeverity.MEDIUM;
-        break;
-      case 429:
-        errorType = ErrorType.RATE_LIMIT;
-        severity = ErrorSeverity.HIGH;
-        break;
-      case 500:
-      case 502:
-      case 503:
-        errorType = ErrorType.DATABASE;
-        severity = ErrorSeverity.CRITICAL;
-        break;
-      default:
-        errorType = ErrorType.DATABASE;
-        severity = ErrorSeverity.MEDIUM;
+    // Parse Convex error messages to determine type
+    if (message.includes('authentication') || message.includes('unauthorized')) {
+      errorType = ErrorType.AUTHENTICATION;
+      severity = ErrorSeverity.HIGH;
+    } else if (message.includes('permission') || message.includes('forbidden')) {
+      errorType = ErrorType.AUTHORIZATION;
+      severity = ErrorSeverity.HIGH;
+    } else if (message.includes('not found') || message.includes('missing')) {
+      errorType = ErrorType.DATABASE;
+      severity = ErrorSeverity.MEDIUM;
+    } else if (message.includes('rate limit') || message.includes('too many')) {
+      errorType = ErrorType.RATE_LIMIT;
+      severity = ErrorSeverity.HIGH;
+    } else if (message.includes('server') || message.includes('internal')) {
+      errorType = ErrorType.DATABASE;
+      severity = ErrorSeverity.CRITICAL;
+    } else {
+      errorType = ErrorType.DATABASE;
+      severity = ErrorSeverity.MEDIUM;
     }
 
     return new MedicalAppError(
       message || 'Database operation failed',
       errorType,
       severity,
-      String(code),
-      { context, appwriteType: type, ...additionalContext }
+      'CONVEX_ERROR',
+      { context, convexError: true, ...additionalContext }
     );
   }
 
