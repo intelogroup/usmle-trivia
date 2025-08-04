@@ -1,0 +1,13 @@
+{
+  "screenshots": [
+    "01-landing-page.png",
+    "02-mobile-landing.png",
+    "03-tablet-landing.png"
+  ],
+  "performance": {
+    "landingPageLoad": 1679
+  },
+  "accessibility": [],
+  "ui_analysis": {},
+  "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('text=Login').first()\n"
+}
