@@ -91,3 +91,12 @@ storybook-static
 
 # Netlify
 .netlify/
+
+# Python virtual environments
+playwright_env/
+venv/
+env/
+.venv/
+.env_*/
+*.pyc
+__pycache__/
