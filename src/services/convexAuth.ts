@@ -186,3 +186,5 @@ export const useGetUserById = (userId: string) => useQuery(api.auth.getUserById,
 export const useUpdateUserProfile = () => useMutation(api.auth.updateUserProfile);
 export const useUpdateUserStats = () => useMutation(api.auth.updateUserStats);
 export const useGetLeaderboard = (limit?: number) => useQuery(api.auth.getLeaderboard, { limit });
+export const useGetUserProfile = (userId: string) => useQuery(api.auth.getUserProfile, userId ? { userId } : 'skip');
+export const useSearchUsers = (searchTerm: string, limit?: number) => useQuery(api.auth.searchUsers, searchTerm ? { searchTerm, limit } : 'skip');

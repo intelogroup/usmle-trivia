@@ -1,16 +1,17 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
 import { Button } from '../ui/Button';
-import { Trophy, Target, TrendingUp, Home, RotateCcw } from 'lucide-react';
+import { Trophy, Target, TrendingUp, Home, RotateCcw, BookOpen } from 'lucide-react';
 import type { QuizSession } from '../../services/quiz';
 
 interface QuizResultsProps {
   session: QuizSession;
   onHome: () => void;
   onRetry: () => void;
+  onReview?: () => void;
 }
 
-export const QuizResults: React.FC<QuizResultsProps> = ({ session, onHome, onRetry }) => {
+export const QuizResults: React.FC<QuizResultsProps> = ({ session, onHome, onRetry, onReview }) => {
   const totalQuestions = session.questions.length;
   const answeredQuestions = session.answers.filter(answer => answer !== null).length;
   // Calculate correct answers from the score
@@ -192,11 +193,17 @@ export const QuizResults: React.FC<QuizResultsProps> = ({ session, onHome, onRet
       </Card>
 
       {/* Action Buttons */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Button variant="outline" onClick={onRetry} className="h-12">
           <RotateCcw className="h-4 w-4 mr-2" />
           Try Again
         </Button>
+        {onReview && (
+          <Button variant="outline" onClick={onReview} className="h-12">
+            <BookOpen className="h-4 w-4 mr-2" />
+            Review Answers
+          </Button>
+        )}
         <Button onClick={onHome} className="h-12">
           <Home className="h-4 w-4 mr-2" />
           Back to Dashboard
