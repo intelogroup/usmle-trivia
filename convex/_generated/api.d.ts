@@ -1,6 +1,6 @@
 /* eslint-disable */
 /**
- * Generated API.
+ * Generated `api` utility.
  *
  * THIS CODE IS AUTOMATICALLY GENERATED.
  *
@@ -13,6 +13,8 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as auth from "../auth.js";
+import type * as quiz from "../quiz.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -23,8 +25,8 @@ import type {
  * ```
  */
 declare const fullApi: ApiFromModules<{
-  "auth": typeof import("../auth.js");
-  "quiz": typeof import("../quiz.js");
+  auth: typeof auth;
+  quiz: typeof quiz;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,
