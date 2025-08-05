@@ -4,8 +4,10 @@ import { Button } from '../ui/Button';
 import { ArrowLeft, Clock, CheckCircle, XCircle, BookOpen } from 'lucide-react';
 import { type Question, type QuizSession } from '../../services/quiz';
 import { useAppStore } from '../../store';
-import { getRandomQuestions } from '../../data/sampleQuestions';
 import { useAsyncError } from '../../hooks/useAsyncError';
+import { useGetRandomQuestions, useCreateQuizSession, useSubmitAnswer, useCompleteQuizSession } from '../../services/convexQuiz';
+import { api } from '../../../convex/_generated/api';
+import { useMutation } from 'convex/react';
 
 interface QuizEngineProps {
   mode: 'quick' | 'timed' | 'custom';
@@ -53,22 +55,23 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
     }
   }, [mode]);
 
+  // Convex hooks
+  const randomQuestions = useGetRandomQuestions(getQuizConfig().questionCount);
+  const createQuizSession = useCreateQuizSession();
+  const submitAnswer = useSubmitAnswer();
+  const completeQuizSession = useCompleteQuizSession();
+
   // Initialize quiz
   useEffect(() => {
     const initializeQuiz = async () => {
-      // Use mock user if no authenticated user (for demo purposes)
-      const currentUser = user || { id: 'demo-user', email: 'demo@example.com', name: 'Demo User' };
+      if (!user || !randomQuestions || randomQuestions.length === 0) return;
 
       await handleAsyncError(async () => {
         const config = getQuizConfig();
         
-        // For now, use sample questions since we haven't seeded the database yet
-        // In production, this would fetch from the database
-        const selectedQuestions = getRandomQuestions(config.questionCount);
-        
-        // Convert sample questions to our Question format
-        const questions: Question[] = selectedQuestions.map((q, index) => ({
-          id: `sample_${index}`,
+        // Convert Convex questions to our Question format
+        const questions: Question[] = randomQuestions.map((q) => ({
+          id: q._id,
           question: q.question,
           options: q.options,
           correctAnswer: q.correctAnswer,
@@ -78,70 +81,82 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
           usmleCategory: q.usmleCategory,
           tags: q.tags,
           medicalReferences: q.medicalReferences,
-          createdAt: new Date(),
-          updatedAt: new Date(),
+          createdAt: new Date(q._creationTime),
+          updatedAt: new Date(q._creationTime),
         }));
 
-        // Create quiz session (skip database for demo, use mock session)
+        // Create quiz session in Convex
         const questionIds = questions.map(q => q.id);
         
-        // Create a mock session for demo purposes
-        const mockSession = {
-          id: `mock-session-${Date.now()}`,
-          userId: currentUser.id,
+        const sessionId = await createQuizSession({
+          userId: user.id,
           mode,
-          questions: questionIds,
-          answers: new Array(questions.length).fill(null),
-          score: 0,
-          timeSpent: 0,
-          status: 'active' as const,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        };
+          questionIds,
+        });
 
-        setQuizState(prev => ({
-          ...prev,
-          questions,
-          answers: new Array(questions.length).fill(null),
-          session: mockSession,
-          timeRemaining: config.timeLimit,
-        }));
+        if (sessionId) {
+          // Create session object
+          const session: QuizSession = {
+            id: sessionId,
+            userId: user.id,
+            mode,
+            questions: questionIds,
+            answers: new Array(questions.length).fill(null),
+            score: 0,
+            timeSpent: 0,
+            status: 'active',
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          };
+
+          setQuizState(prev => ({
+            ...prev,
+            questions,
+            answers: new Array(questions.length).fill(null),
+            session,
+            timeRemaining: config.timeLimit,
+          }));
+        }
       }, 'Initialize Quiz');
     };
 
     initializeQuiz();
-  }, [mode, getQuizConfig, handleAsyncError]);
+  }, [mode, getQuizConfig, handleAsyncError, user, randomQuestions, createQuizSession]);
 
-  // Handle quiz completion (defined early to avoid hoisting issues)
+  // Handle quiz completion
   const handleCompleteQuiz = useCallback(async () => {
     if (!quizState.session || quizState.isSubmitting) return;
 
     setQuizState(prev => ({ ...prev, isSubmitting: true }));
 
     await handleAsyncError(async () => {
-      // Calculate score locally for demo
-      let correctAnswers = 0;
-      quizState.answers.forEach((answer, index) => {
-        if (answer !== null && quizState.questions[index] && answer === quizState.questions[index].correctAnswer) {
-          correctAnswers++;
+      // Calculate final time spent
+      const finalTimeSpent = Math.floor((Date.now() - quizState.startTime.getTime()) / 1000);
+      
+      // Complete session in Convex
+      if (completeQuizSession) {
+        const completedSession = await completeQuizSession({
+          sessionId: quizState.session!.id,
+          finalTimeSpent,
+        });
+        
+        if (completedSession) {
+          // Create completed session object
+          const session: QuizSession = {
+            ...quizState.session!,
+            score: completedSession.score,
+            status: 'completed',
+            answers: completedSession.answers,
+            timeSpent: completedSession.timeSpent,
+            completedAt: new Date(completedSession.completedAt || Date.now()),
+            updatedAt: new Date(),
+          };
+          
+          onComplete(session);
         }
-      });
-
-      const score = Math.round((correctAnswers / quizState.questions.length) * 100);
-      
-      // Create completed session locally
-      const completedSession = {
-        ...quizState.session!,
-        score,
-        status: 'completed' as const,
-        answers: quizState.answers,
-        completedAt: new Date(),
-        updatedAt: new Date(),
-      };
-      
-      onComplete(completedSession);
+      }
     }, 'Complete Quiz');
-  }, [quizState.session, quizState.isSubmitting, quizState.questions, quizState.answers, handleAsyncError, onComplete]);
+  }, [quizState.session, quizState.isSubmitting, quizState.startTime, handleAsyncError, completeQuizSession, onComplete]);
 
   // Timer for timed quizzes
   useEffect(() => {
@@ -169,8 +184,8 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
     if (quizState.hasAnswered || !quizState.session) return;
 
     await handleAsyncError(async () => {
-      // Track time spent for potential future use
-      // const timeSpent = Math.floor((Date.now() - quizState.startTime.getTime()) / 1000);
+      // Track time spent
+      const timeSpent = Math.floor((Date.now() - quizState.startTime.getTime()) / 1000);
       
       // Update local state
       const newAnswers = [...quizState.answers];
@@ -183,15 +198,15 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
         showExplanation: true,
       }));
 
-      // Update session in database (skip for demo)
-      // if (quizState.session) {
-      //   await quizService.submitAnswer(
-      //     quizState.session.id,
-      //     quizState.currentQuestionIndex,
-      //     answerIndex,
-      //     timeSpent
-      //   );
-      // }
+      // Update session in Convex database
+      if (quizState.session && submitAnswer) {
+        await submitAnswer({
+          sessionId: quizState.session.id,
+          questionIndex: quizState.currentQuestionIndex,
+          answer: answerIndex,
+          timeSpent,
+        });
+      }
     }, 'Submit Answer');
   };
 

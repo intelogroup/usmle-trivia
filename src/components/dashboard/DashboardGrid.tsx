@@ -3,64 +3,120 @@ import { Trophy, Target, TrendingUp, Flame, Calendar, Clock, Award, BookOpen } f
 import { StatsCard } from './StatsCard';
 import { QuizModeSelector } from './QuizModeSelector';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
-
-// Mock data - in real app, this would come from API/database
-const mockStats = {
-  totalPoints: 1250,
-  quizzesCompleted: 28,
-  accuracy: 78,
-  currentStreak: 7,
-  weeklyProgress: 85,
-  timeSpent: 120, // minutes
-  achievements: 5,
-  topicsCompleted: 12,
-};
-
-const mockRecentActivity = [
-  { date: '2 hours ago', activity: 'Completed Anatomy Quiz', score: '8/10' },
-  { date: 'Yesterday', activity: 'Finished Pharmacology Review', score: '15/20' },
-  { date: '2 days ago', activity: 'Quick Quiz - Mixed Topics', score: '7/8' },
-  { date: '3 days ago', activity: 'Timed Challenge', score: '18/25' },
-];
-
-const mockTopPerformers = [
-  { rank: 1, name: 'Alex Chen', points: 2150, accuracy: 92 },
-  { rank: 2, name: 'Sarah Johnson', points: 1980, accuracy: 89 },
-  { rank: 3, name: 'Mike Rodriguez', points: 1850, accuracy: 87 },
-  { rank: 4, name: 'You', points: mockStats.totalPoints, accuracy: mockStats.accuracy },
-];
+import { useAppStore } from '../../store';
+import { useGetUserQuizHistory, useGetLeaderboard } from '../../services/convexQuiz';
 
 export const DashboardGrid: React.FC = () => {
+  const { user } = useAppStore();
+  
+  // Fetch user quiz history
+  const quizHistory = useGetUserQuizHistory(user?.id || '', 10);
+  
+  // Fetch leaderboard
+  const leaderboard = useGetLeaderboard(5);
+  
+  // Calculate user stats from quiz history
+  const userStats = React.useMemo(() => {
+    if (!user) {
+      return {
+        totalPoints: 0,
+        quizzesCompleted: 0,
+        accuracy: 0,
+        currentStreak: 0,
+        weeklyProgress: 0,
+        timeSpent: 0,
+        achievements: 0,
+        topicsCompleted: 0,
+      };
+    }
+    
+    const completedQuizzes = quizHistory?.filter(q => q.status === 'completed') || [];
+    const totalQuizzes = completedQuizzes.length;
+    const averageScore = totalQuizzes > 0 
+      ? Math.round(completedQuizzes.reduce((sum, q) => sum + q.score, 0) / totalQuizzes)
+      : 0;
+    const totalTime = completedQuizzes.reduce((sum, q) => sum + q.timeSpent, 0);
+    
+    // Calculate streak (simplified - in production would check consecutive days)
+    const today = new Date();
+    const lastQuiz = completedQuizzes[0];
+    const daysSinceLastQuiz = lastQuiz 
+      ? Math.floor((today.getTime() - new Date(lastQuiz._creationTime).getTime()) / (1000 * 60 * 60 * 24))
+      : 0;
+    const streak = daysSinceLastQuiz <= 1 ? user.streak || 0 : 0;
+    
+    return {
+      totalPoints: user.points || 0,
+      quizzesCompleted: user.totalQuizzes || 0,
+      accuracy: user.accuracy || 0,
+      currentStreak: streak,
+      weeklyProgress: Math.min(totalQuizzes * 20, 100), // 5 quizzes = 100%
+      timeSpent: Math.round(totalTime / 60), // Convert to minutes
+      achievements: Math.floor((user.points || 0) / 250), // 1 achievement per 250 points
+      topicsCompleted: completedQuizzes.filter(q => q.score >= 80).length,
+    };
+  }, [user, quizHistory]);
+  
+  // Format recent activity from quiz history
+  const recentActivity = React.useMemo(() => {
+    if (!quizHistory) return [];
+    
+    return quizHistory.slice(0, 4).map(quiz => {
+      const date = new Date(quiz._creationTime);
+      const now = new Date();
+      const hoursAgo = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
+      
+      let dateStr = '';
+      if (hoursAgo < 1) {
+        dateStr = 'Just now';
+      } else if (hoursAgo < 24) {
+        dateStr = `${hoursAgo} hour${hoursAgo > 1 ? 's' : ''} ago`;
+      } else {
+        const daysAgo = Math.floor(hoursAgo / 24);
+        dateStr = daysAgo === 1 ? 'Yesterday' : `${daysAgo} days ago`;
+      }
+      
+      const modeName = quiz.mode === 'quick' ? 'Quick Quiz' : 
+                       quiz.mode === 'timed' ? 'Timed Challenge' : 'Custom Quiz';
+      
+      return {
+        date: dateStr,
+        activity: `Completed ${modeName}`,
+        score: `${Math.round(quiz.score)}%`,
+      };
+    });
+  }, [quizHistory]);
+
   return (
     <div className="grid gap-6">
       {/* Stats Grid */}
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         <StatsCard
           title="Total Points"
-          value={mockStats.totalPoints.toLocaleString()}
+          value={userStats.totalPoints.toLocaleString()}
           icon={Trophy}
-          trend="+12%"
+          trend={userStats.totalPoints > 1000 ? "Top performer!" : "Keep going!"}
           color="blue"
         />
         <StatsCard
           title="Quizzes Completed"
-          value={mockStats.quizzesCompleted}
+          value={userStats.quizzesCompleted}
           icon={Target}
-          trend="+3 this week"
+          trend={userStats.quizzesCompleted > 0 ? `${userStats.accuracy}% avg score` : "Start a quiz!"}
           color="green"
         />
         <StatsCard
           title="Accuracy Rate"
-          value={`${mockStats.accuracy}%`}
+          value={`${userStats.accuracy}%`}
           icon={TrendingUp}
-          trend="+5% improvement"
+          trend={userStats.accuracy >= 80 ? "Excellent!" : "Room to improve"}
           color="purple"
         />
         <StatsCard
           title="Current Streak"
-          value={`${mockStats.currentStreak} days`}
+          value={`${userStats.currentStreak} days`}
           icon={Flame}
-          trend="Keep it up!"
+          trend={userStats.currentStreak > 0 ? "Keep it up!" : "Start today!"}
           color="orange"
         />
       </div>
@@ -69,25 +125,25 @@ export const DashboardGrid: React.FC = () => {
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         <StatsCard
           title="Weekly Progress"
-          value={`${mockStats.weeklyProgress}%`}
+          value={`${userStats.weeklyProgress}%`}
           icon={Calendar}
           color="green"
         />
         <StatsCard
           title="Study Time"
-          value={`${mockStats.timeSpent}m`}
+          value={`${userStats.timeSpent}m`}
           icon={Clock}
           color="blue"
         />
         <StatsCard
           title="Achievements"
-          value={mockStats.achievements}
+          value={userStats.achievements}
           icon={Award}
           color="purple"
         />
         <StatsCard
           title="Topics Mastered"
-          value={mockStats.topicsCompleted}
+          value={userStats.topicsCompleted}
           icon={BookOpen}
           color="orange"
         />
@@ -107,7 +163,7 @@ export const DashboardGrid: React.FC = () => {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {mockRecentActivity.map((activity, index) => (
+              {recentActivity.length > 0 ? recentActivity.map((activity, index) => (
                 <div key={index} className="flex justify-between items-start">
                   <div className="flex-1">
                     <p className="text-sm font-medium">{activity.activity}</p>
@@ -117,7 +173,13 @@ export const DashboardGrid: React.FC = () => {
                     {activity.score}
                   </span>
                 </div>
-              ))}
+              )) : (
+                <div className="text-center py-8">
+                  <Target className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+                  <p className="text-sm text-muted-foreground">No quizzes taken yet</p>
+                  <p className="text-xs text-muted-foreground mt-1">Start a quiz to see your activity!</p>
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>
@@ -147,32 +209,43 @@ export const DashboardGrid: React.FC = () => {
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {mockTopPerformers.map((performer) => (
-                <div 
-                  key={performer.rank} 
-                  className={`flex items-center justify-between p-3 rounded-lg ${
-                    performer.name === 'You' 
-                      ? 'bg-primary/10 border border-primary/20' 
-                      : 'bg-muted/50'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-                      performer.rank === 1 ? 'bg-yellow-400 text-yellow-900' :
-                      performer.rank === 2 ? 'bg-gray-300 text-gray-800' :
-                      performer.rank === 3 ? 'bg-orange-400 text-orange-900' :
-                      'bg-muted text-muted-foreground'
-                    }`}>
-                      {performer.rank}
+              {leaderboard && leaderboard.length > 0 ? leaderboard.map((performer, index) => {
+                const isCurrentUser = user && performer.userId === user.id;
+                return (
+                  <div 
+                    key={performer.userId} 
+                    className={`flex items-center justify-between p-3 rounded-lg ${
+                      isCurrentUser
+                        ? 'bg-primary/10 border border-primary/20' 
+                        : 'bg-muted/50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+                        performer.rank === 1 ? 'bg-yellow-400 text-yellow-900' :
+                        performer.rank === 2 ? 'bg-gray-300 text-gray-800' :
+                        performer.rank === 3 ? 'bg-orange-400 text-orange-900' :
+                        'bg-muted text-muted-foreground'
+                      }`}>
+                        {performer.rank}
+                      </div>
+                      <div>
+                        <p className="font-medium text-sm">
+                          {isCurrentUser ? 'You' : performer.userName}
+                        </p>
+                        <p className="text-xs text-muted-foreground">{performer.accuracy}% accuracy</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-medium text-sm">{performer.name}</p>
-                      <p className="text-xs text-muted-foreground">{performer.accuracy}% accuracy</p>
-                    </div>
+                    <span className="font-semibold text-sm">{performer.points.toLocaleString()}</span>
                   </div>
-                  <span className="font-semibold text-sm">{performer.points.toLocaleString()}</span>
+                );
+              }) : (
+                <div className="text-center py-8">
+                  <Trophy className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+                  <p className="text-sm text-muted-foreground">No leaderboard data yet</p>
+                  <p className="text-xs text-muted-foreground mt-1">Complete quizzes to join the leaderboard!</p>
                 </div>
-              ))}
+              )}
             </div>
           </CardContent>
         </Card>
