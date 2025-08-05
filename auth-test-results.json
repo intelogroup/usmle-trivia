@@ -1,0 +1,56 @@
+{
+  "timestamp": "2025-08-05T14:14:26.439Z",
+  "tests": [
+    {
+      "name": "Initial Application Load",
+      "status": "PASSED",
+      "error": null
+    },
+    {
+      "name": "Navigate to Registration",
+      "status": "PASSED",
+      "error": null
+    },
+    {
+      "name": "User Registration Process",
+      "status": "PASSED",
+      "error": null
+    },
+    {
+      "name": "Navigate to Login Page",
+      "status": "PASSED",
+      "error": null
+    },
+    {
+      "name": "User Login Process",
+      "status": "PASSED",
+      "error": null
+    },
+    {
+      "name": "Access Authenticated Dashboard",
+      "status": "PASSED",
+      "error": null
+    },
+    {
+      "name": "User Logout Process",
+      "status": "FAILED",
+      "error": "Could not find logout functionality"
+    },
+    {
+      "name": "Session Persistence and Protected Routes",
+      "status": "PASSED",
+      "error": null
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 1,
+    "total": 8
+  },
+  "testUser": {
+    "email": "testuser1754403272249@medquiz.test",
+    "password": "TestPassword123!",
+    "name": "Test User 1754403272249",
+    "confirmPassword": "TestPassword123!"
+  }
+}
