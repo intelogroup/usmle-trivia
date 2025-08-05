@@ -1,0 +1,144 @@
+{
+  "security": {
+    "xss": [],
+    "inputSanitization": [],
+    "headers": {
+      "x-frame-options": {
+        "present": true,
+        "value": "DENY",
+        "description": "Clickjacking protection",
+        "compliant": true,
+        "required": true
+      },
+      "x-content-type-options": {
+        "present": true,
+        "value": "nosniff",
+        "description": "MIME type protection",
+        "compliant": true,
+        "required": true
+      },
+      "x-xss-protection": {
+        "present": true,
+        "value": "1; mode=block",
+        "description": "XSS protection",
+        "compliant": true,
+        "required": true
+      },
+      "referrer-policy": {
+        "present": true,
+        "value": "strict-origin-when-cross-origin",
+        "description": "Referrer control",
+        "compliant": true,
+        "required": true
+      },
+      "content-security-policy": {
+        "present": true,
+        "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://formal-sardine-916.convex.cloud https://formal-sardine-916.convex.site wss://formal-sardine-916.convex.cloud",
+        "description": "Content security policy",
+        "compliant": true,
+        "required": true
+      },
+      "strict-transport-security": {
+        "present": true,
+        "value": "max-age=31536000; includeSubDomains; preload",
+        "description": "HTTPS enforcement",
+        "compliant": true,
+        "required": false
+      }
+    },
+    "score": 90
+  },
+  "accessibility": {
+    "wcag": {
+      "keyboard": 11.11111111111111,
+      "contrast": 50,
+      "aria": 100,
+      "focus": 100,
+      "overall": 65.27777777777777
+    },
+    "keyboard": {
+      "focusableElements": 9,
+      "tabStops": 1,
+      "score": 11.11111111111111,
+      "accessible": false
+    },
+    "contrast": [
+      {
+        "tagName": "BUTTON",
+        "color": "rgb(2, 8, 23)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "fontSize": 18,
+        "fontWeight": "500",
+        "text": "Sign In"
+      }
+    ],
+    "screenReader": {
+      "images": {
+        "withAlt": 0,
+        "withoutAlt": 0
+      },
+      "buttons": {
+        "withLabels": 4,
+        "withoutLabels": 0
+      },
+      "inputs": {
+        "withLabels": 0,
+        "withoutLabels": 0
+      },
+      "landmarks": 2,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Master the USMLE withInteractive Quiz Practice"
+        },
+        {
+          "level": 2,
+          "text": "Why Medical Students Choose MedQuiz Pro"
+        },
+        {
+          "level": 3,
+          "text": "USMLE-Style Questions"
+        },
+        {
+          "level": 3,
+          "text": "Progress Tracking"
+        },
+        {
+          "level": 3,
+          "text": "Study Community"
+        },
+        {
+          "level": 2,
+          "text": "Ready to Ace Your USMLE?"
+        }
+      ]
+    },
+    "score": 65.27777777777777
+  },
+  "clinical": {
+    "performance": {
+      "loadTime": 753,
+      "mobileLoadTime": 0,
+      "touchElements": {
+        "total": 4,
+        "touchFriendly": 4,
+        "percentage": 100
+      },
+      "score": 100,
+      "clinicallyViable": true
+    },
+    "score": 100
+  },
+  "overall": {
+    "score": 84,
+    "grade": "B (Good)",
+    "recommendations": [
+      {
+        "priority": "HIGH",
+        "category": "Accessibility",
+        "issue": "WCAG 2.1 AA compliance below requirements",
+        "recommendation": "Add ARIA labels, improve keyboard navigation, and ensure color contrast meets medical readability standards"
+      }
+    ]
+  }
+}
