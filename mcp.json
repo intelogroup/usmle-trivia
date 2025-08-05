@@ -44,6 +44,15 @@
         "SENTRY_DSN": "${SENTRY_DSN}",
         "SENTRY_ENVIRONMENT": "development"
       }
+    },
+    "convex": {
+      "command": "npx",
+      "args": ["-y", "convex@latest", "mcp", "start", "--prod", "--project-dir", "/root/repo"],
+      "env": {
+        "CONVEX_ACCESS_TOKEN": "eyJ2MiI6IjI3ZDIxYjE0ZDkwYzQ2N2Q4YTIxZjRmZDY4YjdlNTdmIn0=",
+        "CONVEX_TEAM_ID": "240517",
+        "CONVEX_DEPLOYMENT": "formal-sardine-916"
+      }
     }
   },
   "clientInfo": {
