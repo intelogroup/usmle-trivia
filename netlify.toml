@@ -24,8 +24,8 @@
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    # Updated CSP for Convex Production
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://formal-sardine-916.convex.cloud https://formal-sardine-916.convex.site"
+    # Updated CSP for Convex Production with WebSocket support
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://formal-sardine-916.convex.cloud https://formal-sardine-916.convex.site wss://formal-sardine-916.convex.cloud"
     # Performance headers
     X-DNS-Prefetch-Control = "on"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains"
