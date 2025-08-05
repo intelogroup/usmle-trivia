@@ -34,19 +34,27 @@ export const StatsCard: React.FC<StatsCardProps> = ({
   color = 'blue',
 }) => {
   return (
-    <Card className={cn('transition-all duration-300 cursor-pointer', cardVariants[color])}>
+    <Card className={cn(
+      'transition-all duration-300 cursor-pointer group animate-in shadow-custom hover:shadow-custom-md hover:-translate-y-1 hover:scale-[1.02]', 
+      cardVariants[color]
+    )}>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-        <CardTitle className="text-sm font-medium text-muted-foreground">{title}</CardTitle>
-        <div className={cn('p-2.5 rounded-xl transition-transform duration-200 hover:scale-110', colorVariants[color])}>
+        <CardTitle className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-200">
+          {title}
+        </CardTitle>
+        <div className={cn(
+          'p-2.5 rounded-xl transition-all duration-200 group-hover:scale-110 group-hover:rotate-3', 
+          colorVariants[color]
+        )}>
           <Icon className="h-5 w-5" />
         </div>
       </CardHeader>
       <CardContent>
-        <div className="text-3xl font-bold mb-1 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
+        <div className="text-3xl font-bold mb-1 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-200">
           {value}
         </div>
         {trend && (
-          <p className="text-sm text-muted-foreground font-medium">
+          <p className="text-sm text-muted-foreground font-medium group-hover:text-foreground/80 transition-colors duration-200">
             {trend}
           </p>
         )}

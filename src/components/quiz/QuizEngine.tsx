@@ -266,78 +266,101 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
   return (
     <div className="space-y-6">
       {/* Quiz Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between p-6 bg-gradient-to-r from-background to-muted/30 rounded-2xl border shadow-custom animate-in">
         <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" onClick={onBack}>
+          <Button variant="ghost" size="icon" onClick={onBack} className="hover:bg-primary/10 transition-colors duration-200">
             <ArrowLeft className="h-4 w-4" />
           </Button>
           <div>
-            <h1 className="text-2xl font-bold">
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
               Question {quizState.currentQuestionIndex + 1} of {quizState.questions.length}
             </h1>
-            <p className="text-muted-foreground capitalize">{mode} Quiz</p>
+            <p className="text-muted-foreground capitalize font-medium">{mode} Quiz</p>
           </div>
         </div>
         
         {quizState.timeRemaining !== null && quizState.timeRemaining !== undefined && (
-          <div className="flex items-center gap-2 px-4 py-2 bg-muted rounded-lg">
+          <div className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 ${
+            quizState.timeRemaining < 60 
+              ? 'bg-red-100 text-red-700 border border-red-200 animate-pulse' 
+              : 'bg-muted border'
+          }`}>
             <Clock className="h-4 w-4" />
-            <span className={`font-mono ${quizState.timeRemaining < 60 ? 'text-red-500' : ''}`}>
+            <span className={`font-mono font-bold ${quizState.timeRemaining < 60 ? 'text-red-600' : ''}`}>
               {formatTime(quizState.timeRemaining)}
             </span>
           </div>
         )}
       </div>
 
-      {/* Progress Bar */}
-      <div className="w-full bg-muted rounded-full h-2">
-        <div 
-          className="bg-primary h-2 rounded-full transition-all duration-300"
-          style={{ 
-            width: `${((quizState.currentQuestionIndex + (quizState.hasAnswered ? 1 : 0)) / quizState.questions.length) * 100}%` 
-          }}
-        />
+      {/* Enhanced Progress Bar */}
+      <div className="relative">
+        <div className="w-full bg-muted/50 rounded-full h-3 shadow-inner">
+          <div 
+            className="bg-gradient-to-r from-primary to-primary/80 h-3 rounded-full transition-all duration-500 ease-out relative overflow-hidden"
+            style={{ 
+              width: `${((quizState.currentQuestionIndex + (quizState.hasAnswered ? 1 : 0)) / quizState.questions.length) * 100}%` 
+            }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse" />
+          </div>
+        </div>
+        <div className="flex justify-between mt-2">
+          <span className="text-xs text-muted-foreground font-medium">Progress</span>
+          <span className="text-xs text-muted-foreground font-medium">
+            {Math.round(((quizState.currentQuestionIndex + (quizState.hasAnswered ? 1 : 0)) / quizState.questions.length) * 100)}%
+          </span>
+        </div>
       </div>
 
-      {/* Question Card */}
-      <Card>
-        <CardHeader>
-          <div className="flex items-center gap-2">
-            <div className="px-2 py-1 bg-primary/10 text-primary rounded text-xs font-medium">
-              {currentQuestion.category}
+      {/* Enhanced Question Card */}
+      <Card className="border-0 shadow-custom-lg bg-gradient-to-br from-background to-muted/20 animate-fade-up">
+        <CardHeader className="pb-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="px-3 py-1.5 bg-gradient-to-r from-primary to-primary/80 text-white rounded-full text-xs font-semibold shadow-sm">
+                {currentQuestion.category}
+              </div>
+              <div className="px-3 py-1.5 bg-muted/70 text-muted-foreground rounded-full text-xs font-medium capitalize border">
+                {currentQuestion.difficulty}
+              </div>
             </div>
-            <div className="px-2 py-1 bg-muted rounded text-xs font-medium capitalize">
-              {currentQuestion.difficulty}
+            <div className="flex items-center gap-1 text-primary">
+              <BookOpen className="h-4 w-4" />
+              <span className="text-xs font-medium">USMLE Style</span>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="space-y-6">
-          {/* Question Text */}
+        <CardContent className="space-y-8">
+          {/* Enhanced Question Text */}
           <div className="prose prose-sm max-w-none">
-            <p className="text-base leading-relaxed">{currentQuestion.question}</p>
+            <div className="p-6 bg-gradient-to-r from-muted/40 to-muted/20 rounded-xl border-l-4 border-primary">
+              <p className="text-base leading-relaxed font-medium text-foreground m-0">{currentQuestion.question}</p>
+            </div>
           </div>
 
-          {/* Answer Options */}
-          <div className="space-y-3">
+          {/* Enhanced Answer Options */}
+          <div className="space-y-4">
             {currentQuestion.options.map((option, index) => {
               const isSelected = currentAnswer === index;
               const isCorrect = index === currentQuestion.correctAnswer;
               const showResult = quizState.showExplanation;
+              const optionLabel = String.fromCharCode(65 + index); // A, B, C, D
               
-              let buttonClass = "w-full p-4 text-left border-2 rounded-lg transition-all ";
+              let buttonClass = "group w-full p-5 text-left border-2 rounded-xl transition-all duration-300 relative overflow-hidden ";
               
               if (showResult) {
                 if (isCorrect) {
-                  buttonClass += "border-green-500 bg-green-50 text-green-900";
+                  buttonClass += "border-green-500 bg-gradient-to-r from-green-50 to-green-100/50 text-green-900 shadow-green-200/50 shadow-lg";
                 } else if (isSelected && !isCorrect) {
-                  buttonClass += "border-red-500 bg-red-50 text-red-900";
+                  buttonClass += "border-red-500 bg-gradient-to-r from-red-50 to-red-100/50 text-red-900 shadow-red-200/50 shadow-lg";
                 } else {
-                  buttonClass += "border-muted bg-muted/50 text-muted-foreground";
+                  buttonClass += "border-muted bg-muted/30 text-muted-foreground";
                 }
               } else if (isSelected) {
-                buttonClass += "border-primary bg-primary/10 text-primary";
+                buttonClass += "border-primary bg-gradient-to-r from-primary/10 to-primary/5 text-primary shadow-primary/20 shadow-lg transform scale-[1.02]";
               } else {
-                buttonClass += "border-muted hover:border-primary/50 hover:bg-primary/5";
+                buttonClass += "border-muted hover:border-primary/50 hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/2 hover:shadow-md hover:scale-[1.01]";
               }
 
               return (
@@ -347,10 +370,23 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
                   disabled={quizState.hasAnswered}
                   className={buttonClass}
                 >
-                  <div className="flex items-center justify-between">
-                    <span>{option}</span>
-                    {showResult && isCorrect && <CheckCircle className="h-5 w-5 text-green-600" />}
-                    {showResult && isSelected && !isCorrect && <XCircle className="h-5 w-5 text-red-600" />}
+                  <div className="flex items-center gap-4">
+                    <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-200 ${
+                      showResult && isCorrect 
+                        ? 'bg-green-500 text-white' 
+                        : showResult && isSelected && !isCorrect
+                          ? 'bg-red-500 text-white'
+                          : isSelected
+                            ? 'bg-primary text-white'
+                            : 'bg-muted text-muted-foreground group-hover:bg-primary/20 group-hover:text-primary'
+                    }`}>
+                      {optionLabel}
+                    </div>
+                    <span className="flex-1 font-medium">{option}</span>
+                    <div className="flex-shrink-0 transition-all duration-200">
+                      {showResult && isCorrect && <CheckCircle className="h-6 w-6 text-green-600" />}
+                      {showResult && isSelected && !isCorrect && <XCircle className="h-6 w-6 text-red-600" />}
+                    </div>
                   </div>
                 </button>
               );
