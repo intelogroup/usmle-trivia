@@ -6,8 +6,6 @@ import { type Question, type QuizSession } from '../../services/quiz';
 import { useAppStore } from '../../store';
 import { useAsyncError } from '../../hooks/useAsyncError';
 import { useGetRandomQuestions, useCreateQuizSession, useSubmitAnswer, useCompleteQuizSession } from '../../services/convexQuiz';
-import { api } from '../../../convex/_generated/api';
-import { useMutation } from 'convex/react';
 
 interface QuizEngineProps {
   mode: 'quick' | 'timed' | 'custom';

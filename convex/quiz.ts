@@ -36,15 +36,15 @@ export const getQuestions = query({
   handler: async (ctx, args) => {
     let query = ctx.db.query("questions");
     
-    // Apply filters
+    // Apply filters with proper typing
     if (args.category) {
-      query = query.withIndex("by_category", (q) => q.eq("category", args.category));
-    } else if (args.difficulty) {
-      query = query.withIndex("by_difficulty", (q) => 
-        q.eq("difficulty", args.difficulty as "easy" | "medium" | "hard")
-      );
-    } else if (args.usmleCategory) {
-      query = query.withIndex("by_usmle_category", (q) => q.eq("usmleCategory", args.usmleCategory));
+      query = query.filter((q) => q.eq(q.field("category"), args.category!));
+    }
+    if (args.difficulty) {
+      query = query.filter((q) => q.eq(q.field("difficulty"), args.difficulty! as "easy" | "medium" | "hard"));
+    }
+    if (args.usmleCategory) {
+      query = query.filter((q) => q.eq(q.field("usmleCategory"), args.usmleCategory!));
     }
     
     const questions = await query.take(args.limit ?? 50);
@@ -71,13 +71,12 @@ export const getRandomQuestions = query({
   handler: async (ctx, args) => {
     let query = ctx.db.query("questions");
     
-    // Apply filters
+    // Apply filters with proper typing
     if (args.difficulty) {
-      query = query.withIndex("by_difficulty", (q) => 
-        q.eq("difficulty", args.difficulty as "easy" | "medium" | "hard")
-      );
-    } else if (args.category) {
-      query = query.withIndex("by_category", (q) => q.eq("category", args.category));
+      query = query.filter((q) => q.eq(q.field("difficulty"), args.difficulty! as "easy" | "medium" | "hard"));
+    }
+    if (args.category) {
+      query = query.filter((q) => q.eq(q.field("category"), args.category!));
     }
     
     const allQuestions = await query.collect();

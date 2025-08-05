@@ -4,7 +4,8 @@ import { StatsCard } from './StatsCard';
 import { QuizModeSelector } from './QuizModeSelector';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
 import { useAppStore } from '../../store';
-import { useGetUserQuizHistory, useGetLeaderboard } from '../../services/convexQuiz';
+import { useGetUserQuizHistory } from '../../services/convexQuiz';
+import { useGetLeaderboard } from '../../services/convexAuth';
 
 export const DashboardGrid: React.FC = () => {
   const { user } = useAppStore();
@@ -32,9 +33,6 @@ export const DashboardGrid: React.FC = () => {
     
     const completedQuizzes = quizHistory?.filter(q => q.status === 'completed') || [];
     const totalQuizzes = completedQuizzes.length;
-    const averageScore = totalQuizzes > 0 
-      ? Math.round(completedQuizzes.reduce((sum, q) => sum + q.score, 0) / totalQuizzes)
-      : 0;
     const totalTime = completedQuizzes.reduce((sum, q) => sum + q.timeSpent, 0);
     
     // Calculate streak (simplified - in production would check consecutive days)
@@ -209,7 +207,7 @@ export const DashboardGrid: React.FC = () => {
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {leaderboard && leaderboard.length > 0 ? leaderboard.map((performer, index) => {
+              {leaderboard && leaderboard.length > 0 ? leaderboard.map((performer: any) => {
                 const isCurrentUser = user && performer.userId === user.id;
                 return (
                   <div 
