@@ -19,22 +19,29 @@ export const Register: React.FC = () => {
     e.preventDefault();
     setError('');
     
+    console.log('📝 Registration form submitted for:', formData.email);
+    
     // Validate passwords match
     if (formData.password !== formData.confirmPassword) {
+      console.error('❌ Passwords do not match');
       setError('Passwords do not match');
       return;
     }
 
     // Validate password strength
     if (formData.password.length < 8) {
+      console.error('❌ Password too short');
       setError('Password must be at least 8 characters long');
       return;
     }
     
     try {
+      console.log('🚀 Calling register function...');
       await register(formData.email, formData.password, formData.name);
+      console.log('✅ Registration successful, navigating to dashboard');
       navigate('/dashboard');
     } catch (err: unknown) {
+      console.error('❌ Registration failed:', err);
       setError((err instanceof Error ? err.message : String(err)) || 'Registration failed. Please try again.');
     }
   };

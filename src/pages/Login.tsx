@@ -16,10 +16,15 @@ export const Login: React.FC = () => {
     e.preventDefault();
     setError('');
     
+    console.log('🔐 Login form submitted for:', formData.email);
+    
     try {
+      console.log('🚀 Calling login function...');
       await login(formData.email, formData.password);
+      console.log('✅ Login successful, navigating to dashboard');
       navigate('/dashboard');
-    } catch {
+    } catch (error) {
+      console.error('❌ Login failed:', error);
       setError('Invalid email or password');
     }
   };

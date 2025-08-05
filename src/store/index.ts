@@ -60,15 +60,23 @@ export const useAppStore = create<AppState>()(
         
         login: async (email: string, password: string) => {
           try {
+            console.log('🏪 Store: Starting login process for:', email);
             set({ isLoading: true });
+            
+            console.log('🏪 Store: Calling authService.login...');
             const { user } = await authService.login(email, password);
+            
+            console.log('🏪 Store: Login successful, setting user state');
             set({ user, isAuthenticated: true });
+            
             get().addNotification({
               type: 'success',
               title: 'Welcome back!',
               message: 'You have successfully logged in.',
             });
+            console.log('🏪 Store: Login process completed successfully');
           } catch (error) {
+            console.error('🏪 Store: Login error:', error);
             get().addNotification({
               type: 'error',
               title: 'Login failed',
@@ -103,15 +111,23 @@ export const useAppStore = create<AppState>()(
         
         register: async (email: string, password: string, name: string) => {
           try {
+            console.log('🏪 Store: Starting registration process for:', email);
             set({ isLoading: true });
+            
+            console.log('🏪 Store: Calling authService.createAccount...');
             const { user } = await authService.createAccount(email, password, name);
+            
+            console.log('🏪 Store: Registration successful, setting user state');
             set({ user: user as unknown as IUser, isAuthenticated: true });
+            
             get().addNotification({
               type: 'success',
               title: 'Welcome to MedQuiz Pro!',
               message: 'Your account has been created successfully.',
             });
+            console.log('🏪 Store: Registration process completed successfully');
           } catch (error) {
+            console.error('🏪 Store: Registration error:', error);
             get().addNotification({
               type: 'error',
               title: 'Registration failed',

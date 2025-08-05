@@ -10,6 +10,9 @@ let currentUserId: string | null = null;
 export const convexAuthService = {
   async createAccount(email: string, _password: string, name: string) {
     try {
+      console.log('🔑 Creating account for:', email);
+      console.log('🌐 Convex URL:', import.meta.env.VITE_CONVEX_URL);
+      
       // For now, we'll use a simple approach. In production, use proper auth
       const response = await fetch(`${import.meta.env.VITE_CONVEX_URL}/createUser`, {
         method: 'POST',
@@ -17,11 +20,16 @@ export const convexAuthService = {
         body: JSON.stringify({ email, name, password: _password })
       });
       
+      console.log('📡 Create account response status:', response.status);
+      
       if (!response.ok) {
-        throw new Error('Failed to create account');
+        const errorText = await response.text();
+        console.error('❌ Account creation failed:', errorText);
+        throw new Error(`Failed to create account: ${errorText}`);
       }
       
       const userId = await response.text();
+      console.log('✅ Account created with ID:', userId);
       currentUserId = userId;
       
       // Get the created user
@@ -30,6 +38,7 @@ export const convexAuthService = {
       
       return { account: { $id: userId }, user };
     } catch (error) {
+      console.error('🚨 Account creation error:', error);
       throw await ErrorHandler.handleError(
         error,
         'Account Creation',
@@ -40,17 +49,31 @@ export const convexAuthService = {
 
   async login(email: string, _password: string) {
     try {
+      console.log('🔐 Attempting login for:', email);
+      console.log('🌐 Convex URL:', import.meta.env.VITE_CONVEX_URL);
+      
       // Simple login - in production, use proper authentication
-      const response = await fetch(`${import.meta.env.VITE_CONVEX_URL}/getUserByEmail?email=${encodeURIComponent(email)}`);
+      const url = `${import.meta.env.VITE_CONVEX_URL}/getUserByEmail?email=${encodeURIComponent(email)}`;
+      console.log('📡 Login request URL:', url);
+      
+      const response = await fetch(url);
+      console.log('📡 Login response status:', response.status);
       
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error('❌ Login failed - user not found:', errorText);
         throw new Error('User not found');
       }
       
       const user = await response.json();
+      console.log('👤 User data received:', user ? '✅' : '❌');
+      
       if (!user) {
+        console.error('❌ No user data returned');
         throw new Error('Invalid credentials');
       }
+      
+      console.log('✅ Login successful for user:', user.name);
       
       currentUser = {
         id: user._id,
@@ -69,6 +92,7 @@ export const convexAuthService = {
       
       return { session: { $id: 'session' }, user: currentUser };
     } catch (error) {
+      console.error('🚨 Login error:', error);
       throw await ErrorHandler.handleError(
         error,
         'User Login',
@@ -79,9 +103,12 @@ export const convexAuthService = {
 
   async logout() {
     try {
+      console.log('🚪 Logging out user:', currentUser?.email);
       currentUser = null;
       currentUserId = null;
+      console.log('✅ Logout successful');
     } catch (error) {
+      console.error('🚨 Logout error:', error);
       throw await ErrorHandler.handleError(
         error,
         'User Logout'
@@ -91,12 +118,18 @@ export const convexAuthService = {
 
   async getCurrentUser(): Promise<IUser | null> {
     try {
-      if (!currentUserId) return null;
+      console.log('👤 Getting current user, ID:', currentUserId);
+      if (!currentUserId) {
+        console.log('❌ No current user ID');
+        return null;
+      }
       
       const user = await this.getUserById(currentUserId);
       currentUser = user;
+      console.log('👤 Current user retrieved:', user ? '✅' : '❌');
       return user;
-    } catch {
+    } catch (error) {
+      console.error('🚨 Get current user error:', error);
       return null;
     }
   },
