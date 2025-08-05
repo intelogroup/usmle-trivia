@@ -1,6 +1,6 @@
 /* eslint-disable */
 /**
- * Generated API.
+ * Generated `api` utility.
  *
  * THIS CODE IS AUTOMATICALLY GENERATED.
  *
