@@ -10,6 +10,9 @@ import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { useAppStore } from './store';
 import { authService } from './services/auth';
+import { UserProfile } from './components/profile/UserProfile';
+import { PerformanceChart } from './components/analytics/PerformanceChart';
+import { Social } from './pages/Social';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -130,7 +133,7 @@ function App() {
           element={
             <ProtectedRoute>
               <AppLayout>
-                <div>Analytics Page</div>
+                <PerformanceChart />
               </AppLayout>
             </ProtectedRoute>
           }
@@ -140,7 +143,17 @@ function App() {
           element={
             <ProtectedRoute>
               <AppLayout>
-                <div>Profile Page</div>
+                <UserProfile />
+              </AppLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/social"
+          element={
+            <ProtectedRoute>
+              <AppLayout>
+                <Social />
               </AppLayout>
             </ProtectedRoute>
           }

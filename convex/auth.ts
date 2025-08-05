@@ -145,3 +145,92 @@ export const getLeaderboard = query({
     }));
   },
 });
+
+// Get user profile with extended stats
+export const getUserProfile = query({
+  args: { userId: v.id("users") },
+  handler: async (ctx, args) => {
+    const user = await ctx.db.get(args.userId);
+    if (!user) return null;
+    
+    // Get quiz statistics
+    const quizSessions = await ctx.db
+      .query("quizSessions")
+      .withIndex("by_user", (q) => q.eq("userId", args.userId))
+      .collect();
+    
+    const completedSessions = quizSessions.filter(s => s.status === "completed");
+    const totalQuizzes = completedSessions.length;
+    const totalQuestions = completedSessions.reduce((sum, s) => sum + s.questions.length, 0);
+    const averageScore = totalQuizzes > 0
+      ? Math.round(completedSessions.reduce((sum, s) => sum + s.score, 0) / totalQuizzes)
+      : 0;
+    
+    // Get friend count
+    const friendships = await ctx.db
+      .query("friendships")
+      .filter((q) => 
+        q.or(
+          q.eq(q.field("userId1"), args.userId),
+          q.eq(q.field("userId2"), args.userId)
+        )
+      )
+      .filter((q) => q.eq(q.field("status"), "accepted"))
+      .collect();
+    
+    const friendCount = friendships.length;
+    
+    // Get study groups
+    const studyGroups = await ctx.db
+      .query("studyGroups")
+      .filter((q) => q.eq(q.field("creatorId"), args.userId))
+      .collect();
+    
+    // Get bookmarked questions count
+    const bookmarks = await ctx.db
+      .query("bookmarks")
+      .withIndex("by_user", (q) => q.eq("userId", args.userId))
+      .collect();
+    
+    return {
+      ...user,
+      stats: {
+        totalQuizzes,
+        totalQuestions,
+        averageScore,
+        friendCount,
+        studyGroupCount: studyGroups.length,
+        bookmarkedQuestions: bookmarks.length,
+      },
+    };
+  },
+});
+
+// Search users by name or email
+export const searchUsers = query({
+  args: { 
+    searchTerm: v.string(),
+    limit: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const limit = args.limit ?? 10;
+    const searchLower = args.searchTerm.toLowerCase();
+    
+    // Get all users and filter by search term
+    const allUsers = await ctx.db.query("users").collect();
+    
+    const filtered = allUsers.filter(user => 
+      user.name.toLowerCase().includes(searchLower) ||
+      user.email.toLowerCase().includes(searchLower)
+    );
+    
+    return filtered.slice(0, limit).map(user => ({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      avatar: user.avatar,
+      level: user.level,
+      points: user.points,
+    }));
+  },
+});

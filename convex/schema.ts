@@ -72,4 +72,66 @@ export default defineSchema({
     .index("by_rank", ["rank"])
     .index("by_points", ["points"])
     .index("by_user", ["userId"]),
+
+  // Bookmarked questions for users
+  bookmarks: defineTable({
+    userId: v.id("users"),
+    questionId: v.id("questions"),
+    createdAt: v.number(),
+  })
+    .index("by_user", ["userId"])
+    .index("by_user_question", ["userId", "questionId"]),
+
+  // Flagged questions for review
+  flaggedQuestions: defineTable({
+    userId: v.id("users"),
+    questionId: v.id("questions"),
+    reason: v.string(),
+    createdAt: v.number(),
+  })
+    .index("by_user", ["userId"])
+    .index("by_question", ["questionId"])
+    .index("by_user_question", ["userId", "questionId"]),
+
+  // User relationships for friends/study groups
+  friendships: defineTable({
+    userId1: v.id("users"),
+    userId2: v.id("users"),
+    status: v.union(v.literal("pending"), v.literal("accepted"), v.literal("blocked")),
+    createdAt: v.number(),
+  })
+    .index("by_user1", ["userId1"])
+    .index("by_user2", ["userId2"])
+    .index("by_users", ["userId1", "userId2"]),
+
+  // Study groups
+  studyGroups: defineTable({
+    name: v.string(),
+    description: v.optional(v.string()),
+    creatorId: v.id("users"),
+    members: v.array(v.id("users")),
+    isPublic: v.boolean(),
+    category: v.optional(v.string()),
+    createdAt: v.number(),
+  })
+    .index("by_creator", ["creatorId"])
+    .index("by_public", ["isPublic"]),
+
+  // Quiz challenges between users
+  challenges: defineTable({
+    challengerId: v.id("users"),
+    challengedId: v.id("users"),
+    quizSessionId: v.optional(v.id("quizSessions")),
+    status: v.union(v.literal("pending"), v.literal("accepted"), v.literal("completed"), v.literal("declined")),
+    challengerScore: v.optional(v.number()),
+    challengedScore: v.optional(v.number()),
+    winnerId: v.optional(v.id("users")),
+    category: v.optional(v.string()),
+    questionCount: v.number(),
+    createdAt: v.number(),
+    completedAt: v.optional(v.number()),
+  })
+    .index("by_challenger", ["challengerId"])
+    .index("by_challenged", ["challengedId"])
+    .index("by_status", ["status"]),
 });

@@ -15,7 +15,9 @@ import {
   X,
   Stethoscope,
   User,
-  LogOut
+  LogOut,
+  Users,
+  UserCircle
 } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { useAppStore } from '../../store';
@@ -73,6 +75,18 @@ const navigationItems: SidebarNavItem[] = [
     label: 'Analytics',
     icon: BarChart3,
     href: '/analytics',
+  },
+  {
+    id: 'social',
+    label: 'Social',
+    icon: Users,
+    href: '/social',
+  },
+  {
+    id: 'profile',
+    label: 'Profile',
+    icon: UserCircle,
+    href: '/profile',
   },
 ];
 
