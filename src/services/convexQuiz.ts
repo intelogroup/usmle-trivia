@@ -1,5 +1,5 @@
-// import { useMutation, useQuery } from "convex/react";
-// import { api } from "../../convex/_generated/api";
+import { useMutation, useQuery } from "convex/react";
+import { api } from "../../convex/_generated/api";
 import { ErrorHandler } from "../utils/errorHandler";
 import type { QuestionData } from "../data/sampleQuestions";
 
@@ -324,19 +324,19 @@ export const convexQuizService = {
   }
 };
 
-// React hooks for Convex quiz operations - Production Ready (uncomment after function deployment)
-// export const useCreateQuestion = () => useMutation(api.quiz.createQuestion);
-// export const useGetQuestions = (filters?: { category?: string; difficulty?: string; limit?: number }) => 
-//   useQuery(api.quiz.getQuestions, filters);
-// export const useGetQuestion = (questionId: string) => 
-//   useQuery(api.quiz.getQuestion, { questionId });
-// export const useGetRandomQuestions = (count: number, difficulty?: string, category?: string) => 
-//   useQuery(api.quiz.getRandomQuestions, { count, difficulty, category });
-// export const useCreateQuizSession = () => useMutation(api.quiz.createQuizSession);
-// export const useGetQuizSession = (sessionId: string) => 
-//   useQuery(api.quiz.getQuizSession, { sessionId });
-// export const useSubmitAnswer = () => useMutation(api.quiz.submitAnswer);
-// export const useCompleteQuizSession = () => useMutation(api.quiz.completeQuizSession);
-// export const useGetUserQuizHistory = (userId: string, limit?: number) => 
-//   useQuery(api.quiz.getUserQuizHistory, { userId, limit });
-// export const useBatchCreateQuestions = () => useMutation(api.quiz.batchCreateQuestions);
+// React hooks for Convex quiz operations - Production Ready
+export const useCreateQuestion = () => useMutation(api.quiz.createQuestion);
+export const useGetQuestions = (filters?: { category?: string; difficulty?: string; limit?: number }) => 
+  useQuery(api.quiz.getQuestions, filters);
+export const useGetQuestion = (questionId: string) => 
+  useQuery(api.quiz.getQuestion, { questionId });
+export const useGetRandomQuestions = (count: number, difficulty?: string, category?: string) => 
+  useQuery(api.quiz.getRandomQuestions, { count, difficulty, category });
+export const useCreateQuizSession = () => useMutation(api.quiz.createQuizSession);
+export const useGetQuizSession = (sessionId: string) => 
+  useQuery(api.quiz.getQuizSession, { sessionId });
+export const useSubmitAnswer = () => useMutation(api.quiz.submitAnswer);
+export const useCompleteQuizSession = () => useMutation(api.quiz.completeQuizSession);
+export const useGetUserQuizHistory = (userId: string, limit?: number) => 
+  useQuery(api.quiz.getUserQuizHistory, { userId, limit });
+export const useBatchCreateQuestions = () => useMutation(api.quiz.batchCreateQuestions);
