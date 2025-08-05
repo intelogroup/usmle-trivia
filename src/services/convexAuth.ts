@@ -7,28 +7,34 @@ import { ErrorHandler } from "../utils/errorHandler";
 let currentUser: IUser | null = null;
 let currentUserId: string | null = null;
 
+// Import the ConvexReactClient for direct calls
+let convexClient: any = null;
+
+// Initialize Convex client
+const initConvexClient = async () => {
+  if (!convexClient) {
+    const { ConvexReactClient } = await import('convex/react');
+    convexClient = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL);
+  }
+  return convexClient;
+};
+
 export const convexAuthService = {
   async createAccount(email: string, _password: string, name: string) {
     try {
       console.log('🔑 Creating account for:', email);
       console.log('🌐 Convex URL:', import.meta.env.VITE_CONVEX_URL);
       
-      // For now, we'll use a simple approach. In production, use proper auth
-      const response = await fetch(`${import.meta.env.VITE_CONVEX_URL}/createUser`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name, password: _password })
+      const client = await initConvexClient();
+      
+      // Use proper Convex mutation call
+      console.log('📡 Calling Convex createUser mutation...');
+      const userId = await client.mutation(api.auth.createUser, {
+        email,
+        name,
+        password: _password
       });
       
-      console.log('📡 Create account response status:', response.status);
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('❌ Account creation failed:', errorText);
-        throw new Error(`Failed to create account: ${errorText}`);
-      }
-      
-      const userId = await response.text();
       console.log('✅ Account created with ID:', userId);
       currentUserId = userId;
       
@@ -52,24 +58,16 @@ export const convexAuthService = {
       console.log('🔐 Attempting login for:', email);
       console.log('🌐 Convex URL:', import.meta.env.VITE_CONVEX_URL);
       
-      // Simple login - in production, use proper authentication
-      const url = `${import.meta.env.VITE_CONVEX_URL}/getUserByEmail?email=${encodeURIComponent(email)}`;
-      console.log('📡 Login request URL:', url);
+      const client = await initConvexClient();
       
-      const response = await fetch(url);
-      console.log('📡 Login response status:', response.status);
+      // Use proper Convex query call
+      console.log('📡 Calling Convex getUserByEmail query...');
+      const user = await client.query(api.auth.getUserByEmail, { email });
       
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('❌ Login failed - user not found:', errorText);
-        throw new Error('User not found');
-      }
-      
-      const user = await response.json();
       console.log('👤 User data received:', user ? '✅' : '❌');
       
       if (!user) {
-        console.error('❌ No user data returned');
+        console.error('❌ No user found with email:', email);
         throw new Error('Invalid credentials');
       }
       
@@ -136,14 +134,17 @@ export const convexAuthService = {
 
   async getUserById(userId: string): Promise<IUser | null> {
     try {
-      const response = await fetch(`${import.meta.env.VITE_CONVEX_URL}/getUserById?userId=${userId}`);
+      const client = await initConvexClient();
       
-      if (!response.ok) {
+      console.log('📡 Getting user by ID:', userId);
+      const user = await client.query(api.auth.getUserById, { userId });
+      
+      if (!user) {
+        console.log('❌ User not found with ID:', userId);
         return null;
       }
       
-      const user = await response.json();
-      if (!user) return null;
+      console.log('✅ User found:', user.name);
       
       return {
         id: user._id,
@@ -158,26 +159,26 @@ export const convexAuthService = {
         createdAt: new Date(user._creationTime),
         updatedAt: new Date(user._creationTime),
       };
-    } catch {
+    } catch (error) {
+      console.error('🚨 Get user by ID error:', error);
       return null;
     }
   },
 
   async updateProfile(userId: string, data: Partial<IUser>) {
     try {
-      const response = await fetch(`${import.meta.env.VITE_CONVEX_URL}/updateUserProfile`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId, updates: data })
+      const client = await initConvexClient();
+      
+      console.log('📡 Updating profile for user:', userId);
+      const updatedUser = await client.mutation(api.auth.updateUserProfile, {
+        userId,
+        updates: data
       });
       
-      if (!response.ok) {
-        throw new Error('Failed to update profile');
-      }
-      
-      const updatedUser = await response.json();
+      console.log('✅ Profile updated successfully');
       return updatedUser;
     } catch (error) {
+      console.error('🚨 Profile update error:', error);
       throw await ErrorHandler.handleError(
         error,
         'Profile Update',
