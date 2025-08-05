@@ -1,5 +1,5 @@
-// import { useMutation, useQuery } from "convex/react";
-// import { api } from "../../convex/_generated/api";
+import { useMutation, useQuery } from "convex/react";
+import { api } from "../../convex/_generated/api";
 import type { IUser } from "../types";
 import { ErrorHandler } from "../utils/errorHandler";
 
@@ -179,10 +179,10 @@ export const convexAuthService = {
   },
 };
 
-// React hooks for Convex - Production Ready (uncomment after function deployment)
-// export const useCreateUser = () => useMutation(api.auth.createUser);
-// export const useGetUserByEmail = (email: string) => useQuery(api.auth.getUserByEmail, { email });
-// export const useGetUserById = (userId: string) => useQuery(api.auth.getUserById, { userId });
-// export const useUpdateUserProfile = () => useMutation(api.auth.updateUserProfile);
-// export const useUpdateUserStats = () => useMutation(api.auth.updateUserStats);
-// export const useGetLeaderboard = (limit?: number) => useQuery(api.auth.getLeaderboard, { limit });
+// React hooks for Convex - Production Ready
+export const useCreateUser = () => useMutation(api.auth.createUser);
+export const useGetUserByEmail = (email: string) => useQuery(api.auth.getUserByEmail, { email });
+export const useGetUserById = (userId: string) => useQuery(api.auth.getUserById, { userId });
+export const useUpdateUserProfile = () => useMutation(api.auth.updateUserProfile);
+export const useUpdateUserStats = () => useMutation(api.auth.updateUserStats);
+export const useGetLeaderboard = (limit?: number) => useQuery(api.auth.getLeaderboard, { limit });
