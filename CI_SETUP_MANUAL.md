@@ -11,7 +11,9 @@ The comprehensive CI/CD pipeline has been developed and is ready for deployment,
 
 **Location**: Create this file in your repository at `.github/workflows/ci.yml`
 
-**Contents**: See the complete workflow configuration below ⬇️
+**Contents**: The complete workflow file is available locally at `.github/workflows/ci.yml` 
+
+**Note**: This file exists locally but is not tracked by git due to permission restrictions.
 
 ### 2. **Lighthouse Configuration**
 **File**: `.github/lighthouse/lighthouserc.js` ✅ **Already Added**

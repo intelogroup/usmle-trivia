@@ -101,3 +101,4 @@ env/
 *.pyc
 __pycache__/
 *storybook.log
+.github/workflows/
