@@ -93,6 +93,16 @@ Refer to `schemas/` for Convex schema definitions.
 - **Responsive Breakpoints:** Mobile (<640px), Tablet (640px–1024px), Desktop (>1024px)
 - **Accessibility:** WCAG 2.1 AA compliance checklist; keyboard navigation, color contrast, screen reader labels
 
+**See `/docs` for detailed UI/UX deliverables:**
+- `docs/design-README.md`: Design assets repository structure and source links
+- `docs/design-tokens.md`: Design tokens (colors, typography, spacing)
+- `docs/storybook.md`: Storybook component library documentation
+- `docs/ui-states.md`: UI states, loading & error screens
+- `docs/theming-accessibility.md`: Theming and advanced accessibility options
+- `docs/responsive-checklist.md`: Responsive QA checklist & breakpoints
+- `docs/usability-test-plan.md`: Usability testing plan & scripts
+- `docs/analytics-spec.md`: Analytics and interaction specification
+
 ## 7. Authentication & Authorization
 - **Flows:** Email/password signup, login, password reset
 - **Session Management:** JWT tokens with 7-day expiration; refresh token flow
