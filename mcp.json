@@ -100,6 +100,19 @@
       "env": {
         "GIT_REPO_PATH": "/root/repo"
       }
+    },
+    "netlify": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-netlify@latest"],
+      "env": {
+        "NETLIFY_AUTH_TOKEN": "nfp_nJDfV7UNE6CQxcHdBpz2HmNc3TFyxcas7a2e",
+        "NETLIFY_SITE_ID": "756ad98d-998c-4004-98a6-c55b760151b4",
+        "NETLIFY_API_URL": "https://api.netlify.com/api/v1"
+      }
+    },
+    "testzeus-hercules": {
+      "command": "npx",
+      "args": ["-y", "testzeus-hercules@latest"]
     }
   },
   "clientInfo": {

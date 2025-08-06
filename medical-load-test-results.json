@@ -1,0 +1,246 @@
+{
+  "startTime": 1754523933987,
+  "requests": [
+    {
+      "sessionId": "pf4lahl82",
+      "timestamp": 1754523934285,
+      "step": "Landing page visit",
+      "statusCode": 200,
+      "responseTime": 297,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "pf4lahl82",
+      "timestamp": 1754523936576,
+      "step": "Dashboard access",
+      "statusCode": 200,
+      "responseTime": 26,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "pf4lahl82",
+      "timestamp": 1754523938944,
+      "step": "Quiz start",
+      "statusCode": 200,
+      "responseTime": 27,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "pf4lahl82",
+      "timestamp": 1754523941367,
+      "step": "Quiz questions",
+      "statusCode": 200,
+      "responseTime": 25,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "pf4lahl82",
+      "timestamp": 1754523942066,
+      "step": "Quiz completion",
+      "statusCode": 200,
+      "responseTime": 25,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "mcslfxf15",
+      "timestamp": 1754523934285,
+      "step": "Landing page visit",
+      "statusCode": 200,
+      "responseTime": 204,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "mcslfxf15",
+      "timestamp": 1754523935058,
+      "step": "Dashboard access",
+      "statusCode": 200,
+      "responseTime": 25,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "mcslfxf15",
+      "timestamp": 1754523935941,
+      "step": "Quiz start",
+      "statusCode": 200,
+      "responseTime": 26,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "mcslfxf15",
+      "timestamp": 1754523936627,
+      "step": "Quiz questions",
+      "statusCode": 200,
+      "responseTime": 25,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "mcslfxf15",
+      "timestamp": 1754523938270,
+      "step": "Quiz completion",
+      "statusCode": 200,
+      "responseTime": 25,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "9l1916wqw",
+      "timestamp": 1754523934380,
+      "step": "Landing page visit",
+      "statusCode": 200,
+      "responseTime": 297,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "9l1916wqw",
+      "timestamp": 1754523935161,
+      "step": "Dashboard access",
+      "statusCode": 200,
+      "responseTime": 24,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "9l1916wqw",
+      "timestamp": 1754523935780,
+      "step": "Quiz start",
+      "statusCode": 200,
+      "responseTime": 24,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "9l1916wqw",
+      "timestamp": 1754523937827,
+      "step": "Quiz questions",
+      "statusCode": 200,
+      "responseTime": 26,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "9l1916wqw",
+      "timestamp": 1754523938952,
+      "step": "Quiz completion",
+      "statusCode": 200,
+      "responseTime": 26,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "2inivauk1",
+      "timestamp": 1754523934284,
+      "step": "Landing page visit",
+      "statusCode": 200,
+      "responseTime": 200,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "2inivauk1",
+      "timestamp": 1754523936573,
+      "step": "Dashboard access",
+      "statusCode": 200,
+      "responseTime": 25,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "2inivauk1",
+      "timestamp": 1754523937777,
+      "step": "Quiz start",
+      "statusCode": 200,
+      "responseTime": 28,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "2inivauk1",
+      "timestamp": 1754523938848,
+      "step": "Quiz questions",
+      "statusCode": 200,
+      "responseTime": 24,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "2inivauk1",
+      "timestamp": 1754523939692,
+      "step": "Quiz completion",
+      "statusCode": 200,
+      "responseTime": 29,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "6u9hg6l9m",
+      "timestamp": 1754523934283,
+      "step": "Landing page visit",
+      "statusCode": 200,
+      "responseTime": 196,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "6u9hg6l9m",
+      "timestamp": 1754523936046,
+      "step": "Dashboard access",
+      "statusCode": 200,
+      "responseTime": 25,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "6u9hg6l9m",
+      "timestamp": 1754523937844,
+      "step": "Quiz start",
+      "statusCode": 200,
+      "responseTime": 23,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "6u9hg6l9m",
+      "timestamp": 1754523940008,
+      "step": "Quiz questions",
+      "statusCode": 200,
+      "responseTime": 26,
+      "contentLength": 954,
+      "success": true
+    },
+    {
+      "sessionId": "6u9hg6l9m",
+      "timestamp": 1754523942055,
+      "step": "Quiz completion",
+      "statusCode": 200,
+      "responseTime": 25,
+      "contentLength": 954,
+      "success": true
+    }
+  ],
+  "summary": {
+    "totalRequests": 25,
+    "successfulRequests": 25,
+    "failedRequests": 0,
+    "successRate": 100,
+    "avgResponseTime": 68,
+    "p95ResponseTime": 297,
+    "requestsPerSecond": 2.48,
+    "actualDuration": 10075,
+    "medicalGradePerformance": {
+      "acceptable": true,
+      "excellent": true
+    }
+  },
+  "endTime": 1754523944063,
+  "actualDuration": 10075
+}

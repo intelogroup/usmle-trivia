@@ -1,0 +1,50 @@
+{
+  "timestamp": "2025-08-06T23:46:57.844Z",
+  "netlify": {
+    "status": "SUCCESS",
+    "siteName": "usmle-trivia",
+    "url": "http://usmle-trivia.netlify.app",
+    "publishedUrl": "https://usmle-trivia.netlify.app",
+    "responseTime": 309,
+    "lastPublished": "2025-08-06T22:24:18.677Z"
+  },
+  "buildHealth": {
+    "status": "SUCCESS",
+    "buildTime": "under_60s",
+    "distExists": true,
+    "distSize": "4.0KB",
+    "lastBuild": "2025-08-06T23:47:06.330Z"
+  },
+  "medical": {
+    "validations": {
+      "hasUSMLEFormat": true,
+      "hasMedicalTerminology": true,
+      "hasReferences": true,
+      "hasDetailedExplanations": true,
+      "hasMultipleCategories": true,
+      "hasCorrectAnswerFormat": true,
+      "hasDifficultyLevels": true,
+      "hasProperStructure": true
+    },
+    "qualityScore": 100,
+    "questionCount": 52,
+    "medicalGrade": true,
+    "contentVolume": "ADEQUATE"
+  },
+  "connectivity": {
+    "status": "SUCCESS",
+    "url": "https://usmle-trivia.netlify.app",
+    "statusCode": 200,
+    "responseTime": 86,
+    "performanceGrade": "GOOD",
+    "contentLength": 954
+  },
+  "overall": {
+    "score": 100,
+    "passedTests": 4,
+    "totalTests": 4,
+    "medicalGrade": true,
+    "readyForProduction": true,
+    "criticalSystemsOperational": true
+  }
+}

@@ -42,7 +42,14 @@
     "netlify:deploy:prod": "netlify build && netlify deploy --prod",
     "serve:prod": "npm run build:prod && npm run preview",
     "validate:prod": "node scripts/validate-production.js",
-    "deploy:check": "npm run validate:prod && npm run quality && npm run build:prod"
+    "deploy:check": "npm run validate:prod && npm run quality && npm run build:prod",
+    "reliability:test": "node scripts/practical-reliability-test.js",
+    "reliability:monitor": "npm run reliability:test && npm run netlify:build && npm run test:e2e",
+    "medical:grade": "npm run reliability:test && npm run test:a11y && npm run quality:full",
+    "load:test": "node scripts/medical-load-test.js normal",
+    "load:test:light": "node scripts/medical-load-test.js light",
+    "load:test:peak": "node scripts/medical-load-test.js peak",
+    "load:test:stress": "node scripts/medical-load-test.js stress"
   },
   "dependencies": {
     "@missionsquad/mcp-github": "^0.10.7",

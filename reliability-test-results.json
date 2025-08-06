@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-08-06T23:41:51.398Z",
+  "netlify": {
+    "authentication": "FAILED",
+    "error": "npm warn exec The following package was not found and will be installed: netlify@23.1.1\n"
+  },
+  "performance": {
+    "error": "Command failed: npx lighthouse http://localhost:5173 --output json --output-path ./lighthouse-report.json --chrome-flags=\"--headless\" --quiet\nnpm warn exec The following package was not found and will be installed: lighthouse@12.8.1\nRuntime error encountered: The CHROME_PATH environment variable must be set to a Chrome/Chromium executable no older than Chrome stable.\nError\n    at new LauncherError (file:///root/.npm/_npx/0f94ee7615faf582/node_modules/chrome-launcher/dist/utils.js:22:22)\n    at new ChromePathNotSetError (file:///root/.npm/_npx/0f94ee7615faf582/node_modules/chrome-launcher/dist/utils.js:28:9)\n    at Module.linux (file:///root/.npm/_npx/0f94ee7615faf582/node_modules/chrome-launcher/dist/chrome-finder.js:124:15)\n    at Launcher.getFirstInstallation (file:///root/.npm/_npx/0f94ee7615faf582/node_modules/chrome-launcher/dist/chrome-launcher.js:135:43)\n    at Launcher.launch (file:///root/.npm/_npx/0f94ee7615faf582/node_modules/chrome-launcher/dist/chrome-launcher.js:203:43)\n    at Module.launch (file:///root/.npm/_npx/0f94ee7615faf582/node_modules/chrome-launcher/dist/chrome-launcher.js:33:20)\n    at getDebuggableChrome (file:///root/.npm/_npx/0f94ee7615faf582/node_modules/lighthouse/cli/run.js:85:25)\n    at runLighthouse (file:///root/.npm/_npx/0f94ee7615faf582/node_modules/lighthouse/cli/run.js:204:30)\n    at begin (file:///root/.npm/_npx/0f94ee7615faf582/node_modules/lighthouse/cli/bin.js:129:10)\n    at async file:///root/.npm/_npx/0f94ee7615faf582/node_modules/lighthouse/cli/index.js:10:1\n"
+  },
+  "medical": {
+    "validations": {
+      "hasUSMLEFormat": false,
+      "hasMedicalTerminology": true,
+      "hasReferences": true,
+      "hasExplanations": true,
+      "hasCategories": true
+    },
+    "accuracyScore": 80,
+    "medicalGrade": false
+  },
+  "overall": {
+    "score": 0,
+    "passedTests": 0,
+    "totalTests": 4,
+    "medicalGrade": false
+  },
+  "testzeus": {
+    "available": false,
+    "error": "Command failed: npx testzeus-hercules --version\nnpm error code E404\nnpm error 404 Not Found - GET https://registry.npmjs.org/testzeus-hercules - Not found\nnpm error 404\nnpm error 404  'testzeus-hercules@*' is not in this registry.\nnpm error 404\nnpm error 404 Note that you can also install from a\nnpm error 404 tarball, folder, http url, or git url.\nnpm error A complete log of this run can be found in: /root/.npm/_logs/2025-08-06T23_42_27_740Z-debug-0.log\n"
+  }
+}
