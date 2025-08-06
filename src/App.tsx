@@ -8,6 +8,7 @@ import { Progress } from './pages/Progress';
 import { Leaderboard } from './pages/Leaderboard';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
+import { Review } from './pages/Review';
 import { useAppStore } from './store';
 import { authService } from './services/auth';
 import { UserProfile } from './components/profile/UserProfile';
@@ -183,7 +184,7 @@ function App() {
             <ProtectedRoute>
               <MedicalErrorBoundary>
                 <AppLayout>
-                  <div>Review Page</div>
+                  <Review />
                 </AppLayout>
               </MedicalErrorBoundary>
             </ProtectedRoute>

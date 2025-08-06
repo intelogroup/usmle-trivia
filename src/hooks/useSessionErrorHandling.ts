@@ -3,7 +3,7 @@
  * VCT Framework Compliant - React Hooks for Session Error Management
  * 
  * Provides React hooks for session error handling that integrate with
- * the existing Zustand store and Appwrite services.
+ * the existing Zustand store and Convex services.
  */
 
 import { useCallback, useEffect, useRef } from 'react';
