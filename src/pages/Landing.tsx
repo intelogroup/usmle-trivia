@@ -16,10 +16,10 @@ export const Landing: React.FC = () => {
             </div>
             <div className="flex items-center space-x-4">
               <Link to="/login" className="text-muted-foreground hover:text-foreground transition-colors duration-200 font-medium">
-                Sign in
+                Login
               </Link>
               <Link to="/register">
-                <Button variant="gradient" size="lg">Get Started</Button>
+                <Button variant="gradient" size="lg">Register</Button>
               </Link>
             </div>
           </div>
@@ -27,10 +27,10 @@ export const Landing: React.FC = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="relative py-24 px-4 sm:px-6 lg:px-8">
+      <section className="relative py-24 px-4 sm:px-6 lg:px-8 hero-section">
         <div className="max-w-7xl mx-auto">
           <div className="text-center animate-fade-up">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-8">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-8 hero-title">
               <span className="bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent">
                 Master the <span className="text-primary">USMLE</span> with
               </span>
@@ -42,7 +42,7 @@ export const Landing: React.FC = () => {
             <p className="text-xl text-muted-foreground mb-10 max-w-4xl mx-auto leading-relaxed">
               Join thousands of medical students who trust MedQuiz Pro for comprehensive 
               USMLE preparation. Practice with realistic questions, track your progress, 
-              and achieve your best score.
+              and achieve your best score. Welcome to our Hero landing experience!
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link to="/register">
