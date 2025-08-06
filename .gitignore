@@ -100,3 +100,4 @@ env/
 .env_*/
 *.pyc
 __pycache__/
+*storybook.log
