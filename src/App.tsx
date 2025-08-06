@@ -13,6 +13,7 @@ import { authService } from './services/auth';
 import { UserProfile } from './components/profile/UserProfile';
 import { PerformanceChart } from './components/analytics/PerformanceChart';
 import { Social } from './pages/Social';
+import { NotFound } from './pages/NotFound';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -158,6 +159,9 @@ function App() {
             </ProtectedRoute>
           }
         />
+        
+        {/* Catch-all route for 404 errors */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

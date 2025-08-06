@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { IUser } from "../types";
 import { ErrorHandler } from "../utils/errorHandler";
+import { SessionStorage, retryWithBackoff, sleep, PersistentDatabaseOperations } from "../utils/sessionPersistence";
 
 // Simple auth state management - in production, use proper auth service
 let currentUser: IUser | null = null;
