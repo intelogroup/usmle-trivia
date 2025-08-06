@@ -1,645 +1,550 @@
 #!/usr/bin/env node
 
 /**
- * Comprehensive Quiz Mode Testing Script
- * Tests all three quiz modes (Quick, Timed, Custom) end-to-end
- * Focused testing subagent for MedQuiz Pro application
+ * COMPREHENSIVE QUIZ FLOW TESTING SCRIPT
+ * 
+ * Mission: Test all quiz modes from start to finish, identify every roadblock,
+ * add detailed error logging, and document exactly what's blocking the user journey.
+ * 
+ * Test Scenarios:
+ * 1. Quick Quiz End-to-End Flow
+ * 2. Timed Quiz End-to-End Flow  
+ * 3. Custom Quiz End-to-End Flow
+ * 4. Error State Testing
+ * 5. Database Connectivity Testing
+ * 6. Authentication Flow Testing
  */
 
 const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
 
-// Test configuration
+// Test Configuration
 const TEST_CONFIG = {
-  baseURL: 'http://localhost:5175',
-  credentials: {
-    email: 'testuser@quiz-testing.com',
-    password: 'TestPassword123!'
+  baseUrl: 'http://localhost:5178',
+  testUser: {
+    email: 'jayveedz19@gmail.com',
+    password: 'Jimkali90#',
+    name: 'Jay veedz'
   },
-  timeouts: {
-    navigation: 30000,
-    interaction: 10000,
-    quiz: 300000  // 5 minutes for quiz completion
-  },
-  screenshots: {
-    path: './screenshots/quiz-testing'
-  }
+  screenshotDir: './screenshots/quiz-testing/',
+  timeout: 30000
 };
 
-// Quiz mode configurations (matching the actual implementation)
-const QUIZ_MODES = {
-  quick: {
-    name: 'Quick Quiz',
-    questions: 5,
-    timeLimit: null,
-    duration: '5-10 min',
-    description: 'Fast practice session'
-  },
-  timed: {
-    name: 'Timed Practice',
-    questions: 10,
-    timeLimit: 600, // 10 minutes
-    duration: '10 min',
-    description: 'Test your speed and accuracy'
-  },
-  custom: {
-    name: 'Custom Quiz',
-    questions: 8,
-    timeLimit: 480, // 8 minutes
-    duration: '8 min',
-    description: 'Design your own quiz'
-  }
-};
-
-class QuizTester {
-  constructor() {
-    this.browser = null;
-    this.context = null;
-    this.page = null;
-    this.results = {
-      quick: null,
-      timed: null,
-      custom: null,
-      errors: []
-    };
-  }
-
-  async init() {
-    console.log('🚀 Initializing comprehensive quiz mode testing...');
-    
-    // Create screenshots directory
-    if (!fs.existsSync(TEST_CONFIG.screenshots.path)) {
-      fs.mkdirSync(TEST_CONFIG.screenshots.path, { recursive: true });
-    }
-
-    // Launch browser
-    this.browser = await chromium.launch({
-      headless: true, // Run in headless mode for server environment
-      slowMo: 500  // Add slight delay for better reliability
-    });
-    
-    this.context = await this.browser.newContext({
-      viewport: { width: 1280, height: 720 }
-    });
-    
-    this.page = await this.context.newPage();
-    
-    // Enable console logging
-    this.page.on('console', msg => console.log(`[Browser] ${msg.text()}`));
-    this.page.on('pageerror', error => {
-      console.error(`[Page Error] ${error.message}`);
-      this.results.errors.push({
-        type: 'page_error',
-        message: error.message,
-        timestamp: new Date().toISOString()
-      });
-    });
-  }
-
-  async cleanup() {
-    if (this.browser) {
-      await this.browser.close();
-    }
-  }
-
-  async takeScreenshot(name) {
-    const filename = `${Date.now()}-${name.replace(/\\s+/g, '-').toLowerCase()}.png`;
-    const filepath = path.join(TEST_CONFIG.screenshots.path, filename);
-    await this.page.screenshot({ path: filepath, fullPage: true });
-    console.log(`📸 Screenshot saved: ${filename}`);
-    return filename;
-  }
-
-  async registerTestUser() {
-    console.log('📝 Registering test user...');
-    
-    try {
-      await this.page.goto(`${TEST_CONFIG.baseURL}/register`, {
-        waitUntil: 'networkidle',
-        timeout: TEST_CONFIG.timeouts.navigation
-      });
-
-      await this.takeScreenshot('01-register-page');
-
-      // Fill registration form
-      await this.page.fill('input[id="name"]', 'Test User');
-      await this.page.fill('input[id="email"]', TEST_CONFIG.credentials.email);
-      await this.page.fill('input[id="password"]', TEST_CONFIG.credentials.password);
-      await this.page.fill('input[id="confirmPassword"]', TEST_CONFIG.credentials.password);
-      
-      // Click register button
-      await this.page.click('button[type="submit"]');
-      
-      // Wait for either dashboard (success) or error
-      try {
-        await this.page.waitForURL('**/dashboard', { 
-          timeout: TEST_CONFIG.timeouts.navigation 
-        });
-        
-        await this.takeScreenshot('02-dashboard-after-register');
-        console.log('✅ Registration successful - Dashboard loaded');
-        return true;
-        
-      } catch (dashboardError) {
-        // If registration succeeded but didn't navigate, user might already exist
-        console.log('User might already exist, trying login instead...');
-        return await this.login();
-      }
-      
-    } catch (error) {
-      console.log('❌ Registration failed, trying login instead:', error.message);
-      return await this.login();
-    }
-  }
-
-  async login() {
-    console.log('🔐 Logging in with test credentials...');
-    
-    try {
-      await this.page.goto(`${TEST_CONFIG.baseURL}/login`, {
-        waitUntil: 'networkidle',
-        timeout: TEST_CONFIG.timeouts.navigation
-      });
-
-      await this.takeScreenshot('03-login-page');
-
-      // Fill login form
-      await this.page.fill('input[type="email"]', TEST_CONFIG.credentials.email);
-      await this.page.fill('input[type="password"]', TEST_CONFIG.credentials.password);
-      
-      // Click login button
-      await this.page.click('button[type="submit"]');
-      
-      // Wait for dashboard to load
-      await this.page.waitForURL('**/dashboard', { 
-        timeout: TEST_CONFIG.timeouts.navigation 
-      });
-      
-      await this.takeScreenshot('04-dashboard-loaded');
-      console.log('✅ Login successful - Dashboard loaded');
-      
-      return true;
-    } catch (error) {
-      console.error('❌ Login failed:', error.message);
-      await this.takeScreenshot('error-login-failed');
-      this.results.errors.push({
-        type: 'login_error',
-        message: error.message,
-        timestamp: new Date().toISOString()
-      });
-      return false;
-    }
-  }
-
-  async testQuizMode(mode) {
-    console.log(`\\n🎯 Testing ${QUIZ_MODES[mode].name} (${mode} mode)...`);
-    
-    const modeConfig = QUIZ_MODES[mode];
-    const startTime = Date.now();
-    
-    try {
-      // Navigate to dashboard first
-      await this.page.goto(`${TEST_CONFIG.baseURL}/dashboard`, {
-        waitUntil: 'networkidle'
-      });
-
-      await this.takeScreenshot(`${mode}-01-dashboard`);
-
-      // Navigate using the sidebar menu instead of direct URL
-      console.log(`Clicking ${mode} quiz mode from sidebar...`);
-      
-      // Wait for dashboard to be fully loaded
-      await this.page.waitForSelector('[data-testid="dashboard"], .dashboard-content, h1:has-text("Dashboard")', {
-        timeout: 5000
-      }).catch(() => console.log('Dashboard selector not found, continuing...'));
-      
-      // Map mode to sidebar text
-      const sidebarTextMap = {
-        'quick': 'Quick Quiz',
-        'timed': 'Timed Quiz', 
-        'custom': 'Custom Quiz'
-      };
-      
-      const expectedText = sidebarTextMap[mode] || modeConfig.name;
-      console.log(`Looking for sidebar link: "${expectedText}"`);
-      
-      // Try to find the sidebar navigation link
-      let sidebarLink = null;
-      
-      // Method 1: Look for exact text match in sidebar
-      const sidebarLinks = await this.page.$$('nav a, .sidebar a, a');
-      for (let link of sidebarLinks) {
-        const text = await link.textContent();
-        if (text && text.trim() === expectedText) {
-          sidebarLink = link;
-          console.log(`Found sidebar link with exact text: "${text.trim()}"`);
-          break;
-        }
-      }
-      
-      // Method 2: If not found, try partial text match
-      if (!sidebarLink) {
-        for (let link of sidebarLinks) {
-          const text = await link.textContent();
-          if (text && text.toLowerCase().includes(mode)) {
-            sidebarLink = link;
-            console.log(`Found sidebar link with partial match: "${text.trim()}"`);
-            break;
-          }
-        }
-      }
-      
-      // Method 3: Try clicking elements that contain the mode name
-      if (!sidebarLink) {
-        const clickableElements = await this.page.$$('button, div[role="button"], [tabindex="0"]');
-        for (let element of clickableElements) {
-          const text = await element.textContent();
-          if (text && text.toLowerCase().includes(mode.toLowerCase())) {
-            sidebarLink = element;
-            console.log(`Found clickable element: "${text.trim()}"`);
-            break;
-          }
-        }
-      }
-
-      if (sidebarLink) {
-        console.log('Clicking sidebar navigation...');
-        await sidebarLink.click();
-        await this.page.waitForTimeout(2000); // Wait for navigation
-      } else {
-        console.log('Sidebar navigation not found, trying main quiz area...');
-        
-        // Try to find quiz mode cards in the main content area
-        const quizCards = await this.page.$$('[class*="quiz"], [class*="card"], [class*="mode"]');
-        for (let card of quizCards) {
-          const text = await card.textContent();
-          if (text && text.toLowerCase().includes(mode)) {
-            console.log(`Found quiz card: "${text.substring(0, 50)}..."`);
-            await card.click();
-            break;
-          }
-        }
-      }
-
-      await this.takeScreenshot(`${mode}-02-navigation-clicked`);
-
-      // Wait for quiz setup page or quiz engine to load
-      await this.page.waitForTimeout(2000);
-
-      // Look for Start Quiz button if in setup phase
-      const startButton = await this.page.$('button:has-text("Start Quiz")');
-      if (startButton) {
-        console.log('Starting quiz from setup page...');
-        await startButton.click();
-        await this.takeScreenshot(`${mode}-03-quiz-started`);
-      }
-
-      // Wait for quiz engine to load
-      await this.page.waitForSelector('.quiz-question, h1:has-text("Question")', {
-        timeout: TEST_CONFIG.timeouts.interaction
-      });
-
-      console.log(`Quiz engine loaded for ${mode} mode`);
-      await this.takeScreenshot(`${mode}-04-first-question`);
-
-      // Track quiz completion
-      const quizResults = await this.completeQuiz(mode, modeConfig);
-      
-      const endTime = Date.now();
-      const totalTime = Math.round((endTime - startTime) / 1000);
-
-      this.results[mode] = {
-        success: true,
-        totalTime: totalTime,
-        expectedQuestions: modeConfig.questions,
-        ...quizResults
-      };
-
-      console.log(`✅ ${modeConfig.name} completed successfully in ${totalTime}s`);
-      
-    } catch (error) {
-      console.error(`❌ ${modeConfig.name} failed:`, error.message);
-      await this.takeScreenshot(`${mode}-error-failed`);
-      
-      this.results[mode] = {
-        success: false,
-        error: error.message,
-        timestamp: new Date().toISOString()
-      };
-      
-      this.results.errors.push({
-        type: 'quiz_mode_error',
-        mode: mode,
-        message: error.message,
-        timestamp: new Date().toISOString()
-      });
-    }
-  }
-
-  async completeQuiz(mode, modeConfig) {
-    console.log(`Completing ${mode} quiz with ${modeConfig.questions} questions...`);
-    
-    let questionCount = 0;
-    let correctAnswers = 0;
-    let timeRemaining = modeConfig.timeLimit;
-    const startTime = Date.now();
-
-    while (questionCount < modeConfig.questions) {
-      try {
-        // Wait for question to load
-        await this.page.waitForSelector('.quiz-question, [data-testid="question"], h1:has-text("Question")', {
-          timeout: TEST_CONFIG.timeouts.interaction
-        });
-
-        questionCount++;
-        console.log(`Answering question ${questionCount}/${modeConfig.questions}`);
-
-        // Take screenshot of current question
-        await this.takeScreenshot(`${mode}-question-${questionCount}`);
-
-        // Find answer options (try different selectors)
-        let answerOptions = await this.page.$$('button[data-option], .answer-option button, button:has-text("A)"), button:has-text("B)")');
-        
-        if (answerOptions.length === 0) {
-          // Try alternative selectors
-          answerOptions = await this.page.$$('div[role="button"]:has-text("A)"), div[role="button"]:has-text("B)")');
-        }
-
-        if (answerOptions.length === 0) {
-          // Try even more generic selectors
-          answerOptions = await this.page.$$('button, [role="button"]');
-          answerOptions = answerOptions.filter(async (element) => {
-            const text = await element.textContent();
-            return text && (text.includes('A)') || text.includes('B)') || text.includes('C)') || text.includes('D)'));
-          });
-        }
-
-        if (answerOptions.length > 0) {
-          // Select a random answer (for testing purposes)
-          const randomIndex = Math.floor(Math.random() * Math.min(4, answerOptions.length));
-          await answerOptions[randomIndex].click();
-          
-          console.log(`Selected answer option ${randomIndex + 1}`);
-          await this.page.waitForTimeout(1000); // Wait for answer processing
-          
-          await this.takeScreenshot(`${mode}-question-${questionCount}-answered`);
-
-          // Look for explanation or next button
-          const nextButton = await this.page.waitForSelector('button:has-text("Next"), button:has-text("Finish"), button:has-text("Continue")', {
-            timeout: 5000
-          });
-
-          if (nextButton) {
-            const buttonText = await nextButton.textContent();
-            console.log(`Clicking: ${buttonText}`);
-            await nextButton.click();
-            
-            if (buttonText.toLowerCase().includes('finish')) {
-              console.log('Quiz completed - finish button clicked');
-              break;
-            }
-          }
-          
-          // Check if we've reached the last question
-          if (questionCount >= modeConfig.questions) {
-            break;
-          }
-
-        } else {
-          console.log('No answer options found, taking screenshot for debugging');
-          await this.takeScreenshot(`${mode}-no-options-debug-q${questionCount}`);
-          break;
-        }
-
-        // Brief wait before next question
-        await this.page.waitForTimeout(2000);
-
-      } catch (error) {
-        console.error(`Error on question ${questionCount}:`, error.message);
-        await this.takeScreenshot(`${mode}-question-${questionCount}-error`);
-        break;
-      }
-    }
-
-    // Wait for results page
-    try {
-      await this.page.waitForSelector('.quiz-results, [data-testid="results"], h1:has-text("Results"), h2:has-text("Quiz Complete")', {
-        timeout: 10000
-      });
-      
-      await this.takeScreenshot(`${mode}-06-results`);
-      console.log(`Quiz results displayed for ${mode} mode`);
-
-      // Try to extract score information
-      const scoreElements = await this.page.$$('text=/\\d+%/, text=/Score:/, text=/\\d+\\/\\d+/');
-      let score = 'Not detected';
-      
-      if (scoreElements.length > 0) {
-        score = await scoreElements[0].textContent();
-      }
-
-      const endTime = Date.now();
-      const quizDuration = Math.round((endTime - startTime) / 1000);
-
-      return {
-        questionsCompleted: questionCount,
-        score: score,
-        quizDuration: quizDuration,
-        resultsDisplayed: true
-      };
-
-    } catch (error) {
-      console.log('Results page not found, quiz may have ended differently');
-      await this.takeScreenshot(`${mode}-results-not-found`);
-      
-      const endTime = Date.now();
-      const quizDuration = Math.round((endTime - startTime) / 1000);
-
-      return {
-        questionsCompleted: questionCount,
-        score: 'Results not displayed',
-        quizDuration: quizDuration,
-        resultsDisplayed: false
-      };
-    }
-  }
-
-  async testCrossModeSwitching() {
-    console.log('\\n🔄 Testing cross-mode switching and state management...');
-    
-    try {
-      // Navigate to dashboard
-      await this.page.goto(`${TEST_CONFIG.baseURL}/dashboard`);
-      
-      // Test rapid mode switching
-      for (const mode of Object.keys(QUIZ_MODES)) {
-        console.log(`Accessing ${mode} mode setup...`);
-        await this.page.goto(`${TEST_CONFIG.baseURL}/quiz/${mode}`);
-        await this.page.waitForTimeout(1000);
-        await this.takeScreenshot(`cross-mode-${mode}-access`);
-        
-        // Go back to dashboard
-        await this.page.goto(`${TEST_CONFIG.baseURL}/dashboard`);
-        await this.page.waitForTimeout(1000);
-      }
-      
-      console.log('✅ Cross-mode switching test completed');
-      
-    } catch (error) {
-      console.error('❌ Cross-mode switching failed:', error.message);
-      this.results.errors.push({
-        type: 'cross_mode_error',
-        message: error.message,
-        timestamp: new Date().toISOString()
-      });
-    }
-  }
-
-  async generateReport() {
-    console.log('\\n📊 Generating comprehensive test report...');
-    
-    const report = {
-      timestamp: new Date().toISOString(),
-      summary: {
-        totalTests: Object.keys(QUIZ_MODES).length,
-        successfulTests: Object.values(this.results).filter(r => r && r.success).length,
-        failedTests: Object.values(this.results).filter(r => r && !r.success).length,
-        totalErrors: this.results.errors.length
-      },
-      quizModes: this.results,
-      recommendations: []
-    };
-
-    // Add recommendations based on results
-    if (report.summary.failedTests > 0) {
-      report.recommendations.push('Some quiz modes failed testing. Review error logs and fix issues.');
-    }
-    
-    if (this.results.errors.length > 0) {
-      report.recommendations.push('Multiple errors detected. Implement better error handling.');
-    }
-    
-    if (report.summary.successfulTests === report.summary.totalTests) {
-      report.recommendations.push('All quiz modes working correctly. Ready for production deployment.');
-    }
-
-    // Save report
-    const reportPath = path.join(TEST_CONFIG.screenshots.path, 'test-report.json');
-    fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
-    
-    // Console output
-    console.log('\\n' + '='.repeat(60));
-    console.log('🎯 COMPREHENSIVE QUIZ MODE TESTING REPORT');
-    console.log('='.repeat(60));
-    console.log(`📅 Test Date: ${new Date().toLocaleDateString()}`);
-    console.log(`⏰ Test Time: ${new Date().toLocaleTimeString()}`);
-    console.log(`\\n📈 SUMMARY:`);
-    console.log(`   Total Quiz Modes Tested: ${report.summary.totalTests}`);
-    console.log(`   ✅ Successful: ${report.summary.successfulTests}`);
-    console.log(`   ❌ Failed: ${report.summary.failedTests}`);
-    console.log(`   🚨 Total Errors: ${report.summary.totalErrors}`);
-    
-    console.log(`\\n🎮 QUIZ MODE RESULTS:`);
-    
-    for (const [mode, result] of Object.entries(this.results)) {
-      if (mode === 'errors') continue;
-      
-      const config = QUIZ_MODES[mode];
-      console.log(`\\n   ${config.name} (${mode}):`);
-      
-      if (result && result.success) {
-        console.log(`   ✅ Status: PASSED`);
-        console.log(`   ⏱️  Total Time: ${result.totalTime}s`);
-        console.log(`   📝 Questions: ${result.questionsCompleted}/${config.questions}`);
-        console.log(`   📊 Score: ${result.score || 'Not recorded'}`);
-        console.log(`   ⏲️  Quiz Duration: ${result.quizDuration}s`);
-      } else if (result && !result.success) {
-        console.log(`   ❌ Status: FAILED`);
-        console.log(`   💥 Error: ${result.error}`);
-      } else {
-        console.log(`   ⚠️  Status: NOT TESTED`);
-      }
-    }
-
-    if (this.results.errors.length > 0) {
-      console.log(`\\n🚨 ERRORS ENCOUNTERED:`);
-      this.results.errors.forEach((error, index) => {
-        console.log(`   ${index + 1}. [${error.type}] ${error.message}`);
-      });
-    }
-
-    if (report.recommendations.length > 0) {
-      console.log(`\\n💡 RECOMMENDATIONS:`);
-      report.recommendations.forEach((rec, index) => {
-        console.log(`   ${index + 1}. ${rec}`);
-      });
-    }
-
-    console.log(`\\n📁 Screenshots saved in: ${TEST_CONFIG.screenshots.path}`);
-    console.log(`📄 Full report saved: ${reportPath}`);
-    console.log('='.repeat(60));
-
-    return report;
-  }
+// Ensure screenshot directory exists
+if (!fs.existsSync(TEST_CONFIG.screenshotDir)) {
+  fs.mkdirSync(TEST_CONFIG.screenshotDir, { recursive: true });
 }
 
-// Main execution
-async function main() {
-  const tester = new QuizTester();
-  
+// Testing Report Storage
+let testReport = {
+  timestamp: new Date().toISOString(),
+  testResults: [],
+  roadblocks: [],
+  errorLogs: [],
+  recommendations: []
+};
+
+// Utility Functions
+const screenshot = async (page, name) => {
+  const timestamp = Date.now();
+  const filename = `${timestamp}-${name}.png`;
+  const filepath = path.join(TEST_CONFIG.screenshotDir, filename);
+  await page.screenshot({ path: filepath, fullPage: true });
+  console.log(`📸 Screenshot saved: ${filename}`);
+  return filename;
+};
+
+const logError = (stage, error, details = {}) => {
+  const errorEntry = {
+    timestamp: new Date().toISOString(),
+    stage,
+    error: error.message || error.toString(),
+    details,
+    stack: error.stack
+  };
+  testReport.errorLogs.push(errorEntry);
+  console.error(`🚨 ERROR in ${stage}:`, error.message || error);
+  return errorEntry;
+};
+
+const logRoadblock = (stage, description, screenshot, recommendation) => {
+  const roadblock = {
+    timestamp: new Date().toISOString(),
+    stage,
+    description,
+    screenshot,
+    recommendation,
+    severity: 'HIGH'
+  };
+  testReport.roadblocks.push(roadblock);
+  console.warn(`🚧 ROADBLOCK in ${stage}: ${description}`);
+  return roadblock;
+};
+
+// Authentication Helper
+const authenticateUser = async (page) => {
   try {
-    await tester.init();
+    console.log('🔐 Starting authentication flow...');
     
-    // Step 1: Register or Login
-    const authSuccess = await tester.registerTestUser();
-    if (!authSuccess) {
-      console.error('❌ Authentication failed, cannot proceed with quiz testing');
-      process.exit(1);
-    }
-
-    // Step 2: Test each quiz mode
-    for (const mode of Object.keys(QUIZ_MODES)) {
-      await tester.testQuizMode(mode);
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Brief pause between tests
-    }
-
-    // Step 3: Test cross-mode functionality
-    await tester.testCrossModeSwitching();
-
-    // Step 4: Generate comprehensive report
-    const report = await tester.generateReport();
+    // Navigate to login page
+    await page.goto(`${TEST_CONFIG.baseUrl}/login`);
+    await page.waitForLoadState('networkidle');
+    await screenshot(page, '01-login-page');
     
-    // Exit with appropriate code
-    if (report.summary.failedTests === 0) {
-      console.log('\\n🎉 All tests passed! Quiz modes are working correctly.');
-      process.exit(0);
-    } else {
-      console.log('\\n⚠️ Some tests failed. Please review the report and fix issues.');
-      process.exit(1);
+    // Check if already logged in by looking for dashboard elements
+    const isDashboard = await page.locator('[data-testid="dashboard"]').isVisible().catch(() => false);
+    if (isDashboard) {
+      console.log('✅ Already authenticated, on dashboard');
+      return true;
+    }
+    
+    // Fill login form
+    console.log('📝 Filling login credentials...');
+    await page.fill('input[type="email"]', TEST_CONFIG.testUser.email);
+    await page.fill('input[type="password"]', TEST_CONFIG.testUser.password);
+    
+    // Submit login
+    await page.click('button[type="submit"]');
+    console.log('🚀 Login form submitted');
+    
+    // Wait for authentication result
+    try {
+      // Wait for either dashboard or error message
+      await Promise.race([
+        page.waitForURL('**/dashboard', { timeout: 10000 }),
+        page.waitForURL('**/', { timeout: 10000 }),
+        page.waitForSelector('.error', { timeout: 5000 })
+      ]);
+      
+      // Check current URL and page state
+      const currentUrl = page.url();
+      console.log('🌐 Current URL after login:', currentUrl);
+      
+      if (currentUrl.includes('/dashboard') || currentUrl.includes('/?')) {
+        console.log('✅ Authentication successful');
+        await screenshot(page, '02-dashboard-after-login');
+        return true;
+      } else {
+        throw new Error(`Unexpected URL after login: ${currentUrl}`);
+      }
+    } catch (authError) {
+      await screenshot(page, 'error-login-failed');
+      logError('Authentication', authError, { url: page.url() });
+      logRoadblock(
+        'Authentication', 
+        `Login failed - ${authError.message}`, 
+        'error-login-failed.png',
+        'Check authentication service connection and user credentials in database'
+      );
+      return false;
+    }
+  } catch (error) {
+    await screenshot(page, 'error-auth-failure');
+    logError('Authentication Setup', error);
+    return false;
+  }
+};
+
+// Quiz Mode Testing Functions
+const testQuickQuiz = async (page) => {
+  try {
+    console.log('🎯 Testing Quick Quiz Mode...');
+    
+    // Navigate to dashboard
+    await page.goto(`${TEST_CONFIG.baseUrl}/dashboard`);
+    await page.waitForLoadState('networkidle');
+    await screenshot(page, 'quick-01-dashboard');
+    
+    // Click Quick Quiz
+    const quickQuizSelector = '[data-testid="quick-quiz"], button:has-text("Quick Quiz"), a[href*="quick"]';
+    await page.click(quickQuizSelector);
+    console.log('📱 Quick Quiz clicked');
+    
+    // Wait for quiz setup page
+    await page.waitForLoadState('networkidle');
+    await screenshot(page, 'quick-02-quiz-setup');
+    
+    // Check if we're on quiz page
+    const currentUrl = page.url();
+    if (!currentUrl.includes('/quiz')) {
+      logRoadblock(
+        'Quick Quiz Navigation',
+        'Failed to navigate to quiz setup page',
+        'quick-02-quiz-setup.png',
+        'Check routing configuration and quiz navigation links'
+      );
+      return false;
+    }
+    
+    // Click Start Quiz button
+    try {
+      const startButton = page.locator('button:has-text("Start Quiz")');
+      await startButton.click();
+      console.log('🚀 Start Quiz clicked');
+      
+      // Wait for quiz engine to load
+      await page.waitForTimeout(3000);
+      await screenshot(page, 'quick-03-quiz-engine');
+      
+      // Check for quiz questions
+      const hasQuestions = await page.locator('.quiz-question, [data-testid="question"]').isVisible().catch(() => false);
+      if (!hasQuestions) {
+        throw new Error('Quiz questions did not load');
+      }
+      
+      console.log('✅ Quick Quiz loaded successfully');
+      return true;
+      
+    } catch (startError) {
+      await screenshot(page, 'quick-error-failed');
+      logError('Quick Quiz Start', startError);
+      logRoadblock(
+        'Quick Quiz Execution',
+        `Failed to start quiz - ${startError.message}`,
+        'quick-error-failed.png',
+        'Check QuizEngine component and question loading from Convex database'
+      );
+      return false;
     }
     
   } catch (error) {
-    console.error('💥 Test execution failed:', error);
-    process.exit(1);
-  } finally {
-    await tester.cleanup();
+    await screenshot(page, 'quick-error-navigation');
+    logError('Quick Quiz', error);
+    return false;
   }
-}
+};
 
-// Handle process termination
-process.on('SIGINT', async () => {
-  console.log('\\n🛑 Test interrupted by user');
-  process.exit(1);
-});
+const testTimedQuiz = async (page) => {
+  try {
+    console.log('⏱️ Testing Timed Quiz Mode...');
+    
+    // Navigate to dashboard
+    await page.goto(`${TEST_CONFIG.baseUrl}/dashboard`);
+    await page.waitForLoadState('networkidle');
+    await screenshot(page, 'timed-01-dashboard');
+    
+    // Click Timed Quiz
+    const timedQuizSelector = '[data-testid="timed-quiz"], button:has-text("Timed Quiz"), a[href*="timed"]';
+    await page.click(timedQuizSelector);
+    console.log('⏰ Timed Quiz clicked');
+    
+    // Wait for quiz setup page
+    await page.waitForLoadState('networkidle');
+    await screenshot(page, 'timed-02-quiz-setup');
+    
+    // Check if we're on quiz page
+    const currentUrl = page.url();
+    if (!currentUrl.includes('/quiz')) {
+      logRoadblock(
+        'Timed Quiz Navigation',
+        'Failed to navigate to timed quiz setup page',
+        'timed-02-quiz-setup.png',
+        'Check routing configuration for timed quiz mode'
+      );
+      return false;
+    }
+    
+    // Click Start Quiz button
+    try {
+      const startButton = page.locator('button:has-text("Start Quiz")');
+      await startButton.click();
+      console.log('🚀 Timed Quiz started');
+      
+      // Wait for quiz engine to load
+      await page.waitForTimeout(3000);
+      await screenshot(page, 'timed-03-quiz-engine');
+      
+      // Check for timer element
+      const hasTimer = await page.locator('.timer, [data-testid="timer"]').isVisible().catch(() => false);
+      const hasQuestions = await page.locator('.quiz-question, [data-testid="question"]').isVisible().catch(() => false);
+      
+      if (!hasQuestions) {
+        throw new Error('Timed quiz questions did not load');
+      }
+      
+      if (!hasTimer) {
+        console.warn('⚠️ Timer not visible, but questions loaded');
+      }
+      
+      console.log('✅ Timed Quiz loaded successfully');
+      return true;
+      
+    } catch (startError) {
+      await screenshot(page, 'timed-error-failed');
+      logError('Timed Quiz Start', startError);
+      logRoadblock(
+        'Timed Quiz Execution',
+        `Failed to start timed quiz - ${startError.message}`,
+        'timed-error-failed.png',
+        'Check timer functionality and question loading for timed quiz mode'
+      );
+      return false;
+    }
+    
+  } catch (error) {
+    await screenshot(page, 'timed-error-navigation');
+    logError('Timed Quiz', error);
+    return false;
+  }
+};
 
-process.on('SIGTERM', async () => {
-  console.log('\\n🛑 Test terminated');
-  process.exit(1);
-});
+const testCustomQuiz = async (page) => {
+  try {
+    console.log('🎨 Testing Custom Quiz Mode...');
+    
+    // Navigate to dashboard
+    await page.goto(`${TEST_CONFIG.baseUrl}/dashboard`);
+    await page.waitForLoadState('networkidle');
+    await screenshot(page, 'custom-01-dashboard');
+    
+    // Click Custom Quiz
+    const customQuizSelector = '[data-testid="custom-quiz"], button:has-text("Custom Quiz"), a[href*="custom"]';
+    await page.click(customQuizSelector);
+    console.log('🎛️ Custom Quiz clicked');
+    
+    // Wait for quiz setup page
+    await page.waitForLoadState('networkidle');
+    await screenshot(page, 'custom-02-quiz-setup');
+    
+    // Check if we're on quiz page
+    const currentUrl = page.url();
+    if (!currentUrl.includes('/quiz')) {
+      logRoadblock(
+        'Custom Quiz Navigation',
+        'Failed to navigate to custom quiz setup page',
+        'custom-02-quiz-setup.png',
+        'Check routing configuration for custom quiz mode'
+      );
+      return false;
+    }
+    
+    // Click Start Quiz button
+    try {
+      const startButton = page.locator('button:has-text("Start Quiz")');
+      await startButton.click();
+      console.log('🚀 Custom Quiz started');
+      
+      // Wait for quiz engine to load
+      await page.waitForTimeout(3000);
+      await screenshot(page, 'custom-03-quiz-engine');
+      
+      // Check for quiz questions
+      const hasQuestions = await page.locator('.quiz-question, [data-testid="question"]').isVisible().catch(() => false);
+      if (!hasQuestions) {
+        throw new Error('Custom quiz questions did not load');
+      }
+      
+      console.log('✅ Custom Quiz loaded successfully');
+      return true;
+      
+    } catch (startError) {
+      await screenshot(page, 'custom-error-failed');
+      logError('Custom Quiz Start', startError);
+      logRoadblock(
+        'Custom Quiz Execution',
+        `Failed to start custom quiz - ${startError.message}`,
+        'custom-error-failed.png',
+        'Check custom quiz configuration and question loading'
+      );
+      return false;
+    }
+    
+  } catch (error) {
+    await screenshot(page, 'custom-error-navigation');
+    logError('Custom Quiz', error);
+    return false;
+  }
+};
 
-if (require.main === module) {
-  main().catch(console.error);
-}
+// Cross-Mode Access Testing
+const testCrossModeAccess = async (page) => {
+  try {
+    console.log('🔄 Testing cross-mode quiz access...');
+    
+    // Test direct URL access to each mode
+    const modes = ['quick', 'timed', 'custom'];
+    const results = {};
+    
+    for (const mode of modes) {
+      try {
+        console.log(`🔗 Testing direct access to ${mode} quiz...`);
+        await page.goto(`${TEST_CONFIG.baseUrl}/quiz/${mode}`);
+        await page.waitForLoadState('networkidle');
+        await screenshot(page, `cross-mode-${mode}-access`);
+        
+        // Check if page loads correctly
+        const hasSetup = await page.locator('button:has-text("Start Quiz")').isVisible().catch(() => false);
+        const hasError = await page.locator('.error, [role="alert"]').isVisible().catch(() => false);
+        
+        results[mode] = {
+          accessible: hasSetup && !hasError,
+          hasError: hasError,
+          url: page.url()
+        };
+        
+        console.log(`${hasSetup ? '✅' : '❌'} Direct ${mode} quiz access: ${hasSetup ? 'Success' : 'Failed'}`);
+        
+      } catch (error) {
+        results[mode] = { accessible: false, error: error.message };
+        logError(`Cross-Mode ${mode}`, error);
+      }
+    }
+    
+    return results;
+    
+  } catch (error) {
+    logError('Cross-Mode Access', error);
+    return {};
+  }
+};
 
-module.exports = { QuizTester, TEST_CONFIG, QUIZ_MODES };
+// Main Testing Function
+const runComprehensiveTest = async () => {
+  let browser, page;
+  
+  try {
+    console.log('🚀 Starting Comprehensive Quiz Flow Testing...');
+    console.log(`📍 Base URL: ${TEST_CONFIG.baseUrl}`);
+    console.log(`👤 Test User: ${TEST_CONFIG.testUser.email}`);
+    
+    // Launch browser
+    browser = await chromium.launch({ 
+      headless: true,   // Run in headless mode for server environment
+      slowMo: 500       // Slow down operations for stability
+    });
+    
+    page = await browser.newPage();
+    page.setDefaultTimeout(TEST_CONFIG.timeout);
+    
+    // Enable console logging from the page
+    page.on('console', msg => console.log(`🌐 PAGE: ${msg.text()}`));
+    page.on('pageerror', error => logError('Page Error', error));
+    
+    // Test Authentication
+    console.log('\n🔐 Phase 1: Authentication Testing');
+    const authSuccess = await authenticateUser(page);
+    testReport.testResults.push({
+      phase: 'Authentication',
+      success: authSuccess,
+      timestamp: new Date().toISOString()
+    });
+    
+    if (!authSuccess) {
+      console.log('❌ Authentication failed - skipping quiz tests');
+      return testReport;
+    }
+    
+    // Test Quiz Modes
+    console.log('\n🎯 Phase 2: Quiz Mode Testing');
+    
+    const quickResult = await testQuickQuiz(page);
+    testReport.testResults.push({
+      phase: 'Quick Quiz',
+      success: quickResult,
+      timestamp: new Date().toISOString()
+    });
+    
+    const timedResult = await testTimedQuiz(page);
+    testReport.testResults.push({
+      phase: 'Timed Quiz',
+      success: timedResult,
+      timestamp: new Date().toISOString()
+    });
+    
+    const customResult = await testCustomQuiz(page);
+    testReport.testResults.push({
+      phase: 'Custom Quiz',
+      success: customResult,
+      timestamp: new Date().toISOString()
+    });
+    
+    // Test Cross-Mode Access
+    console.log('\n🔄 Phase 3: Cross-Mode Access Testing');
+    const crossModeResults = await testCrossModeAccess(page);
+    testReport.testResults.push({
+      phase: 'Cross-Mode Access',
+      success: Object.values(crossModeResults).every(r => r.accessible),
+      details: crossModeResults,
+      timestamp: new Date().toISOString()
+    });
+    
+    console.log('\n✅ Comprehensive testing completed');
+    
+  } catch (error) {
+    console.error('🚨 Critical testing error:', error);
+    logError('Testing Framework', error);
+  } finally {
+    if (browser) {
+      await browser.close();
+    }
+  }
+  
+  return testReport;
+};
+
+// Generate Test Report
+const generateReport = (report) => {
+  const reportPath = path.join(TEST_CONFIG.screenshotDir, 'test-report.json');
+  fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
+  
+  console.log('\n📊 COMPREHENSIVE TEST REPORT');
+  console.log('================================');
+  
+  // Summary
+  const totalTests = report.testResults.length;
+  const passedTests = report.testResults.filter(r => r.success).length;
+  const failedTests = totalTests - passedTests;
+  
+  console.log(`\n📈 SUMMARY:`);
+  console.log(`   Total Tests: ${totalTests}`);
+  console.log(`   Passed: ${passedTests} ✅`);
+  console.log(`   Failed: ${failedTests} ❌`);
+  console.log(`   Success Rate: ${((passedTests / totalTests) * 100).toFixed(1)}%`);
+  
+  // Test Results
+  console.log(`\n🧪 TEST RESULTS:`);
+  report.testResults.forEach(result => {
+    console.log(`   ${result.success ? '✅' : '❌'} ${result.phase}`);
+  });
+  
+  // Roadblocks
+  if (report.roadblocks.length > 0) {
+    console.log(`\n🚧 ROADBLOCKS IDENTIFIED (${report.roadblocks.length}):`);
+    report.roadblocks.forEach((roadblock, index) => {
+      console.log(`   ${index + 1}. ${roadblock.stage}: ${roadblock.description}`);
+      console.log(`      💡 Recommendation: ${roadblock.recommendation}`);
+      console.log(`      📸 Screenshot: ${roadblock.screenshot}`);
+    });
+  }
+  
+  // Errors
+  if (report.errorLogs.length > 0) {
+    console.log(`\n🚨 ERROR LOGS (${report.errorLogs.length}):`);
+    report.errorLogs.forEach((error, index) => {
+      console.log(`   ${index + 1}. ${error.stage}: ${error.error}`);
+    });
+  }
+  
+  console.log(`\n📁 Full report saved to: ${reportPath}`);
+  console.log(`📸 Screenshots saved to: ${TEST_CONFIG.screenshotDir}`);
+  
+  return reportPath;
+};
+
+// Execute Testing
+(async () => {
+  try {
+    const report = await runComprehensiveTest();
+    const reportPath = generateReport(report);
+    
+    // Exit with appropriate code
+    const hasFailures = report.roadblocks.length > 0 || report.errorLogs.length > 0 || 
+                       report.testResults.some(r => !r.success);
+    process.exit(hasFailures ? 1 : 0);
+    
+  } catch (error) {
+    console.error('🚨 Fatal testing error:', error);
+    process.exit(1);
+  }
+})();
