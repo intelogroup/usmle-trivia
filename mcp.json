@@ -53,6 +53,53 @@
         "CONVEX_TEAM_ID": "240517",
         "CONVEX_DEPLOYMENT": "formal-sardine-916"
       }
+    },
+    "magicui": {
+      "command": "npx",
+      "args": ["-y", "@magicuidesign/mcp@latest"]
+    },
+    "21st-dev-magic": {
+      "command": "npx",
+      "args": ["-y", "@21st-dev/magic@latest"],
+      "env": {
+        "API_KEY": "${TWENTY_FIRST_DEV_API_KEY:-}"
+      }
+    },
+    "shadcn-ui": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-shadcn-ui@latest"]
+    },
+    "puppeteer": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer@latest"]
+    },
+    "figma": {
+      "command": "npx",
+      "args": ["-y", "mcp-server-figma@latest"],
+      "env": {
+        "FIGMA_ACCESS_TOKEN": "${FIGMA_ACCESS_TOKEN:-}"
+      }
+    },
+    "brave-search": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search@latest"],
+      "env": {
+        "BRAVE_API_KEY": "${BRAVE_API_KEY:-}"
+      }
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem@latest"],
+      "env": {
+        "ALLOWED_DIRECTORIES": "/root/repo,/root/repo/src,/root/repo/design"
+      }
+    },
+    "git": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-git@latest"],
+      "env": {
+        "GIT_REPO_PATH": "/root/repo"
+      }
     }
   },
   "clientInfo": {

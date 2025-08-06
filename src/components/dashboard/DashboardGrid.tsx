@@ -1,14 +1,17 @@
 import React from 'react';
-import { Trophy, Target, TrendingUp, Flame, Calendar, Clock, Award, BookOpen } from 'lucide-react';
+import { Trophy, Target, TrendingUp, Flame, Calendar, Clock, Award, BookOpen, Play, Timer, Settings } from 'lucide-react';
 import { StatsCard } from './StatsCard';
 import { QuizModeSelector } from './QuizModeSelector';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
+import { FloatingActionButton } from '../ui/FloatingActionButton';
 import { useAppStore } from '../../store';
 import { useGetUserQuizHistory } from '../../services/convexQuiz';
 import { useGetLeaderboard } from '../../services/convexAuth';
+import { useNavigate } from 'react-router-dom';
 
 export const DashboardGrid: React.FC = () => {
   const { user } = useAppStore();
+  const navigate = useNavigate();
   
   // Fetch user quiz history
   const quizHistory = useGetUserQuizHistory(user?.id || '', 10);
@@ -85,8 +88,27 @@ export const DashboardGrid: React.FC = () => {
     });
   }, [quizHistory]);
 
+  // FAB actions for quick quiz access
+  const fabActions = [
+    {
+      icon: Play,
+      label: 'Quick Quiz',
+      onClick: () => navigate('/quiz?mode=quick')
+    },
+    {
+      icon: Timer,
+      label: 'Timed Challenge',
+      onClick: () => navigate('/quiz?mode=timed')
+    },
+    {
+      icon: Settings,
+      label: 'Custom Quiz',
+      onClick: () => navigate('/quiz?mode=custom')
+    }
+  ];
+
   return (
-    <div className="grid gap-6">
+    <div className="grid gap-6 relative">
       {/* Stats Grid */}
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         <StatsCard
@@ -248,6 +270,9 @@ export const DashboardGrid: React.FC = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Floating Action Button */}
+      <FloatingActionButton actions={fabActions} />
     </div>
   );
 };

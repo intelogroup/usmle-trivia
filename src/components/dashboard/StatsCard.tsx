@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
+import { AnimatedCounter } from '../ui/AnimatedCounter';
 import { cn } from '../../lib/utils';
 
 interface StatsCardProps {
@@ -51,7 +52,11 @@ export const StatsCard: React.FC<StatsCardProps> = ({
       </CardHeader>
       <CardContent>
         <div className="text-3xl font-bold mb-1 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-200">
-          {value}
+          {typeof value === 'number' ? (
+            <AnimatedCounter value={value} duration={1200} />
+          ) : (
+            value
+          )}
         </div>
         {trend && (
           <p className="text-sm text-muted-foreground font-medium group-hover:text-foreground/80 transition-colors duration-200">
