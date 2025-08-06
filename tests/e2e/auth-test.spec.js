@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('USMLE Trivia Authentication Testing', () => {
-  let testResults = [];
+  const testResults = [];
 
   test('Complete Authentication Flow Test', async ({ page }) => {
     console.log('🚀 Starting comprehensive authentication test...');
@@ -48,7 +48,7 @@ test.describe('USMLE Trivia Authentication Testing', () => {
       const allButtons = await page.locator('button, a[role="button"], a').all();
       console.log(`🔘 Found ${allButtons.length} interactive elements`);
       
-      let authElements = [];
+      const authElements = [];
       for (let i = 0; i < Math.min(allButtons.length, 20); i++) {
         const text = await allButtons[i].textContent();
         const href = await allButtons[i].getAttribute('href');

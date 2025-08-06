@@ -324,7 +324,7 @@ export const getPublicStudyGroups = query({
     limit: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
-    let query = ctx.db
+    const query = ctx.db
       .query("studyGroups")
       .withIndex("by_public", (q) => q.eq("isPublic", true));
     

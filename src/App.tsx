@@ -14,6 +14,7 @@ import { UserProfile } from './components/profile/UserProfile';
 import { PerformanceChart } from './components/analytics/PerformanceChart';
 import { Social } from './pages/Social';
 import { NotFound } from './pages/NotFound';
+import { validateEnvironment, logEnvironmentInfo, isDevelopment } from './utils/envValidation';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -38,6 +39,18 @@ function App() {
   const { setUser, setLoading, isAuthenticated } = useAppStore();
 
   useEffect(() => {
+    // Validate environment configuration on app startup
+    try {
+      validateEnvironment();
+      if (isDevelopment()) {
+        logEnvironmentInfo();
+      }
+    } catch (error) {
+      console.error('❌ Environment configuration error:', error);
+      // In production, this would prevent the app from starting
+      // In development, we allow it to continue with warnings
+    }
+
     // Check if user is logged in on app load
     const checkAuth = async () => {
       try {

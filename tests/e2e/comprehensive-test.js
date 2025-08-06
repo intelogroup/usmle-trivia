@@ -94,7 +94,7 @@ async function takeScreenshot(page, name, description = '') {
       'Analytics'
     ];
     
-    let navResults = [];
+    const navResults = [];
     for (const item of navItems) {
       const element = await page.locator(`text="${item}"`).first();
       const isVisible = await element.isVisible().catch(() => false);

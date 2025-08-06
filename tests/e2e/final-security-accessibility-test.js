@@ -38,7 +38,7 @@ test.describe('🔐 Final Security & Accessibility Validation', () => {
         '"><script>alert("XSS-BREAK")</script>',
       ];
       
-      let testResults = [];
+      const testResults = [];
       
       for (const payload of xssPayloads) {
         try {
@@ -103,7 +103,7 @@ test.describe('🔐 Final Security & Accessibility Validation', () => {
         "' OR 1=1 --",
       ];
       
-      let injectionResults = [];
+      const injectionResults = [];
       
       for (const payload of sqlPayloads) {
         try {
@@ -208,7 +208,7 @@ test.describe('🔐 Final Security & Accessibility Validation', () => {
         { url: BASE_URL + '/register', name: 'Registration Page' }
       ];
       
-      let accessibilityResults = [];
+      const accessibilityResults = [];
       
       for (const pageTest of pagesToTest) {
         console.log(`🔍 Testing accessibility on ${pageTest.name}...`);

@@ -19,7 +19,7 @@ async function runComprehensiveTests() {
   });
   const page = await context.newPage();
 
-  let testResults = {
+  const testResults = {
     landingPage: { passed: 0, failed: 0, details: [] },
     authentication: { passed: 0, failed: 0, details: [] },
     quiz: { passed: 0, failed: 0, details: [] },

@@ -33,7 +33,16 @@
     "content:import": "node scripts/content-manager.js import",
     "content:export": "node scripts/content-manager.js export",
     "content:validate": "node scripts/content-manager.js validate",
-    "content:seed": "node scripts/content-manager.js seed"
+    "content:seed": "node scripts/content-manager.js seed",
+    "build:prod": "NODE_ENV=production npm run convex:build && npm run build",
+    "build:analyze": "npm run build && npx vite-bundle-analyzer dist",
+    "netlify:dev": "netlify dev",
+    "netlify:build": "netlify build",
+    "netlify:deploy": "netlify build && netlify deploy",
+    "netlify:deploy:prod": "netlify build && netlify deploy --prod",
+    "serve:prod": "npm run build:prod && npm run preview",
+    "validate:prod": "node scripts/validate-production.js",
+    "deploy:check": "npm run validate:prod && npm run quality && npm run build:prod"
   },
   "dependencies": {
     "@missionsquad/mcp-github": "^0.10.7",

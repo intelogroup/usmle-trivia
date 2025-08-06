@@ -363,7 +363,7 @@ export const getPendingReviews = query({
       throw new ConvexError("Insufficient permissions to view reviews");
     }
 
-    let query = ctx.db
+    const query = ctx.db
       .query("contentReviews")
       .withIndex("by_status", (q) => q.eq("status", "pending"));
 

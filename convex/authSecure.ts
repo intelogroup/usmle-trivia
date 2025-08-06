@@ -204,7 +204,7 @@ export const updateStudyStreak = mutation({
     
     let currentStreak = user.currentStreak || 0;
     let longestStreak = user.longestStreak || 0;
-    let streakFreezeCount = user.streakFreezeCount || 0;
+    const streakFreezeCount = user.streakFreezeCount || 0;
     
     if (lastStudyDate === today) {
       // Already studied today, no change to streak
