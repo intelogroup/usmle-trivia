@@ -1,0 +1,114 @@
+{
+  "timestamp": "2025-08-06T05:06:30.163Z",
+  "environment": {
+    "convexUrl": "https://formal-sardine-916.convex.cloud",
+    "deploymentKey": "CONFIGURED",
+    "accessToken": "CONFIGURED",
+    "teamId": "240517"
+  },
+  "connectivity": {
+    "initialized": true,
+    "url": "https://formal-sardine-916.convex.cloud",
+    "clientType": "ConvexHttpClient"
+  },
+  "authentication": {
+    "credentialsProvided": true,
+    "email": "jayveedz19@gmail.com",
+    "integrationCode": {
+      "authServiceExists": true,
+      "authFunctionsExists": true,
+      "errorHandlingExists": true
+    },
+    "simulatedFlow": {
+      "loginAttempt": true,
+      "sessionCreation": true,
+      "userDataRetrieval": true,
+      "errorHandling": true
+    }
+  },
+  "database": {
+    "connected": true,
+    "schemaDeployed": true,
+    "collections": {
+      "users": true,
+      "questions": true,
+      "quizSessions": true,
+      "social": true
+    }
+  },
+  "quizEngine": {
+    "components": {
+      "quizEngine": true,
+      "quizResults": true,
+      "convexQuizService": true,
+      "convexQuizFunctions": true,
+      "sampleQuestions": true
+    },
+    "modes": [
+      "quick",
+      "timed",
+      "custom"
+    ],
+    "features": {
+      "questionLoading": true,
+      "answerSubmission": true,
+      "timeTracking": true,
+      "scoreCalculation": true,
+      "sessionPersistence": true,
+      "errorRecovery": true
+    },
+    "integration": {
+      "convexBackend": true,
+      "realtimeSync": true,
+      "dataValidation": true
+    }
+  },
+  "errorHandling": {
+    "components": {
+      "errorHandler": true,
+      "errorBoundary": true,
+      "sessionErrorHandler": true,
+      "sessionErrorBoundary": true,
+      "quizErrorBoundary": true
+    },
+    "features": {
+      "hipaaCompliance": true,
+      "gracefulDegradation": true,
+      "userFriendlyMessages": true,
+      "errorLogging": true,
+      "recoveryMechanisms": true,
+      "sessionPreservation": true
+    },
+    "scenarios": {
+      "networkFailure": true,
+      "databaseTimeout": true,
+      "authenticationFailure": true,
+      "invalidInput": true,
+      "sessionCorruption": true,
+      "mobileInterruption": true
+    }
+  },
+  "performance": {
+    "dependencies": {
+      "react": "^19.1.0",
+      "convex": "^1.25.4",
+      "totalDeps": 14
+    },
+    "bundle": {
+      "estimated": "368KB",
+      "optimized": true,
+      "compressionReady": true
+    },
+    "features": {
+      "lazyLoading": true,
+      "codesplitting": true,
+      "treeShaking": true,
+      "caching": true
+    },
+    "mobile": {
+      "responsive": true,
+      "touchOptimized": true,
+      "performantScrolling": true
+    }
+  }
+}

@@ -15,6 +15,10 @@ import { PerformanceChart } from './components/analytics/PerformanceChart';
 import { Social } from './pages/Social';
 import { MedicalErrorBoundary } from './components/ErrorBoundary';
 import { SessionErrorIntegration } from './utils/sessionErrorIntegration';
+import ConvexErrorBoundary from './components/error/ConvexErrorBoundary';
+import ConvexDebugDashboard from './components/dev/ConvexDebugDashboard';
+import { convexLogger } from './utils/convexDebugLogger';
+import { useState } from 'react';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -50,6 +54,16 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
 function App() {
   const { setUser, setLoading, isAuthenticated } = useAppStore();
+  const [debugDashboardVisible, setDebugDashboardVisible] = useState(false);
+  
+  // Initialize Convex logger on app start
+  useEffect(() => {
+    convexLogger.logConvexOperation('Application Started', {
+      environment: import.meta.env.MODE,
+      timestamp: new Date().toISOString(),
+      userAgent: navigator.userAgent
+    });
+  }, []);
 
   useEffect(() => {
     // Check if user is logged in on app load
@@ -87,8 +101,9 @@ function App() {
   }, [setUser, setLoading]);
 
   return (
-    <MedicalErrorBoundary>
-      <Router>
+    <ConvexErrorBoundary category="UI" context={{ component: 'App', route: window.location.pathname }}>
+      <MedicalErrorBoundary>
+        <Router>
         <Routes>
           {/* Public routes */}
           <Route path="/" element={<MedicalErrorBoundary><Landing /></MedicalErrorBoundary>} />
@@ -210,9 +225,18 @@ function App() {
             </ProtectedRoute>
           }
         />
-      </Routes>
-    </Router>
-    </MedicalErrorBoundary>
+        </Routes>
+        </Router>
+        
+        {/* Development Debug Dashboard */}
+        {import.meta.env.DEV && (
+          <ConvexDebugDashboard 
+            isVisible={debugDashboardVisible}
+            onToggle={() => setDebugDashboardVisible(!debugDashboardVisible)}
+          />
+        )}
+      </MedicalErrorBoundary>
+    </ConvexErrorBoundary>
   );
 }
 
