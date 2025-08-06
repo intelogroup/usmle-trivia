@@ -19,12 +19,13 @@ export const Login: React.FC = () => {
     console.log('🔐 Login form submitted for:', formData.email);
     
     try {
-      console.log('🚀 Calling login function...');
+      console.log('🚀 Calling login function via authService...');
+      // Store's login function internally uses authService.login
       await login(formData.email, formData.password);
-      console.log('✅ Login successful, navigating to dashboard');
+      console.log('✅ authService.login successful, navigating to dashboard');
       navigate('/dashboard');
     } catch (error) {
-      console.error('❌ Login failed:', error);
+      console.error('❌ authService.login failed:', error);
       setError('Invalid email or password');
     }
   };

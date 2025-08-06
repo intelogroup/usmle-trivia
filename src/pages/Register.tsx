@@ -36,12 +36,13 @@ export const Register: React.FC = () => {
     }
     
     try {
-      console.log('🚀 Calling register function...');
+      console.log('🚀 Calling register function via authService...');
+      // Store's register function internally uses authService.createAccount
       await register(formData.email, formData.password, formData.name);
-      console.log('✅ Registration successful, navigating to dashboard');
+      console.log('✅ authService.createAccount successful, navigating to dashboard');
       navigate('/dashboard');
     } catch (err: unknown) {
-      console.error('❌ Registration failed:', err);
+      console.error('❌ authService.createAccount failed:', err);
       setError((err instanceof Error ? err.message : String(err)) || 'Registration failed. Please try again.');
     }
   };
