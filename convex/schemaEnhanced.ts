@@ -6,19 +6,19 @@ export default defineSchema({
     email: v.string(),
     name: v.string(),
     avatar: v.optional(v.string()),
-    // Role-based permissions for content management workflow (SPEC.md Section 4) - made optional for migration
-    role: v.optional(v.union(
+    // Role-based permissions for content management workflow (SPEC.md Section 4)
+    role: v.union(
       v.literal("user"), 
       v.literal("author"), 
       v.literal("editor"), 
       v.literal("moderator"), 
       v.literal("admin")
-    )),
-    points: v.optional(v.number()),
-    level: v.optional(v.number()),
-    streak: v.optional(v.number()),
-    totalQuizzes: v.optional(v.number()),
-    accuracy: v.optional(v.number()),
+    ),
+    points: v.number(),
+    level: v.number(),
+    streak: v.number(),
+    totalQuizzes: v.number(),
+    accuracy: v.number(),
     medicalLevel: v.optional(v.string()), // "student", "resident", "physician"
     specialties: v.optional(v.array(v.string())),
     studyGoals: v.optional(v.string()), // "USMLE Step 1", "USMLE Step 2", etc.
@@ -30,10 +30,10 @@ export default defineSchema({
     // Enhanced authentication (SPEC.md Section 7)
     passwordHash: v.optional(v.string()), // Hashed password
     lastLogin: v.optional(v.number()),
-    isActive: v.optional(v.boolean()),
-    emailVerified: v.optional(v.boolean()),
-    createdAt: v.optional(v.number()),
-    updatedAt: v.optional(v.number()),
+    isActive: v.boolean(),
+    emailVerified: v.boolean(),
+    createdAt: v.number(),
+    updatedAt: v.number(),
   })
     .index("by_email", ["email"])
     .index("by_points", ["points"])
@@ -53,17 +53,17 @@ export default defineSchema({
     medicalReferences: v.optional(v.array(v.string())),
     imageUrl: v.optional(v.string()),
     lastReviewed: v.optional(v.number()),
-    // Content management workflow fields (SPEC.md Section 4) - made optional for migration
-    status: v.optional(v.union(v.literal("draft"), v.literal("review"), v.literal("published"), v.literal("archived"))),
+    // Content management workflow fields (SPEC.md Section 4)
+    status: v.union(v.literal("draft"), v.literal("review"), v.literal("published"), v.literal("archived")),
     authorId: v.optional(v.id("users")), // Who created the question
     editorId: v.optional(v.id("users")), // Who last edited
     moderatorId: v.optional(v.id("users")), // Who approved
-    createdAt: v.optional(v.number()),
-    updatedAt: v.optional(v.number()),
+    createdAt: v.number(),
+    updatedAt: v.number(),
     publishedAt: v.optional(v.number()),
-    version: v.optional(v.number()), // Version control
+    version: v.number(), // Version control
     editNotes: v.optional(v.string()), // Editor notes
-    isActive: v.optional(v.boolean()), // Active/inactive status
+    isActive: v.boolean(), // Active/inactive status
     qualityScore: v.optional(v.number()), // Quality rating 1-5
     reportCount: v.optional(v.number()), // How many times reported
   })
@@ -89,7 +89,7 @@ export default defineSchema({
     timeSpent: v.number(), // Time in seconds
     status: v.union(v.literal("active"), v.literal("completed"), v.literal("abandoned")),
     completedAt: v.optional(v.number()),
-    createdAt: v.optional(v.number()),
+    createdAt: v.number(),
     // Enhanced session tracking
     deviceType: v.optional(v.string()), // "mobile", "tablet", "desktop"
     userAgent: v.optional(v.string()),
