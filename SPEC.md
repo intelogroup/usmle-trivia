@@ -15,6 +15,7 @@ This document outlines the detailed product specification for the USMLE Trivia a
 10. [Performance & Scalability](#10-performance--scalability)
 11. [Compliance & Legal](#11-compliance--legal)
 12. [Deployment & DevOps](#12-deployment--devops)
+13. [Project Management & Roadmap](#13-project-management--roadmap)
 
 ---
 
@@ -128,3 +129,43 @@ Refer to `schemas/` for Convex schema definitions.
 ---
 
 *Document last updated: YYYY-MM-DD*
+
+## 13. Project Management & Roadmap
+**Milestones & Timeline:**
+- **Sprint 0 (Setup & Spec Finalization):** Weeks 1–2
+- **Sprint 1 (MVP Core Features):** Weeks 3–6
+- **Sprint 2 (Admin CMS & Nice‑to‑Have Features):** Weeks 7–10
+- **Sprint 3 (Testing, QA & Accessibility):** Weeks 11–12
+- **Beta Launch:** Week 13
+- **Production Release (v1.0):** Week 16
+
+**Sprint Planning & Agile Ceremonies:**
+- Weekly sprint planning and backlog grooming
+- Daily stand‑up meetings
+- Sprint review demos and retrospectives
+
+**Roles & Responsibilities:**
+- Product Manager: prioritize roadmap, manage stakeholders
+- Technical Lead: architecture oversight, code reviews
+- UX Designer: wireframes, prototypes, accessibility
+- Front‑end Engineer: React/Vite implementation
+- Back‑end Engineer: Convex schema & functions
+- QA Tester: automated tests, manual test plans
+- Content Editor: author/review questions
+- DevOps Engineer: CI/CD, monitoring, scaling
+
+**Communication Plan:**
+- Slack channel #usmle-trivia for daily updates
+- Bi-weekly stakeholder sync meetings
+- Project board in Jira/Trello for tasks and issues
+
+**Risk & Mitigation:**
+- **Content Quality:** rigorous review workflow with audit trail
+- **Legal & Compliance:** early legal review for licensing and privacy
+- **Performance & Scaling:** load testing in staging, caching strategies
+
+**Dependencies & Reporting:**
+- Convex environment and credentials setup
+- Initial question dataset and tagging taxonomy
+- UX design assets delivery
+- Weekly status reports and monthly KPI reviews
