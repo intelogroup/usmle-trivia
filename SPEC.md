@@ -6,6 +6,7 @@ This document outlines the detailed product specification for the USMLE Trivia a
 1. [Product Vision & Success Metrics](#1-product-vision--success-metrics)
 2. [User Personas & Journeys](#2-user-personas--journeys)
 3. [Feature Backlog & MVP](#3-feature-backlog--mvp)
+3.1 [Simplification & Implementation Approach for MVP](#31-simplification--implementation-approach-for-mvp)
 4. [Content Management Workflow](#4-content-management-workflow)
 5. [Data Model & Security Rules](#5-data-model--security-rules)
 6. [UI/UX & Design System](#6-uiux--design-system)
@@ -59,6 +60,23 @@ An interactive trivia quiz platform offering timed rounds, spaced repetition, an
 - Flashcard Mode
 - Custom Quiz Creator (by topic or difficulty)
 - Dark Mode and Theme Customization
+
+### 3.1 Simplification & Implementation Approach for MVP
+
+To accelerate delivery and focus on core user value, streamline the architecture and eliminate nonessential dependencies. Key simplifications:
+
+- **Minimal Component Library:** Use basic React components with Tailwind CSS styling; defer complex Radix UI and Framer Motion animations.
+- **Simplified State Management:** Avoid global stores; leverage React Context (Context7) for shared state and use local `useState` or `useReducer` in components.
+- **Backend Integration:** Consolidate Convex functions into a single module, using latest recommended patterns from Convex docs (review at https://docs.convex.dev).
+- **Testable Code:** Structure components and data-fetching logic to be easily unit-tested with Vitest and React Testing Library, using mocking of Convex client.
+- **MVP Scope Focus:** Implement only core features: question list, timed quiz flow, scoring, feedback, and review of incorrect answers.
+
+**Next Steps:**
+1. Update dependencies: install `context7` for React Context support (`npm install context7`).
+2. Review and align Convex integration with the newest context-based API (`convex dev` v1.26+).
+3. Refactor existing components to adopt Context7 for global state (user session, quiz settings).
+4. Consolidate Convex queries/mutations into a `/convex` module and add mocks for testing.
+5. Add Vitest unit tests for each core component and Convex function with mocked context.
 
 ## 4. Content Management Workflow
 - **Roles & Permissions:** Author, Editor, Moderator, Admin
