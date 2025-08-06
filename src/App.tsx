@@ -18,20 +18,33 @@ import { SessionErrorIntegration } from './utils/sessionErrorIntegration';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isAuthenticated, isLoading } = useAppStore();
+  const { isAuthenticated, isLoading, user } = useAppStore();
+  
+  console.log('🛡️ ProtectedRoute check:', { 
+    isAuthenticated, 
+    isLoading, 
+    hasUser: !!user,
+    userName: user?.name 
+  });
   
   if (isLoading) {
+    console.log('⏳ ProtectedRoute: Showing loading state');
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className="flex flex-col items-center gap-4">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+          <p className="text-sm text-muted-foreground">Checking authentication...</p>
+        </div>
       </div>
     );
   }
   
   if (!isAuthenticated) {
+    console.log('🚫 ProtectedRoute: Not authenticated, redirecting to login');
     return <Navigate to="/login" replace />;
   }
   
+  console.log('✅ ProtectedRoute: Authenticated, allowing access');
   return <>{children}</>;
 };
 
@@ -41,6 +54,7 @@ function App() {
   useEffect(() => {
     // Check if user is logged in on app load
     const checkAuth = async () => {
+      console.log('🚀 App: Starting authentication check...');
       try {
         // Enhanced session error logging for app initialization
         const user = await SessionErrorIntegration.wrapAuthOperation(
@@ -57,11 +71,14 @@ function App() {
             }
           }
         );
+        
+        console.log('🚀 App: Authentication check result:', user ? `✅ User: ${user.name}` : '❌ No user');
         setUser(user);
       } catch (error) {
-        console.error('Auth check failed:', error);
+        console.error('🚨 App: Auth check failed:', error);
         setUser(null);
       } finally {
+        console.log('🚀 App: Authentication check completed, setting loading to false');
         setLoading(false);
       }
     };

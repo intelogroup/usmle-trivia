@@ -1,0 +1,50 @@
+{
+  "timestamp": "2025-08-06T01:45:10.690Z",
+  "summary": {
+    "totalTests": 3,
+    "successfulTests": 0,
+    "failedTests": 4,
+    "totalErrors": 3
+  },
+  "quizModes": {
+    "quick": {
+      "success": false,
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n  - waiting for locator('.quiz-question, h1:has-text(\"Question\")') to be visible\n",
+      "timestamp": "2025-08-06T01:44:15.630Z"
+    },
+    "timed": {
+      "success": false,
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n  - waiting for locator('.quiz-question, h1:has-text(\"Question\")') to be visible\n",
+      "timestamp": "2025-08-06T01:44:36.418Z"
+    },
+    "custom": {
+      "success": false,
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n  - waiting for locator('.quiz-question, h1:has-text(\"Question\")') to be visible\n",
+      "timestamp": "2025-08-06T01:44:57.196Z"
+    },
+    "errors": [
+      {
+        "type": "quiz_mode_error",
+        "mode": "quick",
+        "message": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n  - waiting for locator('.quiz-question, h1:has-text(\"Question\")') to be visible\n",
+        "timestamp": "2025-08-06T01:44:15.631Z"
+      },
+      {
+        "type": "quiz_mode_error",
+        "mode": "timed",
+        "message": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n  - waiting for locator('.quiz-question, h1:has-text(\"Question\")') to be visible\n",
+        "timestamp": "2025-08-06T01:44:36.418Z"
+      },
+      {
+        "type": "quiz_mode_error",
+        "mode": "custom",
+        "message": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n  - waiting for locator('.quiz-question, h1:has-text(\"Question\")') to be visible\n",
+        "timestamp": "2025-08-06T01:44:57.196Z"
+      }
+    ]
+  },
+  "recommendations": [
+    "Some quiz modes failed testing. Review error logs and fix issues.",
+    "Multiple errors detected. Implement better error handling."
+  ]
+}
