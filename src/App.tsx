@@ -13,6 +13,7 @@ import { authService } from './services/auth';
 import { UserProfile } from './components/profile/UserProfile';
 import { PerformanceChart } from './components/analytics/PerformanceChart';
 import { Social } from './pages/Social';
+import { MedicalErrorBoundary } from './components/ErrorBoundary';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -54,27 +55,30 @@ function App() {
   }, [setUser, setLoading]);
 
   return (
-    <Router>
-      <Routes>
-        {/* Public routes */}
-        <Route path="/" element={<Landing />} />
-        <Route 
-          path="/login" 
-          element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <Login />} 
-        />
-        <Route 
-          path="/register" 
-          element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <Register />} 
-        />
+    <MedicalErrorBoundary>
+      <Router>
+        <Routes>
+          {/* Public routes */}
+          <Route path="/" element={<MedicalErrorBoundary><Landing /></MedicalErrorBoundary>} />
+          <Route 
+            path="/login" 
+            element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <MedicalErrorBoundary><Login /></MedicalErrorBoundary>} 
+          />
+          <Route 
+            path="/register" 
+            element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <MedicalErrorBoundary><Register /></MedicalErrorBoundary>} 
+          />
         
         {/* Protected routes */}
         <Route
           path="/dashboard"
           element={
             <ProtectedRoute>
-              <AppLayout>
-                <Dashboard />
-              </AppLayout>
+              <MedicalErrorBoundary>
+                <AppLayout>
+                  <Dashboard />
+                </AppLayout>
+              </MedicalErrorBoundary>
             </ProtectedRoute>
           }
         />
@@ -82,9 +86,11 @@ function App() {
           path="/quiz"
           element={
             <ProtectedRoute>
-              <AppLayout>
-                <Quiz />
-              </AppLayout>
+              <MedicalErrorBoundary>
+                <AppLayout>
+                  <Quiz />
+                </AppLayout>
+              </MedicalErrorBoundary>
             </ProtectedRoute>
           }
         />
@@ -92,9 +98,11 @@ function App() {
           path="/quiz/:mode"
           element={
             <ProtectedRoute>
-              <AppLayout>
-                <Quiz />
-              </AppLayout>
+              <MedicalErrorBoundary>
+                <AppLayout>
+                  <Quiz />
+                </AppLayout>
+              </MedicalErrorBoundary>
             </ProtectedRoute>
           }
         />
@@ -102,9 +110,11 @@ function App() {
           path="/progress"
           element={
             <ProtectedRoute>
-              <AppLayout>
-                <Progress />
-              </AppLayout>
+              <MedicalErrorBoundary>
+                <AppLayout>
+                  <Progress />
+                </AppLayout>
+              </MedicalErrorBoundary>
             </ProtectedRoute>
           }
         />
@@ -112,9 +122,11 @@ function App() {
           path="/leaderboard"
           element={
             <ProtectedRoute>
-              <AppLayout>
-                <Leaderboard />
-              </AppLayout>
+              <MedicalErrorBoundary>
+                <AppLayout>
+                  <Leaderboard />
+                </AppLayout>
+              </MedicalErrorBoundary>
             </ProtectedRoute>
           }
         />
@@ -122,9 +134,11 @@ function App() {
           path="/review"
           element={
             <ProtectedRoute>
-              <AppLayout>
-                <div>Review Page</div>
-              </AppLayout>
+              <MedicalErrorBoundary>
+                <AppLayout>
+                  <div>Review Page</div>
+                </AppLayout>
+              </MedicalErrorBoundary>
             </ProtectedRoute>
           }
         />
@@ -132,9 +146,11 @@ function App() {
           path="/analytics"
           element={
             <ProtectedRoute>
-              <AppLayout>
-                <PerformanceChart />
-              </AppLayout>
+              <MedicalErrorBoundary>
+                <AppLayout>
+                  <PerformanceChart />
+                </AppLayout>
+              </MedicalErrorBoundary>
             </ProtectedRoute>
           }
         />
@@ -142,9 +158,11 @@ function App() {
           path="/profile"
           element={
             <ProtectedRoute>
-              <AppLayout>
-                <UserProfile />
-              </AppLayout>
+              <MedicalErrorBoundary>
+                <AppLayout>
+                  <UserProfile />
+                </AppLayout>
+              </MedicalErrorBoundary>
             </ProtectedRoute>
           }
         />
@@ -152,14 +170,17 @@ function App() {
           path="/social"
           element={
             <ProtectedRoute>
-              <AppLayout>
-                <Social />
-              </AppLayout>
+              <MedicalErrorBoundary>
+                <AppLayout>
+                  <Social />
+                </AppLayout>
+              </MedicalErrorBoundary>
             </ProtectedRoute>
           }
         />
       </Routes>
     </Router>
+    </MedicalErrorBoundary>
   );
 }
 

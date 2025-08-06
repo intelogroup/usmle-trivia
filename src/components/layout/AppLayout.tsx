@@ -3,6 +3,7 @@ import { useResponsive } from '../../hooks/useResponsive';
 import { DesktopLayout } from './DesktopLayout';
 import { MobileLayout } from './MobileLayout';
 import { DatabaseSeeder } from '../dev/DatabaseSeeder';
+import { MedicalErrorBoundary } from '../ErrorBoundary';
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -13,12 +14,20 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   
   return (
     <div className="min-h-screen bg-background">
-      {isMobile ? (
-        <MobileLayout>{children}</MobileLayout>
-      ) : (
-        <DesktopLayout>{children}</DesktopLayout>
-      )}
-      <DatabaseSeeder />
+      <MedicalErrorBoundary>
+        {isMobile ? (
+          <MobileLayout>
+            <MedicalErrorBoundary>{children}</MedicalErrorBoundary>
+          </MobileLayout>
+        ) : (
+          <DesktopLayout>
+            <MedicalErrorBoundary>{children}</MedicalErrorBoundary>
+          </DesktopLayout>
+        )}
+      </MedicalErrorBoundary>
+      <MedicalErrorBoundary>
+        <DatabaseSeeder />
+      </MedicalErrorBoundary>
     </div>
   );
 };
