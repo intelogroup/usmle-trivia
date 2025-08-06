@@ -1,0 +1,97 @@
+{
+  "timestamp": "2025-08-06T02:48:23.219Z",
+  "testResults": [
+    {
+      "phase": "Authentication",
+      "success": true,
+      "timestamp": "2025-08-06T02:48:26.713Z"
+    },
+    {
+      "phase": "Quick Quiz",
+      "success": false,
+      "timestamp": "2025-08-06T02:48:32.545Z"
+    },
+    {
+      "phase": "Timed Quiz",
+      "success": false,
+      "timestamp": "2025-08-06T02:48:38.116Z"
+    },
+    {
+      "phase": "Custom Quiz",
+      "success": false,
+      "timestamp": "2025-08-06T02:48:43.754Z"
+    },
+    {
+      "phase": "Cross-Mode Access",
+      "success": true,
+      "details": {
+        "quick": {
+          "accessible": true,
+          "hasError": false,
+          "url": "http://localhost:5178/quiz/quick"
+        },
+        "timed": {
+          "accessible": true,
+          "hasError": false,
+          "url": "http://localhost:5178/quiz/timed"
+        },
+        "custom": {
+          "accessible": true,
+          "hasError": false,
+          "url": "http://localhost:5178/quiz/custom"
+        }
+      },
+      "timestamp": "2025-08-06T02:48:46.706Z"
+    }
+  ],
+  "roadblocks": [
+    {
+      "timestamp": "2025-08-06T02:48:32.545Z",
+      "stage": "Quick Quiz Execution",
+      "description": "Failed to start quiz - Quiz questions did not load",
+      "screenshot": "quick-error-failed.png",
+      "recommendation": "Check QuizEngine component and question loading from Convex database",
+      "severity": "HIGH"
+    },
+    {
+      "timestamp": "2025-08-06T02:48:38.116Z",
+      "stage": "Timed Quiz Execution",
+      "description": "Failed to start timed quiz - Timed quiz questions did not load",
+      "screenshot": "timed-error-failed.png",
+      "recommendation": "Check timer functionality and question loading for timed quiz mode",
+      "severity": "HIGH"
+    },
+    {
+      "timestamp": "2025-08-06T02:48:43.754Z",
+      "stage": "Custom Quiz Execution",
+      "description": "Failed to start custom quiz - Custom quiz questions did not load",
+      "screenshot": "custom-error-failed.png",
+      "recommendation": "Check custom quiz configuration and question loading",
+      "severity": "HIGH"
+    }
+  ],
+  "errorLogs": [
+    {
+      "timestamp": "2025-08-06T02:48:32.544Z",
+      "stage": "Quick Quiz Start",
+      "error": "Quiz questions did not load",
+      "details": {},
+      "stack": "Error: Quiz questions did not load\n    at testQuickQuiz (/root/repo/comprehensive_quiz_testing.cjs:193:15)\n    at async runComprehensiveTest (/root/repo/comprehensive_quiz_testing.cjs:441:25)\n    at async /root/repo/comprehensive_quiz_testing.cjs:538:20"
+    },
+    {
+      "timestamp": "2025-08-06T02:48:38.116Z",
+      "stage": "Timed Quiz Start",
+      "error": "Timed quiz questions did not load",
+      "details": {},
+      "stack": "Error: Timed quiz questions did not load\n    at testTimedQuiz (/root/repo/comprehensive_quiz_testing.cjs:263:15)\n    at async runComprehensiveTest (/root/repo/comprehensive_quiz_testing.cjs:448:25)\n    at async /root/repo/comprehensive_quiz_testing.cjs:538:20"
+    },
+    {
+      "timestamp": "2025-08-06T02:48:43.753Z",
+      "stage": "Custom Quiz Start",
+      "error": "Custom quiz questions did not load",
+      "details": {},
+      "stack": "Error: Custom quiz questions did not load\n    at testCustomQuiz (/root/repo/comprehensive_quiz_testing.cjs:335:15)\n    at async runComprehensiveTest (/root/repo/comprehensive_quiz_testing.cjs:455:26)\n    at async /root/repo/comprehensive_quiz_testing.cjs:538:20"
+    }
+  ],
+  "recommendations": []
+}

@@ -1,11 +1,15 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Card, CardContent, CardHeader } from '../ui/Card';
 import { Button } from '../ui/Button';
-import { ArrowLeft, Clock, CheckCircle, XCircle, BookOpen } from 'lucide-react';
+import { ArrowLeft, Clock, CheckCircle, XCircle, BookOpen, AlertCircle, Wifi, WifiOff } from 'lucide-react';
 import { type Question, type QuizSession } from '../../services/quiz';
 import { useAppStore } from '../../store';
 import { useAsyncError } from '../../hooks/useAsyncError';
 import { useGetRandomQuestions, useCreateQuizSession, useSubmitAnswer, useCompleteQuizSession } from '../../services/convexQuiz';
+import { SessionErrorIntegration } from '../../utils/sessionErrorIntegration';
+import { QuizErrorBoundary } from './QuizErrorBoundary';
+import { sessionErrorLogger, SessionErrorType } from '../../utils/sessionErrorLogger';
+import { useSessionErrorStore } from '../../store/sessionErrorStore';
 
 interface QuizEngineProps {
   mode: 'quick' | 'timed' | 'custom';
@@ -23,11 +27,28 @@ interface QuizState {
   showExplanation: boolean;
   isSubmitting: boolean;
   hasAnswered: boolean;
+  // Enhanced error tracking
+  isOnline: boolean;
+  networkRetries: number;
+  lastSyncTime?: Date;
+  syncErrors: number;
+  autoSaveEnabled: boolean;
+  debugInfo?: {
+    loadTime?: number;
+    renderErrors?: number;
+    apiCalls?: number;
+    memoryUsage?: number;
+  };
 }
 
 export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete }) => {
   const { user } = useAppStore();
   const { handleAsyncError, error } = useAsyncError();
+  const sessionErrorStore = useSessionErrorStore();
+  const componentStartTime = useRef(Date.now());
+  const apiCallsRef = useRef(0);
+  const renderCountRef = useRef(0);
+  const autoSaveIntervalRef = useRef<NodeJS.Timeout>();
   
   const [quizState, setQuizState] = useState<QuizState>({
     questions: [],
@@ -37,6 +58,17 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
     showExplanation: false,
     isSubmitting: false,
     hasAnswered: false,
+    // Enhanced error tracking
+    isOnline: navigator.onLine,
+    networkRetries: 0,
+    syncErrors: 0,
+    autoSaveEnabled: true,
+    debugInfo: {
+      loadTime: 0,
+      renderErrors: 0,
+      apiCalls: 0,
+      memoryUsage: 0
+    }
   });
 
   // Quiz configuration based on mode
@@ -59,10 +91,98 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
   const submitAnswer = useSubmitAnswer();
   const completeQuizSession = useCompleteQuizSession();
 
+  // Network status monitoring
+  useEffect(() => {
+    const handleOnline = () => {
+      setQuizState(prev => ({ ...prev, isOnline: true, networkRetries: 0 }));
+      sessionErrorLogger.logQuizError(
+        new Error('Network connection restored'),
+        { mode, currentQuestion: quizState.currentQuestionIndex },
+        SessionErrorType.QUIZ_SESSION_SYNC_FAILED
+      );
+    };
+
+    const handleOffline = () => {
+      setQuizState(prev => ({ ...prev, isOnline: false }));
+      sessionErrorLogger.logQuizError(
+        new Error('Network connection lost'),
+        { mode, currentQuestion: quizState.currentQuestionIndex },
+        SessionErrorType.QUIZ_SESSION_SYNC_FAILED
+      );
+    };
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, [mode, quizState.currentQuestionIndex]);
+
+  // Auto-save setup
+  useEffect(() => {
+    if (quizState.session && quizState.autoSaveEnabled) {
+      autoSaveIntervalRef.current = setInterval(async () => {
+        try {
+          // Save quiz state to local storage as backup
+          const backupState = {
+            sessionId: quizState.session?.id,
+            answers: quizState.answers,
+            currentQuestionIndex: quizState.currentQuestionIndex,
+            startTime: quizState.startTime,
+            timeRemaining: quizState.timeRemaining,
+            lastSaved: new Date().toISOString()
+          };
+          localStorage.setItem(`quiz_backup_${mode}`, JSON.stringify(backupState));
+          
+          setQuizState(prev => ({ 
+            ...prev, 
+            lastSyncTime: new Date() 
+          }));
+        } catch (error) {
+          console.error('Auto-save failed:', error);
+          setQuizState(prev => ({ 
+            ...prev, 
+            syncErrors: prev.syncErrors + 1 
+          }));
+        }
+      }, 15000); // Auto-save every 15 seconds
+    }
+
+    return () => {
+      if (autoSaveIntervalRef.current) {
+        clearInterval(autoSaveIntervalRef.current);
+      }
+    };
+  }, [quizState.session, quizState.autoSaveEnabled, mode]);
+
+  // Performance monitoring
+  useEffect(() => {
+    renderCountRef.current += 1;
+    
+    if (renderCountRef.current % 10 === 0) {
+      // Update performance metrics every 10 renders
+      const memoryInfo = (performance as any).memory;
+      setQuizState(prev => ({
+        ...prev,
+        debugInfo: {
+          ...prev.debugInfo,
+          renderErrors: renderCountRef.current > 50 ? 1 : 0,
+          memoryUsage: memoryInfo?.usedJSHeapSize || 0,
+          loadTime: Date.now() - componentStartTime.current
+        }
+      }));
+    }
+  });
+
   // Initialize quiz
   useEffect(() => {
     const initializeQuiz = async () => {
       if (!user || !randomQuestions || randomQuestions.length === 0) return;
+
+      const initStartTime = Date.now();
+      apiCallsRef.current += 1;
 
       await handleAsyncError(async () => {
         const config = getQuizConfig();
@@ -83,14 +203,55 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
           updatedAt: new Date(q._creationTime),
         }));
 
-        // Create quiz session in Convex
+        // Create quiz session with comprehensive error logging
         const questionIds = questions.map(q => q.id);
         
-        const sessionId = await createQuizSession({
-          userId: user.id,
-          mode,
-          questionIds,
-        });
+        const sessionId = await SessionErrorIntegration.wrapQuizOperation(
+          async () => {
+            apiCallsRef.current += 1;
+            const result = await createQuizSession({
+              userId: user.id,
+              mode,
+              questionIds,
+            });
+            
+            // Log successful session creation
+            await sessionErrorLogger.logQuizError(
+              new Error('Quiz session created successfully'),
+              {
+                mode,
+                questionCount: questions.length,
+                currentQuestion: 0,
+                timeRemaining: config.timeLimit,
+                lastSyncTime: new Date(),
+                deviceInfo: {
+                  userAgent: navigator.userAgent,
+                  screenResolution: `${window.screen.width}x${window.screen.height}`,
+                  touchSupport: 'ontouchstart' in window,
+                  orientation: window.innerWidth > window.innerHeight ? 'landscape' : 'portrait'
+                }
+              },
+              SessionErrorType.QUIZ_SESSION_SYNC_FAILED // Using as info log
+            );
+            
+            return result;
+          },
+          'quiz_session_start',
+          {
+            sessionType: 'quiz',
+            mode,
+            questionCount: questions.length,
+            currentQuestion: 0,
+            timeRemaining: config.timeLimit,
+            completionPercentage: 0,
+            deviceInfo: {
+              userAgent: navigator.userAgent,
+              screenResolution: `${window.screen.width}x${window.screen.height}`,
+              touchSupport: 'ontouchstart' in window,
+              orientation: window.innerWidth > window.innerHeight ? 'landscape' : 'portrait'
+            }
+          }
+        );
 
         if (sessionId) {
           // Create session object
@@ -107,12 +268,20 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
             updatedAt: new Date(),
           };
 
+          // Update state with performance metrics
+          const initLoadTime = Date.now() - initStartTime;
           setQuizState(prev => ({
             ...prev,
             questions,
             answers: new Array(questions.length).fill(null),
             session,
             timeRemaining: config.timeLimit,
+            lastSyncTime: new Date(),
+            debugInfo: {
+              ...prev.debugInfo,
+              loadTime: initLoadTime,
+              apiCalls: apiCallsRef.current
+            }
           }));
         }
       }, 'Initialize Quiz');
@@ -131,12 +300,24 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
       // Calculate final time spent
       const finalTimeSpent = Math.floor((Date.now() - quizState.startTime.getTime()) / 1000);
       
-      // Complete session in Convex
+      // Complete session in Convex with enhanced error logging
       if (completeQuizSession) {
-        const completedSession = await completeQuizSession({
-          sessionId: quizState.session!.id,
-          finalTimeSpent,
-        });
+        const completedSession = await SessionErrorIntegration.wrapQuizOperation(
+          () => completeQuizSession({
+            sessionId: quizState.session!.id,
+            finalTimeSpent,
+          }),
+          'quiz_session_complete',
+          {
+            sessionType: 'quiz',
+            mode,
+            questionCount: quizState.questions.length,
+            currentQuestion: quizState.questions.length,
+            timeRemaining: quizState.timeRemaining,
+            completionPercentage: 100,
+            lastSyncTime: new Date()
+          }
+        );
         
         if (completedSession) {
           // Create completed session object
@@ -177,11 +358,24 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
     return () => clearInterval(timer);
   }, [quizState.timeRemaining, handleCompleteQuiz]);
 
-  // Handle answer selection
+  // Enhanced answer selection with retry logic
   const handleAnswerSelect = async (answerIndex: number) => {
     if (quizState.hasAnswered || !quizState.session) return;
 
-    await handleAsyncError(async () => {
+    const answerStartTime = Date.now();
+    let retryCount = 0;
+    const maxRetries = 3;
+
+    const submitWithRetry = async (): Promise<void> => {
+      try {
+        apiCallsRef.current += 1;
+        
+        // Check network status
+        if (!navigator.onLine) {
+          throw new Error('Network offline - answer will be saved locally');
+        }
+
+        await handleAsyncError(async () => {
       // Track time spent
       const timeSpent = Math.floor((Date.now() - quizState.startTime.getTime()) / 1000);
       
@@ -196,16 +390,92 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
         showExplanation: true,
       }));
 
-      // Update session in Convex database
-      if (quizState.session && submitAnswer) {
-        await submitAnswer({
-          sessionId: quizState.session.id,
-          questionIndex: quizState.currentQuestionIndex,
-          answer: answerIndex,
-          timeSpent,
+          // Update session in Convex database with comprehensive error logging
+          if (quizState.session && submitAnswer) {
+            await SessionErrorIntegration.wrapQuizOperation(
+              async () => {
+                const result = await submitAnswer({
+                  sessionId: quizState.session.id,
+                  questionIndex: quizState.currentQuestionIndex,
+                  answer: answerIndex,
+                  timeSpent,
+                });
+                
+                // Log successful answer submission
+                console.log(`Answer ${answerIndex} submitted successfully for question ${quizState.currentQuestionIndex}`);
+                
+                // Update sync status
+                setQuizState(prev => ({
+                  ...prev,
+                  lastSyncTime: new Date(),
+                  syncErrors: Math.max(0, prev.syncErrors - 1) // Reduce error count on success
+                }));
+                
+                return result;
+              },
+              'quiz_answer_submission',
+              {
+                sessionType: 'quiz',
+                mode,
+                questionCount: quizState.questions.length,
+                currentQuestion: quizState.currentQuestionIndex + 1,
+                timeRemaining: quizState.timeRemaining,
+                completionPercentage: ((quizState.currentQuestionIndex + 1) / quizState.questions.length) * 100,
+                lastSyncTime: new Date()
+              }
+            );
+          }
         });
+      } catch (error) {
+        retryCount += 1;
+        
+        // Log the error
+        await sessionErrorLogger.logQuizError(
+          error,
+          {
+            mode,
+            currentQuestion: quizState.currentQuestionIndex,
+            questionCount: quizState.questions.length,
+            lastSyncTime: new Date()
+          },
+          SessionErrorType.QUIZ_SESSION_SYNC_FAILED
+        );
+        
+        // Update error count
+        setQuizState(prev => ({
+          ...prev,
+          syncErrors: prev.syncErrors + 1,
+          networkRetries: prev.networkRetries + 1
+        }));
+
+        if (retryCount < maxRetries && navigator.onLine) {
+          console.log(`Answer submission failed, retrying... (${retryCount}/${maxRetries})`);
+          // Exponential backoff
+          await new Promise(resolve => setTimeout(resolve, Math.pow(2, retryCount) * 1000));
+          return submitWithRetry();
+        } else {
+          // Store answer locally as fallback
+          const backupAnswer = {
+            questionIndex: quizState.currentQuestionIndex,
+            answer: answerIndex,
+            timestamp: new Date().toISOString(),
+            sessionId: quizState.session?.id
+          };
+          
+          const existingBackups = JSON.parse(localStorage.getItem('quiz_answer_backups') || '[]');
+          existingBackups.push(backupAnswer);
+          localStorage.setItem('quiz_answer_backups', JSON.stringify(existingBackups));
+          
+          console.warn('Answer saved locally due to network issues');
+          
+          if (retryCount >= maxRetries) {
+            throw error;
+          }
+        }
       }
-    }, 'Submit Answer');
+    };
+
+    await submitWithRetry();
   };
 
   // Handle next question

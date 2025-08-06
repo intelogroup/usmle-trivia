@@ -1,0 +1,938 @@
+{
+  "timestamp": "2025-08-06T02:52:36.087Z",
+  "pageUrl": "http://localhost:5178/quiz/quick",
+  "consoleMessages": [
+    "debug: [vite] connecting...",
+    "debug: [vite] connected.",
+    "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+    "log: 🚀 App: Starting authentication check...",
+    "log: 👤 Getting current user, in-memory ID: null",
+    "log: ❌ No current user ID available",
+    "log: 🚀 App: Starting authentication check...",
+    "log: 👤 Getting current user, in-memory ID: null",
+    "log: ❌ No current user ID available",
+    "log: 🚀 App: Authentication check result: ❌ No user",
+    "log: 🚀 App: Authentication check completed, setting loading to false",
+    "log: 🚀 App: Authentication check result: ❌ No user",
+    "log: 🚀 App: Authentication check completed, setting loading to false",
+    "log: 🔐 Login form submitted for: jayveedz19@gmail.com",
+    "log: 🚀 Calling login function...",
+    "log: 🏪 Store: Starting login process for: jayveedz19@gmail.com",
+    "log: 🔐 Attempting login for: jayveedz19@gmail.com",
+    "log: 🌐 Convex URL: https://formal-sardine-916.convex.cloud",
+    "log: 📡 Calling Convex getUserByEmail query...",
+    "log: 👤 User data received: ✅",
+    "log: ✅ Login successful for user: Jay veedz",
+    "log: 🏪 Store: Login successful, setting user state",
+    "log: 🏪 Store: Login process completed successfully",
+    "log: ✅ Login successful, navigating to dashboard",
+    "log: 🛡️ ProtectedRoute check: {isAuthenticated: true, isLoading: false, hasUser: true, userName: Jay veedz}",
+    "log: ✅ ProtectedRoute: Authenticated, allowing access",
+    "log: 🛡️ ProtectedRoute check: {isAuthenticated: true, isLoading: false, hasUser: true, userName: Jay veedz}",
+    "log: ✅ ProtectedRoute: Authenticated, allowing access",
+    "debug: [vite] connecting...",
+    "debug: [vite] connected.",
+    "info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold",
+    "log: 🛡️ ProtectedRoute check: {isAuthenticated: true, isLoading: true, hasUser: true, userName: Jay veedz}",
+    "log: ⏳ ProtectedRoute: Showing loading state",
+    "log: 🛡️ ProtectedRoute check: {isAuthenticated: true, isLoading: true, hasUser: true, userName: Jay veedz}",
+    "log: ⏳ ProtectedRoute: Showing loading state",
+    "log: Session performance: PerformanceNavigationTiming",
+    "log: 🚀 App: Starting authentication check...",
+    "log: 👤 Getting current user, in-memory ID: null",
+    "log: 🔄 Found persisted user data, refreshing session for: Jay veedz",
+    "log: 🚀 App: Starting authentication check...",
+    "log: 👤 Getting current user, in-memory ID: null",
+    "log: 🔄 Found persisted user data, refreshing session for: Jay veedz",
+    "log: 📡 Getting user by ID: jh76966qgmx1qb2a5h1jn030xn7n532w",
+    "log: 📡 Getting user by ID: jh76966qgmx1qb2a5h1jn030xn7n532w",
+    "log: ✅ User found: Jay veedz",
+    "log: ✅ Session restored for user: Jay veedz",
+    "log: 🚀 App: Authentication check result: ✅ User: Jay veedz",
+    "log: 🚀 App: Authentication check completed, setting loading to false",
+    "log: 🛡️ ProtectedRoute check: {isAuthenticated: true, isLoading: false, hasUser: true, userName: Jay veedz}",
+    "log: ✅ ProtectedRoute: Authenticated, allowing access",
+    "log: 🛡️ ProtectedRoute check: {isAuthenticated: true, isLoading: false, hasUser: true, userName: Jay veedz}",
+    "log: ✅ ProtectedRoute: Authenticated, allowing access",
+    "log: 🛡️ ProtectedRoute check: {isAuthenticated: true, isLoading: false, hasUser: true, userName: Jay veedz}",
+    "log: ✅ ProtectedRoute: Authenticated, allowing access",
+    "log: 🛡️ ProtectedRoute check: {isAuthenticated: true, isLoading: false, hasUser: true, userName: Jay veedz}",
+    "log: ✅ ProtectedRoute: Authenticated, allowing access",
+    "log: 🛡️ ProtectedRoute check: {isAuthenticated: true, isLoading: false, hasUser: true, userName: Jay veedz}",
+    "log: ✅ ProtectedRoute: Authenticated, allowing access",
+    "log: 🛡️ ProtectedRoute check: {isAuthenticated: true, isLoading: false, hasUser: true, userName: Jay veedz}",
+    "log: ✅ ProtectedRoute: Authenticated, allowing access",
+    "log: ✅ User found: Jay veedz",
+    "log: ✅ Session restored for user: Jay veedz",
+    "log: 🚀 App: Authentication check result: ✅ User: Jay veedz",
+    "log: 🚀 App: Authentication check completed, setting loading to false",
+    "log: 🛡️ ProtectedRoute check: {isAuthenticated: true, isLoading: false, hasUser: true, userName: Jay veedz}",
+    "log: ✅ ProtectedRoute: Authenticated, allowing access",
+    "log: 🛡️ ProtectedRoute check: {isAuthenticated: true, isLoading: false, hasUser: true, userName: Jay veedz}",
+    "log: ✅ ProtectedRoute: Authenticated, allowing access",
+    "log: 🎯 Getting quiz config for mode: quick",
+    "log: 🔧 Quiz config: {questionCount: 5, timeLimit: null}",
+    "log: 👤 Current user: Jay veedz jh76966qgmx1qb2a5h1jn030xn7n532w",
+    "log: 📚 Random questions hook result: 0 questions",
+    "log: 📊 Random questions data: undefined",
+    "log: 🔍 Current quiz state:",
+    "log:    Questions loaded: 0",
+    "log:    Current question: 0",
+    "log:    Has session: false",
+    "log: ⏳ QuizEngine showing loading state",
+    "log: 🎯 Getting quiz config for mode: quick",
+    "log: 🔧 Quiz config: {questionCount: 5, timeLimit: null}",
+    "log: 👤 Current user: Jay veedz jh76966qgmx1qb2a5h1jn030xn7n532w",
+    "log: 📚 Random questions hook result: 0 questions",
+    "log: 📊 Random questions data: undefined",
+    "log: 🔍 Current quiz state:",
+    "log:    Questions loaded: 0",
+    "log:    Current question: 0",
+    "log:    Has session: false",
+    "log: ⏳ QuizEngine showing loading state",
+    "log: 🚀 QuizEngine useEffect triggered",
+    "log:    User: Jay veedz",
+    "log:    Questions: 0",
+    "log:    Questions array: undefined",
+    "log: ⏳ Questions not loaded yet, waiting...",
+    "log: 🚀 QuizEngine useEffect triggered",
+    "log:    User: Jay veedz",
+    "log:    Questions: 0",
+    "log:    Questions array: undefined",
+    "log: ⏳ Questions not loaded yet, waiting...",
+    "log: 🎯 Getting quiz config for mode: quick",
+    "log: 🔧 Quiz config: {questionCount: 5, timeLimit: null}",
+    "log: 👤 Current user: Jay veedz jh76966qgmx1qb2a5h1jn030xn7n532w",
+    "log: 📚 Random questions hook result: 0 questions",
+    "log: 📊 Random questions data: undefined",
+    "log: 🔍 Current quiz state:",
+    "log:    Questions loaded: 0",
+    "log:    Current question: 0",
+    "log:    Has session: false",
+    "log: ⏳ QuizEngine showing loading state",
+    "log: 🎯 Getting quiz config for mode: quick",
+    "log: 🔧 Quiz config: {questionCount: 5, timeLimit: null}",
+    "log: 👤 Current user: Jay veedz jh76966qgmx1qb2a5h1jn030xn7n532w",
+    "log: 📚 Random questions hook result: 0 questions",
+    "log: 📊 Random questions data: undefined",
+    "log: 🔍 Current quiz state:",
+    "log:    Questions loaded: 0",
+    "log:    Current question: 0",
+    "log:    Has session: false",
+    "log: ⏳ QuizEngine showing loading state",
+    "log: 🎯 Getting quiz config for mode: quick",
+    "log: 🔧 Quiz config: {questionCount: 5, timeLimit: null}",
+    "log: 👤 Current user: Jay veedz jh76966qgmx1qb2a5h1jn030xn7n532w",
+    "log: 📚 Random questions hook result: 5 questions",
+    "log: 📊 Random questions data: [Object, Object, Object, Object, Object]",
+    "log: 🔍 Current quiz state:",
+    "log:    Questions loaded: 0",
+    "log:    Current question: 0",
+    "log:    Has session: false",
+    "log: ⏳ QuizEngine showing loading state",
+    "log: 🎯 Getting quiz config for mode: quick",
+    "log: 🔧 Quiz config: {questionCount: 5, timeLimit: null}",
+    "log: 👤 Current user: Jay veedz jh76966qgmx1qb2a5h1jn030xn7n532w",
+    "log: 📚 Random questions hook result: 5 questions",
+    "log: 📊 Random questions data: [Object, Object, Object, Object, Object]",
+    "log: 🔍 Current quiz state:",
+    "log:    Questions loaded: 0",
+    "log:    Current question: 0",
+    "log:    Has session: false",
+    "log: ⏳ QuizEngine showing loading state",
+    "log: 🚀 QuizEngine useEffect triggered",
+    "log:    User: Jay veedz",
+    "log:    Questions: 5",
+    "log:    Questions array: [Object, Object, Object, Object, Object]",
+    "log: ✅ Starting quiz initialization with 5 questions",
+    "log: 🎯 Getting quiz config for mode: quick",
+    "log: 🔄 Converting question: j9752rd03110ryeczf63yjxaf97n3wgd Which of the following is the most common cause of...",
+    "log: 🔄 Converting question: j9714mqdqfeh2s2n9s7fbvfb7n7n3p8m A 3-year-old boy presents with progressive muscle ...",
+    "log: 🔄 Converting question: j97dxmjnj72a5j9n2nk3p2tk6d7n5gk0 A 45-year-old patient presents with chest pain and...",
+    "log: 🔄 Converting question: j97aps1n5hn71vjd42yx153pms7n2rmh Which of the following is the most common cause of...",
+    "log: 🔄 Converting question: j970r9serh7fzmr2973b11tc017n2pbm A 6-month-old infant presents with poor feeding, l...",
+    "log: ✅ Questions converted: 5",
+    "log: 📋 First question: Which of the following is the most common cause of acute myocardial infarction?",
+    "log: 📝 Creating session with question IDs: [j9752rd03110ryeczf63yjxaf97n3wgd, j9714mqdqfeh2s2n9s7fbvfb7n7n3p8m, j97dxmjnj72a5j9n2nk3p2tk6d7n5gk0, j97aps1n5hn71vjd42yx153pms7n2rmh, j970r9serh7fzmr2973b11tc017n2pbm]",
+    "log: 🎯 Getting quiz config for mode: quick",
+    "log: 🔧 Quiz config: {questionCount: 5, timeLimit: null}",
+    "log: 👤 Current user: Jay veedz jh76966qgmx1qb2a5h1jn030xn7n532w",
+    "log: 📚 Random questions hook result: 5 questions",
+    "log: 📊 Random questions data: [Object, Object, Object, Object, Object]",
+    "log: 🔍 Current quiz state:",
+    "log:    Questions loaded: 0",
+    "log:    Current question: 0",
+    "log:    Has session: false",
+    "log: ⏳ QuizEngine showing loading state",
+    "log: 🎯 Getting quiz config for mode: quick",
+    "log: 🔧 Quiz config: {questionCount: 5, timeLimit: null}",
+    "log: 👤 Current user: Jay veedz jh76966qgmx1qb2a5h1jn030xn7n532w",
+    "log: 📚 Random questions hook result: 5 questions",
+    "log: 📊 Random questions data: [Object, Object, Object, Object, Object]",
+    "log: 🔍 Current quiz state:",
+    "log:    Questions loaded: 0",
+    "log:    Current question: 0",
+    "log:    Has session: false",
+    "log: ⏳ QuizEngine showing loading state",
+    "log: ✅ Quiz session created: jd78e0etq9p3c4nk12ken0kx9h7n5t2t",
+    "log: 🎯 Setting quiz state with questions and session",
+    "log: ✅ Quiz initialization completed",
+    "log: 🎯 Getting quiz config for mode: quick",
+    "log: 🔧 Quiz config: {questionCount: 5, timeLimit: null}",
+    "log: 👤 Current user: Jay veedz jh76966qgmx1qb2a5h1jn030xn7n532w",
+    "log: 📚 Random questions hook result: 5 questions",
+    "log: 📊 Random questions data: [Object, Object, Object, Object, Object]",
+    "log: 🔍 Current quiz state:",
+    "log:    Questions loaded: 5",
+    "log:    Current question: 0",
+    "log:    Has session: true",
+    "log:    Current question data: Which of the following is the most common cause of acute myocardial infarction?",
+    "log: 🎨 Rendering QuizEngine with question: Which of the following is the most common cause of",
+    "log: 🎯 Getting quiz config for mode: quick",
+    "log: 🔧 Quiz config: {questionCount: 5, timeLimit: null}",
+    "log: 👤 Current user: Jay veedz jh76966qgmx1qb2a5h1jn030xn7n532w",
+    "log: 📚 Random questions hook result: 5 questions",
+    "log: 📊 Random questions data: [Object, Object, Object, Object, Object]",
+    "log: 🔍 Current quiz state:",
+    "log:    Questions loaded: 5",
+    "log:    Current question: 0",
+    "log:    Has session: true",
+    "log:    Current question data: Which of the following is the most common cause of acute myocardial infarction?",
+    "log: 🎨 Rendering QuizEngine with question: Which of the following is the most common cause of"
+  ],
+  "networkRequests": [
+    {
+      "url": "http://localhost:5178/login",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.308Z"
+    },
+    {
+      "url": "http://localhost:5178/@vite/client",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.338Z"
+    },
+    {
+      "url": "http://localhost:5178/src/main.tsx?t=1754448751266",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.338Z"
+    },
+    {
+      "url": "http://localhost:5178/@react-refresh",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.339Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/vite/dist/client/env.mjs",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.454Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.473Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/react.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.473Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/react-dom_client.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.473Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/convex_react.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.474Z"
+    },
+    {
+      "url": "http://localhost:5178/src/services/convex.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.479Z"
+    },
+    {
+      "url": "http://localhost:5178/src/index.css?t=1754448751266",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.480Z"
+    },
+    {
+      "url": "http://localhost:5178/src/App.tsx?t=1754448751266",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.480Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/chunk-BQYK6RGN.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.494Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/chunk-G3PMV62Z.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.495Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/react-router-dom.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.696Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/layout/AppLayout.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.696Z"
+    },
+    {
+      "url": "http://localhost:5178/src/pages/Landing.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.696Z"
+    },
+    {
+      "url": "http://localhost:5178/src/pages/Dashboard.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.696Z"
+    },
+    {
+      "url": "http://localhost:5178/src/pages/Quiz.tsx?t=1754448751266",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.696Z"
+    },
+    {
+      "url": "http://localhost:5178/src/pages/Progress.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.696Z"
+    },
+    {
+      "url": "http://localhost:5178/src/pages/Leaderboard.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.696Z"
+    },
+    {
+      "url": "http://localhost:5178/src/pages/Login.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.696Z"
+    },
+    {
+      "url": "http://localhost:5178/src/pages/Register.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.696Z"
+    },
+    {
+      "url": "http://localhost:5178/src/store/index.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.697Z"
+    },
+    {
+      "url": "http://localhost:5178/src/services/auth.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.697Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/profile/UserProfile.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.697Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/analytics/PerformanceChart.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.697Z"
+    },
+    {
+      "url": "http://localhost:5178/src/pages/Social.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.697Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/ErrorBoundary.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.697Z"
+    },
+    {
+      "url": "http://localhost:5178/src/utils/sessionErrorIntegration.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.697Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/chunk-D7552MD7.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.772Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/chunk-PJDH5MLH.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.859Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/dashboard/DashboardGrid.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.926Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/lucide-react.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.927Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/ui/Button.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.927Z"
+    },
+    {
+      "url": "http://localhost:5178/src/hooks/useResponsive.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.932Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/layout/DesktopLayout.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.932Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/layout/MobileLayout.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.932Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/dev/DatabaseSeeder.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.932Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/ui/Card.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.963Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/quiz/QuizEngineDebug.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.963Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/quiz/QuizResults.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.965Z"
+    },
+    {
+      "url": "http://localhost:5178/src/data/sampleQuestions.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.966Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/zustand.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.968Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/zustand_middleware.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.968Z"
+    },
+    {
+      "url": "http://localhost:5178/src/services/convexAuth.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.968Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/ui/Input.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.969Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/social/FriendsList.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.998Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/social/StudyGroups.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.998Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/social/Challenges.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.998Z"
+    },
+    {
+      "url": "http://localhost:5178/src/utils/errorHandler.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.998Z"
+    },
+    {
+      "url": "http://localhost:5178/src/utils/sessionErrorLogger.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.998Z"
+    },
+    {
+      "url": "http://localhost:5178/src/store/sessionErrorStore.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.998Z"
+    },
+    {
+      "url": "http://localhost:5178/src/services/convexQuiz.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:36.998Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/dashboard/StatsCard.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:37.010Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/dashboard/QuizModeSelector.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:37.010Z"
+    },
+    {
+      "url": "http://localhost:5178/src/lib/utils.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:37.010Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/layout/AppSidebar.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:37.010Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/layout/TopBar.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:37.010Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/layout/MobileHeader.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:37.011Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/layout/BottomNav.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:37.011Z"
+    },
+    {
+      "url": "http://localhost:5178/convex/_generated/api.js",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:37.034Z"
+    },
+    {
+      "url": "http://localhost:5178/src/services/quiz.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:37.038Z"
+    },
+    {
+      "url": "http://localhost:5178/src/hooks/useAsyncError.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:37.040Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/clsx.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:37.111Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/tailwind-merge.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:37.111Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/@radix-ui_react-collapsible.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:37.111Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/convex_server.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:37.111Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/chunk-OBYCLIUT.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:37.116Z"
+    },
+    {
+      "url": "http://localhost:5178/quiz/quick",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.116Z"
+    },
+    {
+      "url": "http://localhost:5178/@vite/client",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.133Z"
+    },
+    {
+      "url": "http://localhost:5178/src/main.tsx?t=1754448751266",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.133Z"
+    },
+    {
+      "url": "http://localhost:5178/@react-refresh",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.134Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/vite/dist/client/env.mjs",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.145Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.158Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/react.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.158Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/react-dom_client.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.159Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/convex_react.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.159Z"
+    },
+    {
+      "url": "http://localhost:5178/src/services/convex.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.161Z"
+    },
+    {
+      "url": "http://localhost:5178/src/index.css?t=1754448751266",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.162Z"
+    },
+    {
+      "url": "http://localhost:5178/src/App.tsx?t=1754448751266",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.163Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/chunk-BQYK6RGN.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.164Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/chunk-G3PMV62Z.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.165Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/chunk-D7552MD7.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.165Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/chunk-PJDH5MLH.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.166Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/react-router-dom.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.192Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/layout/AppLayout.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.195Z"
+    },
+    {
+      "url": "http://localhost:5178/src/pages/Landing.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.196Z"
+    },
+    {
+      "url": "http://localhost:5178/src/pages/Dashboard.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.196Z"
+    },
+    {
+      "url": "http://localhost:5178/src/pages/Quiz.tsx?t=1754448751266",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.196Z"
+    },
+    {
+      "url": "http://localhost:5178/src/pages/Progress.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.197Z"
+    },
+    {
+      "url": "http://localhost:5178/src/pages/Leaderboard.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.198Z"
+    },
+    {
+      "url": "http://localhost:5178/src/pages/Login.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.199Z"
+    },
+    {
+      "url": "http://localhost:5178/src/pages/Register.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.199Z"
+    },
+    {
+      "url": "http://localhost:5178/src/store/index.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.199Z"
+    },
+    {
+      "url": "http://localhost:5178/src/services/auth.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.200Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/profile/UserProfile.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.200Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/analytics/PerformanceChart.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.201Z"
+    },
+    {
+      "url": "http://localhost:5178/src/pages/Social.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.202Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/ErrorBoundary.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.202Z"
+    },
+    {
+      "url": "http://localhost:5178/src/utils/sessionErrorIntegration.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.202Z"
+    },
+    {
+      "url": "http://localhost:5178/src/hooks/useResponsive.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.214Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/layout/DesktopLayout.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.215Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/layout/MobileLayout.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.215Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/dev/DatabaseSeeder.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.215Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/lucide-react.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.216Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/ui/Button.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.216Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/dashboard/DashboardGrid.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.216Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/ui/Card.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.216Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/quiz/QuizEngineDebug.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.217Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/quiz/QuizResults.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.217Z"
+    },
+    {
+      "url": "http://localhost:5178/src/data/sampleQuestions.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.217Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/zustand.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.224Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/zustand_middleware.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.224Z"
+    },
+    {
+      "url": "http://localhost:5178/src/services/convexAuth.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.225Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/ui/Input.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.225Z"
+    },
+    {
+      "url": "http://localhost:5178/src/services/convexQuiz.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.226Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/social/FriendsList.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.234Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/social/StudyGroups.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.234Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/social/Challenges.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.234Z"
+    },
+    {
+      "url": "http://localhost:5178/src/utils/errorHandler.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.234Z"
+    },
+    {
+      "url": "http://localhost:5178/src/utils/sessionErrorLogger.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.234Z"
+    },
+    {
+      "url": "http://localhost:5178/src/store/sessionErrorStore.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.234Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/layout/AppSidebar.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.235Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/layout/TopBar.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.235Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/layout/MobileHeader.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.235Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/layout/BottomNav.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.236Z"
+    },
+    {
+      "url": "http://localhost:5178/src/lib/utils.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.245Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/dashboard/StatsCard.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.245Z"
+    },
+    {
+      "url": "http://localhost:5178/src/components/dashboard/QuizModeSelector.tsx",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.245Z"
+    },
+    {
+      "url": "http://localhost:5178/src/services/quiz.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.245Z"
+    },
+    {
+      "url": "http://localhost:5178/src/hooks/useAsyncError.ts",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.246Z"
+    },
+    {
+      "url": "http://localhost:5178/convex/_generated/api.js",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.266Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/@radix-ui_react-collapsible.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.267Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/chunk-OBYCLIUT.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.268Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/clsx.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.270Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/tailwind-merge.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.270Z"
+    },
+    {
+      "url": "http://localhost:5178/node_modules/.vite/deps/convex_server.js?v=9ac0c55d",
+      "method": "GET",
+      "timestamp": "2025-08-06T02:52:38.276Z"
+    }
+  ],
+  "pageContent": "<!DOCTYPE html><html lang=\"en\"><head>\n    <script type=\"module\">import { injectIntoGlobalHook } from \"/@react-refresh\";\ninjectIntoGlobalHook(window);\nwindow.$RefreshReg$ = () => {};\nwindow.$RefreshSig$ = () => (type) => type;</script>\n\n    <script type=\"module\" src=\"/@vite/client\"></script>\n\n    <meta charset=\"UTF-8\">\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"/vite.svg\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <meta name=\"description\" content=\"USMLE Trivia - Master medical knowledge with interactive quizzes designed for USMLE preparation\">\n    <meta name=\"keywords\" content=\"USMLE, medical quiz, medical education, exam preparation, medical trivia\">\n    <title>USMLE Trivia - Medical Quiz App</title>\n  <style type=\"text/css\" data-vite-dev-id=\"/root/repo/src/index.css\">*, ::before, ::after {\n  --tw-border-spacing-x: 0;\n  --tw-border-spacing-y: 0;\n  --tw-translate-x: 0;\n  --tw-translate-y: 0;\n  --tw-rotate: 0;\n  --tw-skew-x: 0;\n  --tw-skew-y: 0;\n  --tw-scale-x: 1;\n  --tw-scale-y: 1;\n  --tw-pan-x:  ;\n  --tw-pan-y:  ;\n  --tw-pinch-zoom:  ;\n  --tw-scroll-snap-strictness: proximity;\n  --tw-gradient-from-position:  ;\n  --tw-gradient-via-position:  ;\n  --tw-gradient-to-position:  ;\n  --tw-ordinal:  ;\n  --tw-slashed-zero:  ;\n  --tw-numeric-figure:  ;\n  --tw-numeric-spacing:  ;\n  --tw-numeric-fraction:  ;\n  --tw-ring-inset:  ;\n  --tw-ring-offset-width: 0px;\n  --tw-ring-offset-color: #fff;\n  --tw-ring-color: rgb(59 130 246 / 0.5);\n  --tw-ring-offset-shadow: 0 0 #0000;\n  --tw-ring-shadow: 0 0 #0000;\n  --tw-shadow: 0 0 #0000;\n  --tw-shadow-colored: 0 0 #0000;\n  --tw-blur:  ;\n  --tw-brightness:  ;\n  --tw-contrast:  ;\n  --tw-grayscale:  ;\n  --tw-hue-rotate:  ;\n  --tw-invert:  ;\n  --tw-saturate:  ;\n  --tw-sepia:  ;\n  --tw-drop-shadow:  ;\n  --tw-backdrop-blur:  ;\n  --tw-backdrop-brightness:  ;\n  --tw-backdrop-contrast:  ;\n  --tw-backdrop-grayscale:  ;\n  --tw-backdrop-hue-rotate:  ;\n  --tw-backdrop-invert:  ;\n  --tw-backdrop-opacity:  ;\n  --tw-backdrop-saturate:  ;\n  --tw-backdrop-sepia:  ;\n  --tw-contain-size:  ;\n  --tw-contain-layout:  ;\n  --tw-contain-paint:  ;\n  --tw-contain-style:  ;\n}\n\n::backdrop {\n  --tw-border-spacing-x: 0;\n  --tw-border-spacing-y: 0;\n  --tw-translate-x: 0;\n  --tw-translate-y: 0;\n  --tw-rotate: 0;\n  --tw-skew-x: 0;\n  --tw-skew-y: 0;\n  --tw-scale-x: 1;\n  --tw-scale-y: 1;\n  --tw-pan-x:  ;\n  --tw-pan-y:  ;\n  --tw-pinch-zoom:  ;\n  --tw-scroll-snap-strictness: proximity;\n  --tw-gradient-from-position:  ;\n  --tw-gradient-via-position:  ;\n  --tw-gradient-to-position:  ;\n  --tw-ordinal:  ;\n  --tw-slashed-zero:  ;\n  --tw-numeric-figure:  ;\n  --tw-numeric-spacing:  ;\n  --tw-numeric-fraction:  ;\n  --tw-ring-inset:  ;\n  --tw-ring-offset-width: 0px;\n  --tw-ring-offset-color: #fff;\n  --tw-ring-color: rgb(59 130 246 / 0.5);\n  --tw-ring-offset-shadow: 0 0 #0000;\n  --tw-ring-shadow: 0 0 #0000;\n  --tw-shadow: 0 0 #0000;\n  --tw-shadow-colored: 0 0 #0000;\n  --tw-blur:  ;\n  --tw-brightness:  ;\n  --tw-contrast:  ;\n  --tw-grayscale:  ;\n  --tw-hue-rotate:  ;\n  --tw-invert:  ;\n  --tw-saturate:  ;\n  --tw-sepia:  ;\n  --tw-drop-shadow:  ;\n  --tw-backdrop-blur:  ;\n  --tw-backdrop-brightness:  ;\n  --tw-backdrop-contrast:  ;\n  --tw-backdrop-grayscale:  ;\n  --tw-backdrop-hue-rotate:  ;\n  --tw-backdrop-invert:  ;\n  --tw-backdrop-opacity:  ;\n  --tw-backdrop-saturate:  ;\n  --tw-backdrop-sepia:  ;\n  --tw-contain-size:  ;\n  --tw-contain-layout:  ;\n  --tw-contain-paint:  ;\n  --tw-contain-style:  ;\n}/*\n! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com\n*//*\n1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)\n2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)\n*/\n\n*,\n::before,\n::after {\n  box-sizing: border-box; /* 1 */\n  border-width: 0; /* 2 */\n  border-style: solid; /* 2 */\n  border-color: #e5e7eb; /* 2 */\n}\n\n::before,\n::after {\n  --tw-content: '';\n}\n\n/*\n1. Use a consistent sensible line-height in all browsers.\n2. Prevent adjustments of font size after orientation changes in iOS.\n3. Use a more readable tab size.\n4. Use the user's configured `sans` font-family by default.\n5. Use the user's configured `sans` font-feature-settings by default.\n6. Use the user's configured `sans` font-variation-settings by default.\n7. Disable tap highlights on iOS\n*/\n\nhtml,\n:host {\n  line-height: 1.5; /* 1 */\n  -webkit-text-size-adjust: 100%; /* 2 */\n  -moz-tab-size: 4; /* 3 */\n  -o-tab-size: 4;\n     tab-size: 4; /* 3 */\n  font-family: Inter, system-ui, sans-serif; /* 4 */\n  font-feature-settings: normal; /* 5 */\n  font-variation-settings: normal; /* 6 */\n  -webkit-tap-highlight-color: transparent; /* 7 */\n}\n\n/*\n1. Remove the margin in all browsers.\n2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.\n*/\n\nbody {\n  margin: 0; /* 1 */\n  line-height: inherit; /* 2 */\n}\n\n/*\n1. Add the correct height in Firefox.\n2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)\n3. Ensure horizontal rules are visible by default.\n*/\n\nhr {\n  height: 0; /* 1 */\n  color: inherit; /* 2 */\n  border-top-width: 1px; /* 3 */\n}\n\n/*\nAdd the correct text decoration in Chrome, Edge, and Safari.\n*/\n\nabbr:where([title]) {\n  -webkit-text-decoration: underline dotted;\n          text-decoration: underline dotted;\n}\n\n/*\nRemove the default font size and weight for headings.\n*/\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-size: inherit;\n  font-weight: inherit;\n}\n\n/*\nReset links to optimize for opt-in styling instead of opt-out.\n*/\n\na {\n  color: inherit;\n  text-decoration: inherit;\n}\n\n/*\nAdd the correct font weight in Edge and Safari.\n*/\n\nb,\nstrong {\n  font-weight: bolder;\n}\n\n/*\n1. Use the user's configured `mono` font-family by default.\n2. Use the user's configured `mono` font-feature-settings by default.\n3. Use the user's configured `mono` font-variation-settings by default.\n4. Correct the odd `em` font sizing in all browsers.\n*/\n\ncode,\nkbd,\nsamp,\npre {\n  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace; /* 1 */\n  font-feature-settings: normal; /* 2 */\n  font-variation-settings: normal; /* 3 */\n  font-size: 1em; /* 4 */\n}\n\n/*\nAdd the correct font size in all browsers.\n*/\n\nsmall {\n  font-size: 80%;\n}\n\n/*\nPrevent `sub` and `sup` elements from affecting the line height in all browsers.\n*/\n\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\n\nsub {\n  bottom: -0.25em;\n}\n\nsup {\n  top: -0.5em;\n}\n\n/*\n1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)\n2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)\n3. Remove gaps between table borders by default.\n*/\n\ntable {\n  text-indent: 0; /* 1 */\n  border-color: inherit; /* 2 */\n  border-collapse: collapse; /* 3 */\n}\n\n/*\n1. Change the font styles in all browsers.\n2. Remove the margin in Firefox and Safari.\n3. Remove default padding in all browsers.\n*/\n\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  font-family: inherit; /* 1 */\n  font-feature-settings: inherit; /* 1 */\n  font-variation-settings: inherit; /* 1 */\n  font-size: 100%; /* 1 */\n  font-weight: inherit; /* 1 */\n  line-height: inherit; /* 1 */\n  letter-spacing: inherit; /* 1 */\n  color: inherit; /* 1 */\n  margin: 0; /* 2 */\n  padding: 0; /* 3 */\n}\n\n/*\nRemove the inheritance of text transform in Edge and Firefox.\n*/\n\nbutton,\nselect {\n  text-transform: none;\n}\n\n/*\n1. Correct the inability to style clickable types in iOS and Safari.\n2. Remove default button styles.\n*/\n\nbutton,\ninput:where([type='button']),\ninput:where([type='reset']),\ninput:where([type='submit']) {\n  -webkit-appearance: button; /* 1 */\n  background-color: transparent; /* 2 */\n  background-image: none; /* 2 */\n}\n\n/*\nUse the modern Firefox focus style for all focusable elements.\n*/\n\n:-moz-focusring {\n  outline: auto;\n}\n\n/*\nRemove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)\n*/\n\n:-moz-ui-invalid {\n  box-shadow: none;\n}\n\n/*\nAdd the correct vertical alignment in Chrome and Firefox.\n*/\n\nprogress {\n  vertical-align: baseline;\n}\n\n/*\nCorrect the cursor style of increment and decrement buttons in Safari.\n*/\n\n::-webkit-inner-spin-button,\n::-webkit-outer-spin-button {\n  height: auto;\n}\n\n/*\n1. Correct the odd appearance in Chrome and Safari.\n2. Correct the outline style in Safari.\n*/\n\n[type='search'] {\n  -webkit-appearance: textfield; /* 1 */\n  outline-offset: -2px; /* 2 */\n}\n\n/*\nRemove the inner padding in Chrome and Safari on macOS.\n*/\n\n::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n\n/*\n1. Correct the inability to style clickable types in iOS and Safari.\n2. Change font properties to `inherit` in Safari.\n*/\n\n::-webkit-file-upload-button {\n  -webkit-appearance: button; /* 1 */\n  font: inherit; /* 2 */\n}\n\n/*\nAdd the correct display in Chrome and Safari.\n*/\n\nsummary {\n  display: list-item;\n}\n\n/*\nRemoves the default spacing and border for appropriate elements.\n*/\n\nblockquote,\ndl,\ndd,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nhr,\nfigure,\np,\npre {\n  margin: 0;\n}\n\nfieldset {\n  margin: 0;\n  padding: 0;\n}\n\nlegend {\n  padding: 0;\n}\n\nol,\nul,\nmenu {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n}\n\n/*\nReset default styling for dialogs.\n*/\ndialog {\n  padding: 0;\n}\n\n/*\nPrevent resizing textareas horizontally by default.\n*/\n\ntextarea {\n  resize: vertical;\n}\n\n/*\n1. Reset the default placeholder opacity in Firefox. (https://github.com/tailwindlabs/tailwindcss/issues/3300)\n2. Set the default placeholder color to the user's configured gray 400 color.\n*/\n\ninput::-moz-placeholder, textarea::-moz-placeholder {\n  opacity: 1; /* 1 */\n  color: #9ca3af; /* 2 */\n}\n\ninput::placeholder,\ntextarea::placeholder {\n  opacity: 1; /* 1 */\n  color: #9ca3af; /* 2 */\n}\n\n/*\nSet the default cursor for buttons.\n*/\n\nbutton,\n[role=\"button\"] {\n  cursor: pointer;\n}\n\n/*\nMake sure disabled buttons don't get the pointer cursor.\n*/\n:disabled {\n  cursor: default;\n}\n\n/*\n1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)\n2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)\n   This can trigger a poorly considered lint error in some tools but is included by design.\n*/\n\nimg,\nsvg,\nvideo,\ncanvas,\naudio,\niframe,\nembed,\nobject {\n  display: block; /* 1 */\n  vertical-align: middle; /* 2 */\n}\n\n/*\nConstrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)\n*/\n\nimg,\nvideo {\n  max-width: 100%;\n  height: auto;\n}\n\n/* Make elements with the HTML hidden attribute stay hidden by default */\n[hidden]:where(:not([hidden=\"until-found\"])) {\n  display: none;\n}\n  :root {\n    --background: 0 0% 100%;\n    --foreground: 222.2 84% 4.9%;\n    --card: 0 0% 100%;\n    --card-foreground: 222.2 84% 4.9%;\n    --popover: 0 0% 100%;\n    --popover-foreground: 222.2 84% 4.9%;\n    --primary: 216 90% 58%;\n    --primary-foreground: 210 40% 98%;\n    --secondary: 210 40% 96.1%;\n    --secondary-foreground: 222.2 47.4% 11.2%;\n    --muted: 210 40% 96.1%;\n    --muted-foreground: 215.4 16.3% 46.9%;\n    --accent: 210 40% 96.1%;\n    --accent-foreground: 222.2 47.4% 11.2%;\n    --destructive: 0 84.2% 60.2%;\n    --destructive-foreground: 210 40% 98%;\n    --border: 214.3 31.8% 91.4%;\n    --input: 214.3 31.8% 91.4%;\n    --ring: 216 90% 58%;\n    --radius: 0.75rem;\n    --success: 142 76% 36%;\n    --success-foreground: 210 40% 98%;\n    --warning: 38 92% 50%;\n    --warning-foreground: 222.2 84% 4.9%;\n    --info: 204 94% 94%;\n    --info-foreground: 204 91% 20%;\n    --gradient-primary: linear-gradient(135deg, hsl(216 90% 58%) 0%, hsl(229 84% 61%) 100%);\n    --gradient-secondary: linear-gradient(135deg, hsl(210 40% 96.1%) 0%, hsl(204 94% 94%) 100%);\n    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);\n    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);\n    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);\n    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);\n    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);\n  }\n  * {\n    border-color: hsl(var(--border));\n  }\n  body {\n  background-color: hsl(var(--background));\n  color: hsl(var(--foreground));\n    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n    font-feature-settings: 'cv11', 'ss01';\n    font-variation-settings: 'opsz' 32;\n    text-rendering: optimizeLegibility;\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n}\n  \n  html {\n    scroll-behavior: smooth;\n  }\n  \n  /* Modern scrollbars */\n  ::-webkit-scrollbar {\n    width: 6px;\n    height: 6px;\n  }\n  \n  ::-webkit-scrollbar-track {\n    background: hsl(var(--muted));\n  }\n  \n  ::-webkit-scrollbar-thumb {\n    background: hsl(var(--muted-foreground) / 0.3);\n    border-radius: 3px;\n  }\n  \n  ::-webkit-scrollbar-thumb:hover {\n    background: hsl(var(--muted-foreground) / 0.5);\n  }\n  \n  /* Focus rings */\n  :focus-visible {\n    outline: 2px solid hsl(var(--ring));\n    outline-offset: 2px;\n  }\n  \n  /* Selection */\n  ::-moz-selection {\n    background: hsl(var(--primary) / 0.2);\n  }\n  ::selection {\n    background: hsl(var(--primary) / 0.2);\n  }\n.container {\n  width: 100%;\n  margin-right: auto;\n  margin-left: auto;\n  padding-right: 2rem;\n  padding-left: 2rem;\n}\n@media (min-width: 1400px) {\n\n  .container {\n    max-width: 1400px;\n  }\n}\n.animate-in {\n    animation: animateIn 0.3s ease-out;\n  }\n.animate-fade-up {\n    animation: fadeUp 0.5s ease-out;\n  }\n.animate-slide-in {\n    animation: slideIn 0.4s ease-out;\n  }\n@keyframes animateIn {\n    from {\n      opacity: 0;\n      transform: translateY(10px);\n    }\n    to {\n      opacity: 1;\n      transform: translateY(0);\n    }\n  }\n@keyframes fadeUp {\n    from {\n      opacity: 0;\n      transform: translateY(20px);\n    }\n    to {\n      opacity: 1;\n      transform: translateY(0);\n    }\n  }\n@keyframes slideIn {\n    from {\n      opacity: 0;\n      transform: translateX(-20px);\n    }\n    to {\n      opacity: 1;\n      transform: translateX(0);\n    }\n  }\n.glass-effect {\n    -webkit-backdrop-filter: blur(12px);\n            backdrop-filter: blur(12px);\n    background: hsl(var(--background) / 0.8);\n    border: 1px solid hsl(var(--border) / 0.5);\n  }\n.gradient-primary {\n    background: var(--gradient-primary);\n  }\n.shadow-custom {\n    box-shadow: var(--shadow);\n  }\n.shadow-custom-md {\n    box-shadow: var(--shadow-md);\n  }\n.shadow-custom-lg {\n    box-shadow: var(--shadow-lg);\n  }\n.visible {\n  visibility: visible;\n}\n.static {\n  position: static;\n}\n.fixed {\n  position: fixed;\n}\n.absolute {\n  position: absolute;\n}\n.relative {\n  position: relative;\n}\n.sticky {\n  position: sticky;\n}\n.inset-0 {\n  inset: 0px;\n}\n.inset-y-0 {\n  top: 0px;\n  bottom: 0px;\n}\n.-right-1 {\n  right: -0.25rem;\n}\n.-top-1 {\n  top: -0.25rem;\n}\n.bottom-0 {\n  bottom: 0px;\n}\n.bottom-4 {\n  bottom: 1rem;\n}\n.left-0 {\n  left: 0px;\n}\n.left-3 {\n  left: 0.75rem;\n}\n.right-0 {\n  right: 0px;\n}\n.right-4 {\n  right: 1rem;\n}\n.top-0 {\n  top: 0px;\n}\n.top-1\\/2 {\n  top: 50%;\n}\n.z-40 {\n  z-index: 40;\n}\n.z-50 {\n  z-index: 50;\n}\n.m-0 {\n  margin: 0px;\n}\n.mx-auto {\n  margin-left: auto;\n  margin-right: auto;\n}\n.-ml-1 {\n  margin-left: -0.25rem;\n}\n.-ml-2 {\n  margin-left: -0.5rem;\n}\n.mb-1 {\n  margin-bottom: 0.25rem;\n}\n.mb-10 {\n  margin-bottom: 2.5rem;\n}\n.mb-2 {\n  margin-bottom: 0.5rem;\n}\n.mb-20 {\n  margin-bottom: 5rem;\n}\n.mb-3 {\n  margin-bottom: 0.75rem;\n}\n.mb-4 {\n  margin-bottom: 1rem;\n}\n.mb-6 {\n  margin-bottom: 1.5rem;\n}\n.mb-8 {\n  margin-bottom: 2rem;\n}\n.ml-2 {\n  margin-left: 0.5rem;\n}\n.ml-3 {\n  margin-left: 0.75rem;\n}\n.ml-7 {\n  margin-left: 1.75rem;\n}\n.mr-1 {\n  margin-right: 0.25rem;\n}\n.mr-2 {\n  margin-right: 0.5rem;\n}\n.mr-3 {\n  margin-right: 0.75rem;\n}\n.mt-1 {\n  margin-top: 0.25rem;\n}\n.mt-2 {\n  margin-top: 0.5rem;\n}\n.mt-4 {\n  margin-top: 1rem;\n}\n.mt-6 {\n  margin-top: 1.5rem;\n}\n.mt-8 {\n  margin-top: 2rem;\n}\n.block {\n  display: block;\n}\n.flex {\n  display: flex;\n}\n.inline-flex {\n  display: inline-flex;\n}\n.grid {\n  display: grid;\n}\n.hidden {\n  display: none;\n}\n.h-1 {\n  height: 0.25rem;\n}\n.h-1\\.5 {\n  height: 0.375rem;\n}\n.h-10 {\n  height: 2.5rem;\n}\n.h-11 {\n  height: 2.75rem;\n}\n.h-12 {\n  height: 3rem;\n}\n.h-14 {\n  height: 3.5rem;\n}\n.h-16 {\n  height: 4rem;\n}\n.h-2 {\n  height: 0.5rem;\n}\n.h-20 {\n  height: 5rem;\n}\n.h-24 {\n  height: 6rem;\n}\n.h-3 {\n  height: 0.75rem;\n}\n.h-4 {\n  height: 1rem;\n}\n.h-48 {\n  height: 12rem;\n}\n.h-5 {\n  height: 1.25rem;\n}\n.h-6 {\n  height: 1.5rem;\n}\n.h-7 {\n  height: 1.75rem;\n}\n.h-8 {\n  height: 2rem;\n}\n.h-9 {\n  height: 2.25rem;\n}\n.h-full {\n  height: 100%;\n}\n.h-screen {\n  height: 100vh;\n}\n.max-h-32 {\n  max-height: 8rem;\n}\n.max-h-48 {\n  max-height: 12rem;\n}\n.max-h-64 {\n  max-height: 16rem;\n}\n.max-h-96 {\n  max-height: 24rem;\n}\n.min-h-\\[44px\\] {\n  min-height: 44px;\n}\n.min-h-\\[48px\\] {\n  min-height: 48px;\n}\n.min-h-screen {\n  min-height: 100vh;\n}\n.w-1 {\n  width: 0.25rem;\n}\n.w-10 {\n  width: 2.5rem;\n}\n.w-12 {\n  width: 3rem;\n}\n.w-2 {\n  width: 0.5rem;\n}\n.w-20 {\n  width: 5rem;\n}\n.w-24 {\n  width: 6rem;\n}\n.w-3 {\n  width: 0.75rem;\n}\n.w-4 {\n  width: 1rem;\n}\n.w-5 {\n  width: 1.25rem;\n}\n.w-56 {\n  width: 14rem;\n}\n.w-6 {\n  width: 1.5rem;\n}\n.w-64 {\n  width: 16rem;\n}\n.w-7 {\n  width: 1.75rem;\n}\n.w-8 {\n  width: 2rem;\n}\n.w-9 {\n  width: 2.25rem;\n}\n.w-96 {\n  width: 24rem;\n}\n.w-full {\n  width: 100%;\n}\n.min-w-0 {\n  min-width: 0px;\n}\n.min-w-56 {\n  min-width: 14rem;\n}\n.min-w-72 {\n  min-width: 18rem;\n}\n.min-w-\\[120px\\] {\n  min-width: 120px;\n}\n.min-w-\\[44px\\] {\n  min-width: 44px;\n}\n.max-w-3xl {\n  max-width: 48rem;\n}\n.max-w-4xl {\n  max-width: 56rem;\n}\n.max-w-7xl {\n  max-width: 80rem;\n}\n.max-w-md {\n  max-width: 28rem;\n}\n.max-w-none {\n  max-width: none;\n}\n.flex-1 {\n  flex: 1 1 0%;\n}\n.flex-shrink-0 {\n  flex-shrink: 0;\n}\n.-translate-x-full {\n  --tw-translate-x: -100%;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n.-translate-y-1\\/2 {\n  --tw-translate-y: -50%;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n.translate-x-0 {\n  --tw-translate-x: 0px;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n.scale-110 {\n  --tw-scale-x: 1.1;\n  --tw-scale-y: 1.1;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n.scale-\\[1\\.02\\] {\n  --tw-scale-x: 1.02;\n  --tw-scale-y: 1.02;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n.transform {\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n@keyframes pulse {\n\n  50% {\n    opacity: .5;\n  }\n}\n.animate-pulse {\n  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;\n}\n@keyframes spin {\n\n  to {\n    transform: rotate(360deg);\n  }\n}\n.animate-spin {\n  animation: spin 1s linear infinite;\n}\n.cursor-not-allowed {\n  cursor: not-allowed;\n}\n.cursor-pointer {\n  cursor: pointer;\n}\n.resize-none {\n  resize: none;\n}\n.grid-cols-1 {\n  grid-template-columns: repeat(1, minmax(0, 1fr));\n}\n.grid-cols-2 {\n  grid-template-columns: repeat(2, minmax(0, 1fr));\n}\n.grid-cols-4 {\n  grid-template-columns: repeat(4, minmax(0, 1fr));\n}\n.flex-row {\n  flex-direction: row;\n}\n.flex-col {\n  flex-direction: column;\n}\n.flex-wrap {\n  flex-wrap: wrap;\n}\n.items-start {\n  align-items: flex-start;\n}\n.items-center {\n  align-items: center;\n}\n.justify-end {\n  justify-content: flex-end;\n}\n.justify-center {\n  justify-content: center;\n}\n.justify-between {\n  justify-content: space-between;\n}\n.justify-around {\n  justify-content: space-around;\n}\n.gap-1 {\n  gap: 0.25rem;\n}\n.gap-12 {\n  gap: 3rem;\n}\n.gap-2 {\n  gap: 0.5rem;\n}\n.gap-3 {\n  gap: 0.75rem;\n}\n.gap-4 {\n  gap: 1rem;\n}\n.gap-6 {\n  gap: 1.5rem;\n}\n.gap-8 {\n  gap: 2rem;\n}\n.-space-x-2 > :not([hidden]) ~ :not([hidden]) {\n  --tw-space-x-reverse: 0;\n  margin-right: calc(-0.5rem * var(--tw-space-x-reverse));\n  margin-left: calc(-0.5rem * calc(1 - var(--tw-space-x-reverse)));\n}\n.space-x-2 > :not([hidden]) ~ :not([hidden]) {\n  --tw-space-x-reverse: 0;\n  margin-right: calc(0.5rem * var(--tw-space-x-reverse));\n  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));\n}\n.space-x-3 > :not([hidden]) ~ :not([hidden]) {\n  --tw-space-x-reverse: 0;\n  margin-right: calc(0.75rem * var(--tw-space-x-reverse));\n  margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));\n}\n.space-x-4 > :not([hidden]) ~ :not([hidden]) {\n  --tw-space-x-reverse: 0;\n  margin-right: calc(1rem * var(--tw-space-x-reverse));\n  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));\n}\n.space-y-0 > :not([hidden]) ~ :not([hidden]) {\n  --tw-space-y-reverse: 0;\n  margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));\n  margin-bottom: calc(0px * var(--tw-space-y-reverse));\n}\n.space-y-1 > :not([hidden]) ~ :not([hidden]) {\n  --tw-space-y-reverse: 0;\n  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));\n  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));\n}\n.space-y-1\\.5 > :not([hidden]) ~ :not([hidden]) {\n  --tw-space-y-reverse: 0;\n  margin-top: calc(0.375rem * calc(1 - var(--tw-space-y-reverse)));\n  margin-bottom: calc(0.375rem * var(--tw-space-y-reverse));\n}\n.space-y-2 > :not([hidden]) ~ :not([hidden]) {\n  --tw-space-y-reverse: 0;\n  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));\n  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));\n}\n.space-y-3 > :not([hidden]) ~ :not([hidden]) {\n  --tw-space-y-reverse: 0;\n  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));\n  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));\n}\n.space-y-4 > :not([hidden]) ~ :not([hidden]) {\n  --tw-space-y-reverse: 0;\n  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));\n  margin-bottom: calc(1rem * var(--tw-space-y-reverse));\n}\n.space-y-6 > :not([hidden]) ~ :not([hidden]) {\n  --tw-space-y-reverse: 0;\n  margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));\n  margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));\n}\n.space-y-8 > :not([hidden]) ~ :not([hidden]) {\n  --tw-space-y-reverse: 0;\n  margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));\n  margin-bottom: calc(2rem * var(--tw-space-y-reverse));\n}\n.overflow-auto {\n  overflow: auto;\n}\n.overflow-hidden {\n  overflow: hidden;\n}\n.overflow-y-auto {\n  overflow-y: auto;\n}\n.truncate {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.whitespace-nowrap {\n  white-space: nowrap;\n}\n.break-all {\n  word-break: break-all;\n}\n.rounded {\n  border-radius: 0.25rem;\n}\n.rounded-2xl {\n  border-radius: 1rem;\n}\n.rounded-full {\n  border-radius: 9999px;\n}\n.rounded-lg {\n  border-radius: var(--radius);\n}\n.rounded-md {\n  border-radius: calc(var(--radius) - 2px);\n}\n.rounded-xl {\n  border-radius: 0.75rem;\n}\n.rounded-b-none {\n  border-bottom-right-radius: 0px;\n  border-bottom-left-radius: 0px;\n}\n.rounded-t-xl {\n  border-top-left-radius: 0.75rem;\n  border-top-right-radius: 0.75rem;\n}\n.border {\n  border-width: 1px;\n}\n.border-0 {\n  border-width: 0px;\n}\n.border-2 {\n  border-width: 2px;\n}\n.border-4 {\n  border-width: 4px;\n}\n.border-b {\n  border-bottom-width: 1px;\n}\n.border-b-2 {\n  border-bottom-width: 2px;\n}\n.border-l-4 {\n  border-left-width: 4px;\n}\n.border-r {\n  border-right-width: 1px;\n}\n.border-t {\n  border-top-width: 1px;\n}\n.border-background {\n  border-color: hsl(var(--background));\n}\n.border-blue-600 {\n  --tw-border-opacity: 1;\n  border-color: rgb(37 99 235 / var(--tw-border-opacity, 1));\n}\n.border-destructive\\/20 {\n  border-color: hsl(var(--destructive) / 0.2);\n}\n.border-gray-200 {\n  --tw-border-opacity: 1;\n  border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));\n}\n.border-gray-300 {\n  --tw-border-opacity: 1;\n  border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));\n}\n.border-green-200 {\n  --tw-border-opacity: 1;\n  border-color: rgb(187 247 208 / var(--tw-border-opacity, 1));\n}\n.border-green-500 {\n  --tw-border-opacity: 1;\n  border-color: rgb(34 197 94 / var(--tw-border-opacity, 1));\n}\n.border-input {\n  border-color: hsl(var(--input));\n}\n.border-muted {\n  border-color: hsl(var(--muted));\n}\n.border-primary {\n  border-color: hsl(var(--primary));\n}\n.border-primary\\/20 {\n  border-color: hsl(var(--primary) / 0.2);\n}\n.border-red-200 {\n  --tw-border-opacity: 1;\n  border-color: rgb(254 202 202 / var(--tw-border-opacity, 1));\n}\n.border-red-400 {\n  --tw-border-opacity: 1;\n  border-color: rgb(248 113 113 / var(--tw-border-opacity, 1));\n}\n.border-red-500 {\n  --tw-border-opacity: 1;\n  border-color: rgb(239 68 68 / var(--tw-border-opacity, 1));\n}\n.border-transparent {\n  border-color: transparent;\n}\n.border-yellow-200 {\n  --tw-border-opacity: 1;\n  border-color: rgb(254 240 138 / var(--tw-border-opacity, 1));\n}\n.border-t-transparent {\n  border-top-color: transparent;\n}\n.bg-background {\n  background-color: hsl(var(--background));\n}\n.bg-background\\/50 {\n  background-color: hsl(var(--background) / 0.5);\n}\n.bg-background\\/95 {\n  background-color: hsl(var(--background) / 0.95);\n}\n.bg-black\\/50 {\n  background-color: rgb(0 0 0 / 0.5);\n}\n.bg-blue-100 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(219 234 254 / var(--tw-bg-opacity, 1));\n}\n.bg-blue-50 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(239 246 255 / var(--tw-bg-opacity, 1));\n}\n.bg-blue-600 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(37 99 235 / var(--tw-bg-opacity, 1));\n}\n.bg-card {\n  background-color: hsl(var(--card));\n}\n.bg-destructive {\n  background-color: hsl(var(--destructive));\n}\n.bg-destructive\\/10 {\n  background-color: hsl(var(--destructive) / 0.1);\n}\n.bg-gray-100 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));\n}\n.bg-gray-200 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));\n}\n.bg-gray-300 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(209 213 219 / var(--tw-bg-opacity, 1));\n}\n.bg-gray-400 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(156 163 175 / var(--tw-bg-opacity, 1));\n}\n.bg-gray-50 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));\n}\n.bg-gray-600 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(75 85 99 / var(--tw-bg-opacity, 1));\n}\n.bg-green-100 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(220 252 231 / var(--tw-bg-opacity, 1));\n}\n.bg-green-50 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(240 253 244 / var(--tw-bg-opacity, 1));\n}\n.bg-green-500 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(34 197 94 / var(--tw-bg-opacity, 1));\n}\n.bg-green-600 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(22 163 74 / var(--tw-bg-opacity, 1));\n}\n.bg-muted {\n  background-color: hsl(var(--muted));\n}\n.bg-muted\\/30 {\n  background-color: hsl(var(--muted) / 0.3);\n}\n.bg-muted\\/50 {\n  background-color: hsl(var(--muted) / 0.5);\n}\n.bg-muted\\/70 {\n  background-color: hsl(var(--muted) / 0.7);\n}\n.bg-orange-100 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(255 237 213 / var(--tw-bg-opacity, 1));\n}\n.bg-orange-400 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(251 146 60 / var(--tw-bg-opacity, 1));\n}\n.bg-orange-50 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(255 247 237 / var(--tw-bg-opacity, 1));\n}\n.bg-primary {\n  background-color: hsl(var(--primary));\n}\n.bg-primary\\/10 {\n  background-color: hsl(var(--primary) / 0.1);\n}\n.bg-purple-100 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(243 232 255 / var(--tw-bg-opacity, 1));\n}\n.bg-purple-50 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(250 245 255 / var(--tw-bg-opacity, 1));\n}\n.bg-red-100 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));\n}\n.bg-red-50 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));\n}\n.bg-red-500 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));\n}\n.bg-secondary {\n  background-color: hsl(var(--secondary));\n}\n.bg-white {\n  --tw-bg-opacity: 1;\n  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));\n}\n.bg-yellow-400 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(250 204 21 / var(--tw-bg-opacity, 1));\n}\n.bg-yellow-50 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(254 252 232 / var(--tw-bg-opacity, 1));\n}\n.bg-yellow-600 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(202 138 4 / var(--tw-bg-opacity, 1));\n}\n.bg-gradient-to-br {\n  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));\n}\n.bg-gradient-to-r {\n  background-image: linear-gradient(to right, var(--tw-gradient-stops));\n}\n.from-background {\n  --tw-gradient-from: hsl(var(--background)) var(--tw-gradient-from-position);\n  --tw-gradient-to: hsl(var(--background) / 0) var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n}\n.from-blue-50 {\n  --tw-gradient-from: #eff6ff var(--tw-gradient-from-position);\n  --tw-gradient-to: rgb(239 246 255 / 0) var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n}\n.from-blue-500 {\n  --tw-gradient-from: #3b82f6 var(--tw-gradient-from-position);\n  --tw-gradient-to: rgb(59 130 246 / 0) var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n}\n.from-foreground {\n  --tw-gradient-from: hsl(var(--foreground)) var(--tw-gradient-from-position);\n  --tw-gradient-to: hsl(var(--foreground) / 0) var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n}\n.from-green-50 {\n  --tw-gradient-from: #f0fdf4 var(--tw-gradient-from-position);\n  --tw-gradient-to: rgb(240 253 244 / 0) var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n}\n.from-green-500 {\n  --tw-gradient-from: #22c55e var(--tw-gradient-from-position);\n  --tw-gradient-to: rgb(34 197 94 / 0) var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n}\n.from-muted\\/40 {\n  --tw-gradient-from: hsl(var(--muted) / 0.4) var(--tw-gradient-from-position);\n  --tw-gradient-to: hsl(var(--muted) / 0) var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n}\n.from-primary {\n  --tw-gradient-from: hsl(var(--primary)) var(--tw-gradient-from-position);\n  --tw-gradient-to: hsl(var(--primary) / 0) var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n}\n.from-primary\\/10 {\n  --tw-gradient-from: hsl(var(--primary) / 0.1) var(--tw-gradient-from-position);\n  --tw-gradient-to: hsl(var(--primary) / 0) var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n}\n.from-purple-500 {\n  --tw-gradient-from: #a855f7 var(--tw-gradient-from-position);\n  --tw-gradient-to: rgb(168 85 247 / 0) var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n}\n.from-red-50 {\n  --tw-gradient-from: #fef2f2 var(--tw-gradient-from-position);\n  --tw-gradient-to: rgb(254 242 242 / 0) var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n}\n.from-red-500 {\n  --tw-gradient-from: #ef4444 var(--tw-gradient-from-position);\n  --tw-gradient-to: rgb(239 68 68 / 0) var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n}\n.from-transparent {\n  --tw-gradient-from: transparent var(--tw-gradient-from-position);\n  --tw-gradient-to: rgb(0 0 0 / 0) var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n}\n.via-muted\\/20 {\n  --tw-gradient-to: hsl(var(--muted) / 0)  var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), hsl(var(--muted) / 0.2) var(--tw-gradient-via-position), var(--tw-gradient-to);\n}\n.via-muted\\/30 {\n  --tw-gradient-to: hsl(var(--muted) / 0)  var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), hsl(var(--muted) / 0.3) var(--tw-gradient-via-position), var(--tw-gradient-to);\n}\n.via-primary {\n  --tw-gradient-to: hsl(var(--primary) / 0)  var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), hsl(var(--primary)) var(--tw-gradient-via-position), var(--tw-gradient-to);\n}\n.via-white\\/20 {\n  --tw-gradient-to: rgb(255 255 255 / 0)  var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), rgb(255 255 255 / 0.2) var(--tw-gradient-via-position), var(--tw-gradient-to);\n}\n.via-yellow-500 {\n  --tw-gradient-to: rgb(234 179 8 / 0)  var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), #eab308 var(--tw-gradient-via-position), var(--tw-gradient-to);\n}\n.to-background {\n  --tw-gradient-to: hsl(var(--background)) var(--tw-gradient-to-position);\n}\n.to-foreground {\n  --tw-gradient-to: hsl(var(--foreground)) var(--tw-gradient-to-position);\n}\n.to-foreground\\/80 {\n  --tw-gradient-to: hsl(var(--foreground) / 0.8) var(--tw-gradient-to-position);\n}\n.to-green-100\\/50 {\n  --tw-gradient-to: rgb(220 252 231 / 0.5) var(--tw-gradient-to-position);\n}\n.to-green-500 {\n  --tw-gradient-to: #22c55e var(--tw-gradient-to-position);\n}\n.to-indigo-100 {\n  --tw-gradient-to: #e0e7ff var(--tw-gradient-to-position);\n}\n.to-muted\\/20 {\n  --tw-gradient-to: hsl(var(--muted) / 0.2) var(--tw-gradient-to-position);\n}\n.to-muted\\/30 {\n  --tw-gradient-to: hsl(var(--muted) / 0.3) var(--tw-gradient-to-position);\n}\n.to-pink-600 {\n  --tw-gradient-to: #db2777 var(--tw-gradient-to-position);\n}\n.to-primary\\/5 {\n  --tw-gradient-to: hsl(var(--primary) / 0.05) var(--tw-gradient-to-position);\n}\n.to-primary\\/80 {\n  --tw-gradient-to: hsl(var(--primary) / 0.8) var(--tw-gradient-to-position);\n}\n.to-primary\\/90 {\n  --tw-gradient-to: hsl(var(--primary) / 0.9) var(--tw-gradient-to-position);\n}\n.to-purple-50 {\n  --tw-gradient-to: #faf5ff var(--tw-gradient-to-position);\n}\n.to-purple-600 {\n  --tw-gradient-to: #9333ea var(--tw-gradient-to-position);\n}\n.to-red-100\\/50 {\n  --tw-gradient-to: rgb(254 226 226 / 0.5) var(--tw-gradient-to-position);\n}\n.to-teal-600 {\n  --tw-gradient-to: #0d9488 var(--tw-gradient-to-position);\n}\n.to-transparent {\n  --tw-gradient-to: transparent var(--tw-gradient-to-position);\n}\n.bg-clip-text {\n  -webkit-background-clip: text;\n          background-clip: text;\n}\n.p-1 {\n  padding: 0.25rem;\n}\n.p-2 {\n  padding: 0.5rem;\n}\n.p-2\\.5 {\n  padding: 0.625rem;\n}\n.p-3 {\n  padding: 0.75rem;\n}\n.p-4 {\n  padding: 1rem;\n}\n.p-5 {\n  padding: 1.25rem;\n}\n.p-6 {\n  padding: 1.5rem;\n}\n.p-8 {\n  padding: 2rem;\n}\n.px-10 {\n  padding-left: 2.5rem;\n  padding-right: 2.5rem;\n}\n.px-2 {\n  padding-left: 0.5rem;\n  padding-right: 0.5rem;\n}\n.px-3 {\n  padding-left: 0.75rem;\n  padding-right: 0.75rem;\n}\n.px-4 {\n  padding-left: 1rem;\n  padding-right: 1rem;\n}\n.px-6 {\n  padding-left: 1.5rem;\n  padding-right: 1.5rem;\n}\n.px-8 {\n  padding-left: 2rem;\n  padding-right: 2rem;\n}\n.py-0\\.5 {\n  padding-top: 0.125rem;\n  padding-bottom: 0.125rem;\n}\n.py-1 {\n  padding-top: 0.25rem;\n  padding-bottom: 0.25rem;\n}\n.py-1\\.5 {\n  padding-top: 0.375rem;\n  padding-bottom: 0.375rem;\n}\n.py-16 {\n  padding-top: 4rem;\n  padding-bottom: 4rem;\n}\n.py-2 {\n  padding-top: 0.5rem;\n  padding-bottom: 0.5rem;\n}\n.py-24 {\n  padding-top: 6rem;\n  padding-bottom: 6rem;\n}\n.py-3 {\n  padding-top: 0.75rem;\n  padding-bottom: 0.75rem;\n}\n.py-4 {\n  padding-top: 1rem;\n  padding-bottom: 1rem;\n}\n.py-6 {\n  padding-top: 1.5rem;\n  padding-bottom: 1.5rem;\n}\n.py-8 {\n  padding-top: 2rem;\n  padding-bottom: 2rem;\n}\n.pb-2 {\n  padding-bottom: 0.5rem;\n}\n.pb-20 {\n  padding-bottom: 5rem;\n}\n.pb-3 {\n  padding-bottom: 0.75rem;\n}\n.pb-4 {\n  padding-bottom: 1rem;\n}\n.pl-10 {\n  padding-left: 2.5rem;\n}\n.pr-4 {\n  padding-right: 1rem;\n}\n.pt-0 {\n  padding-top: 0px;\n}\n.pt-2 {\n  padding-top: 0.5rem;\n}\n.pt-4 {\n  padding-top: 1rem;\n}\n.pt-6 {\n  padding-top: 1.5rem;\n}\n.text-left {\n  text-align: left;\n}\n.text-center {\n  text-align: center;\n}\n.text-right {\n  text-align: right;\n}\n.font-mono {\n  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace;\n}\n.text-2xl {\n  font-size: 1.5rem;\n  line-height: 2rem;\n}\n.text-3xl {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n}\n.text-4xl {\n  font-size: 2.25rem;\n  line-height: 2.5rem;\n}\n.text-5xl {\n  font-size: 3rem;\n  line-height: 1;\n}\n.text-6xl {\n  font-size: 3.75rem;\n  line-height: 1;\n}\n.text-base {\n  font-size: 1rem;\n  line-height: 1.5rem;\n}\n.text-lg {\n  font-size: 1.125rem;\n  line-height: 1.75rem;\n}\n.text-sm {\n  font-size: 0.875rem;\n  line-height: 1.25rem;\n}\n.text-xl {\n  font-size: 1.25rem;\n  line-height: 1.75rem;\n}\n.text-xs {\n  font-size: 0.75rem;\n  line-height: 1rem;\n}\n.font-bold {\n  font-weight: 700;\n}\n.font-medium {\n  font-weight: 500;\n}\n.font-semibold {\n  font-weight: 600;\n}\n.capitalize {\n  text-transform: capitalize;\n}\n.italic {\n  font-style: italic;\n}\n.leading-none {\n  line-height: 1;\n}\n.leading-relaxed {\n  line-height: 1.625;\n}\n.tracking-tight {\n  letter-spacing: -0.025em;\n}\n.text-blue-500 {\n  --tw-text-opacity: 1;\n  color: rgb(59 130 246 / var(--tw-text-opacity, 1));\n}\n.text-blue-600 {\n  --tw-text-opacity: 1;\n  color: rgb(37 99 235 / var(--tw-text-opacity, 1));\n}\n.text-blue-900 {\n  --tw-text-opacity: 1;\n  color: rgb(30 58 138 / var(--tw-text-opacity, 1));\n}\n.text-card-foreground {\n  color: hsl(var(--card-foreground));\n}\n.text-destructive {\n  color: hsl(var(--destructive));\n}\n.text-destructive-foreground {\n  color: hsl(var(--destructive-foreground));\n}\n.text-foreground {\n  color: hsl(var(--foreground));\n}\n.text-gray-400 {\n  --tw-text-opacity: 1;\n  color: rgb(156 163 175 / var(--tw-text-opacity, 1));\n}\n.text-gray-500 {\n  --tw-text-opacity: 1;\n  color: rgb(107 114 128 / var(--tw-text-opacity, 1));\n}\n.text-gray-600 {\n  --tw-text-opacity: 1;\n  color: rgb(75 85 99 / var(--tw-text-opacity, 1));\n}\n.text-gray-700 {\n  --tw-text-opacity: 1;\n  color: rgb(55 65 81 / var(--tw-text-opacity, 1));\n}\n.text-gray-800 {\n  --tw-text-opacity: 1;\n  color: rgb(31 41 55 / var(--tw-text-opacity, 1));\n}\n.text-gray-900 {\n  --tw-text-opacity: 1;\n  color: rgb(17 24 39 / var(--tw-text-opacity, 1));\n}\n.text-green-500 {\n  --tw-text-opacity: 1;\n  color: rgb(34 197 94 / var(--tw-text-opacity, 1));\n}\n.text-green-600 {\n  --tw-text-opacity: 1;\n  color: rgb(22 163 74 / var(--tw-text-opacity, 1));\n}\n.text-green-800 {\n  --tw-text-opacity: 1;\n  color: rgb(22 101 52 / var(--tw-text-opacity, 1));\n}\n.text-green-900 {\n  --tw-text-opacity: 1;\n  color: rgb(20 83 45 / var(--tw-text-opacity, 1));\n}\n.text-muted-foreground {\n  color: hsl(var(--muted-foreground));\n}\n.text-orange-500 {\n  --tw-text-opacity: 1;\n  color: rgb(249 115 22 / var(--tw-text-opacity, 1));\n}\n.text-orange-600 {\n  --tw-text-opacity: 1;\n  color: rgb(234 88 12 / var(--tw-text-opacity, 1));\n}\n.text-orange-900 {\n  --tw-text-opacity: 1;\n  color: rgb(124 45 18 / var(--tw-text-opacity, 1));\n}\n.text-primary {\n  color: hsl(var(--primary));\n}\n.text-primary-foreground {\n  color: hsl(var(--primary-foreground));\n}\n.text-purple-500 {\n  --tw-text-opacity: 1;\n  color: rgb(168 85 247 / var(--tw-text-opacity, 1));\n}\n.text-purple-600 {\n  --tw-text-opacity: 1;\n  color: rgb(147 51 234 / var(--tw-text-opacity, 1));\n}\n.text-red-400 {\n  --tw-text-opacity: 1;\n  color: rgb(248 113 113 / var(--tw-text-opacity, 1));\n}\n.text-red-500 {\n  --tw-text-opacity: 1;\n  color: rgb(239 68 68 / var(--tw-text-opacity, 1));\n}\n.text-red-600 {\n  --tw-text-opacity: 1;\n  color: rgb(220 38 38 / var(--tw-text-opacity, 1));\n}\n.text-red-700 {\n  --tw-text-opacity: 1;\n  color: rgb(185 28 28 / var(--tw-text-opacity, 1));\n}\n.text-red-800 {\n  --tw-text-opacity: 1;\n  color: rgb(153 27 27 / var(--tw-text-opacity, 1));\n}\n.text-red-900 {\n  --tw-text-opacity: 1;\n  color: rgb(127 29 29 / var(--tw-text-opacity, 1));\n}\n.text-secondary-foreground {\n  color: hsl(var(--secondary-foreground));\n}\n.text-transparent {\n  color: transparent;\n}\n.text-white {\n  --tw-text-opacity: 1;\n  color: rgb(255 255 255 / var(--tw-text-opacity, 1));\n}\n.text-white\\/80 {\n  color: rgb(255 255 255 / 0.8);\n}\n.text-yellow-500 {\n  --tw-text-opacity: 1;\n  color: rgb(234 179 8 / var(--tw-text-opacity, 1));\n}\n.text-yellow-600 {\n  --tw-text-opacity: 1;\n  color: rgb(202 138 4 / var(--tw-text-opacity, 1));\n}\n.text-yellow-800 {\n  --tw-text-opacity: 1;\n  color: rgb(133 77 14 / var(--tw-text-opacity, 1));\n}\n.text-yellow-900 {\n  --tw-text-opacity: 1;\n  color: rgb(113 63 18 / var(--tw-text-opacity, 1));\n}\n.underline {\n  text-decoration-line: underline;\n}\n.underline-offset-4 {\n  text-underline-offset: 4px;\n}\n.opacity-25 {\n  opacity: 0.25;\n}\n.opacity-60 {\n  opacity: 0.6;\n}\n.opacity-75 {\n  opacity: 0.75;\n}\n.shadow-inner {\n  --tw-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);\n  --tw-shadow-colored: inset 0 2px 4px 0 var(--tw-shadow-color);\n  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);\n}\n.shadow-lg {\n  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);\n  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);\n  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);\n}\n.shadow-sm {\n  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);\n  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);\n  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);\n}\n.shadow-xl {\n  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);\n  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);\n  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);\n}\n.shadow-green-200\\/50 {\n  --tw-shadow-color: rgb(187 247 208 / 0.5);\n  --tw-shadow: var(--tw-shadow-colored);\n}\n.shadow-primary\\/20 {\n  --tw-shadow-color: hsl(var(--primary) / 0.2);\n  --tw-shadow: var(--tw-shadow-colored);\n}\n.shadow-red-200\\/50 {\n  --tw-shadow-color: rgb(254 202 202 / 0.5);\n  --tw-shadow: var(--tw-shadow-colored);\n}\n.outline {\n  outline-style: solid;\n}\n.ring-offset-background {\n  --tw-ring-offset-color: hsl(var(--background));\n}\n.filter {\n  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);\n}\n.backdrop-blur-md {\n  --tw-backdrop-blur: blur(12px);\n  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);\n  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);\n}\n.transition-all {\n  transition-property: all;\n  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n  transition-duration: 150ms;\n}\n.transition-colors {\n  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;\n  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n  transition-duration: 150ms;\n}\n.transition-transform {\n  transition-property: transform;\n  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n  transition-duration: 150ms;\n}\n.duration-1000 {\n  transition-duration: 1000ms;\n}\n.duration-200 {\n  transition-duration: 200ms;\n}\n.duration-300 {\n  transition-duration: 300ms;\n}\n.duration-500 {\n  transition-duration: 500ms;\n}\n.ease-out {\n  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);\n}\n\n.hover\\:shadow-custom-md:hover {\n    box-shadow: var(--shadow-md);\n  }\n\n.hover\\:shadow-custom-lg:hover {\n    box-shadow: var(--shadow-lg);\n  }\n\n.group:hover .group-hover\\:shadow-custom-md {\n    box-shadow: var(--shadow-md);\n  }\n\n.file\\:border-0::file-selector-button {\n  border-width: 0px;\n}\n\n.file\\:bg-transparent::file-selector-button {\n  background-color: transparent;\n}\n\n.file\\:text-sm::file-selector-button {\n  font-size: 0.875rem;\n  line-height: 1.25rem;\n}\n\n.file\\:font-medium::file-selector-button {\n  font-weight: 500;\n}\n\n.placeholder\\:text-muted-foreground::-moz-placeholder {\n  color: hsl(var(--muted-foreground));\n}\n\n.placeholder\\:text-muted-foreground::placeholder {\n  color: hsl(var(--muted-foreground));\n}\n\n.hover\\:-translate-y-1:hover {\n  --tw-translate-y: -0.25rem;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n\n.hover\\:scale-105:hover {\n  --tw-scale-x: 1.05;\n  --tw-scale-y: 1.05;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n\n.hover\\:scale-110:hover {\n  --tw-scale-x: 1.1;\n  --tw-scale-y: 1.1;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n\n.hover\\:scale-\\[1\\.01\\]:hover {\n  --tw-scale-x: 1.01;\n  --tw-scale-y: 1.01;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n\n.hover\\:scale-\\[1\\.02\\]:hover {\n  --tw-scale-x: 1.02;\n  --tw-scale-y: 1.02;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n\n.hover\\:border-blue-200:hover {\n  --tw-border-opacity: 1;\n  border-color: rgb(191 219 254 / var(--tw-border-opacity, 1));\n}\n\n.hover\\:border-blue-300:hover {\n  --tw-border-opacity: 1;\n  border-color: rgb(147 197 253 / var(--tw-border-opacity, 1));\n}\n\n.hover\\:border-green-200:hover {\n  --tw-border-opacity: 1;\n  border-color: rgb(187 247 208 / var(--tw-border-opacity, 1));\n}\n\n.hover\\:border-orange-200:hover {\n  --tw-border-opacity: 1;\n  border-color: rgb(254 215 170 / var(--tw-border-opacity, 1));\n}\n\n.hover\\:border-primary:hover {\n  border-color: hsl(var(--primary));\n}\n\n.hover\\:border-primary\\/50:hover {\n  border-color: hsl(var(--primary) / 0.5);\n}\n\n.hover\\:border-purple-200:hover {\n  --tw-border-opacity: 1;\n  border-color: rgb(233 213 255 / var(--tw-border-opacity, 1));\n}\n\n.hover\\:border-red-200:hover {\n  --tw-border-opacity: 1;\n  border-color: rgb(254 202 202 / var(--tw-border-opacity, 1));\n}\n\n.hover\\:bg-accent:hover {\n  background-color: hsl(var(--accent));\n}\n\n.hover\\:bg-blue-50:hover {\n  --tw-bg-opacity: 1;\n  background-color: rgb(239 246 255 / var(--tw-bg-opacity, 1));\n}\n\n.hover\\:bg-blue-50\\/50:hover {\n  background-color: rgb(239 246 255 / 0.5);\n}\n\n.hover\\:bg-blue-700:hover {\n  --tw-bg-opacity: 1;\n  background-color: rgb(29 78 216 / var(--tw-bg-opacity, 1));\n}\n\n.hover\\:bg-destructive\\/90:hover {\n  background-color: hsl(var(--destructive) / 0.9);\n}\n\n.hover\\:bg-gray-200:hover {\n  --tw-bg-opacity: 1;\n  background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));\n}\n\n.hover\\:bg-gray-300:hover {\n  --tw-bg-opacity: 1;\n  background-color: rgb(209 213 219 / var(--tw-bg-opacity, 1));\n}\n\n.hover\\:bg-gray-700:hover {\n  --tw-bg-opacity: 1;\n  background-color: rgb(55 65 81 / var(--tw-bg-opacity, 1));\n}\n\n.hover\\:bg-green-50\\/50:hover {\n  background-color: rgb(240 253 244 / 0.5);\n}\n\n.hover\\:bg-green-700:hover {\n  --tw-bg-opacity: 1;\n  background-color: rgb(21 128 61 / var(--tw-bg-opacity, 1));\n}\n\n.hover\\:bg-muted:hover {\n  background-color: hsl(var(--muted));\n}\n\n.hover\\:bg-muted\\/50:hover {\n  background-color: hsl(var(--muted) / 0.5);\n}\n\n.hover\\:bg-orange-50\\/50:hover {\n  background-color: rgb(255 247 237 / 0.5);\n}\n\n.hover\\:bg-primary\\/10:hover {\n  background-color: hsl(var(--primary) / 0.1);\n}\n\n.hover\\:bg-primary\\/90:hover {\n  background-color: hsl(var(--primary) / 0.9);\n}\n\n.hover\\:bg-purple-50\\/50:hover {\n  background-color: rgb(250 245 255 / 0.5);\n}\n\n.hover\\:bg-red-50\\/50:hover {\n  background-color: rgb(254 242 242 / 0.5);\n}\n\n.hover\\:bg-red-600:hover {\n  --tw-bg-opacity: 1;\n  background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));\n}\n\n.hover\\:bg-secondary\\/80:hover {\n  background-color: hsl(var(--secondary) / 0.8);\n}\n\n.hover\\:bg-yellow-700:hover {\n  --tw-bg-opacity: 1;\n  background-color: rgb(161 98 7 / var(--tw-bg-opacity, 1));\n}\n\n.hover\\:bg-gradient-to-r:hover {\n  background-image: linear-gradient(to right, var(--tw-gradient-stops));\n}\n\n.hover\\:from-primary\\/5:hover {\n  --tw-gradient-from: hsl(var(--primary) / 0.05) var(--tw-gradient-from-position);\n  --tw-gradient-to: hsl(var(--primary) / 0) var(--tw-gradient-to-position);\n  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);\n}\n\n.hover\\:text-accent-foreground:hover {\n  color: hsl(var(--accent-foreground));\n}\n\n.hover\\:text-destructive:hover {\n  color: hsl(var(--destructive));\n}\n\n.hover\\:text-foreground:hover {\n  color: hsl(var(--foreground));\n}\n\n.hover\\:text-gray-700:hover {\n  --tw-text-opacity: 1;\n  color: rgb(55 65 81 / var(--tw-text-opacity, 1));\n}\n\n.hover\\:text-primary\\/80:hover {\n  color: hsl(var(--primary) / 0.8);\n}\n\n.hover\\:underline:hover {\n  text-decoration-line: underline;\n}\n\n.hover\\:opacity-90:hover {\n  opacity: 0.9;\n}\n\n.hover\\:shadow-md:hover {\n  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);\n  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);\n  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);\n}\n\n.focus\\:border-primary:focus {\n  border-color: hsl(var(--primary));\n}\n\n.focus\\:outline-none:focus {\n  outline: 2px solid transparent;\n  outline-offset: 2px;\n}\n\n.focus\\:ring-2:focus {\n  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);\n  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);\n  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);\n}\n\n.focus\\:ring-blue-500:focus {\n  --tw-ring-opacity: 1;\n  --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity, 1));\n}\n\n.focus\\:ring-gray-500:focus {\n  --tw-ring-opacity: 1;\n  --tw-ring-color: rgb(107 114 128 / var(--tw-ring-opacity, 1));\n}\n\n.focus\\:ring-primary:focus {\n  --tw-ring-color: hsl(var(--primary));\n}\n\n.focus\\:ring-primary\\/20:focus {\n  --tw-ring-color: hsl(var(--primary) / 0.2);\n}\n\n.focus-visible\\:outline-none:focus-visible {\n  outline: 2px solid transparent;\n  outline-offset: 2px;\n}\n\n.focus-visible\\:ring-2:focus-visible {\n  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);\n  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);\n  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);\n}\n\n.focus-visible\\:ring-ring:focus-visible {\n  --tw-ring-color: hsl(var(--ring));\n}\n\n.focus-visible\\:ring-offset-2:focus-visible {\n  --tw-ring-offset-width: 2px;\n}\n\n.active\\:scale-95:active {\n  --tw-scale-x: .95;\n  --tw-scale-y: .95;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n\n.disabled\\:pointer-events-none:disabled {\n  pointer-events: none;\n}\n\n.disabled\\:cursor-not-allowed:disabled {\n  cursor: not-allowed;\n}\n\n.disabled\\:opacity-50:disabled {\n  opacity: 0.5;\n}\n\n.disabled\\:hover\\:scale-100:hover:disabled {\n  --tw-scale-x: 1;\n  --tw-scale-y: 1;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n\n.group:hover .group-hover\\:rotate-3 {\n  --tw-rotate: 3deg;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n\n.group:hover .group-hover\\:scale-105 {\n  --tw-scale-x: 1.05;\n  --tw-scale-y: 1.05;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n\n.group:hover .group-hover\\:scale-110 {\n  --tw-scale-x: 1.1;\n  --tw-scale-y: 1.1;\n  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n}\n\n.group:hover .group-hover\\:bg-primary\\/20 {\n  background-color: hsl(var(--primary) / 0.2);\n}\n\n.group:hover .group-hover\\:text-foreground {\n  color: hsl(var(--foreground));\n}\n\n.group:hover .group-hover\\:text-foreground\\/80 {\n  color: hsl(var(--foreground) / 0.8);\n}\n\n.group:hover .group-hover\\:text-primary {\n  color: hsl(var(--primary));\n}\n\n.dark\\:bg-blue-900\\/20:is(.dark *) {\n  background-color: rgb(30 58 138 / 0.2);\n}\n\n.dark\\:bg-green-900\\/20:is(.dark *) {\n  background-color: rgb(20 83 45 / 0.2);\n}\n\n.dark\\:bg-orange-900\\/20:is(.dark *) {\n  background-color: rgb(124 45 18 / 0.2);\n}\n\n.dark\\:bg-purple-900\\/20:is(.dark *) {\n  background-color: rgb(88 28 135 / 0.2);\n}\n\n.dark\\:bg-red-900\\/20:is(.dark *) {\n  background-color: rgb(127 29 29 / 0.2);\n}\n\n.dark\\:text-blue-400:is(.dark *) {\n  --tw-text-opacity: 1;\n  color: rgb(96 165 250 / var(--tw-text-opacity, 1));\n}\n\n.dark\\:text-green-400:is(.dark *) {\n  --tw-text-opacity: 1;\n  color: rgb(74 222 128 / var(--tw-text-opacity, 1));\n}\n\n.dark\\:text-orange-400:is(.dark *) {\n  --tw-text-opacity: 1;\n  color: rgb(251 146 60 / var(--tw-text-opacity, 1));\n}\n\n.dark\\:text-purple-400:is(.dark *) {\n  --tw-text-opacity: 1;\n  color: rgb(192 132 252 / var(--tw-text-opacity, 1));\n}\n\n.dark\\:text-red-400:is(.dark *) {\n  --tw-text-opacity: 1;\n  color: rgb(248 113 113 / var(--tw-text-opacity, 1));\n}\n\n.dark\\:hover\\:border-blue-800:hover:is(.dark *) {\n  --tw-border-opacity: 1;\n  border-color: rgb(30 64 175 / var(--tw-border-opacity, 1));\n}\n\n.dark\\:hover\\:border-green-800:hover:is(.dark *) {\n  --tw-border-opacity: 1;\n  border-color: rgb(22 101 52 / var(--tw-border-opacity, 1));\n}\n\n.dark\\:hover\\:border-orange-800:hover:is(.dark *) {\n  --tw-border-opacity: 1;\n  border-color: rgb(154 52 18 / var(--tw-border-opacity, 1));\n}\n\n.dark\\:hover\\:border-purple-800:hover:is(.dark *) {\n  --tw-border-opacity: 1;\n  border-color: rgb(107 33 168 / var(--tw-border-opacity, 1));\n}\n\n.dark\\:hover\\:border-red-800:hover:is(.dark *) {\n  --tw-border-opacity: 1;\n  border-color: rgb(153 27 27 / var(--tw-border-opacity, 1));\n}\n\n.dark\\:hover\\:bg-blue-950\\/50:hover:is(.dark *) {\n  background-color: rgb(23 37 84 / 0.5);\n}\n\n.dark\\:hover\\:bg-green-950\\/50:hover:is(.dark *) {\n  background-color: rgb(5 46 22 / 0.5);\n}\n\n.dark\\:hover\\:bg-orange-950\\/50:hover:is(.dark *) {\n  background-color: rgb(67 20 7 / 0.5);\n}\n\n.dark\\:hover\\:bg-purple-950\\/50:hover:is(.dark *) {\n  background-color: rgb(59 7 100 / 0.5);\n}\n\n.dark\\:hover\\:bg-red-950\\/50:hover:is(.dark *) {\n  background-color: rgb(69 10 10 / 0.5);\n}\n\n@media (min-width: 640px) {\n\n  .sm\\:flex-row {\n    flex-direction: row;\n  }\n\n  .sm\\:px-6 {\n    padding-left: 1.5rem;\n    padding-right: 1.5rem;\n  }\n\n  .sm\\:text-5xl {\n    font-size: 3rem;\n    line-height: 1;\n  }\n\n  .sm\\:text-6xl {\n    font-size: 3.75rem;\n    line-height: 1;\n  }\n}\n\n@media (min-width: 768px) {\n\n  .md\\:mb-0 {\n    margin-bottom: 0px;\n  }\n\n  .md\\:block {\n    display: block;\n  }\n\n  .md\\:grid-cols-2 {\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n  }\n\n  .md\\:grid-cols-3 {\n    grid-template-columns: repeat(3, minmax(0, 1fr));\n  }\n\n  .md\\:grid-cols-4 {\n    grid-template-columns: repeat(4, minmax(0, 1fr));\n  }\n\n  .md\\:grid-cols-8 {\n    grid-template-columns: repeat(8, minmax(0, 1fr));\n  }\n\n  .md\\:flex-row {\n    flex-direction: row;\n  }\n}\n\n@media (min-width: 1024px) {\n\n  .lg\\:static {\n    position: static;\n  }\n\n  .lg\\:z-0 {\n    z-index: 0;\n  }\n\n  .lg\\:col-span-2 {\n    grid-column: span 2 / span 2;\n  }\n\n  .lg\\:hidden {\n    display: none;\n  }\n\n  .lg\\:translate-x-0 {\n    --tw-translate-x: 0px;\n    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));\n  }\n\n  .lg\\:grid-cols-2 {\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n  }\n\n  .lg\\:grid-cols-3 {\n    grid-template-columns: repeat(3, minmax(0, 1fr));\n  }\n\n  .lg\\:grid-cols-4 {\n    grid-template-columns: repeat(4, minmax(0, 1fr));\n  }\n\n  .lg\\:px-8 {\n    padding-left: 2rem;\n    padding-right: 2rem;\n  }\n\n  .lg\\:text-6xl {\n    font-size: 3.75rem;\n    line-height: 1;\n  }\n\n  .lg\\:text-7xl {\n    font-size: 4.5rem;\n    line-height: 1;\n  }\n}</style></head>\n  <body>\n    <div id=\"root\"><div class=\"min-h-screen bg-background\"><div class=\"flex h-screen overflow-hidden\"><div class=\"fixed inset-0 bg-black/50 z-40 lg:hidden\"></div><aside class=\"fixed inset-y-0 left-0 z-50 w-64 bg-card border-r transition-transform duration-300 lg:translate-x-0 lg:static lg:z-0 translate-x-0\"><div class=\"flex flex-col h-full\"><div class=\"flex items-center justify-between px-4 py-4 border-b\"><div class=\"flex items-center gap-2\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-stethoscope h-8 w-8 text-primary\" aria-hidden=\"true\"><path d=\"M11 2v2\"></path><path d=\"M5 2v2\"></path><path d=\"M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1\"></path><path d=\"M8 15a6 6 0 0 0 12 0v-3\"></path><circle cx=\"20\" cy=\"10\" r=\"2\"></circle></svg><div><h2 class=\"text-lg font-semibold\">MedQuiz Pro</h2><p class=\"text-xs text-muted-foreground\">Medical Excellence</p></div></div><button class=\"lg:hidden p-1 rounded-md hover:bg-accent\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-x h-5 w-5\" aria-hidden=\"true\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg></button></div><nav class=\"flex-1 overflow-y-auto py-4\"><ul class=\"space-y-1 px-2\"><li><a class=\"flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground\" href=\"/dashboard\" data-discover=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-layout-dashboard h-4 w-4\" aria-hidden=\"true\"><rect width=\"7\" height=\"9\" x=\"3\" y=\"3\" rx=\"1\"></rect><rect width=\"7\" height=\"5\" x=\"14\" y=\"3\" rx=\"1\"></rect><rect width=\"7\" height=\"9\" x=\"14\" y=\"12\" rx=\"1\"></rect><rect width=\"7\" height=\"5\" x=\"3\" y=\"16\" rx=\"1\"></rect></svg><span class=\"flex-1\">Dashboard</span></a></li><li><div data-state=\"open\"><button class=\"flex items-center gap-3 w-full px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-primary\" type=\"button\" aria-controls=\"radix-«r0»\" aria-expanded=\"true\" data-state=\"open\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-brain h-4 w-4\" aria-hidden=\"true\"><path d=\"M12 18V5\"></path><path d=\"M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4\"></path><path d=\"M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5\"></path><path d=\"M17.997 5.125a4 4 0 0 1 2.526 5.77\"></path><path d=\"M18 18a4 4 0 0 0 2-7.464\"></path><path d=\"M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517\"></path><path d=\"M6 18a4 4 0 0 1-2-7.464\"></path><path d=\"M6.003 5.125a4 4 0 0 0-2.526 5.77\"></path></svg><span class=\"flex-1 text-left\">Quiz</span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-chevron-down h-4 w-4\" aria-hidden=\"true\"><path d=\"m6 9 6 6 6-6\"></path></svg></button><div data-state=\"open\" id=\"radix-«r0»\" class=\"mt-1 ml-7 space-y-1\" style=\"transition-duration: 0s; animation-name: none; --radix-collapsible-content-height: 116px; --radix-collapsible-content-width: 211px;\"><a class=\"flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors hover:bg-accent hover:text-accent-foreground bg-primary/10 text-primary\" href=\"/quiz/quick\" data-discover=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-zap h-4 w-4\" aria-hidden=\"true\"><path d=\"M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z\"></path></svg><span>Quick Quiz</span></a><a class=\"flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors hover:bg-accent hover:text-accent-foreground\" href=\"/quiz/timed\" data-discover=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-clock h-4 w-4\" aria-hidden=\"true\"><path d=\"M12 6v6l4 2\"></path><circle cx=\"12\" cy=\"12\" r=\"10\"></circle></svg><span>Timed Quiz</span></a><a class=\"flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors hover:bg-accent hover:text-accent-foreground\" href=\"/quiz/custom\" data-discover=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-settings h-4 w-4\" aria-hidden=\"true\"><path d=\"M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915\"></path><circle cx=\"12\" cy=\"12\" r=\"3\"></circle></svg><span>Custom Quiz</span></a></div></div></li><li><a class=\"flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground\" href=\"/progress\" data-discover=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-trending-up h-4 w-4\" aria-hidden=\"true\"><path d=\"M16 7h6v6\"></path><path d=\"m22 7-8.5 8.5-5-5L2 17\"></path></svg><span class=\"flex-1\">My Progress</span><span class=\"px-2 py-0.5 text-xs rounded-full bg-primary text-primary-foreground\">NEW</span></a></li><li><a class=\"flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground\" href=\"/review\" data-discover=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-circle-alert h-4 w-4\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"12\" x2=\"12\" y1=\"8\" y2=\"12\"></line><line x1=\"12\" x2=\"12.01\" y1=\"16\" y2=\"16\"></line></svg><span class=\"flex-1\">Review</span><span class=\"px-2 py-0.5 text-xs rounded-full bg-destructive text-destructive-foreground\">24</span></a></li><li><a class=\"flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground\" href=\"/leaderboard\" data-discover=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-trophy h-4 w-4\" aria-hidden=\"true\"><path d=\"M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978\"></path><path d=\"M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978\"></path><path d=\"M18 9h1.5a1 1 0 0 0 0-5H18\"></path><path d=\"M4 22h16\"></path><path d=\"M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z\"></path><path d=\"M6 9H4.5a1 1 0 0 1 0-5H6\"></path></svg><span class=\"flex-1\">Leaderboard</span></a></li><li><a class=\"flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground\" href=\"/analytics\" data-discover=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-chart-column h-4 w-4\" aria-hidden=\"true\"><path d=\"M3 3v16a2 2 0 0 0 2 2h16\"></path><path d=\"M18 17V9\"></path><path d=\"M13 17V5\"></path><path d=\"M8 17v-3\"></path></svg><span class=\"flex-1\">Analytics</span></a></li><li><a class=\"flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground\" href=\"/social\" data-discover=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-users h-4 w-4\" aria-hidden=\"true\"><path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\"></path><path d=\"M16 3.128a4 4 0 0 1 0 7.744\"></path><path d=\"M22 21v-2a4 4 0 0 0-3-3.87\"></path><circle cx=\"9\" cy=\"7\" r=\"4\"></circle></svg><span class=\"flex-1\">Social</span></a></li><li><a class=\"flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground\" href=\"/profile\" data-discover=\"true\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-circle-user h-4 w-4\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\"></circle><circle cx=\"12\" cy=\"10\" r=\"3\"></circle><path d=\"M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662\"></path></svg><span class=\"flex-1\">Profile</span></a></li></ul></nav><div class=\"border-t p-4\"><div class=\"flex items-center gap-3\"><div class=\"w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-user h-5 w-5 text-primary\" aria-hidden=\"true\"><path d=\"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2\"></path><circle cx=\"12\" cy=\"7\" r=\"4\"></circle></svg></div><div class=\"flex-1 min-w-0\"><p class=\"text-sm font-medium truncate\">Jay veedz</p><p class=\"text-xs text-muted-foreground truncate\">jayveedz19@gmail.com</p></div><button class=\"p-2 rounded-md hover:bg-accent\" title=\"Logout\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-log-out h-4 w-4\" aria-hidden=\"true\"><path d=\"m16 17 5-5-5-5\"></path><path d=\"M21 12H9\"></path><path d=\"M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4\"></path></svg></button></div></div></div></aside><div class=\"flex-1 flex flex-col overflow-hidden\"><header class=\"h-16 border-b bg-background px-4 flex items-center justify-between\"><div class=\"flex items-center gap-4\"><button class=\"lg:hidden p-2 rounded-md hover:bg-accent\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-menu h-5 w-5\" aria-hidden=\"true\"><path d=\"M4 12h16\"></path><path d=\"M4 18h16\"></path><path d=\"M4 6h16\"></path></svg></button><div class=\"relative\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-search absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground\" aria-hidden=\"true\"><path d=\"m21 21-4.34-4.34\"></path><circle cx=\"11\" cy=\"11\" r=\"8\"></circle></svg><input placeholder=\"Search questions, topics...\" class=\"pl-10 pr-4 py-2 w-64 rounded-md border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary\" type=\"search\" style=\"\"></div></div><div class=\"flex items-center gap-4\"><button class=\"relative p-2 rounded-md hover:bg-accent\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-bell h-5 w-5\" aria-hidden=\"true\"><path d=\"M10.268 21a2 2 0 0 0 3.464 0\"></path><path d=\"M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326\"></path></svg><span class=\"absolute top-0 right-0 h-2 w-2 bg-destructive rounded-full\"></span></button><div class=\"relative\"><button class=\"flex items-center gap-2 p-2 rounded-md hover:bg-accent transition-colors\"><div class=\"w-8 h-8 bg-primary rounded-full flex items-center justify-center\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-user w-4 h-4 text-primary-foreground\" aria-hidden=\"true\"><path d=\"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2\"></path><circle cx=\"12\" cy=\"7\" r=\"4\"></circle></svg></div><span class=\"hidden md:block text-sm font-medium\">Jay veedz</span></button></div></div></header><main class=\"flex-1 overflow-y-auto\"><div class=\"container py-6\"><div class=\"space-y-6\"><div class=\"flex items-center justify-between p-6 bg-gradient-to-r from-background to-muted/30 rounded-2xl border shadow-custom animate-in\"><div class=\"flex items-center gap-4\"><button class=\"inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-95 hover:text-accent-foreground h-10 w-10 hover:bg-primary/10 transition-colors duration-200\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-left h-4 w-4\" aria-hidden=\"true\"><path d=\"m12 19-7-7 7-7\"></path><path d=\"M19 12H5\"></path></svg></button><div><h1 class=\"text-2xl font-bold bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent\">Question 1 of 5</h1><p class=\"text-muted-foreground capitalize font-medium\">quick Quiz</p></div></div></div><div class=\"relative\"><div class=\"w-full bg-muted/50 rounded-full h-3 shadow-inner\"><div class=\"bg-gradient-to-r from-primary to-primary/80 h-3 rounded-full transition-all duration-500 ease-out relative overflow-hidden\" style=\"width: 0%;\"><div class=\"absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse\"></div></div></div><div class=\"flex justify-between mt-2\"><span class=\"text-xs text-muted-foreground font-medium\">Progress</span><span class=\"text-xs text-muted-foreground font-medium\">0%</span></div></div><div class=\"rounded-xl text-card-foreground transition-all duration-200 hover:shadow-custom-md animate-in border-0 shadow-custom-lg bg-gradient-to-br from-background to-muted/20 animate-fade-up\"><div class=\"flex flex-col space-y-1.5 p-6 pb-4\"><div class=\"flex items-center justify-between\"><div class=\"flex items-center gap-3\"><div class=\"px-3 py-1.5 bg-gradient-to-r from-primary to-primary/80 text-white rounded-full text-xs font-semibold shadow-sm\">Cardiovascular</div><div class=\"px-3 py-1.5 bg-muted/70 text-muted-foreground rounded-full text-xs font-medium capitalize border\">easy</div></div><div class=\"flex items-center gap-1 text-primary\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-book-open h-4 w-4\" aria-hidden=\"true\"><path d=\"M12 7v14\"></path><path d=\"M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z\"></path></svg><span class=\"text-xs font-medium\">USMLE Style</span></div></div></div><div class=\"p-6 pt-0 space-y-8\"><div class=\"prose prose-sm max-w-none\"><div class=\"p-6 bg-gradient-to-r from-muted/40 to-muted/20 rounded-xl border-l-4 border-primary\"><p class=\"text-base leading-relaxed font-medium text-foreground m-0\">Which of the following is the most common cause of acute myocardial infarction?</p></div></div><div class=\"space-y-4\"><button class=\"group w-full p-5 text-left border-2 rounded-xl transition-all duration-300 relative overflow-hidden border-muted hover:border-primary/50 hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/2 hover:shadow-md hover:scale-[1.01]\" data-testid=\"answer-option-0\"><div class=\"flex items-center gap-4\"><div class=\"flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-200 bg-muted text-muted-foreground group-hover:bg-primary/20 group-hover:text-primary\">A</div><span class=\"flex-1 font-medium\">Atherosclerotic plaque rupture</span><div class=\"flex-shrink-0 transition-all duration-200\"></div></div></button><button class=\"group w-full p-5 text-left border-2 rounded-xl transition-all duration-300 relative overflow-hidden border-muted hover:border-primary/50 hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/2 hover:shadow-md hover:scale-[1.01]\" data-testid=\"answer-option-1\"><div class=\"flex items-center gap-4\"><div class=\"flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-200 bg-muted text-muted-foreground group-hover:bg-primary/20 group-hover:text-primary\">B</div><span class=\"flex-1 font-medium\">Coronary artery spasm</span><div class=\"flex-shrink-0 transition-all duration-200\"></div></div></button><button class=\"group w-full p-5 text-left border-2 rounded-xl transition-all duration-300 relative overflow-hidden border-muted hover:border-primary/50 hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/2 hover:shadow-md hover:scale-[1.01]\" data-testid=\"answer-option-2\"><div class=\"flex items-center gap-4\"><div class=\"flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-200 bg-muted text-muted-foreground group-hover:bg-primary/20 group-hover:text-primary\">C</div><span class=\"flex-1 font-medium\">Coronary artery embolism</span><div class=\"flex-shrink-0 transition-all duration-200\"></div></div></button><button class=\"group w-full p-5 text-left border-2 rounded-xl transition-all duration-300 relative overflow-hidden border-muted hover:border-primary/50 hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/2 hover:shadow-md hover:scale-[1.01]\" data-testid=\"answer-option-3\"><div class=\"flex items-center gap-4\"><div class=\"flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-200 bg-muted text-muted-foreground group-hover:bg-primary/20 group-hover:text-primary\">D</div><span class=\"flex-1 font-medium\">Coronary artery dissection</span><div class=\"flex-shrink-0 transition-all duration-200\"></div></div></button></div></div></div></div></div></main></div></div><div class=\"fixed bottom-4 right-4 z-50\"><button class=\"bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-blue-700 transition-colors\">🛠️ Dev Tools</button></div></div></div>\n    <script type=\"module\" src=\"/src/main.tsx?t=1754448751266\"></script>\n  \n</body></html>",
+  "errors": [],
+  "recommendations": [],
+  "debugResult": {
+    "success": true,
+    "elementChecks": {
+      "hasQuestions": true,
+      "hasLoading": false,
+      "hasErrorMessage": false,
+      "hasQuizHeader": true,
+      "hasTimer": false,
+      "hasProgressBar": false,
+      "hasQuestionText": false,
+      "hasAnswerOptions": false
+    },
+    "visibleText": [
+      "MedQuiz Pro",
+      "Medical Excellence",
+      "Dashboard",
+      "Quiz",
+      "Quick Quiz",
+      "Timed Quiz",
+      "Custom Quiz",
+      "My Progress",
+      "NEW",
+      "Review",
+      "24",
+      "Leaderboard",
+      "Analytics",
+      "Social",
+      "Profile",
+      "Jay veedz",
+      "jayveedz19@gmail.com",
+      "Jay veedz",
+      "Question",
+      "1"
+    ],
+    "currentPath": "/quiz/quick",
+    "convexErrors": [
+      "log: 🌐 Convex URL: https://formal-sardine-916.convex.cloud",
+      "log: 📡 Calling Convex getUserByEmail query..."
+    ]
+  }
+}

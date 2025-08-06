@@ -32,6 +32,18 @@ export interface ConvexQuestion {
   _creationTime: number;
 }
 
+// Import the ConvexReactClient for direct calls
+let convexClient: any = null;
+
+// Initialize Convex client
+const initConvexClient = async () => {
+  if (!convexClient) {
+    const { ConvexReactClient } = await import('convex/react');
+    convexClient = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL);
+  }
+  return convexClient;
+};
+
 export const convexQuizService = {
   /**
    * Create a new quiz session
@@ -42,18 +54,19 @@ export const convexQuizService = {
     questionIds: string[]
   ): Promise<ConvexQuizSession> {
     try {
-      const response = await fetch(`${import.meta.env.VITE_CONVEX_URL}/createQuizSession`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId, mode, questionIds })
+      console.log('🎯 Creating quiz session:', { userId, mode, questionCount: questionIds.length });
+      
+      const client = await initConvexClient();
+      
+      const sessionId = await client.mutation(api.quiz.createQuizSession, {
+        userId,
+        mode,
+        questionIds
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to create quiz session');
-      }
-
-      const sessionId = await response.text();
-      const session = await this.getQuizSession(sessionId);
+      
+      console.log('✅ Quiz session created:', sessionId);
+      
+      const session = await client.query(api.quiz.getQuizSession, { sessionId });
       
       if (!session) {
         throw new Error('Failed to retrieve created session');
@@ -61,6 +74,7 @@ export const convexQuizService = {
 
       return session;
     } catch (error) {
+      console.error('🚨 Create quiz session error:', error);
       throw await ErrorHandler.handleError(
         error,
         'Create Quiz Session',
@@ -295,17 +309,15 @@ export const convexQuizService = {
    */
   async seedQuestions(questionsData: QuestionData[]): Promise<ConvexQuestion[]> {
     try {
-      const response = await fetch(`${import.meta.env.VITE_CONVEX_URL}/batchCreateQuestions`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ questions: questionsData })
+      console.log('🌱 Seeding questions:', questionsData.length);
+      
+      const client = await initConvexClient();
+      
+      const questionIds = await client.mutation(api.quiz.batchCreateQuestions, {
+        questions: questionsData
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to seed questions');
-      }
-
-      const questionIds = await response.json();
+      
+      console.log('✅ Questions seeded, IDs:', questionIds);
       
       // Get the created questions
       const questions = await Promise.all(
@@ -314,6 +326,7 @@ export const convexQuizService = {
       
       return questions.filter(Boolean) as ConvexQuestion[];
     } catch (error) {
+      console.error('🚨 Seed questions error:', error);
       await ErrorHandler.handleError(
         error,
         'Seed Questions',

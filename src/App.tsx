@@ -8,44 +8,92 @@ import { Progress } from './pages/Progress';
 import { Leaderboard } from './pages/Leaderboard';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
+import { Review } from './pages/Review';
 import { useAppStore } from './store';
 import { authService } from './services/auth';
 import { UserProfile } from './components/profile/UserProfile';
 import { PerformanceChart } from './components/analytics/PerformanceChart';
 import { Social } from './pages/Social';
+import { MedicalErrorBoundary } from './components/ErrorBoundary';
+import { SessionErrorIntegration } from './utils/sessionErrorIntegration';
+import ConvexErrorBoundary from './components/error/ConvexErrorBoundary';
+import ConvexDebugDashboard from './components/dev/ConvexDebugDashboard';
+import { convexLogger } from './utils/convexDebugLogger';
+import { useState } from 'react';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isAuthenticated, isLoading } = useAppStore();
+  const { isAuthenticated, isLoading, user } = useAppStore();
+  
+  console.log('🛡️ ProtectedRoute check:', { 
+    isAuthenticated, 
+    isLoading, 
+    hasUser: !!user,
+    userName: user?.name 
+  });
   
   if (isLoading) {
+    console.log('⏳ ProtectedRoute: Showing loading state');
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className="flex flex-col items-center gap-4">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+          <p className="text-sm text-muted-foreground">Checking authentication...</p>
+        </div>
       </div>
     );
   }
   
   if (!isAuthenticated) {
+    console.log('🚫 ProtectedRoute: Not authenticated, redirecting to login');
     return <Navigate to="/login" replace />;
   }
   
+  console.log('✅ ProtectedRoute: Authenticated, allowing access');
   return <>{children}</>;
 };
 
 function App() {
   const { setUser, setLoading, isAuthenticated } = useAppStore();
+  const [debugDashboardVisible, setDebugDashboardVisible] = useState(false);
+  
+  // Initialize Convex logger on app start
+  useEffect(() => {
+    convexLogger.logConvexOperation('Application Started', {
+      environment: import.meta.env.MODE,
+      timestamp: new Date().toISOString(),
+      userAgent: navigator.userAgent
+    });
+  }, []);
 
   useEffect(() => {
     // Check if user is logged in on app load
     const checkAuth = async () => {
+      console.log('🚀 App: Starting authentication check...');
       try {
-        const user = await authService.getCurrentUser();
+        // Enhanced session error logging for app initialization
+        const user = await SessionErrorIntegration.wrapAuthOperation(
+          () => authService.getCurrentUser(),
+          'app_initialization',
+          {
+            sessionType: 'authentication',
+            authMethod: 'token',
+            deviceInfo: {
+              userAgent: navigator.userAgent,
+              screenResolution: `${window.screen.width}x${window.screen.height}`,
+              touchSupport: 'ontouchstart' in window,
+              orientation: window.innerWidth > window.innerHeight ? 'landscape' : 'portrait'
+            }
+          }
+        );
+        
+        console.log('🚀 App: Authentication check result:', user ? `✅ User: ${user.name}` : '❌ No user');
         setUser(user);
       } catch (error) {
-        console.error('Auth check failed:', error);
+        console.error('🚨 App: Auth check failed:', error);
         setUser(null);
       } finally {
+        console.log('🚀 App: Authentication check completed, setting loading to false');
         setLoading(false);
       }
     };
@@ -54,27 +102,31 @@ function App() {
   }, [setUser, setLoading]);
 
   return (
-    <Router>
-      <Routes>
-        {/* Public routes */}
-        <Route path="/" element={<Landing />} />
-        <Route 
-          path="/login" 
-          element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <Login />} 
-        />
-        <Route 
-          path="/register" 
-          element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <Register />} 
-        />
+    <ConvexErrorBoundary category="UI" context={{ component: 'App', route: window.location.pathname }}>
+      <MedicalErrorBoundary>
+        <Router>
+        <Routes>
+          {/* Public routes */}
+          <Route path="/" element={<MedicalErrorBoundary><Landing /></MedicalErrorBoundary>} />
+          <Route 
+            path="/login" 
+            element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <MedicalErrorBoundary><Login /></MedicalErrorBoundary>} 
+          />
+          <Route 
+            path="/register" 
+            element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <MedicalErrorBoundary><Register /></MedicalErrorBoundary>} 
+          />
         
         {/* Protected routes */}
         <Route
           path="/dashboard"
           element={
             <ProtectedRoute>
-              <AppLayout>
-                <Dashboard />
-              </AppLayout>
+              <MedicalErrorBoundary>
+                <AppLayout>
+                  <Dashboard />
+                </AppLayout>
+              </MedicalErrorBoundary>
             </ProtectedRoute>
           }
         />
@@ -82,9 +134,11 @@ function App() {
           path="/quiz"
           element={
             <ProtectedRoute>
-              <AppLayout>
-                <Quiz />
-              </AppLayout>
+              <MedicalErrorBoundary>
+                <AppLayout>
+                  <Quiz />
+                </AppLayout>
+              </MedicalErrorBoundary>
             </ProtectedRoute>
           }
         />
@@ -92,9 +146,11 @@ function App() {
           path="/quiz/:mode"
           element={
             <ProtectedRoute>
-              <AppLayout>
-                <Quiz />
-              </AppLayout>
+              <MedicalErrorBoundary>
+                <AppLayout>
+                  <Quiz />
+                </AppLayout>
+              </MedicalErrorBoundary>
             </ProtectedRoute>
           }
         />
@@ -102,9 +158,11 @@ function App() {
           path="/progress"
           element={
             <ProtectedRoute>
-              <AppLayout>
-                <Progress />
-              </AppLayout>
+              <MedicalErrorBoundary>
+                <AppLayout>
+                  <Progress />
+                </AppLayout>
+              </MedicalErrorBoundary>
             </ProtectedRoute>
           }
         />
@@ -112,9 +170,11 @@ function App() {
           path="/leaderboard"
           element={
             <ProtectedRoute>
-              <AppLayout>
-                <Leaderboard />
-              </AppLayout>
+              <MedicalErrorBoundary>
+                <AppLayout>
+                  <Leaderboard />
+                </AppLayout>
+              </MedicalErrorBoundary>
             </ProtectedRoute>
           }
         />
@@ -122,9 +182,11 @@ function App() {
           path="/review"
           element={
             <ProtectedRoute>
-              <AppLayout>
-                <div>Review Page</div>
-              </AppLayout>
+              <MedicalErrorBoundary>
+                <AppLayout>
+                  <Review />
+                </AppLayout>
+              </MedicalErrorBoundary>
             </ProtectedRoute>
           }
         />
@@ -132,9 +194,11 @@ function App() {
           path="/analytics"
           element={
             <ProtectedRoute>
-              <AppLayout>
-                <PerformanceChart />
-              </AppLayout>
+              <MedicalErrorBoundary>
+                <AppLayout>
+                  <PerformanceChart />
+                </AppLayout>
+              </MedicalErrorBoundary>
             </ProtectedRoute>
           }
         />
@@ -142,9 +206,11 @@ function App() {
           path="/profile"
           element={
             <ProtectedRoute>
-              <AppLayout>
-                <UserProfile />
-              </AppLayout>
+              <MedicalErrorBoundary>
+                <AppLayout>
+                  <UserProfile />
+                </AppLayout>
+              </MedicalErrorBoundary>
             </ProtectedRoute>
           }
         />
@@ -152,14 +218,26 @@ function App() {
           path="/social"
           element={
             <ProtectedRoute>
-              <AppLayout>
-                <Social />
-              </AppLayout>
+              <MedicalErrorBoundary>
+                <AppLayout>
+                  <Social />
+                </AppLayout>
+              </MedicalErrorBoundary>
             </ProtectedRoute>
           }
         />
-      </Routes>
-    </Router>
+        </Routes>
+        </Router>
+        
+        {/* Development Debug Dashboard */}
+        {import.meta.env.DEV && (
+          <ConvexDebugDashboard 
+            isVisible={debugDashboardVisible}
+            onToggle={() => setDebugDashboardVisible(!debugDashboardVisible)}
+          />
+        )}
+      </MedicalErrorBoundary>
+    </ConvexErrorBoundary>
   );
 }
 

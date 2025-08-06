@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 import type { IUser, IQuizSession, IQuizConfig, IAnswer, INotification } from '../types';
 import { authService } from '../services/auth';
+import { SessionErrorIntegration } from '../utils/sessionErrorIntegration';
 
 interface AppState {
   // User state
@@ -63,8 +64,21 @@ export const useAppStore = create<AppState>()(
             console.log('🏪 Store: Starting login process for:', email);
             set({ isLoading: true });
             
-            console.log('🏪 Store: Calling authService.login...');
-            const { user } = await authService.login(email, password);
+            // Enhanced session error logging for authentication
+            const { user } = await SessionErrorIntegration.wrapAuthOperation(
+              () => authService.login(email, password),
+              'user_login',
+              {
+                sessionType: 'authentication',
+                authMethod: 'email',
+                deviceInfo: {
+                  userAgent: navigator.userAgent,
+                  screenResolution: `${window.screen.width}x${window.screen.height}`,
+                  touchSupport: 'ontouchstart' in window,
+                  orientation: window.innerWidth > window.innerHeight ? 'landscape' : 'portrait'
+                }
+              }
+            );
             
             console.log('🏪 Store: Login successful, setting user state');
             set({ user, isAuthenticated: true });
@@ -91,7 +105,18 @@ export const useAppStore = create<AppState>()(
         logout: async () => {
           try {
             set({ isLoading: true });
-            await authService.logout();
+            
+            // Enhanced session error logging for logout
+            await SessionErrorIntegration.wrapAuthOperation(
+              () => authService.logout(),
+              'user_logout',
+              {
+                sessionType: 'authentication',
+                authMethod: 'email',
+                sessionDuration: Date.now() - (get().user?.createdAt?.getTime() || Date.now())
+              }
+            );
+            
             set({ user: null, isAuthenticated: false, currentQuiz: null });
             get().addNotification({
               type: 'info',
@@ -114,8 +139,21 @@ export const useAppStore = create<AppState>()(
             console.log('🏪 Store: Starting registration process for:', email);
             set({ isLoading: true });
             
-            console.log('🏪 Store: Calling authService.createAccount...');
-            const { user } = await authService.createAccount(email, password, name);
+            // Enhanced session error logging for registration
+            const { user } = await SessionErrorIntegration.wrapAuthOperation(
+              () => authService.createAccount(email, password, name),
+              'user_registration',
+              {
+                sessionType: 'authentication',
+                authMethod: 'email',
+                deviceInfo: {
+                  userAgent: navigator.userAgent,
+                  screenResolution: `${window.screen.width}x${window.screen.height}`,
+                  touchSupport: 'ontouchstart' in window,
+                  orientation: window.innerWidth > window.innerHeight ? 'landscape' : 'portrait'
+                }
+              }
+            );
             
             console.log('🏪 Store: Registration successful, setting user state');
             set({ user: user as unknown as IUser, isAuthenticated: true });

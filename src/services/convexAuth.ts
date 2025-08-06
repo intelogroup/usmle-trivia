@@ -102,9 +102,13 @@ export const convexAuthService = {
   async logout() {
     try {
       console.log('🚪 Logging out user:', currentUser?.email);
+      
+      // Clear in-memory variables
       currentUser = null;
       currentUserId = null;
-      console.log('✅ Logout successful');
+      
+      // Clear persisted storage will be handled by the store
+      console.log('✅ Logout successful - session cleared');
     } catch (error) {
       console.error('🚨 Logout error:', error);
       throw await ErrorHandler.handleError(
@@ -116,16 +120,41 @@ export const convexAuthService = {
 
   async getCurrentUser(): Promise<IUser | null> {
     try {
-      console.log('👤 Getting current user, ID:', currentUserId);
-      if (!currentUserId) {
-        console.log('❌ No current user ID');
-        return null;
+      console.log('👤 Getting current user, in-memory ID:', currentUserId);
+      
+      // First check if we have in-memory user data
+      if (currentUserId && currentUser) {
+        console.log('✅ Using in-memory user data:', currentUser.name);
+        return currentUser;
       }
       
-      const user = await this.getUserById(currentUserId);
-      currentUser = user;
-      console.log('👤 Current user retrieved:', user ? '✅' : '❌');
-      return user;
+      // If no in-memory data, check if we have persisted user data in localStorage
+      try {
+        const persistedData = localStorage.getItem('medquiz-storage');
+        if (persistedData) {
+          const parsed = JSON.parse(persistedData);
+          const persistedUser = parsed.state?.user;
+          
+          if (persistedUser && persistedUser.id) {
+            console.log('🔄 Found persisted user data, refreshing session for:', persistedUser.name);
+            
+            // Refresh user data from database to ensure it's current
+            const user = await this.getUserById(persistedUser.id);
+            if (user) {
+              // Update in-memory variables
+              currentUser = user;
+              currentUserId = user.id;
+              console.log('✅ Session restored for user:', user.name);
+              return user;
+            }
+          }
+        }
+      } catch (parseError) {
+        console.warn('⚠️ Could not parse persisted storage:', parseError);
+      }
+      
+      console.log('❌ No current user ID available');
+      return null;
     } catch (error) {
       console.error('🚨 Get current user error:', error);
       return null;
