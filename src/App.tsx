@@ -14,6 +14,7 @@ import { UserProfile } from './components/profile/UserProfile';
 import { PerformanceChart } from './components/analytics/PerformanceChart';
 import { Social } from './pages/Social';
 import { MedicalErrorBoundary } from './components/ErrorBoundary';
+import { SessionErrorIntegration } from './utils/sessionErrorIntegration';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -41,7 +42,21 @@ function App() {
     // Check if user is logged in on app load
     const checkAuth = async () => {
       try {
-        const user = await authService.getCurrentUser();
+        // Enhanced session error logging for app initialization
+        const user = await SessionErrorIntegration.wrapAuthOperation(
+          () => authService.getCurrentUser(),
+          'app_initialization',
+          {
+            sessionType: 'authentication',
+            authMethod: 'token',
+            deviceInfo: {
+              userAgent: navigator.userAgent,
+              screenResolution: `${window.screen.width}x${window.screen.height}`,
+              touchSupport: 'ontouchstart' in window,
+              orientation: window.innerWidth > window.innerHeight ? 'landscape' : 'portrait'
+            }
+          }
+        );
         setUser(user);
       } catch (error) {
         console.error('Auth check failed:', error);

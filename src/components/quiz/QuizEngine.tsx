@@ -6,6 +6,7 @@ import { type Question, type QuizSession } from '../../services/quiz';
 import { useAppStore } from '../../store';
 import { useAsyncError } from '../../hooks/useAsyncError';
 import { useGetRandomQuestions, useCreateQuizSession, useSubmitAnswer, useCompleteQuizSession } from '../../services/convexQuiz';
+import { SessionErrorIntegration } from '../../utils/sessionErrorIntegration';
 
 interface QuizEngineProps {
   mode: 'quick' | 'timed' | 'custom';
@@ -83,14 +84,31 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
           updatedAt: new Date(q._creationTime),
         }));
 
-        // Create quiz session in Convex
+        // Create quiz session with enhanced error logging
         const questionIds = questions.map(q => q.id);
         
-        const sessionId = await createQuizSession({
-          userId: user.id,
-          mode,
-          questionIds,
-        });
+        const sessionId = await SessionErrorIntegration.wrapQuizOperation(
+          () => createQuizSession({
+            userId: user.id,
+            mode,
+            questionIds,
+          }),
+          'quiz_session_start',
+          {
+            sessionType: 'quiz',
+            mode,
+            questionCount: questions.length,
+            currentQuestion: 0,
+            timeRemaining: config.timeLimit,
+            completionPercentage: 0,
+            deviceInfo: {
+              userAgent: navigator.userAgent,
+              screenResolution: `${window.screen.width}x${window.screen.height}`,
+              touchSupport: 'ontouchstart' in window,
+              orientation: window.innerWidth > window.innerHeight ? 'landscape' : 'portrait'
+            }
+          }
+        );
 
         if (sessionId) {
           // Create session object
@@ -131,12 +149,24 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
       // Calculate final time spent
       const finalTimeSpent = Math.floor((Date.now() - quizState.startTime.getTime()) / 1000);
       
-      // Complete session in Convex
+      // Complete session in Convex with enhanced error logging
       if (completeQuizSession) {
-        const completedSession = await completeQuizSession({
-          sessionId: quizState.session!.id,
-          finalTimeSpent,
-        });
+        const completedSession = await SessionErrorIntegration.wrapQuizOperation(
+          () => completeQuizSession({
+            sessionId: quizState.session!.id,
+            finalTimeSpent,
+          }),
+          'quiz_session_complete',
+          {
+            sessionType: 'quiz',
+            mode,
+            questionCount: quizState.questions.length,
+            currentQuestion: quizState.questions.length,
+            timeRemaining: quizState.timeRemaining,
+            completionPercentage: 100,
+            lastSyncTime: new Date()
+          }
+        );
         
         if (completedSession) {
           // Create completed session object
@@ -196,14 +226,26 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
         showExplanation: true,
       }));
 
-      // Update session in Convex database
+      // Update session in Convex database with enhanced error logging
       if (quizState.session && submitAnswer) {
-        await submitAnswer({
-          sessionId: quizState.session.id,
-          questionIndex: quizState.currentQuestionIndex,
-          answer: answerIndex,
-          timeSpent,
-        });
+        await SessionErrorIntegration.wrapQuizOperation(
+          () => submitAnswer({
+            sessionId: quizState.session.id,
+            questionIndex: quizState.currentQuestionIndex,
+            answer: answerIndex,
+            timeSpent,
+          }),
+          'quiz_answer_submission',
+          {
+            sessionType: 'quiz',
+            mode,
+            questionCount: quizState.questions.length,
+            currentQuestion: quizState.currentQuestionIndex + 1,
+            timeRemaining: quizState.timeRemaining,
+            completionPercentage: ((quizState.currentQuestionIndex + 1) / quizState.questions.length) * 100,
+            lastSyncTime: new Date()
+          }
+        );
       }
     }, 'Submit Answer');
   };
