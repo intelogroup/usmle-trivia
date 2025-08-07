@@ -7,9 +7,10 @@ import { EnhancedQuizEngine } from '../components/quiz/EnhancedQuizEngine';
 import { QuizResults } from '../components/quiz/QuizResults';
 import { QuizResultsSummary } from '../components/quiz/QuizResultsSummary';
 import { SessionNavigationGuard, SessionStatusIndicator } from '../components/quiz/SessionNavigationGuard';
+import { CustomQuizConfig } from '../components/quiz/CustomQuizConfig';
 import { useQuizSession, useQuizSessionEvents, useSafeNavigation } from '../hooks/useQuizSession';
 import { useAppStore } from '../store';
-import { quizModes, sampleQuestions } from '../data/sampleQuestions';
+import { quizModes, processedSampleQuestions } from '../data/sampleQuestions';
 import type { QuizSession } from '../services/quiz';
 import type { Question } from '../services/quiz';
 import { QuizSessionData, quizSessionManager } from '../services/QuizSessionManager';
@@ -34,6 +35,7 @@ export const Quiz: React.FC = () => {
     performanceMetrics: any;
   } | null>(null);
   const [startError, setStartError] = useState<string | null>(null);
+  const [customQuizConfig, setCustomQuizConfig] = useState<any>(null);
   
   // Session management hooks
   const { 
@@ -85,7 +87,7 @@ export const Quiz: React.FC = () => {
             };
             
             // Prepare questions for results summary
-            const sessionQuestions: Question[] = sampleQuestions
+            const sessionQuestions: Question[] = processedSampleQuestions
               .slice(0, session.questions.length)
               .map((q, index) => ({
                 ...q,
@@ -128,12 +130,20 @@ export const Quiz: React.FC = () => {
     setStartError(null);
 
     try {
-      // Generate question IDs based on mode
-      const questionCount = mode === 'quick' ? 5 : mode === 'timed' ? 10 : 8;
-      const questionIds = Array.from({ length: questionCount }, (_, i) => `q${i + 1}`);
+      let questionCount: number;
+      let timeLimit: number | undefined;
       
-      // Get time limit if applicable
-      const timeLimit = mode === 'timed' ? 600 : mode === 'custom' ? 480 : undefined; // seconds
+      if (mode === 'custom' && customQuizConfig) {
+        questionCount = customQuizConfig.questionCount;
+        timeLimit = customQuizConfig.timeLimit ? customQuizConfig.timeLimit * 60 : undefined; // convert minutes to seconds
+      } else {
+        // Default values for quick and timed modes
+        questionCount = mode === 'quick' ? 5 : mode === 'timed' ? 10 : 8;
+        timeLimit = mode === 'timed' ? 600 : mode === 'custom' ? 480 : undefined; // seconds
+      }
+      
+      // Generate question IDs based on mode
+      const questionIds = Array.from({ length: questionCount }, (_, i) => `q${i + 1}`);
 
       console.log(`🎯 Creating ${mode} quiz session with ${questionCount} questions`);
       
@@ -151,6 +161,11 @@ export const Quiz: React.FC = () => {
       console.error('Failed to start quiz session:', error);
       setStartError(error instanceof Error ? error.message : 'Failed to start quiz session');
     }
+  };
+
+  const handleCustomQuizConfig = (config: any) => {
+    setCustomQuizConfig(config);
+    handleStartQuiz();
   };
   
   const handleQuizComplete = (session: QuizSession, enhancedData?: {
@@ -256,7 +271,20 @@ export const Quiz: React.FC = () => {
   // Get quiz mode configuration
   const modeConfig = quizModes[mode];
 
-  // Quiz setup screen
+  // Quiz setup screen - show custom config for custom mode
+  if (mode === 'custom') {
+    return (
+      <SessionNavigationGuard>
+        <SessionStatusIndicator />
+        <CustomQuizConfig 
+          onStartQuiz={handleCustomQuizConfig}
+          onBack={handleBack}
+        />
+      </SessionNavigationGuard>
+    );
+  }
+  
+  // Quiz setup screen for quick and timed modes
   return (
     <SessionNavigationGuard>
       <SessionStatusIndicator />
@@ -342,36 +370,6 @@ export const Quiz: React.FC = () => {
         </CardContent>
       </Card>
 
-      {/* Sample Question Preview */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">Sample Question Preview</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div className="p-4 bg-muted/50 rounded-lg">
-              <h3 className="font-medium mb-2">Question 1 of 10</h3>
-              <p className="text-sm mb-4">
-                A 45-year-old male presents with chest pain and shortness of breath. 
-                ECG shows ST-elevation in leads II, III, and aVF. Which coronary artery 
-                is most likely occluded?
-              </p>
-              
-              <div className="space-y-2">
-                {['A) Left anterior descending artery', 'B) Right coronary artery', 'C) Left circumflex artery', 'D) Left main coronary artery'].map((option, index) => (
-                  <div key={index} className="p-2 border rounded hover:bg-accent cursor-pointer transition-colors">
-                    {option}
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            <p className="text-xs text-muted-foreground text-center">
-              This is a preview. Actual quiz questions will be loaded when you start the quiz.
-            </p>
-          </div>
-        </CardContent>
-      </Card>
       </div>
     </SessionNavigationGuard>
   );

@@ -13,6 +13,11 @@ export interface QuestionData {
   usmleCategory: string;
   tags: string[];
   medicalReferences?: string[];
+  // New structured categorization
+  subject: string;       // Primary medical subject (e.g., "Internal Medicine", "Surgery", "Pediatrics")
+  system: string;        // Body system (e.g., "Cardiovascular", "Respiratory", "Nervous")
+  topics: string[];      // Sub-systems or specific topics (e.g., ["Myocardial Infarction", "ECG Interpretation"])
+  points: number;        // Points awarded for correct answer (based on difficulty)
 }
 
 export const sampleQuestions: QuestionData[] = [
@@ -30,7 +35,11 @@ export const sampleQuestions: QuestionData[] = [
     difficulty: "medium",
     usmleCategory: "pathology",
     tags: ["myocardial infarction", "ECG", "coronary anatomy", "cardiology"],
-    medicalReferences: ["First Aid USMLE Step 1 2025", "Pathoma Ch. 4"]
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Pathoma Ch. 4"],
+    subject: "Internal Medicine",
+    system: "Cardiovascular",
+    topics: ["Myocardial Infarction", "ECG Interpretation", "Coronary Anatomy"],
+    points: 15
   },
   {
     question: "A 32-year-old woman presents with fatigue, weight gain, and cold intolerance. Laboratory studies show TSH 15 mU/L (normal 0.5-5.0) and free T4 0.8 ng/dL (normal 1.0-2.3). What is the most likely diagnosis?",
@@ -46,7 +55,11 @@ export const sampleQuestions: QuestionData[] = [
     difficulty: "easy",
     usmleCategory: "pathology",
     tags: ["hypothyroidism", "Hashimoto's", "thyroid", "endocrinology"],
-    medicalReferences: ["First Aid USMLE Step 1 2025", "Pathoma Ch. 19"]
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Pathoma Ch. 19"],
+    subject: "Internal Medicine",
+    system: "Endocrine",
+    topics: ["Thyroid Disorders", "Hypothyroidism", "Autoimmune Diseases"],
+    points: 10
   },
   {
     question: "A 28-year-old man presents with a 3-day history of fever, headache, and neck stiffness. Lumbar puncture shows opening pressure 300 mmH2O, glucose 25 mg/dL (serum glucose 90 mg/dL), protein 200 mg/dL, and 500 WBCs/μL with 90% neutrophils. Gram stain shows gram-positive cocci in pairs. What is the most appropriate initial antibiotic therapy?",
@@ -62,7 +75,11 @@ export const sampleQuestions: QuestionData[] = [
     difficulty: "hard",
     usmleCategory: "microbiology",
     tags: ["meningitis", "CSF analysis", "S. pneumoniae", "antibiotics"],
-    medicalReferences: ["First Aid USMLE Step 1 2025", "Sketchy Micro"]
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Sketchy Micro"],
+    subject: "Internal Medicine",
+    system: "Nervous System", 
+    topics: ["CNS Infections", "Bacterial Meningitis", "Antibiotic Therapy"],
+    points: 20
   },
   {
     question: "A 55-year-old woman with a history of rheumatoid arthritis treated with methotrexate presents with progressive shortness of breath. Chest X-ray shows bilateral lower lobe reticular opacities. High-resolution CT shows honeycombing and traction bronchiectasis. Which of the following is the most likely cause?",
@@ -917,7 +934,50 @@ export const usmleCategories = {
   preventive_medicine: "Preventive Medicine"
 };
 
-// Medical Specialty Categories
+// Medical Subject Categories (Primary Subjects)
+export const medicalSubjects = {
+  internal_medicine: "Internal Medicine",
+  surgery: "Surgery", 
+  pediatrics: "Pediatrics",
+  obstetrics_gynecology: "Obstetrics & Gynecology",
+  psychiatry: "Psychiatry",
+  emergency_medicine: "Emergency Medicine",
+  family_medicine: "Family Medicine",
+  pathology: "Pathology",
+  radiology: "Radiology",
+  anesthesiology: "Anesthesiology"
+};
+
+// Body System Categories
+export const bodySystems = {
+  cardiovascular: "Cardiovascular",
+  respiratory: "Respiratory", 
+  gastrointestinal: "Gastrointestinal",
+  genitourinary: "Genitourinary",
+  nervous: "Nervous System",
+  endocrine: "Endocrine",
+  musculoskeletal: "Musculoskeletal",
+  integumentary: "Integumentary",
+  hematologic: "Hematologic",
+  immune: "Immune System",
+  reproductive: "Reproductive"
+};
+
+// Topics by System (Sub-categories)
+export const systemTopics = {
+  cardiovascular: ["Myocardial Infarction", "Heart Failure", "Arrhythmias", "Hypertension", "ECG Interpretation", "Valvular Disease"],
+  respiratory: ["Pneumonia", "COPD", "Asthma", "Lung Cancer", "Pulmonary Embolism", "Pleural Disease"],
+  gastrointestinal: ["IBD", "GERD", "Liver Disease", "Pancreatitis", "GI Bleeding", "Bowel Obstruction"],
+  genitourinary: ["AKI", "CKD", "UTI", "Nephrolithiasis", "Glomerulonephritis", "Urological Cancer"],
+  nervous: ["Stroke", "Epilepsy", "Dementia", "Movement Disorders", "Neuromuscular", "CNS Infections"],
+  endocrine: ["Diabetes", "Thyroid Disorders", "Adrenal Disorders", "Pituitary Disorders", "Bone/Mineral", "Reproductive Hormones"],
+  musculoskeletal: ["Fractures", "Arthritis", "Sports Injuries", "Bone Tumors", "Connective Tissue", "Spine Disorders"],
+  integumentary: ["Skin Cancer", "Dermatitis", "Infections", "Autoimmune Skin", "Pediatric Dermatology", "Dermatopathology"],
+  hematologic: ["Anemia", "Bleeding Disorders", "Thrombosis", "Hematologic Malignancies", "Transfusion Medicine", "Bone Marrow Disorders"],
+  immune: ["Immunodeficiency", "Hypersensitivity", "Autoimmune Diseases", "Transplant Medicine", "Immunotherapy", "Vaccination"]
+};
+
+// Medical Specialty Categories (for backward compatibility)
 export const medicalSpecialties = {
   cardiovascular: "Cardiovascular",
   endocrine: "Endocrine", 
@@ -939,21 +999,193 @@ export const medicalSpecialties = {
   hematology_oncology: "Hematology/Oncology"
 };
 
+// Points system based on difficulty
+export const difficultyPoints = {
+  easy: 10,
+  medium: 15,  
+  hard: 20
+};
+
+// Helper function to auto-categorize questions based on their category
+export function getQuestionCategorization(category: string, difficulty: 'easy' | 'medium' | 'hard') {
+  const categoryMap: Record<string, {subject: string, system: string, topics: string[]}> = {
+    'Cardiovascular': {
+      subject: 'Internal Medicine',
+      system: 'Cardiovascular', 
+      topics: ['Myocardial Infarction', 'Heart Disease']
+    },
+    'Endocrine': {
+      subject: 'Internal Medicine',
+      system: 'Endocrine',
+      topics: ['Thyroid Disorders', 'Hormone Disorders']
+    },
+    'Infectious Disease': {
+      subject: 'Internal Medicine', 
+      system: 'Immune System',
+      topics: ['Bacterial Infections', 'CNS Infections']
+    },
+    'Pulmonary': {
+      subject: 'Internal Medicine',
+      system: 'Respiratory',
+      topics: ['Lung Disease', 'Pulmonary Pathology']
+    },
+    'Neurology': {
+      subject: 'Internal Medicine',
+      system: 'Nervous System', 
+      topics: ['Neuromuscular', 'Dementia']
+    },
+    'Ophthalmology': {
+      subject: 'Surgery',
+      system: 'Nervous System',
+      topics: ['Eye Disorders', 'Retinal Disease']
+    },
+    'Obstetrics/Gynecology': {
+      subject: 'Obstetrics & Gynecology',
+      system: 'Reproductive',
+      topics: ['Pregnancy Complications', 'Maternal Health']
+    },
+    'Surgery': {
+      subject: 'Surgery',
+      system: 'Gastrointestinal', 
+      topics: ['Surgical Emergencies', 'Abdominal Pain']
+    },
+    'Psychiatry': {
+      subject: 'Psychiatry',
+      system: 'Nervous System',
+      topics: ['Psychotic Disorders', 'Mental Health']
+    },
+    'Dermatology': {
+      subject: 'Internal Medicine',
+      system: 'Integumentary',
+      topics: ['Skin Cancer', 'Dermatitis']
+    },
+    'Emergency Medicine': {
+      subject: 'Emergency Medicine',
+      system: 'Multiple Systems',
+      topics: ['Trauma', 'Emergency Care']
+    },
+    'Orthopedics': {
+      subject: 'Surgery',
+      system: 'Musculoskeletal',
+      topics: ['Fractures', 'Sports Injuries']
+    },
+    'Pediatrics': {
+      subject: 'Pediatrics',
+      system: 'Multiple Systems',
+      topics: ['Pediatric Emergencies', 'Child Development']
+    },
+    'Urology': {
+      subject: 'Surgery',
+      system: 'Genitourinary',
+      topics: ['Urological Disorders', 'Kidney Stones']
+    }
+  };
+  
+  const defaults = {
+    subject: 'Internal Medicine',
+    system: 'Multiple Systems', 
+    topics: ['General Medicine']
+  };
+  
+  const categorization = categoryMap[category] || defaults;
+  return {
+    ...categorization,
+    points: difficultyPoints[difficulty]
+  };
+}
+
 // Helper function to get questions by category
 export function getQuestionsByCategory(category: string): QuestionData[] {
-  return sampleQuestions.filter(q => q.category.toLowerCase() === category.toLowerCase());
+  return processedSampleQuestions.filter(q => q.category.toLowerCase() === category.toLowerCase());
+}
+
+// Helper function to get questions by subject
+export function getQuestionsBySubject(subject: string): QuestionData[] {
+  return processedSampleQuestions.filter(q => 
+    q.subject && q.subject.toLowerCase() === subject.toLowerCase()
+  );
+}
+
+// Helper function to get questions by system
+export function getQuestionsBySystem(system: string): QuestionData[] {
+  return processedSampleQuestions.filter(q => 
+    q.system && q.system.toLowerCase() === system.toLowerCase()
+  );
+}
+
+// Helper function to get questions by topic
+export function getQuestionsByTopic(topic: string): QuestionData[] {
+  return processedSampleQuestions.filter(q => 
+    q.topics && q.topics.some(t => t.toLowerCase() === topic.toLowerCase())
+  );
+}
+
+// Helper function to get questions with filters
+export function getFilteredQuestions(filters: {
+  subjects?: string[];
+  systems?: string[];
+  topics?: string[];
+  difficulty?: ('easy' | 'medium' | 'hard')[];
+  count?: number;
+}): QuestionData[] {
+  let filtered = processedSampleQuestions;
+  
+  if (filters.subjects && filters.subjects.length > 0) {
+    filtered = filtered.filter(q => 
+      q.subject && filters.subjects!.includes(q.subject)
+    );
+  }
+  
+  if (filters.systems && filters.systems.length > 0) {
+    filtered = filtered.filter(q => 
+      q.system && filters.systems!.includes(q.system)
+    );
+  }
+  
+  if (filters.topics && filters.topics.length > 0) {
+    filtered = filtered.filter(q => 
+      q.topics && q.topics.some(topic => filters.topics!.includes(topic))
+    );
+  }
+  
+  if (filters.difficulty && filters.difficulty.length > 0) {
+    filtered = filtered.filter(q => filters.difficulty!.includes(q.difficulty));
+  }
+  
+  // Shuffle the results
+  const shuffled = [...filtered].sort(() => 0.5 - Math.random());
+  
+  return filters.count ? shuffled.slice(0, filters.count) : shuffled;
 }
 
 // Helper function to get questions by difficulty
 export function getQuestionsByDifficulty(difficulty: 'easy' | 'medium' | 'hard'): QuestionData[] {
-  return sampleQuestions.filter(q => q.difficulty === difficulty);
+  return processedSampleQuestions.filter(q => q.difficulty === difficulty);
 }
 
 // Helper function to get random questions
 export function getRandomQuestions(count: number): QuestionData[] {
-  const shuffled = [...sampleQuestions].sort(() => 0.5 - Math.random());
+  const shuffled = [...processedSampleQuestions].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, Math.min(count, shuffled.length));
 }
+
+// Auto-populate missing fields in sample questions
+const processedQuestions = sampleQuestions.map(q => {
+  if (!q.subject || !q.system || !q.topics || !q.points) {
+    const categorization = getQuestionCategorization(q.category, q.difficulty);
+    return {
+      ...q,
+      subject: q.subject || categorization.subject,
+      system: q.system || categorization.system,
+      topics: q.topics || categorization.topics,
+      points: q.points || categorization.points
+    };
+  }
+  return q;
+});
+
+// Export the processed questions (replaces the original export)
+export const processedSampleQuestions = processedQuestions;
 
 // Quiz mode configurations
 export const quizModes = {
