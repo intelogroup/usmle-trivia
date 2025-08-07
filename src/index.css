@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 /* Import theme tokens for consistency */
+@import './styles/accessibility.css';
 
 @layer base {
   :root {
