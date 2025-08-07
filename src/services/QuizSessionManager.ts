@@ -649,5 +649,8 @@ class QuizSessionManager {
 // Export singleton instance
 export const quizSessionManager = QuizSessionManager.getInstance();
 
+// Explicit re-exports for better TypeScript module resolution
+export type { QuizSessionState, QuizMode, QuizSessionData, SessionEventData, SessionEventHandler };
+
 // Auto-initialize on module load
 quizSessionManager.initializeFromStorage();

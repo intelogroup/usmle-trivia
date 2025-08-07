@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { render } from '@testing-library/react';
-import { axe } from 'axe-core';
+import { axe } from 'jest-axe';
 import '@testing-library/jest-dom';
 import { Button } from '../../src/components/ui/Button';
 import { Card } from '../../src/components/ui/Card';

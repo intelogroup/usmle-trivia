@@ -83,7 +83,7 @@ export class SessionStorage {
         const parsed = JSON.parse(stored);
         console.log('📂 Session loaded successfully');
         return parsed;
-      } catch (error) {
+      } catch (_error) {
         console.warn('⚠️ Corrupted session data, clearing...');
         localStorage.removeItem(this.SESSION_KEY);
         return null;
@@ -141,7 +141,7 @@ export class SessionStorage {
         
         console.log('🧩 Quiz state loaded for recovery');
         return parsed;
-      } catch (error) {
+      } catch (_error) {
         localStorage.removeItem(this.QUIZ_STATE_KEY);
         return null;
       }

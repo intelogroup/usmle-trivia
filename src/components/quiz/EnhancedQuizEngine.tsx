@@ -5,10 +5,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader } from '../ui/Card';
 import { Button } from '../ui/Button';
-import { ArrowLeft, BookOpen, CheckCircle, XCircle, AlertTriangle, Clock, Zap } from 'lucide-react';
+import { BookOpen, CheckCircle, XCircle, AlertTriangle, Clock, Zap } from 'lucide-react';
 import { QuestionNavigation } from './QuestionNavigation';
 import { useQuizSession, useQuizNavigation, useQuizTimer } from '../../hooks/useQuizSession';
-import { useGetRandomQuestions } from '../../services/convexQuiz';
+// import { useGetRandomQuestions } from '../../services/convexQuiz'; // TODO: Implement random questions
 import { type Question } from '../../services/quiz';
 import { sampleQuestions } from '../../data/sampleQuestions';
 
@@ -36,7 +36,7 @@ export const EnhancedQuizEngine: React.FC<EnhancedQuizEngineProps> = ({
   } = useQuizSession();
 
   const { currentIndex } = useQuizNavigation();
-  const { timeRemaining, isTimerActive, formatTime } = useQuizTimer();
+  // const { timeRemaining, isTimerActive, formatTime } = useQuizTimer(); // TODO: Implement timer display
 
   // Load questions when session is available
   useEffect(() => {

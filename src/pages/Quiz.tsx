@@ -13,7 +13,7 @@ import { useAppStore } from '../store';
 import { quizModes, processedSampleQuestions } from '../data/sampleQuestions';
 import type { QuizSession } from '../services/quiz';
 import type { Question } from '../services/quiz';
-import { QuizSessionData, quizSessionManager } from '../services/QuizSessionManager';
+import { type QuizSessionData, quizSessionManager } from '../services/QuizSessionManager';
 
 type QuizMode = 'quick' | 'timed' | 'custom';
 type QuizState = 'setup' | 'active' | 'results';
@@ -43,7 +43,7 @@ export const Quiz: React.FC = () => {
     hasActiveSession, 
     createSession, 
     startSession, 
-    abandonSession,
+    // abandonSession, // Available but not used in current implementation
     error: sessionError 
   } = useQuizSession();
   

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
 import { AnimatedCounter } from '../ui/AnimatedCounter';
 import { cn } from '../../lib/utils';
@@ -28,7 +28,7 @@ const cardVariants = {
   red: 'hover:border-red-200 hover:bg-red-50/50 dark:hover:border-red-800 dark:hover:bg-red-950/50',
 };
 
-export const StatsCard: React.FC<StatsCardProps> = ({
+export const StatsCard = memo<StatsCardProps>(({
   title,
   value,
   icon: Icon,
@@ -95,4 +95,6 @@ export const StatsCard: React.FC<StatsCardProps> = ({
       </CardContent>
     </Card>
   );
-};
+});
+
+StatsCard.displayName = 'StatsCard';

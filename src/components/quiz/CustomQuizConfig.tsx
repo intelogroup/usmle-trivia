@@ -6,7 +6,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Checkbox } from '../ui/Checkbox';
 import { Slider } from '../ui/Slider';
 import { AlertTriangle, Settings, Filter, CheckCircle2 } from 'lucide-react';
-import { medicalSubjects, bodySystems, systemTopics, getFilteredQuestions } from '../../data/sampleQuestions';
+import { medicalSubjects, bodySystems, systemTopics } from '../../data/medicalCategories';
+import { getFilteredQuestions } from '../../services/questionService';
 
 interface QuizConfig {
   subjects: string[];
@@ -39,26 +40,31 @@ export const CustomQuizConfig: React.FC<CustomQuizConfigProps> = ({ onStartQuiz,
 
   // Update available questions count when config changes
   useEffect(() => {
-    const questions = getFilteredQuestions({
-      subjects: config.subjects.length > 0 ? config.subjects : undefined,
-      systems: config.systems.length > 0 ? config.systems : undefined,
-      topics: config.topics.length > 0 ? config.topics : undefined,
-      difficulty: config.difficulty
-    });
-    setAvailableQuestions(questions.length);
+    const updateQuestionCount = async () => {
+      const questions = await getFilteredQuestions({
+        subjects: config.subjects.length > 0 ? config.subjects : undefined,
+        systems: config.systems.length > 0 ? config.systems : undefined,
+        topics: config.topics.length > 0 ? config.topics : undefined,
+        difficulty: config.difficulty
+      });
+      setAvailableQuestions(questions.length);
     
-    // Update validation
-    if (config.subjects.length === 0) {
-      setValidationError('Please select at least one subject');
-    } else if (config.systems.length === 0) {
-      setValidationError('Please select at least one system');
-    } else if (questions.length === 0) {
-      setValidationError('No questions available with current filters');
-    } else if (questions.length < config.questionCount) {
-      setValidationError(`Only ${questions.length} questions available. Reduce question count.`);
-    } else {
-      setValidationError(null);
-    }
+      
+      // Update validation
+      if (config.subjects.length === 0) {
+        setValidationError('Please select at least one subject');
+      } else if (config.systems.length === 0) {
+        setValidationError('Please select at least one system');
+      } else if (questions.length === 0) {
+        setValidationError('No questions available with current filters');
+      } else if (questions.length < config.questionCount) {
+        setValidationError(`Only ${questions.length} questions available. Reduce question count.`);
+      } else {
+        setValidationError(null);
+      }
+    };
+    
+    updateQuestionCount();
   }, [config]);
 
   // Update available topics when systems change
