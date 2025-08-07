@@ -67,7 +67,8 @@
   node_bundler = "esbuild"
 
 # Build plugins for optimization
-[[plugins]]
-  package = "netlify-plugin-checklinks"
+# [[plugins]]
+#   package = "netlify-plugin-checklinks"
+# Disabled: Plugin has compatibility issues with modern JavaScript (ES2022+ StaticBlock syntax)
 
 # Note: Netlify handles compression automatically, no manual Content-Encoding needed
