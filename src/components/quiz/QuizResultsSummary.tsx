@@ -152,6 +152,7 @@ export const QuizResultsSummary: React.FC<QuizResultsSummaryProps> = ({
           consistency: Math.round(Math.max(0, 100 - (Math.abs(accuracy - score) * 2))),
           strengthAreas,
           improvementAreas,
+          pointsEarned: pointsEarned, // Use the passed-in points from enhanced completion
         },
         questionBreakdown,
         timestamp: new Date(),
@@ -163,28 +164,7 @@ export const QuizResultsSummary: React.FC<QuizResultsSummaryProps> = ({
     }
   }, [session, questions]);
 
-  // Handle saving results to backend
-  const handleSaveResults = useCallback(async () => {
-    if (!results) return;
-
-    setIsSaving(true);
-    setSaveError(null);
-
-    try {
-      const success = await onSaveResults(results);
-      if (success) {
-        setSaveSuccess(true);
-        console.log('✅ Quiz results saved successfully');
-      } else {
-        setSaveError('Failed to save results to database');
-      }
-    } catch (error) {
-      setSaveError('An error occurred while saving results');
-      console.error('Results save error:', error);
-    } finally {
-      setIsSaving(false);
-    }
-  }, [results, onSaveResults]);
+  // Results are now automatically saved by enhanced completion - no manual save needed
 
   // Handle session cleanup and navigation
   const handleFinish = useCallback(() => {
@@ -383,15 +363,21 @@ export const QuizResultsSummary: React.FC<QuizResultsSummaryProps> = ({
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
               <div className="p-3 bg-green-100 rounded-lg">
                 <p className="text-xs font-medium text-green-800">Points Earned</p>
-                <p className="text-lg font-bold text-green-900">{results.performanceMetrics.pointsEarned || 'Calculated'} pts</p>
+                <p className="text-lg font-bold text-green-900">
+                  {pointsEarned || results.performanceMetrics.pointsEarned || 'Auto-calculated'} pts
+                </p>
               </div>
               <div className="p-3 bg-green-100 rounded-lg">
                 <p className="text-xs font-medium text-green-800">Accuracy Updated</p>
                 <p className="text-lg font-bold text-green-900">{results.performanceMetrics.accuracy}%</p>
               </div>
               <div className="p-3 bg-green-100 rounded-lg">
-                <p className="text-xs font-medium text-green-800">Total Quizzes</p>
-                <p className="text-lg font-bold text-green-900">Updated</p>
+                <p className="text-xs font-medium text-green-800">
+                  {userStats?.newLevel ? 'New Level' : 'Stats Updated'}
+                </p>
+                <p className="text-lg font-bold text-green-900">
+                  {userStats?.newLevel ? `Level ${userStats.newLevel}` : '✓ Done'}
+                </p>
               </div>
             </div>
           </div>
