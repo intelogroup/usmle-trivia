@@ -58,7 +58,7 @@ export const Register: React.FC = () => {
             </div>
           </div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent mb-2">
-            Create your account
+            MedQuiz Pro
           </h1>
           <p className="text-muted-foreground text-lg">
             Join thousands of medical students preparing for USMLE

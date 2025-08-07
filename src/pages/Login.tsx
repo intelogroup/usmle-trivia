@@ -36,15 +36,15 @@ export const Login: React.FC = () => {
         {/* Enhanced Header */}
         <div className="text-center mb-8 animate-fade-up">
           <div className="flex justify-center mb-6">
-            <div className="p-4 bg-gradient-to-r from-primary to-primary/80 rounded-2xl shadow-custom-md">
+            <div className="p-4 bg-gradient-to-r from-primary to-primary/80 rounded-2xl shadow-custom-md" role="img" aria-label="MedQuiz Pro medical education logo">
               <Stethoscope className="h-12 w-12 text-white" />
             </div>
           </div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent mb-2">
-            Welcome back
+            MedQuiz Pro
           </h1>
           <p className="text-muted-foreground text-lg">
-            Sign in to continue your medical journey
+            USMLE Preparation Platform
           </p>
         </div>
 

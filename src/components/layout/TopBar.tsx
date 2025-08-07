@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, Bell, Search, User, LogOut, Settings } from 'lucide-react';
+import { Menu, Bell, Search, User, LogOut, Settings, Stethoscope } from 'lucide-react';
 import { useAppStore } from '../../store';
 import { useNavigate } from 'react-router-dom';
 
@@ -48,7 +48,7 @@ export const TopBar: React.FC = () => {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <input
             type="search"
-            placeholder="Search questions, topics..."
+            placeholder="Search USMLE questions, medical topics..."
             className="pl-10 pr-4 py-2 w-64 rounded-md border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
@@ -80,6 +80,10 @@ export const TopBar: React.FC = () => {
           {userMenuOpen && (
             <div className="absolute right-0 mt-2 w-56 bg-background border rounded-md shadow-lg z-50">
               <div className="p-3 border-b">
+                <div className="flex items-center gap-2 mb-2">
+                  <Stethoscope className="h-4 w-4 text-primary" />
+                  <span className="text-xs font-medium text-primary">MedQuiz Pro</span>
+                </div>
                 <p className="text-sm font-medium">{user?.name}</p>
                 <p className="text-xs text-muted-foreground">{user?.email}</p>
               </div>

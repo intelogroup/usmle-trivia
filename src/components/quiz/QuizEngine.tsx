@@ -274,11 +274,17 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
   const isLastQuestion = quizState.currentQuestionIndex === quizState.questions.length - 1;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="main" aria-label={`USMLE ${mode} quiz`}>
       {/* Quiz Header */}
-      <div className="flex items-center justify-between p-6 bg-gradient-to-r from-background to-muted/30 rounded-2xl border shadow-custom animate-in">
+      <div className="flex items-center justify-between p-6 bg-gradient-to-r from-background to-muted/30 rounded-2xl border shadow-custom animate-in" role="banner">
         <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" onClick={onBack} className="hover:bg-primary/10 transition-colors duration-200">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={onBack} 
+            className="hover:bg-primary/10 transition-colors duration-200"
+            aria-label="Go back to quiz selection"
+          >
             <ArrowLeft className="h-4 w-4" />
           </Button>
           <div>
@@ -290,11 +296,16 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
         </div>
         
         {quizState.timeRemaining !== null && quizState.timeRemaining !== undefined && (
-          <div className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 ${
-            quizState.timeRemaining < 60 
-              ? 'bg-red-100 text-red-700 border border-red-200 animate-pulse' 
-              : 'bg-muted border'
-          }`}>
+          <div 
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 ${
+              quizState.timeRemaining < 60 
+                ? 'bg-red-100 text-red-700 border border-red-200 animate-pulse' 
+                : 'bg-muted border'
+            }`}
+            role="timer"
+            aria-label={`Time remaining: ${formatTime(quizState.timeRemaining)}`}
+            aria-live="polite"
+          >
             <Clock className="h-4 w-4" />
             <span className={`font-mono font-bold ${quizState.timeRemaining < 60 ? 'text-red-600' : ''}`}>
               {formatTime(quizState.timeRemaining)}
@@ -304,7 +315,7 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
       </div>
 
       {/* Enhanced Progress Bar */}
-      <div className="relative">
+      <div className="relative" role="progressbar" aria-label="Quiz progress" aria-valuenow={Math.round(((quizState.currentQuestionIndex + (quizState.hasAnswered ? 1 : 0)) / quizState.questions.length) * 100)} aria-valuemin={0} aria-valuemax={100}>
         <div className="w-full bg-muted/50 rounded-full h-3 shadow-inner">
           <div 
             className="bg-gradient-to-r from-primary to-primary/80 h-3 rounded-full transition-all duration-500 ease-out relative overflow-hidden"
@@ -317,7 +328,7 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
         </div>
         <div className="flex justify-between mt-2">
           <span className="text-xs text-muted-foreground font-medium">Progress</span>
-          <span className="text-xs text-muted-foreground font-medium">
+          <span className="text-xs text-muted-foreground font-medium" aria-live="polite">
             {Math.round(((quizState.currentQuestionIndex + (quizState.hasAnswered ? 1 : 0)) / quizState.questions.length) * 100)}%
           </span>
         </div>
@@ -350,7 +361,8 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
           </div>
 
           {/* Enhanced Answer Options */}
-          <div className="space-y-4">
+          <fieldset className="space-y-4">
+            <legend className="sr-only">Answer options for this USMLE question</legend>
             {currentQuestion.options.map((option, index) => {
               const isSelected = currentAnswer === index;
               const isCorrect = index === currentQuestion.correctAnswer;
@@ -379,6 +391,9 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
                   onClick={() => handleAnswerSelect(index)}
                   disabled={quizState.hasAnswered}
                   className={buttonClass}
+                  role="radio"
+                  aria-checked={isSelected}
+                  aria-label={`Option ${optionLabel}: ${option}${showResult && isCorrect ? ' (Correct answer)' : ''}${showResult && isSelected && !isCorrect ? ' (Your incorrect answer)' : ''}`}
                 >
                   <div className="flex items-center gap-4">
                     <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-200 ${
@@ -401,7 +416,7 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
                 </button>
               );
             })}
-          </div>
+          </fieldset>
 
           {/* Explanation */}
           {quizState.showExplanation && (
