@@ -564,3 +564,300 @@ export const getUserQuizAnalytics = query({
     };
   },
 });
+
+// Enhanced quiz completion with automatic point calculation and stats update
+export const completeQuizWithStats = mutation({
+  args: {
+    sessionId: v.id("quizSessions"),
+    finalTimeSpent: v.number(),
+    autoAdvanceCount: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    try {
+      console.log(`Starting enhanced quiz completion for session: ${args.sessionId}`);
+      
+      // Get the quiz session
+      const session = await ctx.db.get(args.sessionId);
+      if (!session) {
+        throw new ConvexError("Quiz session not found");
+      }
+
+      if (session.status !== "active") {
+        throw new ConvexError("Quiz session is not active");
+      }
+
+      // Get all questions for this session to calculate detailed results
+      const questions = await Promise.all(
+        session.questions.map(questionId => ctx.db.get(questionId))
+      );
+
+      // Filter out any null questions (in case some were deleted)
+      const validQuestions = questions.filter(q => q !== null);
+      
+      if (validQuestions.length === 0) {
+        throw new ConvexError("No valid questions found for this session");
+      }
+
+      // Calculate detailed results
+      let correctAnswers = 0;
+      let totalPointsEarned = 0;
+      const questionBreakdown = [];
+      const categoryStats = new Map<string, { correct: number; total: number }>();
+      const difficultyStats = new Map<string, { correct: number; total: number }>();
+
+      // Point values by difficulty
+      const pointValues = {
+        easy: 2,
+        medium: 5,
+        hard: 10
+      };
+
+      session.answers.forEach((answer, index) => {
+        const question = validQuestions[index];
+        if (!question) return;
+
+        const isCorrect = answer !== null && answer === question.correctAnswer;
+        const points = isCorrect ? pointValues[question.difficulty] : 0;
+        
+        if (isCorrect) {
+          correctAnswers++;
+          totalPointsEarned += points;
+        }
+
+        // Track category stats
+        const catStat = categoryStats.get(question.category) || { correct: 0, total: 0 };
+        catStat.total++;
+        if (isCorrect) catStat.correct++;
+        categoryStats.set(question.category, catStat);
+
+        // Track difficulty stats
+        const diffStat = difficultyStats.get(question.difficulty) || { correct: 0, total: 0 };
+        diffStat.total++;
+        if (isCorrect) diffStat.correct++;
+        difficultyStats.set(question.difficulty, diffStat);
+
+        // Add to question breakdown
+        questionBreakdown.push({
+          questionId: question._id,
+          category: question.category,
+          difficulty: question.difficulty,
+          userAnswer: answer ?? -1,
+          correctAnswer: question.correctAnswer,
+          isCorrect,
+          timeSpent: Math.floor(args.finalTimeSpent / validQuestions.length), // Approximate time per question
+          pointsEarned: points
+        });
+      });
+
+      // Calculate performance metrics
+      const accuracy = Math.round((correctAnswers / validQuestions.length) * 100);
+      const averageTimePerQuestion = Math.round(args.finalTimeSpent / validQuestions.length);
+      const completionRate = 100; // Assuming completed quiz
+      
+      // Determine strength and improvement areas based on category performance
+      const strengthAreas: string[] = [];
+      const improvementAreas: string[] = [];
+      
+      categoryStats.forEach((stats, category) => {
+        const categoryAccuracy = (stats.correct / stats.total) * 100;
+        if (categoryAccuracy >= 80) {
+          strengthAreas.push(category);
+        } else if (categoryAccuracy < 50) {
+          improvementAreas.push(category);
+        }
+      });
+
+      // Performance metrics object
+      const performanceMetrics = {
+        accuracy,
+        speed: averageTimePerQuestion > 120 ? 1 : averageTimePerQuestion > 60 ? 3 : 5, // 1-5 scale
+        consistency: accuracy > 90 ? 5 : accuracy > 70 ? 4 : accuracy > 50 ? 3 : 2, // 1-5 scale
+        strengthAreas,
+        improvementAreas
+      };
+
+      console.log(`Calculated results - Score: ${accuracy}%, Points: ${totalPointsEarned}, Correct: ${correctAnswers}/${validQuestions.length}`);
+
+      // Update the quiz session
+      await ctx.db.patch(args.sessionId, {
+        score: accuracy,
+        timeSpent: args.finalTimeSpent,
+        status: "completed",
+        completedAt: Date.now(),
+      });
+
+      // Get updated session
+      const completedSession = await ctx.db.get(args.sessionId);
+      if (!completedSession) {
+        throw new ConvexError("Failed to retrieve completed session");
+      }
+
+      // Update user stats with calculated points
+      console.log(`Updating user stats for user: ${session.userId} with ${totalPointsEarned} points`);
+      
+      let updatedUserStats;
+      try {
+        updatedUserStats = await ctx.runMutation("auth:updateUserStats", {
+          userId: session.userId,
+          quizScore: accuracy,
+          questionsCount: validQuestions.length,
+          pointsEarned: totalPointsEarned,
+        });
+        console.log("User stats updated successfully");
+      } catch (error) {
+        console.error("Error updating user stats:", error);
+        // Continue with quiz completion even if stats update fails
+        updatedUserStats = null;
+      }
+
+      // Save comprehensive quiz results
+      console.log("Saving comprehensive quiz results");
+      
+      let quizResultId;
+      try {
+        quizResultId = await ctx.runMutation("quiz:saveQuizResults", {
+          sessionId: String(args.sessionId),
+          userId: String(session.userId),
+          mode: session.mode,
+          score: accuracy,
+          totalQuestions: validQuestions.length,
+          correctAnswers,
+          incorrectAnswers: validQuestions.length - correctAnswers,
+          timeSpent: args.finalTimeSpent,
+          averageTimePerQuestion,
+          completionRate,
+          performanceMetrics,
+          questionBreakdown,
+          timestamp: Date.now(),
+          autoAdvanceCount: args.autoAdvanceCount || 0,
+        });
+        console.log(`Quiz results saved with ID: ${quizResultId}`);
+      } catch (error) {
+        console.error("Error saving quiz results:", error);
+        // Continue even if detailed results save fails
+        quizResultId = null;
+      }
+
+      console.log("Enhanced quiz completion successful");
+
+      // Return comprehensive completion data
+      return {
+        session: completedSession,
+        userStats: updatedUserStats,
+        results: {
+          score: accuracy,
+          correctAnswers,
+          totalQuestions: validQuestions.length,
+          pointsEarned: totalPointsEarned,
+          timeSpent: args.finalTimeSpent,
+          performanceMetrics,
+          quizResultId
+        }
+      };
+
+    } catch (error) {
+      console.error("Error in completeQuizWithStats:", error);
+      
+      // If there's an error, try to fall back to basic completion
+      try {
+        console.log("Attempting fallback to basic quiz completion");
+        const basicCompletion = await ctx.runMutation("quiz:completeQuizSession", {
+          sessionId: args.sessionId,
+          finalTimeSpent: args.finalTimeSpent,
+        });
+        
+        return {
+          session: basicCompletion,
+          userStats: null,
+          results: {
+            score: basicCompletion?.score || 0,
+            correctAnswers: 0,
+            totalQuestions: 0,
+            pointsEarned: 0,
+            timeSpent: args.finalTimeSpent,
+            performanceMetrics: {
+              accuracy: 0,
+              speed: 3,
+              consistency: 3,
+              strengthAreas: [],
+              improvementAreas: []
+            },
+            quizResultId: null
+          },
+          error: "Enhanced completion failed, used basic completion"
+        };
+      } catch (fallbackError) {
+        console.error("Fallback completion also failed:", fallbackError);
+        throw new ConvexError(`Quiz completion failed: ${error.message}`);
+      }
+    }
+  },
+});
+
+// Get point values for questions based on difficulty
+export const getQuestionPointValues = query({
+  args: {
+    questionIds: v.array(v.id("questions")),
+  },
+  handler: async (ctx, args) => {
+    const questions = await Promise.all(
+      args.questionIds.map(questionId => ctx.db.get(questionId))
+    );
+
+    const pointValues = {
+      easy: 2,
+      medium: 5,
+      hard: 10
+    };
+
+    return questions.map(question => ({
+      questionId: question?._id,
+      difficulty: question?.difficulty,
+      pointValue: question ? pointValues[question.difficulty] : 0,
+    }));
+  },
+});
+
+// Calculate total potential points for a quiz session
+export const calculateQuizPotentialPoints = query({
+  args: {
+    sessionId: v.id("quizSessions"),
+  },
+  handler: async (ctx, args) => {
+    const session = await ctx.db.get(args.sessionId);
+    if (!session) {
+      return { totalPoints: 0, breakdown: [] };
+    }
+
+    const questions = await Promise.all(
+      session.questions.map(questionId => ctx.db.get(questionId))
+    );
+
+    const pointValues = {
+      easy: 2,
+      medium: 5,
+      hard: 10
+    };
+
+    const breakdown = questions
+      .filter(q => q !== null)
+      .map(question => ({
+        questionId: question!._id,
+        difficulty: question!.difficulty,
+        pointValue: pointValues[question!.difficulty],
+        category: question!.category
+      }));
+
+    const totalPoints = breakdown.reduce((sum, item) => sum + item.pointValue, 0);
+
+    return {
+      totalPoints,
+      breakdown,
+      difficultyBreakdown: {
+        easy: breakdown.filter(q => q.difficulty === "easy").length,
+        medium: breakdown.filter(q => q.difficulty === "medium").length,
+        hard: breakdown.filter(q => q.difficulty === "hard").length,
+      }
+    };
+  },
+});
