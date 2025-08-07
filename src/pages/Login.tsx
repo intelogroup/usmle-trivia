@@ -52,7 +52,12 @@ export const Login: React.FC = () => {
         <div className="bg-card border shadow-custom-lg rounded-2xl p-8 animate-slide-in">
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
-              <div className="p-4 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive text-sm font-medium animate-in">
+              <div 
+                id="login-error"
+                role="alert"
+                aria-live="assertive"
+                className="p-4 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive text-sm font-medium animate-in"
+              >
                 {error}
               </div>
             )}
@@ -67,6 +72,7 @@ export const Login: React.FC = () => {
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                aria-describedby={error ? "login-error" : undefined}
                 className="w-full px-4 py-3 border-2 border-muted rounded-xl bg-background/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 text-base"
                 placeholder="Enter your email"
               />
@@ -82,6 +88,7 @@ export const Login: React.FC = () => {
                 required
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                aria-describedby={error ? "login-error" : undefined}
                 className="w-full px-4 py-3 border-2 border-muted rounded-xl bg-background/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 text-base"
                 placeholder="Enter your password"
               />

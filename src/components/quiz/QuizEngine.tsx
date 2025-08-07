@@ -6,6 +6,7 @@ import { type Question, type QuizSession } from '../../services/quiz';
 import { useAppStore } from '../../store';
 import { useAsyncError } from '../../hooks/useAsyncError';
 import { useGetRandomQuestions, useCreateQuizSession, useSubmitAnswer, useCompleteQuizWithStats } from '../../services/convexQuiz';
+import { analyticsService, getAnalyticsAttributes } from '../../services/analytics';
 
 interface QuizEngineProps {
   mode: 'quick' | 'timed' | 'custom';
@@ -118,6 +119,9 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
             session,
             timeRemaining: config.timeLimit,
           }));
+
+          // Track quiz start event
+          analyticsService.trackQuizStart(mode, questions.length);
         }
       }, 'Initialize Quiz');
     };
@@ -155,6 +159,12 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
             updatedAt: new Date(),
           };
           
+          // Track quiz completion event
+          const totalCorrect = quizState.answers.filter((answer, index) => 
+            answer === quizState.questions[index]?.correctAnswer
+          ).length;
+          analyticsService.trackQuizComplete(totalCorrect, quizState.questions.length, finalTimeSpent);
+          
           // Pass enhanced results to completion handler
           onComplete(session, {
             pointsEarned: enhancedResult.results.pointsEarned,
@@ -187,6 +197,14 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
     return () => clearInterval(timer);
   }, [quizState.timeRemaining, handleCompleteQuiz]);
 
+  // Track question views
+  useEffect(() => {
+    if (quizState.questions.length > 0 && quizState.currentQuestionIndex >= 0) {
+      const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+      analyticsService.trackQuestionView(currentQuestion._id, quizState.currentQuestionIndex);
+    }
+  }, [quizState.currentQuestionIndex, quizState.questions]);
+
   // Handle answer selection
   const handleAnswerSelect = async (answerIndex: number) => {
     if (quizState.hasAnswered || !quizState.session) return;
@@ -194,6 +212,13 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
     await handleAsyncError(async () => {
       // Track time spent
       const timeSpent = Math.floor((Date.now() - quizState.startTime.getTime()) / 1000);
+      
+      // Get current question for analytics
+      const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+      const isCorrect = answerIndex === currentQuestion.correctAnswer;
+      
+      // Track answer selection event
+      analyticsService.trackAnswerSelected(currentQuestion._id, answerIndex, isCorrect);
       
       // Update local state
       const newAnswers = [...quizState.answers];
@@ -275,6 +300,31 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
 
   return (
     <div className="space-y-6" role="main" aria-label={`USMLE ${mode} quiz`}>
+      {/* Accessibility Live Regions */}
+      <div 
+        role="status" 
+        aria-live="polite" 
+        aria-atomic="true" 
+        className="sr-only"
+        aria-label="Quiz status updates"
+      >
+        {quizState.showExplanation && currentAnswer !== null && 
+          `Answer ${currentAnswer === currentQuestion.correctAnswer ? 'correct' : 'incorrect'}`
+        }
+      </div>
+      
+      <div 
+        role="status" 
+        aria-live="assertive" 
+        aria-atomic="true" 
+        className="sr-only"
+        aria-label="Timer updates"
+      >
+        {quizState.timeRemaining !== null && quizState.timeRemaining !== undefined && quizState.timeRemaining <= 60 &&
+          `${Math.floor(quizState.timeRemaining / 60)}:${String(quizState.timeRemaining % 60).padStart(2, '0')} remaining`
+        }
+      </div>
+      
       {/* Quiz Header */}
       <div className="flex items-center justify-between p-6 bg-gradient-to-r from-background to-muted/30 rounded-2xl border shadow-custom animate-in" role="banner">
         <div className="flex items-center gap-4">

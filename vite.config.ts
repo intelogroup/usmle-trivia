@@ -182,9 +182,12 @@ export default defineConfig({
       }
     },
     // Reduce chunk size warning limit after optimizations
-    chunkSizeWarningLimit: 800,
+    chunkSizeWarningLimit: 400, // Target <400KB chunks
     // Enable compression
     reportCompressedSize: true,
+    // Additional production optimizations
+    cssCodeSplit: true,
+    assetsInlineLimit: 8192, // 8KB inline limit
   },
   
   // Development server optimization
@@ -209,7 +212,7 @@ export default defineConfig({
     }
   },
   
-  // Development optimizations
+  // Development and production optimizations
   optimizeDeps: {
     include: [
       'react',
@@ -222,6 +225,14 @@ export default defineConfig({
       // Exclude large dependencies from optimization
       'framer-motion'
     ]
+  },
+  
+  // Additional build optimizations for production
+  esbuild: {
+    drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
+    minifyIdentifiers: true,
+    minifySyntax: true,
+    minifyWhitespace: true
   },
   
   // Define environment variables

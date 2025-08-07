@@ -239,8 +239,6 @@ export const Quiz: React.FC = () => {
           </div>
         </CardContent>
       </Card>
-
-      </div>
     </div>
   );
 };

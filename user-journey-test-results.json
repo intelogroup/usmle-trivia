@@ -1,0 +1,150 @@
+{
+  "testStartTime": "2025-08-07T14:56:36.726Z",
+  "scenarios": {
+    "primaryQuizJourney": {
+      "name": "Primary Quiz Journey",
+      "steps": [
+        {
+          "success": true,
+          "duration": 1814,
+          "error": null,
+          "timestamp": "2025-08-07T14:56:38.853Z"
+        },
+        {
+          "success": true,
+          "duration": 5404,
+          "error": null,
+          "timestamp": "2025-08-07T14:56:44.257Z"
+        },
+        {
+          "success": true,
+          "duration": 5834,
+          "error": null,
+          "timestamp": "2025-08-07T14:56:50.091Z"
+        },
+        {
+          "success": false,
+          "duration": 2010,
+          "error": "page.$$eval: TypeError: (el.className || \"\").toLowerCase is not a function\n    at eval (eval at evaluate (:291:30), <anonymous>:4:50)\n    at Array.filter (<anonymous>)\n    at eval (eval at evaluate (:291:30), <anonymous>:2:25)\n    at UtilityScript.evaluate (<anonymous>:293:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+          "timestamp": "2025-08-07T14:56:52.101Z"
+        },
+        {
+          "success": false,
+          "duration": 53,
+          "error": "Could not start quiz - no clickable quiz elements found",
+          "timestamp": "2025-08-07T14:56:52.154Z"
+        },
+        {
+          "success": false,
+          "duration": 6965,
+          "error": "No questions were successfully answered",
+          "timestamp": "2025-08-07T14:56:59.119Z"
+        }
+      ],
+      "totalTime": 22080,
+      "success": false,
+      "usabilityIssues": [],
+      "taskCompletionTimes": {}
+    },
+    "searchAndDiscovery": {
+      "name": "Search & Discovery",
+      "steps": [
+        {
+          "success": false,
+          "duration": 9,
+          "error": "No search inputs found",
+          "timestamp": "2025-08-07T14:56:59.129Z"
+        },
+        {
+          "success": true,
+          "duration": 3,
+          "error": null,
+          "timestamp": "2025-08-07T14:56:59.132Z"
+        },
+        {
+          "success": true,
+          "duration": 4,
+          "error": null,
+          "timestamp": "2025-08-07T14:56:59.136Z"
+        }
+      ],
+      "success": false,
+      "searchResults": {},
+      "usabilityIssues": [
+        "No search functionality found"
+      ]
+    },
+    "mobileResponsiveness": {
+      "name": "Mobile Responsiveness",
+      "devices": [
+        {
+          "name": "iPhone SE",
+          "success": true,
+          "viewport": {
+            "name": "iPhone SE",
+            "width": 375,
+            "height": 667
+          }
+        },
+        {
+          "name": "iPhone 12",
+          "success": true,
+          "viewport": {
+            "name": "iPhone 12",
+            "width": 390,
+            "height": 844
+          }
+        },
+        {
+          "name": "iPad",
+          "success": true,
+          "viewport": {
+            "name": "iPad",
+            "width": 768,
+            "height": 1024
+          }
+        }
+      ],
+      "success": true
+    },
+    "performanceAndErrors": {
+      "name": "Performance & Error Handling",
+      "steps": [
+        {
+          "success": true,
+          "duration": 2304,
+          "error": null,
+          "timestamp": "2025-08-07T14:57:04.137Z"
+        },
+        {
+          "success": true,
+          "duration": 975,
+          "error": null,
+          "timestamp": "2025-08-07T14:57:05.112Z"
+        }
+      ],
+      "loadTimes": {
+        "/": 699,
+        "/login": 717,
+        "/dashboard": 700
+      },
+      "success": true
+    }
+  },
+  "performance": {},
+  "usabilityFindings": [
+    "No search functionality found"
+  ],
+  "bugs": [],
+  "recommendations": [
+    "Ensure primary quiz flow completion rate above 80%",
+    "Implement clear search functionality with medical terminology",
+    "Optimize mobile experience for medical students on-the-go",
+    "Keep page load times under 3 seconds for optimal study experience",
+    "Provide clear error messages and recovery paths"
+  ],
+  "totalTests": 4,
+  "passedTests": 2,
+  "failedTests": 2,
+  "testEndTime": "2025-08-07T14:57:05.113Z"
+}
