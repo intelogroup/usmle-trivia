@@ -1,7 +1,8 @@
 import React from 'react';
-import { Trophy, Target, TrendingUp, Flame, Calendar, Clock, Award, BookOpen, Play, Timer, Settings } from 'lucide-react';
+import { Trophy, Target, TrendingUp, Flame, Play, Timer, Settings } from 'lucide-react';
 import { StatsCard } from './StatsCard';
 import { QuizModeSelector } from './QuizModeSelector';
+import { WelcomeBanner } from './WelcomeBanner';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
 import { FloatingActionButton } from '../ui/FloatingActionButton';
 import { useAppStore } from '../../store';
@@ -108,64 +109,39 @@ export const DashboardGrid: React.FC = () => {
   ];
 
   return (
-    <div className="grid gap-6 relative">
-      {/* Stats Grid */}
-      <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
+    <div className="space-y-6">
+      {/* Welcome Banner */}
+      <WelcomeBanner />
+      
+      {/* Essential Stats - Only 4 Cards */}
+      <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
         <StatsCard
-          title="Total Points"
+          title="Points"
           value={userStats.totalPoints.toLocaleString()}
           icon={Trophy}
-          trend={userStats.totalPoints > 1000 ? "Top performer!" : "Keep going!"}
           color="blue"
+          compact
         />
         <StatsCard
-          title="Quizzes Completed"
+          title="Completed"
           value={userStats.quizzesCompleted}
           icon={Target}
-          trend={userStats.quizzesCompleted > 0 ? `${userStats.accuracy}% avg score` : "Start a quiz!"}
           color="green"
+          compact
         />
         <StatsCard
-          title="Accuracy Rate"
+          title="Accuracy"
           value={`${userStats.accuracy}%`}
           icon={TrendingUp}
-          trend={userStats.accuracy >= 80 ? "Excellent!" : "Room to improve"}
           color="purple"
+          compact
         />
         <StatsCard
-          title="Current Streak"
-          value={`${userStats.currentStreak} days`}
+          title="Streak"
+          value={`${userStats.currentStreak}`}
           icon={Flame}
-          trend={userStats.currentStreak > 0 ? "Keep it up!" : "Start today!"}
           color="orange"
-        />
-      </div>
-
-      {/* Secondary Stats */}
-      <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
-        <StatsCard
-          title="Weekly Progress"
-          value={`${userStats.weeklyProgress}%`}
-          icon={Calendar}
-          color="green"
-        />
-        <StatsCard
-          title="Study Time"
-          value={`${userStats.timeSpent}m`}
-          icon={Clock}
-          color="blue"
-        />
-        <StatsCard
-          title="Achievements"
-          value={userStats.achievements}
-          icon={Award}
-          color="purple"
-        />
-        <StatsCard
-          title="Topics Mastered"
-          value={userStats.topicsCompleted}
-          icon={BookOpen}
-          color="orange"
+          compact
         />
       </div>
 

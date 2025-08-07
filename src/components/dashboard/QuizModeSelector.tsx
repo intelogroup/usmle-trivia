@@ -69,9 +69,9 @@ export const QuizModeSelector: React.FC = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-xl">Start New Quiz</CardTitle>
-        <p className="text-muted-foreground">
-          Choose your preferred quiz mode and begin practicing
+        <CardTitle className="text-lg">Practice Mode</CardTitle>
+        <p className="text-muted-foreground text-sm">
+          Select quiz type to begin
         </p>
       </CardHeader>
       <CardContent>

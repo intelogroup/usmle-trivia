@@ -9,6 +9,7 @@ interface StatsCardProps {
   icon: React.ElementType;
   trend?: string;
   color?: 'blue' | 'green' | 'purple' | 'orange' | 'red';
+  compact?: boolean;
 }
 
 const colorVariants = {
@@ -33,7 +34,35 @@ export const StatsCard: React.FC<StatsCardProps> = ({
   icon: Icon,
   trend,
   color = 'blue',
+  compact = false,
 }) => {
+  if (compact) {
+    return (
+      <Card className="border-0 shadow-sm bg-white/60 backdrop-blur-sm hover:bg-white/80 transition-all duration-200">
+        <CardContent className="p-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">{title}</p>
+              <p className="text-xl font-semibold text-slate-900 mt-1">
+                {typeof value === 'number' ? (
+                  <AnimatedCounter value={value} duration={800} />
+                ) : (
+                  value
+                )}
+              </p>
+            </div>
+            <div className={cn(
+              'p-2 rounded-lg', 
+              colorVariants[color]
+            )}>
+              <Icon className="h-4 w-4" />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card className={cn(
       'transition-all duration-300 cursor-pointer group animate-in shadow-custom hover:shadow-custom-md hover:-translate-y-1 hover:scale-[1.02]', 
