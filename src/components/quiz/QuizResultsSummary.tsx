@@ -26,7 +26,12 @@ import { Question } from '../../services/quiz';
 interface QuizResultsSummaryProps {
   session: QuizSessionData;
   questions: Question[];
-  onSaveResults: (results: QuizResults) => Promise<boolean>;
+  pointsEarned?: number;
+  userStats?: {
+    newLevel?: number;
+    totalPoints?: number;
+    newAccuracy?: number;
+  };
   onStartNewQuiz: () => void;
   onBackToDashboard: () => void;
   onUnmountSession: () => void;
@@ -49,6 +54,7 @@ interface QuizResults {
     consistency: number;
     strengthAreas: string[];
     improvementAreas: string[];
+    pointsEarned?: number;
   };
   questionBreakdown: Array<{
     questionId: string;
@@ -66,15 +72,13 @@ interface QuizResults {
 export const QuizResultsSummary: React.FC<QuizResultsSummaryProps> = ({
   session,
   questions,
-  onSaveResults,
+  pointsEarned = 0,
+  userStats,
   onStartNewQuiz,
   onBackToDashboard,
   onUnmountSession
 }) => {
   const [results, setResults] = useState<QuizResults | null>(null);
-  const [isSaving, setIsSaving] = useState(false);
-  const [saveError, setSaveError] = useState<string | null>(null);
-  const [saveSuccess, setSaveSuccess] = useState(false);
 
   // Calculate comprehensive results
   useEffect(() => {
@@ -148,6 +152,7 @@ export const QuizResultsSummary: React.FC<QuizResultsSummaryProps> = ({
           consistency: Math.round(Math.max(0, 100 - (Math.abs(accuracy - score) * 2))),
           strengthAreas,
           improvementAreas,
+          pointsEarned: pointsEarned, // Use the passed-in points from enhanced completion
         },
         questionBreakdown,
         timestamp: new Date(),
@@ -159,28 +164,7 @@ export const QuizResultsSummary: React.FC<QuizResultsSummaryProps> = ({
     }
   }, [session, questions]);
 
-  // Handle saving results to backend
-  const handleSaveResults = useCallback(async () => {
-    if (!results) return;
-
-    setIsSaving(true);
-    setSaveError(null);
-
-    try {
-      const success = await onSaveResults(results);
-      if (success) {
-        setSaveSuccess(true);
-        console.log('✅ Quiz results saved successfully');
-      } else {
-        setSaveError('Failed to save results to database');
-      }
-    } catch (error) {
-      setSaveError('An error occurred while saving results');
-      console.error('Results save error:', error);
-    } finally {
-      setIsSaving(false);
-    }
-  }, [results, onSaveResults]);
+  // Results are now automatically saved by enhanced completion - no manual save needed
 
   // Handle session cleanup and navigation
   const handleFinish = useCallback(() => {
@@ -364,52 +348,38 @@ export const QuizResultsSummary: React.FC<QuizResultsSummaryProps> = ({
         </Card>
       )}
 
-      {/* Save Results Section */}
-      <Card className="border-primary/20 bg-primary/5">
+      {/* Auto-Saved Results Info */}
+      <Card className="border-green-200 bg-green-50">
         <CardContent className="pt-6">
           <div className="text-center space-y-4">
-            <h3 className="text-lg font-semibold">Save Your Results</h3>
-            <p className="text-sm text-muted-foreground">
-              Save your quiz performance to track your progress over time
+            <div className="flex justify-center mb-4">
+              <CheckCircle className="h-8 w-8 text-green-600" />
+            </div>
+            <h3 className="text-lg font-semibold text-green-900">Results Automatically Saved!</h3>
+            <p className="text-sm text-green-700">
+              Your quiz performance has been automatically saved and your stats have been updated
             </p>
             
-            {saveError && (
-              <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-                <p className="text-sm text-red-700">{saveError}</p>
-              </div>
-            )}
-            
-            {saveSuccess && (
-              <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
-                <p className="text-sm text-green-700 flex items-center justify-center gap-2">
-                  <CheckCircle className="h-4 w-4" />
-                  Results saved successfully!
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
+              <div className="p-3 bg-green-100 rounded-lg">
+                <p className="text-xs font-medium text-green-800">Points Earned</p>
+                <p className="text-lg font-bold text-green-900">
+                  {pointsEarned || results.performanceMetrics.pointsEarned || 'Auto-calculated'} pts
                 </p>
               </div>
-            )}
-
-            <Button 
-              onClick={handleSaveResults}
-              disabled={isSaving || saveSuccess}
-              className="min-w-[140px]"
-            >
-              {isSaving ? (
-                <>
-                  <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full mr-2" />
-                  Saving...
-                </>
-              ) : saveSuccess ? (
-                <>
-                  <CheckCircle className="h-4 w-4 mr-2" />
-                  Saved
-                </>
-              ) : (
-                <>
-                  <Download className="h-4 w-4 mr-2" />
-                  Save Results
-                </>
-              )}
-            </Button>
+              <div className="p-3 bg-green-100 rounded-lg">
+                <p className="text-xs font-medium text-green-800">Accuracy Updated</p>
+                <p className="text-lg font-bold text-green-900">{results.performanceMetrics.accuracy}%</p>
+              </div>
+              <div className="p-3 bg-green-100 rounded-lg">
+                <p className="text-xs font-medium text-green-800">
+                  {userStats?.newLevel ? 'New Level' : 'Stats Updated'}
+                </p>
+                <p className="text-lg font-bold text-green-900">
+                  {userStats?.newLevel ? `Level ${userStats.newLevel}` : '✓ Done'}
+                </p>
+              </div>
+            </div>
           </div>
         </CardContent>
       </Card>

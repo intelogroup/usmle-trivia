@@ -8,7 +8,6 @@ import { QuizResults } from '../components/quiz/QuizResults';
 import { QuizResultsSummary } from '../components/quiz/QuizResultsSummary';
 import { SessionNavigationGuard, SessionStatusIndicator } from '../components/quiz/SessionNavigationGuard';
 import { useQuizSession, useQuizSessionEvents, useSafeNavigation } from '../hooks/useQuizSession';
-import { useSaveQuizResults } from '../services/convexQuizResults';
 import { useAppStore } from '../store';
 import { quizModes, sampleQuestions } from '../data/sampleQuestions';
 import type { QuizSession } from '../services/quiz';
@@ -29,6 +28,11 @@ export const Quiz: React.FC = () => {
   const [completedSession, setCompletedSession] = useState<QuizSession | null>(null);
   const [completedSessionData, setCompletedSessionData] = useState<QuizSessionData | null>(null);
   const [quizQuestions, setQuizQuestions] = useState<Question[]>([]);
+  const [enhancedResults, setEnhancedResults] = useState<{
+    pointsEarned: number;
+    userStats: any;
+    performanceMetrics: any;
+  } | null>(null);
   const [startError, setStartError] = useState<string | null>(null);
   
   // Session management hooks
@@ -44,8 +48,7 @@ export const Quiz: React.FC = () => {
   const { safeNavigate } = useSafeNavigation();
   const { lastEvent } = useQuizSessionEvents();
   
-  // Quiz results hooks
-  const { save: saveQuizResults } = useSaveQuizResults();
+  // Enhanced quiz results now auto-saved - no manual save needed
   
   const isValidMode = (m: string | undefined): m is QuizMode => {
     return m === 'quick' || m === 'timed' || m === 'custom';
@@ -150,8 +153,15 @@ export const Quiz: React.FC = () => {
     }
   };
   
-  const handleQuizComplete = (session: QuizSession) => {
+  const handleQuizComplete = (session: QuizSession, enhancedData?: {
+    pointsEarned: number;
+    userStats: any;
+    performanceMetrics: any;
+  }) => {
     setCompletedSession(session);
+    if (enhancedData) {
+      setEnhancedResults(enhancedData);
+    }
     setQuizState('results');
   };
   
@@ -170,6 +180,7 @@ export const Quiz: React.FC = () => {
     setCompletedSession(null);
     setCompletedSessionData(null);
     setQuizQuestions([]);
+    setEnhancedResults(null);
   };
 
   // Handle starting a new quiz from results
@@ -221,7 +232,8 @@ export const Quiz: React.FC = () => {
         <QuizResultsSummary
           session={completedSessionData}
           questions={quizQuestions}
-          onSaveResults={saveQuizResults}
+          pointsEarned={enhancedResults?.pointsEarned}
+          userStats={enhancedResults?.userStats}
           onStartNewQuiz={handleStartNewQuiz}
           onBackToDashboard={handleBackToDashboard}
           onUnmountSession={handleUnmountSession}
