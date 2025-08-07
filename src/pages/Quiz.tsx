@@ -5,11 +5,15 @@ import { Button } from '../components/ui/Button';
 import { ArrowLeft, Play, AlertTriangle } from 'lucide-react';
 import { EnhancedQuizEngine } from '../components/quiz/EnhancedQuizEngine';
 import { QuizResults } from '../components/quiz/QuizResults';
+import { QuizResultsSummary } from '../components/quiz/QuizResultsSummary';
 import { SessionNavigationGuard, SessionStatusIndicator } from '../components/quiz/SessionNavigationGuard';
 import { useQuizSession, useQuizSessionEvents, useSafeNavigation } from '../hooks/useQuizSession';
+import { useSaveQuizResults } from '../services/convexQuizResults';
 import { useAppStore } from '../store';
-import { quizModes } from '../data/sampleQuestions';
+import { quizModes, sampleQuestions } from '../data/sampleQuestions';
 import type { QuizSession } from '../services/quiz';
+import type { Question } from '../services/quiz';
+import { QuizSessionData, quizSessionManager } from '../services/QuizSessionManager';
 
 type QuizMode = 'quick' | 'timed' | 'custom';
 type QuizState = 'setup' | 'active' | 'results';
@@ -23,6 +27,8 @@ export const Quiz: React.FC = () => {
   
   const [quizState, setQuizState] = useState<QuizState>('setup');
   const [completedSession, setCompletedSession] = useState<QuizSession | null>(null);
+  const [completedSessionData, setCompletedSessionData] = useState<QuizSessionData | null>(null);
+  const [quizQuestions, setQuizQuestions] = useState<Question[]>([]);
   const [startError, setStartError] = useState<string | null>(null);
   
   // Session management hooks
@@ -37,6 +43,9 @@ export const Quiz: React.FC = () => {
   
   const { safeNavigate } = useSafeNavigation();
   const { lastEvent } = useQuizSessionEvents();
+  
+  // Quiz results hooks
+  const { save: saveQuizResults } = useSaveQuizResults();
   
   const isValidMode = (m: string | undefined): m is QuizMode => {
     return m === 'quick' || m === 'timed' || m === 'custom';
@@ -58,7 +67,7 @@ export const Quiz: React.FC = () => {
           break;
         case 'completed':
           if (session) {
-            // Convert session to QuizSession format for results
+            // Convert session to QuizSession format for backward compatibility
             const convertedSession: QuizSession = {
               id: session.sessionId,
               userId: session.userId,
@@ -71,7 +80,18 @@ export const Quiz: React.FC = () => {
               createdAt: session.startTime,
               updatedAt: session.endTime || new Date(),
             };
+            
+            // Prepare questions for results summary
+            const sessionQuestions: Question[] = sampleQuestions
+              .slice(0, session.questions.length)
+              .map((q, index) => ({
+                ...q,
+                id: session.questions[index] || `q${index + 1}`,
+              }));
+            
             setCompletedSession(convertedSession);
+            setCompletedSessionData(session);
+            setQuizQuestions(sessionQuestions);
             setQuizState('results');
           }
           break;
@@ -143,6 +163,24 @@ export const Quiz: React.FC = () => {
   const handleHomeReturn = () => {
     navigate('/');
   };
+
+  // Handle session cleanup and unmounting after results
+  const handleUnmountSession = () => {
+    quizSessionManager.cleanup();
+    setCompletedSession(null);
+    setCompletedSessionData(null);
+    setQuizQuestions([]);
+  };
+
+  // Handle starting a new quiz from results
+  const handleStartNewQuiz = () => {
+    navigate('/dashboard');
+  };
+
+  // Handle returning to dashboard from results
+  const handleBackToDashboard = () => {
+    navigate('/dashboard');
+  };
   
   if (!mode || !isValidMode(mode)) {
     return (
@@ -176,14 +214,31 @@ export const Quiz: React.FC = () => {
   }
   
   // Show results when completed
-  if (quizState === 'results' && completedSession) {
-    return (
-      <QuizResults 
-        session={completedSession}
-        onHome={handleHomeReturn}
-        onRetry={handleRetryQuiz}
-      />
-    );
+  if (quizState === 'results') {
+    // Use comprehensive results summary if session data and questions are available
+    if (completedSessionData && quizQuestions.length > 0) {
+      return (
+        <QuizResultsSummary
+          session={completedSessionData}
+          questions={quizQuestions}
+          onSaveResults={saveQuizResults}
+          onStartNewQuiz={handleStartNewQuiz}
+          onBackToDashboard={handleBackToDashboard}
+          onUnmountSession={handleUnmountSession}
+        />
+      );
+    }
+    
+    // Fallback to basic results if only basic session data is available
+    if (completedSession) {
+      return (
+        <QuizResults 
+          session={completedSession}
+          onHome={handleHomeReturn}
+          onRetry={handleRetryQuiz}
+        />
+      );
+    }
   }
   
   // Get quiz mode configuration

@@ -5,7 +5,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader } from '../ui/Card';
 import { Button } from '../ui/Button';
-import { ArrowLeft, BookOpen, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, BookOpen, CheckCircle, XCircle, AlertTriangle, Clock, Zap } from 'lucide-react';
 import { QuestionNavigation } from './QuestionNavigation';
 import { useQuizSession, useQuizNavigation, useQuizTimer } from '../../hooks/useQuizSession';
 import { useGetRandomQuestions } from '../../services/convexQuiz';
@@ -25,6 +25,7 @@ export const EnhancedQuizEngine: React.FC<EnhancedQuizEngineProps> = ({
   const [showExplanation, setShowExplanation] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [autoAdvanceCountdown, setAutoAdvanceCountdown] = useState<number | null>(null);
 
   // Session management hooks
   const { 
@@ -65,6 +66,26 @@ export const EnhancedQuizEngine: React.FC<EnhancedQuizEngineProps> = ({
       if (success) {
         setShowExplanation(true);
         console.log(`✅ Answer ${answerIndex} submitted for Q${currentIndex + 1}`);
+        
+        // Start auto-advance countdown for Quick Quiz mode
+        if (session.autoAdvanceConfig.enabled && session.autoAdvanceConfig.skipToNext) {
+          const countdownMs = session.autoAdvanceConfig.delayMs;
+          const countdownSeconds = Math.ceil(countdownMs / 1000);
+          setAutoAdvanceCountdown(countdownSeconds);
+          
+          const countdownInterval = setInterval(() => {
+            setAutoAdvanceCountdown(prev => {
+              if (prev === null || prev <= 1) {
+                clearInterval(countdownInterval);
+                return null;
+              }
+              return prev - 1;
+            });
+          }, 1000);
+          
+          // Clear countdown when component unmounts or question changes
+          return () => clearInterval(countdownInterval);
+        }
       } else {
         setError('Failed to submit answer. Please try again.');
       }
@@ -80,6 +101,7 @@ export const EnhancedQuizEngine: React.FC<EnhancedQuizEngineProps> = ({
   const handleQuestionChange = useCallback(() => {
     setShowExplanation(false);
     setError(null);
+    setAutoAdvanceCountdown(null); // Reset countdown on question change
     
     // Check if current question is answered
     if (session && session.answers[currentIndex] !== null) {
@@ -312,6 +334,32 @@ export const EnhancedQuizEngine: React.FC<EnhancedQuizEngineProps> = ({
                       <li key={index}>• {ref}</li>
                     ))}
                   </ul>
+                </div>
+              )}
+
+              {/* Auto-advance countdown for Quick Quiz */}
+              {autoAdvanceCountdown !== null && session?.autoAdvanceConfig.enabled && (
+                <div className="mt-4 p-4 bg-gradient-to-r from-blue-50 to-blue-100/50 border border-blue-200 rounded-xl">
+                  <div className="flex items-center justify-center gap-3">
+                    <div className="flex items-center gap-2">
+                      <div className="relative">
+                        <Zap className="h-5 w-5 text-blue-600 animate-pulse" />
+                        <div className="absolute -inset-1 bg-blue-400/20 rounded-full animate-ping" />
+                      </div>
+                      <span className="text-sm font-semibold text-blue-900">Quick Quiz Auto-Advance</span>
+                    </div>
+                    <div className="flex items-center gap-2 px-3 py-1.5 bg-blue-600 text-white rounded-full">
+                      <Clock className="h-4 w-4" />
+                      <span className="text-sm font-bold tabular-nums">
+                        {autoAdvanceCountdown}s
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-xs text-blue-700 text-center mt-2">
+                    {currentIndex < (session.questions.length - 1) 
+                      ? `Automatically advancing to question ${currentIndex + 2}...` 
+                      : 'Automatically completing quiz...'}
+                  </p>
                 </div>
               )}
             </div>

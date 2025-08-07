@@ -30,6 +30,11 @@ export interface QuizSessionData {
   isTimeLimited: boolean;
   timeLimit?: number; // seconds
   timeRemaining?: number; // seconds
+  autoAdvanceConfig: {
+    enabled: boolean;
+    delayMs: number; // milliseconds to wait before auto-advance
+    skipToNext: boolean; // automatically move to next question after answer
+  };
   metadata: {
     totalQuestions: number;
     correctAnswers: number;
@@ -39,6 +44,7 @@ export interface QuizSessionData {
     abandonReason?: string;
     navigationCount: number; // track question navigation
     lastActivityTime: Date;
+    autoAdvanceCount: number; // track how many auto-advances occurred
   };
 }
 
@@ -58,6 +64,7 @@ class QuizSessionManager {
   private currentSession: QuizSessionData | null = null;
   private eventHandlers: Map<string, SessionEventHandler[]> = new Map();
   private sessionCheckInterval: NodeJS.Timeout | null = null;
+  private autoAdvanceTimeout: NodeJS.Timeout | null = null;
   private abandonmentTimeoutMs = 30 * 60 * 1000; // 30 minutes
   private autoSaveIntervalMs = 10 * 1000; // 10 seconds
 
@@ -109,6 +116,11 @@ class QuizSessionManager {
       isTimeLimited: !!config?.timeLimit,
       timeLimit: config?.timeLimit,
       timeRemaining: config?.timeLimit,
+      autoAdvanceConfig: {
+        enabled: mode === 'quick', // Enable auto-advance only for quick quiz
+        delayMs: 1000, // 1 second delay for quick quiz
+        skipToNext: mode === 'quick', // Auto-move to next question after answer
+      },
       metadata: {
         totalQuestions: questionIds.length,
         correctAnswers: 0,
@@ -117,6 +129,7 @@ class QuizSessionManager {
         abandoned: false,
         navigationCount: 0,
         lastActivityTime: now,
+        autoAdvanceCount: 0,
       },
     };
 
@@ -230,7 +243,66 @@ class QuizSessionManager {
       },
     });
 
+    // Handle auto-advance for quick quiz mode
+    if (this.currentSession.autoAdvanceConfig.enabled && this.currentSession.autoAdvanceConfig.skipToNext) {
+      this.scheduleAutoAdvance();
+    }
+
     return true;
+  }
+
+  /**
+   * Schedule auto-advance to next question (for Quick Quiz mode)
+   */
+  private scheduleAutoAdvance(): void {
+    if (!this.currentSession || !this.currentSession.autoAdvanceConfig.enabled) {
+      return;
+    }
+
+    // Clear any existing auto-advance timeout
+    this.clearAutoAdvanceTimeout();
+
+    // Check if there's a next question
+    if (!this.canNavigateNext()) {
+      // If this was the last question, auto-complete the session after delay
+      this.autoAdvanceTimeout = setTimeout(() => {
+        console.log('⏩ Auto-completing quiz session (last question)');
+        this.completeSession();
+      }, this.currentSession.autoAdvanceConfig.delayMs);
+      return;
+    }
+
+    // Schedule auto-advance to next question
+    this.autoAdvanceTimeout = setTimeout(() => {
+      if (this.currentSession && this.canNavigateNext()) {
+        const nextIndex = this.currentSession.currentQuestionIndex + 1;
+        console.log(`⏩ Auto-advancing to Q${nextIndex + 1} after ${this.currentSession.autoAdvanceConfig.delayMs}ms`);
+        
+        this.currentSession.metadata.autoAdvanceCount++;
+        this.navigateToQuestion(nextIndex);
+        
+        this.emitEvent('auto_advance', {
+          sessionId: this.currentSession.sessionId,
+          currentState: 'active',
+          timestamp: new Date(),
+          metadata: { 
+            fromIndex: this.currentSession.currentQuestionIndex - 1, 
+            toIndex: nextIndex,
+            autoAdvanceCount: this.currentSession.metadata.autoAdvanceCount
+          },
+        });
+      }
+    }, this.currentSession.autoAdvanceConfig.delayMs);
+  }
+
+  /**
+   * Clear auto-advance timeout
+   */
+  private clearAutoAdvanceTimeout(): void {
+    if (this.autoAdvanceTimeout) {
+      clearTimeout(this.autoAdvanceTimeout);
+      this.autoAdvanceTimeout = null;
+    }
   }
 
   /**
@@ -537,6 +609,7 @@ class QuizSessionManager {
     if (this.sessionCheckInterval) {
       clearInterval(this.sessionCheckInterval);
     }
+    this.clearAutoAdvanceTimeout();
     if (this.hasActiveSession()) {
       this.abandonSession('app_shutdown');
     }
