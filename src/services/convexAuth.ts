@@ -89,6 +89,18 @@ export const convexAuthService = {
       };
       currentUserId = user._id;
       
+      // Save session to localStorage for persistence
+      try {
+        localStorage.setItem('medquiz_session', JSON.stringify({
+          userId: user._id,
+          user: currentUser,
+          timestamp: Date.now()
+        }));
+        console.log('💾 Session saved to localStorage');
+      } catch (error) {
+        console.error('Failed to save session:', error);
+      }
+      
       return { session: { $id: 'session' }, user: currentUser };
     } catch (error) {
       console.error('🚨 Login error:', error);
@@ -105,6 +117,15 @@ export const convexAuthService = {
       console.log('🚪 Logging out user:', currentUser?.email);
       currentUser = null;
       currentUserId = null;
+      
+      // Clear session from localStorage
+      try {
+        localStorage.removeItem('medquiz_session');
+        console.log('🗑️ Session cleared from localStorage');
+      } catch (error) {
+        console.error('Failed to clear session:', error);
+      }
+      
       console.log('✅ Logout successful');
     } catch (error) {
       console.error('🚨 Logout error:', error);
@@ -118,11 +139,35 @@ export const convexAuthService = {
   async getCurrentUser(): Promise<IUser | null> {
     try {
       console.log('👤 Getting current user, ID:', currentUserId);
-      if (!currentUserId) {
+      
+      // If no current user in memory, try to restore from localStorage
+      if (!currentUserId || !currentUser) {
+        console.log('🔍 No user in memory, checking localStorage');
+        try {
+          const sessionData = localStorage.getItem('medquiz_session');
+          if (sessionData) {
+            const parsed = JSON.parse(sessionData);
+            // Check if session is less than 24 hours old
+            if (Date.now() - parsed.timestamp < 24 * 60 * 60 * 1000) {
+              console.log('🔄 Restoring user from localStorage');
+              currentUserId = parsed.userId;
+              currentUser = parsed.user;
+              console.log('✅ User restored from localStorage:', currentUser.name);
+              return currentUser;
+            } else {
+              console.log('⏰ Session expired, removing from localStorage');
+              localStorage.removeItem('medquiz_session');
+            }
+          }
+        } catch (error) {
+          console.error('Failed to restore session:', error);
+        }
+        
         console.log('❌ No current user ID');
         return null;
       }
       
+      // Refresh user data from database if we have a user ID
       const user = await this.getUserById(currentUserId);
       currentUser = user;
       console.log('👤 Current user retrieved:', user ? '✅' : '❌');

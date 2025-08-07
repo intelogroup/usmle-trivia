@@ -53,7 +53,17 @@ export const QuizModeSelector: React.FC = () => {
   const navigate = useNavigate();
 
   const handleStartQuiz = (mode: QuizMode) => {
-    navigate(`/quiz/${mode.id}`, { state: { mode } });
+    // Only pass serializable data in the navigation state
+    const serializableMode = {
+      id: mode.id,
+      title: mode.title,
+      description: mode.description,
+      color: mode.color,
+      features: mode.features,
+      duration: mode.duration,
+      questions: mode.questions,
+    };
+    navigate(`/quiz/${mode.id}`, { state: { mode: serializableMode } });
   };
 
   return (
