@@ -337,6 +337,7 @@ export const useGetQuizSession = (sessionId: string) =>
   useQuery(api.quiz.getQuizSession, { sessionId });
 export const useSubmitAnswer = () => useMutation(api.quiz.submitAnswer);
 export const useCompleteQuizSession = () => useMutation(api.quiz.completeQuizSession);
+export const useCompleteQuizWithStats = () => useMutation(api.quiz.completeQuizWithStats);
 export const useGetUserQuizHistory = (userId: string, limit?: number) => 
   useQuery(api.quiz.getUserQuizHistory, { userId, limit });
 export const useBatchCreateQuestions = () => useMutation(api.quiz.batchCreateQuestions);

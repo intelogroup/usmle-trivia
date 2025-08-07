@@ -5,12 +5,16 @@ import { ArrowLeft, Clock, CheckCircle, XCircle, BookOpen } from 'lucide-react';
 import { type Question, type QuizSession } from '../../services/quiz';
 import { useAppStore } from '../../store';
 import { useAsyncError } from '../../hooks/useAsyncError';
-import { useGetRandomQuestions, useCreateQuizSession, useSubmitAnswer, useCompleteQuizSession } from '../../services/convexQuiz';
+import { useGetRandomQuestions, useCreateQuizSession, useSubmitAnswer, useCompleteQuizWithStats } from '../../services/convexQuiz';
 
 interface QuizEngineProps {
   mode: 'quick' | 'timed' | 'custom';
   onBack: () => void;
-  onComplete: (session: QuizSession) => void;
+  onComplete: (session: QuizSession, enhancedResults?: {
+    pointsEarned: number;
+    userStats: any;
+    performanceMetrics: any;
+  }) => void;
 }
 
 interface QuizState {
@@ -57,7 +61,7 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
   const randomQuestions = useGetRandomQuestions(getQuizConfig().questionCount);
   const createQuizSession = useCreateQuizSession();
   const submitAnswer = useSubmitAnswer();
-  const completeQuizSession = useCompleteQuizSession();
+  const completeQuizWithStats = useCompleteQuizWithStats();
 
   // Initialize quiz
   useEffect(() => {
@@ -131,30 +135,36 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
       // Calculate final time spent
       const finalTimeSpent = Math.floor((Date.now() - quizState.startTime.getTime()) / 1000);
       
-      // Complete session in Convex
-      if (completeQuizSession) {
-        const completedSession = await completeQuizSession({
+      // Complete session with enhanced stats and automatic saving
+      if (completeQuizWithStats) {
+        const enhancedResult = await completeQuizWithStats({
           sessionId: quizState.session!.id,
           finalTimeSpent,
+          autoAdvanceCount: 0, // Add logic to track auto-advance if needed
         });
         
-        if (completedSession) {
-          // Create completed session object
+        if (enhancedResult && enhancedResult.session) {
+          // Create completed session object with enhanced data
           const session: QuizSession = {
             ...quizState.session!,
-            score: completedSession.score,
+            score: enhancedResult.session.score,
             status: 'completed',
-            answers: completedSession.answers,
-            timeSpent: completedSession.timeSpent,
-            completedAt: new Date(completedSession.completedAt || Date.now()),
+            answers: enhancedResult.session.answers,
+            timeSpent: enhancedResult.session.timeSpent,
+            completedAt: new Date(enhancedResult.session.completedAt || Date.now()),
             updatedAt: new Date(),
           };
           
-          onComplete(session);
+          // Pass enhanced results to completion handler
+          onComplete(session, {
+            pointsEarned: enhancedResult.results.pointsEarned,
+            userStats: enhancedResult.userStats,
+            performanceMetrics: enhancedResult.results.performanceMetrics
+          });
         }
       }
     }, 'Complete Quiz');
-  }, [quizState.session, quizState.isSubmitting, quizState.startTime, handleAsyncError, completeQuizSession, onComplete]);
+  }, [quizState.session, quizState.isSubmitting, quizState.startTime, handleAsyncError, completeQuizWithStats, onComplete]);
 
   // Timer for timed quizzes
   useEffect(() => {
