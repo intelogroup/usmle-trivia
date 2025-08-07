@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Card, CardContent, CardHeader } from '../ui/Card';
+import { Card, CardContent } from '../ui/Card';
 import { Button } from '../ui/Button';
-import { ArrowLeft, Clock, CheckCircle, XCircle, BookOpen } from 'lucide-react';
+import { XCircle } from 'lucide-react';
 import { type Question, type QuizSession } from '../../services/quiz';
 import { useAppStore } from '../../store';
 import { useAsyncError } from '../../hooks/useAsyncError';
 import { useGetRandomQuestions, useCreateQuizSession, useSubmitAnswer, useCompleteQuizWithStats } from '../../services/convexQuiz';
-import { analyticsService, getAnalyticsAttributes } from '../../services/analytics';
+import { analyticsService } from '../../services/analytics';
+import { QuizHeader } from './QuizHeader';
+import { QuizProgress } from './QuizProgress';
+import { QuizQuestion } from './QuizQuestion';
 
 interface QuizEngineProps {
   mode: 'quick' | 'timed' | 'custom';
@@ -23,7 +26,7 @@ interface QuizState {
   currentQuestionIndex: number;
   answers: (number | null)[];
   startTime: Date;
-  timeRemaining?: number | null; // For timed quizzes
+  timeRemaining?: number | null;
   session?: QuizSession;
   showExplanation: boolean;
   isSubmitting: boolean;
@@ -48,18 +51,18 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
   const getQuizConfig = useCallback(() => {
     switch (mode) {
       case 'quick':
-        return { questionCount: 5, timeLimit: null };
+        return { numQuestions: 5, timeLimit: null };
       case 'timed':
-        return { questionCount: 10, timeLimit: 600 }; // 10 minutes
+        return { numQuestions: 10, timeLimit: 600 }; // 10 minutes
       case 'custom':
-        return { questionCount: 8, timeLimit: 480 }; // 8 minutes for demo
+        return { numQuestions: 8, timeLimit: null };
       default:
-        return { questionCount: 5, timeLimit: null };
+        return { numQuestions: 5, timeLimit: null };
     }
   }, [mode]);
 
   // Convex hooks
-  const randomQuestions = useGetRandomQuestions(getQuizConfig().questionCount);
+  const getRandomQuestions = useGetRandomQuestions();
   const createQuizSession = useCreateQuizSession();
   const submitAnswer = useSubmitAnswer();
   const completeQuizWithStats = useCompleteQuizWithStats();
@@ -67,67 +70,104 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
   // Initialize quiz
   useEffect(() => {
     const initializeQuiz = async () => {
-      if (!user || !randomQuestions || randomQuestions.length === 0) return;
-
-      await handleAsyncError(async () => {
+      try {
+        if (!user) throw new Error('User not authenticated');
+        
         const config = getQuizConfig();
-        
-        // Convert Convex questions to our Question format
-        const questions: Question[] = randomQuestions.map((q) => ({
-          id: q._id,
-          question: q.question,
-          options: q.options,
-          correctAnswer: q.correctAnswer,
-          explanation: q.explanation,
-          category: q.category,
-          difficulty: q.difficulty,
-          usmleCategory: q.usmleCategory,
-          tags: q.tags,
-          medicalReferences: q.medicalReferences,
-          createdAt: new Date(q._creationTime),
-          updatedAt: new Date(q._creationTime),
-        }));
+        const questions = await handleAsyncError(async () => {
+          return await getRandomQuestions({ count: config.numQuestions });
+        }, 'Load Questions');
 
-        // Create quiz session in Convex
-        const questionIds = questions.map(q => q.id);
-        
-        const sessionId = await createQuizSession({
-          userId: user.id,
-          mode,
-          questionIds,
-        });
-
-        if (sessionId) {
-          // Create session object
-          const session: QuizSession = {
-            id: sessionId,
-            userId: user.id,
-            mode,
-            questions: questionIds,
-            answers: new Array(questions.length).fill(null),
-            score: 0,
-            timeSpent: 0,
-            status: 'active',
-            createdAt: new Date(),
-            updatedAt: new Date(),
-          };
-
+        if (questions && questions.length > 0) {
+          // Track question view for first question
+          analyticsService.trackQuestionView(questions[0].id, 0);
+          
           setQuizState(prev => ({
             ...prev,
             questions,
             answers: new Array(questions.length).fill(null),
-            session,
             timeRemaining: config.timeLimit,
           }));
 
-          // Track quiz start event
-          analyticsService.trackQuizStart(mode, questions.length);
+          // Create quiz session
+          const sessionId = await createQuizSession({
+            userId: user.id,
+            mode,
+            questionIds: questions.map(q => q.id),
+            startTime: new Date().toISOString(),
+          });
+
+          setQuizState(prev => ({
+            ...prev,
+            session: {
+              id: sessionId,
+              userId: user.id,
+              mode,
+              questions: questions.map(q => q.id),
+              answers: [],
+              score: 0,
+              status: 'in_progress',
+              startTime: prev.startTime,
+              timeSpent: 0,
+            } as QuizSession
+          }));
         }
-      }, 'Initialize Quiz');
+      } catch (error) {
+        console.error('Failed to initialize quiz:', error);
+      }
     };
 
     initializeQuiz();
-  }, [mode, getQuizConfig, handleAsyncError, user, randomQuestions, createQuizSession]);
+  }, [user, mode, getQuizConfig, getRandomQuestions, createQuizSession, handleAsyncError]);
+
+  // Handle answer selection
+  const handleAnswerSelect = useCallback(async (answerIndex: number) => {
+    if (quizState.hasAnswered || !quizState.session) return;
+
+    const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+    const isCorrect = answerIndex === currentQuestion.correctAnswer;
+
+    // Track answer selection
+    analyticsService.trackAnswerSelected(currentQuestion.id, answerIndex, isCorrect);
+
+    // Update answers
+    const newAnswers = [...quizState.answers];
+    newAnswers[quizState.currentQuestionIndex] = answerIndex;
+
+    setQuizState(prev => ({
+      ...prev,
+      answers: newAnswers,
+      hasAnswered: true,
+      showExplanation: true,
+    }));
+
+    // Submit answer to backend
+    await handleAsyncError(async () => {
+      await submitAnswer({
+        sessionId: quizState.session!.id,
+        questionIndex: quizState.currentQuestionIndex,
+        answer: answerIndex,
+      });
+    }, 'Submit Answer');
+  }, [quizState.hasAnswered, quizState.session, quizState.questions, quizState.currentQuestionIndex, quizState.answers, handleAsyncError, submitAnswer]);
+
+  // Handle next question
+  const handleNextQuestion = useCallback(() => {
+    const nextIndex = quizState.currentQuestionIndex + 1;
+    if (nextIndex < quizState.questions.length) {
+      // Track question view for next question
+      analyticsService.trackQuestionView(quizState.questions[nextIndex].id, nextIndex);
+      
+      setQuizState(prev => ({
+        ...prev,
+        currentQuestionIndex: nextIndex,
+        showExplanation: false,
+        hasAnswered: false,
+      }));
+    } else {
+      handleCompleteQuiz();
+    }
+  }, [quizState.currentQuestionIndex, quizState.questions]);
 
   // Handle quiz completion
   const handleCompleteQuiz = useCallback(async () => {
@@ -136,45 +176,38 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
     setQuizState(prev => ({ ...prev, isSubmitting: true }));
 
     await handleAsyncError(async () => {
-      // Calculate final time spent
       const finalTimeSpent = Math.floor((Date.now() - quizState.startTime.getTime()) / 1000);
       
-      // Complete session with enhanced stats and automatic saving
-      if (completeQuizWithStats) {
-        const enhancedResult = await completeQuizWithStats({
-          sessionId: quizState.session!.id,
-          finalTimeSpent,
-          autoAdvanceCount: 0, // Add logic to track auto-advance if needed
-        });
+      const enhancedResult = await completeQuizWithStats({
+        sessionId: quizState.session!.id,
+        timeSpent: finalTimeSpent,
+      });
+
+      if (enhancedResult && enhancedResult.session) {
+        const session: QuizSession = {
+          ...quizState.session!,
+          score: enhancedResult.session.score,
+          status: 'completed',
+          answers: enhancedResult.session.answers,
+          timeSpent: enhancedResult.session.timeSpent,
+          completedAt: new Date(enhancedResult.session.completedAt || Date.now()),
+          updatedAt: new Date(),
+        };
         
-        if (enhancedResult && enhancedResult.session) {
-          // Create completed session object with enhanced data
-          const session: QuizSession = {
-            ...quizState.session!,
-            score: enhancedResult.session.score,
-            status: 'completed',
-            answers: enhancedResult.session.answers,
-            timeSpent: enhancedResult.session.timeSpent,
-            completedAt: new Date(enhancedResult.session.completedAt || Date.now()),
-            updatedAt: new Date(),
-          };
-          
-          // Track quiz completion event
-          const totalCorrect = quizState.answers.filter((answer, index) => 
-            answer === quizState.questions[index]?.correctAnswer
-          ).length;
-          analyticsService.trackQuizComplete(totalCorrect, quizState.questions.length, finalTimeSpent);
-          
-          // Pass enhanced results to completion handler
-          onComplete(session, {
-            pointsEarned: enhancedResult.results.pointsEarned,
-            userStats: enhancedResult.userStats,
-            performanceMetrics: enhancedResult.results.performanceMetrics
-          });
-        }
+        // Track quiz completion
+        const totalCorrect = quizState.answers.filter((answer, index) => 
+          answer === quizState.questions[index]?.correctAnswer
+        ).length;
+        analyticsService.trackQuizComplete(totalCorrect, quizState.questions.length, finalTimeSpent);
+        
+        onComplete(session, {
+          pointsEarned: enhancedResult.results.pointsEarned,
+          userStats: enhancedResult.userStats,
+          performanceMetrics: enhancedResult.results.performanceMetrics
+        });
       }
     }, 'Complete Quiz');
-  }, [quizState.session, quizState.isSubmitting, quizState.startTime, handleAsyncError, completeQuizWithStats, onComplete]);
+  }, [quizState.session, quizState.isSubmitting, quizState.startTime, quizState.answers, quizState.questions, handleAsyncError, completeQuizWithStats, onComplete]);
 
   // Timer for timed quizzes
   useEffect(() => {
@@ -186,7 +219,6 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
         
         const newTime = prev.timeRemaining - 1;
         if (newTime <= 0) {
-          // Auto-submit quiz when time runs out
           handleCompleteQuiz();
           return { ...prev, timeRemaining: 0 };
         }
@@ -196,73 +228,6 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
 
     return () => clearInterval(timer);
   }, [quizState.timeRemaining, handleCompleteQuiz]);
-
-  // Track question views
-  useEffect(() => {
-    if (quizState.questions.length > 0 && quizState.currentQuestionIndex >= 0) {
-      const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
-      analyticsService.trackQuestionView(currentQuestion._id, quizState.currentQuestionIndex);
-    }
-  }, [quizState.currentQuestionIndex, quizState.questions]);
-
-  // Handle answer selection
-  const handleAnswerSelect = async (answerIndex: number) => {
-    if (quizState.hasAnswered || !quizState.session) return;
-
-    await handleAsyncError(async () => {
-      // Track time spent
-      const timeSpent = Math.floor((Date.now() - quizState.startTime.getTime()) / 1000);
-      
-      // Get current question for analytics
-      const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
-      const isCorrect = answerIndex === currentQuestion.correctAnswer;
-      
-      // Track answer selection event
-      analyticsService.trackAnswerSelected(currentQuestion._id, answerIndex, isCorrect);
-      
-      // Update local state
-      const newAnswers = [...quizState.answers];
-      newAnswers[quizState.currentQuestionIndex] = answerIndex;
-      
-      setQuizState(prev => ({
-        ...prev,
-        answers: newAnswers,
-        hasAnswered: true,
-        showExplanation: true,
-      }));
-
-      // Update session in Convex database
-      if (quizState.session && submitAnswer) {
-        await submitAnswer({
-          sessionId: quizState.session.id,
-          questionIndex: quizState.currentQuestionIndex,
-          answer: answerIndex,
-          timeSpent,
-        });
-      }
-    }, 'Submit Answer');
-  };
-
-  // Handle next question
-  const handleNextQuestion = () => {
-    if (quizState.currentQuestionIndex < quizState.questions.length - 1) {
-      setQuizState(prev => ({
-        ...prev,
-        currentQuestionIndex: prev.currentQuestionIndex + 1,
-        showExplanation: false,
-        hasAnswered: false,
-      }));
-    } else {
-      handleCompleteQuiz();
-    }
-  };
-
-  // Format time display
-  const formatTime = (seconds: number): string => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
 
   if (error) {
     return (
@@ -324,193 +289,53 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
           `${Math.floor(quizState.timeRemaining / 60)}:${String(quizState.timeRemaining % 60).padStart(2, '0')} remaining`
         }
       </div>
-      
+
       {/* Quiz Header */}
-      <div className="flex items-center justify-between p-6 bg-gradient-to-r from-background to-muted/30 rounded-2xl border shadow-custom animate-in" role="banner">
-        <div className="flex items-center gap-4">
+      <QuizHeader
+        mode={mode}
+        currentQuestion={quizState.currentQuestionIndex + 1}
+        totalQuestions={quizState.questions.length}
+        timeRemaining={quizState.timeRemaining}
+        onBack={onBack}
+      />
+
+      {/* Progress Bar */}
+      <QuizProgress
+        currentQuestion={quizState.currentQuestionIndex}
+        totalQuestions={quizState.questions.length}
+        hasAnswered={quizState.hasAnswered}
+      />
+
+      {/* Question */}
+      <QuizQuestion
+        question={currentQuestion}
+        selectedAnswer={currentAnswer}
+        showExplanation={quizState.showExplanation}
+        hasAnswered={quizState.hasAnswered}
+        onAnswerSelect={handleAnswerSelect}
+        questionNumber={quizState.currentQuestionIndex + 1}
+      />
+
+      {/* Navigation */}
+      {quizState.showExplanation && (
+        <div className="flex justify-end">
           <Button 
-            variant="ghost" 
-            size="icon" 
-            onClick={onBack} 
-            className="hover:bg-primary/10 transition-colors duration-200"
-            aria-label="Go back to quiz selection"
+            onClick={isLastQuestion ? handleCompleteQuiz : handleNextQuestion}
+            className="bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-white px-8 py-2.5 rounded-xl font-semibold shadow-custom transition-all duration-200 hover:scale-105"
+            disabled={quizState.isSubmitting}
+            aria-label={isLastQuestion ? "Complete quiz" : "Next question"}
           >
-            <ArrowLeft className="h-4 w-4" />
+            {quizState.isSubmitting ? (
+              <div className="flex items-center gap-2">
+                <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full" />
+                <span>{isLastQuestion ? 'Submitting...' : 'Processing...'}</span>
+              </div>
+            ) : (
+              isLastQuestion ? 'Complete Quiz' : 'Next Question'
+            )}
           </Button>
-          <div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
-              Question {quizState.currentQuestionIndex + 1} of {quizState.questions.length}
-            </h1>
-            <p className="text-muted-foreground capitalize font-medium">{mode} Quiz</p>
-          </div>
         </div>
-        
-        {quizState.timeRemaining !== null && quizState.timeRemaining !== undefined && (
-          <div 
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 ${
-              quizState.timeRemaining < 60 
-                ? 'bg-red-100 text-red-700 border border-red-200 animate-pulse' 
-                : 'bg-muted border'
-            }`}
-            role="timer"
-            aria-label={`Time remaining: ${formatTime(quizState.timeRemaining)}`}
-            aria-live="polite"
-          >
-            <Clock className="h-4 w-4" />
-            <span className={`font-mono font-bold ${quizState.timeRemaining < 60 ? 'text-red-600' : ''}`}>
-              {formatTime(quizState.timeRemaining)}
-            </span>
-          </div>
-        )}
-      </div>
-
-      {/* Enhanced Progress Bar */}
-      <div className="relative" role="progressbar" aria-label="Quiz progress" aria-valuenow={Math.round(((quizState.currentQuestionIndex + (quizState.hasAnswered ? 1 : 0)) / quizState.questions.length) * 100)} aria-valuemin={0} aria-valuemax={100}>
-        <div className="w-full bg-muted/50 rounded-full h-3 shadow-inner">
-          <div 
-            className="bg-gradient-to-r from-primary to-primary/80 h-3 rounded-full transition-all duration-500 ease-out relative overflow-hidden"
-            style={{ 
-              width: `${((quizState.currentQuestionIndex + (quizState.hasAnswered ? 1 : 0)) / quizState.questions.length) * 100}%` 
-            }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse" />
-          </div>
-        </div>
-        <div className="flex justify-between mt-2">
-          <span className="text-xs text-muted-foreground font-medium">Progress</span>
-          <span className="text-xs text-muted-foreground font-medium" aria-live="polite">
-            {Math.round(((quizState.currentQuestionIndex + (quizState.hasAnswered ? 1 : 0)) / quizState.questions.length) * 100)}%
-          </span>
-        </div>
-      </div>
-
-      {/* Enhanced Question Card */}
-      <Card className="border-0 shadow-custom-lg bg-gradient-to-br from-background to-muted/20 animate-fade-up">
-        <CardHeader className="pb-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="px-3 py-1.5 bg-gradient-to-r from-primary to-primary/80 text-white rounded-full text-xs font-semibold shadow-sm">
-                {currentQuestion.category}
-              </div>
-              <div className="px-3 py-1.5 bg-muted/70 text-muted-foreground rounded-full text-xs font-medium capitalize border">
-                {currentQuestion.difficulty}
-              </div>
-            </div>
-            <div className="flex items-center gap-1 text-primary">
-              <BookOpen className="h-4 w-4" />
-              <span className="text-xs font-medium">USMLE Style</span>
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent className="space-y-8">
-          {/* Enhanced Question Text */}
-          <div className="prose prose-sm max-w-none">
-            <div className="p-6 bg-gradient-to-r from-muted/40 to-muted/20 rounded-xl border-l-4 border-primary">
-              <p className="text-base leading-relaxed font-medium text-foreground m-0">{currentQuestion.question}</p>
-            </div>
-          </div>
-
-          {/* Enhanced Answer Options */}
-          <fieldset className="space-y-4">
-            <legend className="sr-only">Answer options for this USMLE question</legend>
-            {currentQuestion.options.map((option, index) => {
-              const isSelected = currentAnswer === index;
-              const isCorrect = index === currentQuestion.correctAnswer;
-              const showResult = quizState.showExplanation;
-              const optionLabel = String.fromCharCode(65 + index); // A, B, C, D
-              
-              let buttonClass = "group w-full p-5 text-left border-2 rounded-xl transition-all duration-300 relative overflow-hidden ";
-              
-              if (showResult) {
-                if (isCorrect) {
-                  buttonClass += "border-green-500 bg-gradient-to-r from-green-50 to-green-100/50 text-green-900 shadow-green-200/50 shadow-lg";
-                } else if (isSelected && !isCorrect) {
-                  buttonClass += "border-red-500 bg-gradient-to-r from-red-50 to-red-100/50 text-red-900 shadow-red-200/50 shadow-lg";
-                } else {
-                  buttonClass += "border-muted bg-muted/30 text-muted-foreground";
-                }
-              } else if (isSelected) {
-                buttonClass += "border-primary bg-gradient-to-r from-primary/10 to-primary/5 text-primary shadow-primary/20 shadow-lg transform scale-[1.02]";
-              } else {
-                buttonClass += "border-muted hover:border-primary/50 hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/2 hover:shadow-md hover:scale-[1.01]";
-              }
-
-              return (
-                <button
-                  key={index}
-                  onClick={() => handleAnswerSelect(index)}
-                  disabled={quizState.hasAnswered}
-                  className={buttonClass}
-                  role="radio"
-                  aria-checked={isSelected}
-                  aria-label={`Option ${optionLabel}: ${option}${showResult && isCorrect ? ' (Correct answer)' : ''}${showResult && isSelected && !isCorrect ? ' (Your incorrect answer)' : ''}`}
-                >
-                  <div className="flex items-center gap-4">
-                    <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-200 ${
-                      showResult && isCorrect 
-                        ? 'bg-green-500 text-white' 
-                        : showResult && isSelected && !isCorrect
-                          ? 'bg-red-500 text-white'
-                          : isSelected
-                            ? 'bg-primary text-white'
-                            : 'bg-muted text-muted-foreground group-hover:bg-primary/20 group-hover:text-primary'
-                    }`}>
-                      {optionLabel}
-                    </div>
-                    <span className="flex-1 font-medium">{option}</span>
-                    <div className="flex-shrink-0 transition-all duration-200">
-                      {showResult && isCorrect && <CheckCircle className="h-6 w-6 text-green-600" />}
-                      {showResult && isSelected && !isCorrect && <XCircle className="h-6 w-6 text-red-600" />}
-                    </div>
-                  </div>
-                </button>
-              );
-            })}
-          </fieldset>
-
-          {/* Explanation */}
-          {quizState.showExplanation && (
-            <div className="border-t pt-6">
-              <div className="flex items-center gap-2 mb-3">
-                <BookOpen className="h-5 w-5 text-blue-600" />
-                <h3 className="font-semibold text-blue-900">Explanation</h3>
-              </div>
-              <p className="text-sm leading-relaxed text-muted-foreground mb-4">
-                {currentQuestion.explanation}
-              </p>
-              
-              {currentQuestion.medicalReferences && currentQuestion.medicalReferences.length > 0 && (
-                <div>
-                  <p className="text-xs font-medium mb-2">References:</p>
-                  <ul className="text-xs text-muted-foreground space-y-1">
-                    {currentQuestion.medicalReferences.map((ref, index) => (
-                      <li key={index}>• {ref}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Navigation */}
-          {quizState.showExplanation && (
-            <div className="flex justify-end pt-4 border-t">
-              <Button 
-                onClick={isLastQuestion ? handleCompleteQuiz : handleNextQuestion}
-                disabled={quizState.isSubmitting}
-                className="min-w-[120px]"
-              >
-                {quizState.isSubmitting 
-                  ? 'Submitting...' 
-                  : isLastQuestion 
-                    ? 'Finish Quiz' 
-                    : 'Next Question'
-                }
-              </Button>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+      )}
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { Zap, Clock, Settings, CheckCircle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { cn } from '../../lib/utils';
+import { analyticsService, getAnalyticsAttributes } from '../../services/analytics';
 
 interface QuizMode {
   id: string;
@@ -53,6 +54,9 @@ export const QuizModeSelector: React.FC = () => {
   const navigate = useNavigate();
 
   const handleStartQuiz = (mode: QuizMode) => {
+    // Track quiz start event
+    analyticsService.trackQuizStart(mode.id as 'quick' | 'timed' | 'custom', mode.questions || 0, mode.title);
+    
     // Only pass serializable data in the navigation state
     const serializableMode = {
       id: mode.id,
@@ -81,6 +85,11 @@ export const QuizModeSelector: React.FC = () => {
               key={mode.id}
               className="group relative overflow-hidden rounded-xl border bg-background p-6 hover:shadow-custom-lg transition-all duration-300 cursor-pointer animate-in hover:scale-105"
               onClick={() => handleStartQuiz(mode)}
+              {...getAnalyticsAttributes('quiz_start', { 
+                mode: mode.id,
+                questions: mode.questions?.toString() || '0',
+                duration: mode.duration || 'unknown'
+              })}
             >
               {/* Gradient accent */}
               <div className={cn('absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r rounded-t-xl', mode.color)} />

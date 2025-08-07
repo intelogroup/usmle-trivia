@@ -14,6 +14,7 @@ import {
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '../../../convex/_generated/api';
 import type { QuizSession } from '../../services/quiz';
+import { analyticsService, getAnalyticsAttributes } from '../../services/analytics';
 
 interface QuizReviewProps {
   session: QuizSession;
@@ -24,6 +25,13 @@ export const QuizReview: React.FC<QuizReviewProps> = ({ session, onHome }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [bookmarkedQuestions, setBookmarkedQuestions] = useState<Set<string>>(new Set());
   const [flaggedQuestions, setFlaggedQuestions] = useState<Set<string>>(new Set());
+
+  // Track review start event on component mount
+  useEffect(() => {
+    const incorrectAnswers = session.answers.filter((answer, index) => answer !== session.questions[index]).length;
+    const bookmarkedCount = bookmarkedQuestions.size;
+    analyticsService.trackReviewStart(bookmarkedCount, incorrectAnswers);
+  }, [session, bookmarkedQuestions.size]);
 
   // Fetch question details for review
   const questions = useQuery(api.quiz.getQuestionsByIds, { 
@@ -55,6 +63,8 @@ export const QuizReview: React.FC<QuizReviewProps> = ({ session, onHome }) => {
       bookmarkedQuestions.delete(questionId);
     } else {
       bookmarkedQuestions.add(questionId);
+      // Track bookmark event
+      analyticsService.trackQuestionBookmark(questionId);
     }
     
     setBookmarkedQuestions(new Set(bookmarkedQuestions));

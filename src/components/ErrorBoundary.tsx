@@ -1,5 +1,6 @@
 import React from 'react';
 import { ErrorHandler, MedicalAppError } from '../utils/errorHandler';
+import { analyticsService } from '../services/analytics';
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -26,6 +27,14 @@ export class MedicalErrorBoundary extends React.Component<ErrorBoundaryProps, Er
       'React Error Boundary',
       { errorInfo }
     );
+    
+    // Track error event for analytics
+    analyticsService.trackErrorEncountered(
+      medicalError.code,
+      medicalError.userMessage,
+      'React Error Boundary'
+    );
+    
     this.setState({ error: medicalError });
   }
 
