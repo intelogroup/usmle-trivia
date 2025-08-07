@@ -67,24 +67,31 @@ export const EnhancedQuizEngine: React.FC<EnhancedQuizEngineProps> = ({
         setShowExplanation(true);
         console.log(`✅ Answer ${answerIndex} submitted for Q${currentIndex + 1}`);
         
-        // Start auto-advance countdown for Quick Quiz mode
+        // Handle auto-advance for Quick and Timed Quiz modes
         if (session.autoAdvanceConfig.enabled && session.autoAdvanceConfig.skipToNext) {
-          const countdownMs = session.autoAdvanceConfig.delayMs;
-          const countdownSeconds = Math.ceil(countdownMs / 1000);
-          setAutoAdvanceCountdown(countdownSeconds);
+          const delayMs = session.autoAdvanceConfig.delayMs;
           
-          const countdownInterval = setInterval(() => {
-            setAutoAdvanceCountdown(prev => {
-              if (prev === null || prev <= 1) {
-                clearInterval(countdownInterval);
-                return null;
-              }
-              return prev - 1;
-            });
-          }, 1000);
-          
-          // Clear countdown when component unmounts or question changes
-          return () => clearInterval(countdownInterval);
+          if (delayMs > 0) {
+            // Show countdown for delayed auto-advance
+            const countdownSeconds = Math.ceil(delayMs / 1000);
+            setAutoAdvanceCountdown(countdownSeconds);
+            
+            const countdownInterval = setInterval(() => {
+              setAutoAdvanceCountdown(prev => {
+                if (prev === null || prev <= 1) {
+                  clearInterval(countdownInterval);
+                  return null;
+                }
+                return prev - 1;
+              });
+            }, 1000);
+            
+            // Clear countdown when component unmounts or question changes
+            return () => clearInterval(countdownInterval);
+          } else {
+            // No countdown for immediate auto-advance
+            setAutoAdvanceCountdown(null);
+          }
         }
       } else {
         setError('Failed to submit answer. Please try again.');
@@ -337,7 +344,7 @@ export const EnhancedQuizEngine: React.FC<EnhancedQuizEngineProps> = ({
                 </div>
               )}
 
-              {/* Auto-advance countdown for Quick Quiz */}
+              {/* Auto-advance countdown (only shown when there's a delay) */}
               {autoAdvanceCountdown !== null && session?.autoAdvanceConfig.enabled && (
                 <div className="mt-4 p-4 bg-gradient-to-r from-blue-50 to-blue-100/50 border border-blue-200 rounded-xl">
                   <div className="flex items-center justify-center gap-3">
@@ -346,7 +353,7 @@ export const EnhancedQuizEngine: React.FC<EnhancedQuizEngineProps> = ({
                         <Zap className="h-5 w-5 text-blue-600 animate-pulse" />
                         <div className="absolute -inset-1 bg-blue-400/20 rounded-full animate-ping" />
                       </div>
-                      <span className="text-sm font-semibold text-blue-900">Quick Quiz Auto-Advance</span>
+                      <span className="text-sm font-semibold text-blue-900">Auto-Advance</span>
                     </div>
                     <div className="flex items-center gap-2 px-3 py-1.5 bg-blue-600 text-white rounded-full">
                       <Clock className="h-4 w-4" />
@@ -359,6 +366,27 @@ export const EnhancedQuizEngine: React.FC<EnhancedQuizEngineProps> = ({
                     {currentIndex < (session.questions.length - 1) 
                       ? `Automatically advancing to question ${currentIndex + 2}...` 
                       : 'Automatically completing quiz...'}
+                  </p>
+                </div>
+              )}
+
+              {/* Auto-advance immediate notification (for quick and timed modes without delay) */}
+              {session?.autoAdvanceConfig.enabled && session.autoAdvanceConfig.delayMs === 0 && showExplanation && (
+                <div className="mt-4 p-4 bg-gradient-to-r from-green-50 to-green-100/50 border border-green-200 rounded-xl">
+                  <div className="flex items-center justify-center gap-3">
+                    <div className="flex items-center gap-2">
+                      <div className="relative">
+                        <Zap className="h-5 w-5 text-green-600" />
+                      </div>
+                      <span className="text-sm font-semibold text-green-900">
+                        {session.mode === 'quick' ? 'Quick Quiz' : 'Timed Quiz'} Auto-Advance
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-xs text-green-700 text-center mt-2">
+                    {currentIndex < (session.questions.length - 1) 
+                      ? 'Answer selected! Moving to next question...' 
+                      : 'Answer selected! Quiz will complete automatically...'}
                   </p>
                 </div>
               )}

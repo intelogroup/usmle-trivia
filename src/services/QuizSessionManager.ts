@@ -117,9 +117,9 @@ class QuizSessionManager {
       timeLimit: config?.timeLimit,
       timeRemaining: config?.timeLimit,
       autoAdvanceConfig: {
-        enabled: mode === 'quick', // Enable auto-advance only for quick quiz
-        delayMs: 1000, // 1 second delay for quick quiz
-        skipToNext: mode === 'quick', // Auto-move to next question after answer
+        enabled: mode === 'quick' || mode === 'timed', // Enable auto-advance for quick and timed quiz
+        delayMs: 0, // Immediate auto-advance (no delay)
+        skipToNext: mode === 'quick' || mode === 'timed', // Auto-move to next question after answer
       },
       metadata: {
         totalQuestions: questionIds.length,
@@ -252,7 +252,7 @@ class QuizSessionManager {
   }
 
   /**
-   * Schedule auto-advance to next question (for Quick Quiz mode)
+   * Schedule auto-advance to next question (for Quick and Timed Quiz modes)
    */
   private scheduleAutoAdvance(): void {
     if (!this.currentSession || !this.currentSession.autoAdvanceConfig.enabled) {
@@ -262,37 +262,67 @@ class QuizSessionManager {
     // Clear any existing auto-advance timeout
     this.clearAutoAdvanceTimeout();
 
+    const delayMs = this.currentSession.autoAdvanceConfig.delayMs;
+
     // Check if there's a next question
     if (!this.canNavigateNext()) {
-      // If this was the last question, auto-complete the session after delay
-      this.autoAdvanceTimeout = setTimeout(() => {
+      // If this was the last question, auto-complete the session
+      if (delayMs === 0) {
+        // Immediate completion for immediate auto-advance
         console.log('⏩ Auto-completing quiz session (last question)');
         this.completeSession();
-      }, this.currentSession.autoAdvanceConfig.delayMs);
+      } else {
+        // Delayed completion for timer-based auto-advance
+        this.autoAdvanceTimeout = setTimeout(() => {
+          console.log('⏩ Auto-completing quiz session (last question)');
+          this.completeSession();
+        }, delayMs);
+      }
       return;
     }
 
     // Schedule auto-advance to next question
-    this.autoAdvanceTimeout = setTimeout(() => {
-      if (this.currentSession && this.canNavigateNext()) {
-        const nextIndex = this.currentSession.currentQuestionIndex + 1;
-        console.log(`⏩ Auto-advancing to Q${nextIndex + 1} after ${this.currentSession.autoAdvanceConfig.delayMs}ms`);
-        
-        this.currentSession.metadata.autoAdvanceCount++;
-        this.navigateToQuestion(nextIndex);
-        
-        this.emitEvent('auto_advance', {
-          sessionId: this.currentSession.sessionId,
-          currentState: 'active',
-          timestamp: new Date(),
-          metadata: { 
-            fromIndex: this.currentSession.currentQuestionIndex - 1, 
-            toIndex: nextIndex,
-            autoAdvanceCount: this.currentSession.metadata.autoAdvanceCount
-          },
-        });
-      }
-    }, this.currentSession.autoAdvanceConfig.delayMs);
+    if (delayMs === 0) {
+      // Immediate auto-advance
+      const nextIndex = this.currentSession.currentQuestionIndex + 1;
+      console.log(`⏩ Auto-advancing to Q${nextIndex + 1} immediately`);
+      
+      this.currentSession.metadata.autoAdvanceCount++;
+      this.navigateToQuestion(nextIndex);
+      
+      this.emitEvent('auto_advance', {
+        sessionId: this.currentSession.sessionId,
+        currentState: 'active',
+        timestamp: new Date(),
+        metadata: { 
+          fromIndex: this.currentSession.currentQuestionIndex - 1, 
+          toIndex: nextIndex,
+          autoAdvanceCount: this.currentSession.metadata.autoAdvanceCount
+        },
+      });
+    } else {
+      // Delayed auto-advance
+      this.autoAdvanceTimeout = setTimeout(() => {
+        if (this.currentSession && this.canNavigateNext()) {
+          const nextIndex = this.currentSession.currentQuestionIndex + 1;
+          console.log(`⏩ Auto-advancing to Q${nextIndex + 1} after ${delayMs}ms`);
+          
+          this.currentSession.metadata.autoAdvanceCount++;
+          this.navigateToQuestion(nextIndex);
+          
+          this.emitEvent('auto_advance', {
+            sessionId: this.currentSession.sessionId,
+            currentState: 'active',
+            timestamp: new Date(),
+            metadata: { 
+              fromIndex: this.currentSession.currentQuestionIndex - 1, 
+              toIndex: nextIndex,
+              autoAdvanceCount: this.currentSession.metadata.autoAdvanceCount
+            },
+          });
+        }
+      }, delayMs);
+    }
   }
 
   /**
