@@ -419,4 +419,43 @@ export default defineSchema({
     .index("by_user_seen", ["userId", "seenAt"])
     .index("by_should_avoid", ["shouldAvoid", "avoidUntil"])
     .index("by_user_unanswered", ["userId", "wasAnswered"]),
+
+  // Comprehensive quiz results for advanced analytics
+  quizResults: defineTable({
+    sessionId: v.string(),
+    userId: v.string(),
+    mode: v.string(),
+    score: v.number(),
+    totalQuestions: v.number(),
+    correctAnswers: v.number(),
+    incorrectAnswers: v.number(),
+    timeSpent: v.number(),
+    averageTimePerQuestion: v.number(),
+    completionRate: v.number(),
+    performanceMetrics: v.object({
+      accuracy: v.number(),
+      speed: v.number(),
+      consistency: v.number(),
+      strengthAreas: v.array(v.string()),
+      improvementAreas: v.array(v.string()),
+    }),
+    questionBreakdown: v.array(v.object({
+      questionId: v.string(),
+      category: v.string(),
+      difficulty: v.string(),
+      userAnswer: v.number(),
+      correctAnswer: v.number(),
+      isCorrect: v.boolean(),
+      timeSpent: v.optional(v.number()),
+    })),
+    timestamp: v.number(),
+    autoAdvanceCount: v.optional(v.number()),
+    createdAt: v.number(),
+  })
+    .index("by_user", ["userId"])
+    .index("by_mode", ["mode"])
+    .index("by_score", ["score"])
+    .index("by_timestamp", ["timestamp"])
+    .index("by_user_mode", ["userId", "mode"])
+    .index("by_user_timestamp", ["userId", "timestamp"]),
 });

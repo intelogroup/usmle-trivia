@@ -30,6 +30,11 @@ export interface QuizSessionData {
   isTimeLimited: boolean;
   timeLimit?: number; // seconds
   timeRemaining?: number; // seconds
+  autoAdvanceConfig: {
+    enabled: boolean;
+    delayMs: number; // milliseconds to wait before auto-advance
+    skipToNext: boolean; // automatically move to next question after answer
+  };
   metadata: {
     totalQuestions: number;
     correctAnswers: number;
@@ -39,6 +44,7 @@ export interface QuizSessionData {
     abandonReason?: string;
     navigationCount: number; // track question navigation
     lastActivityTime: Date;
+    autoAdvanceCount: number; // track how many auto-advances occurred
   };
 }
 
@@ -58,6 +64,7 @@ class QuizSessionManager {
   private currentSession: QuizSessionData | null = null;
   private eventHandlers: Map<string, SessionEventHandler[]> = new Map();
   private sessionCheckInterval: NodeJS.Timeout | null = null;
+  private autoAdvanceTimeout: NodeJS.Timeout | null = null;
   private abandonmentTimeoutMs = 30 * 60 * 1000; // 30 minutes
   private autoSaveIntervalMs = 10 * 1000; // 10 seconds
 
@@ -109,6 +116,11 @@ class QuizSessionManager {
       isTimeLimited: !!config?.timeLimit,
       timeLimit: config?.timeLimit,
       timeRemaining: config?.timeLimit,
+      autoAdvanceConfig: {
+        enabled: mode === 'quick' || mode === 'timed', // Enable auto-advance for quick and timed quiz
+        delayMs: 0, // Immediate auto-advance (no delay)
+        skipToNext: mode === 'quick' || mode === 'timed', // Auto-move to next question after answer
+      },
       metadata: {
         totalQuestions: questionIds.length,
         correctAnswers: 0,
@@ -117,6 +129,7 @@ class QuizSessionManager {
         abandoned: false,
         navigationCount: 0,
         lastActivityTime: now,
+        autoAdvanceCount: 0,
       },
     };
 
@@ -230,7 +243,96 @@ class QuizSessionManager {
       },
     });
 
+    // Handle auto-advance for quick quiz mode
+    if (this.currentSession.autoAdvanceConfig.enabled && this.currentSession.autoAdvanceConfig.skipToNext) {
+      this.scheduleAutoAdvance();
+    }
+
     return true;
+  }
+
+  /**
+   * Schedule auto-advance to next question (for Quick and Timed Quiz modes)
+   */
+  private scheduleAutoAdvance(): void {
+    if (!this.currentSession || !this.currentSession.autoAdvanceConfig.enabled) {
+      return;
+    }
+
+    // Clear any existing auto-advance timeout
+    this.clearAutoAdvanceTimeout();
+
+    const delayMs = this.currentSession.autoAdvanceConfig.delayMs;
+
+    // Check if there's a next question
+    if (!this.canNavigateNext()) {
+      // If this was the last question, auto-complete the session
+      if (delayMs === 0) {
+        // Immediate completion for immediate auto-advance
+        console.log('⏩ Auto-completing quiz session (last question)');
+        this.completeSession();
+      } else {
+        // Delayed completion for timer-based auto-advance
+        this.autoAdvanceTimeout = setTimeout(() => {
+          console.log('⏩ Auto-completing quiz session (last question)');
+          this.completeSession();
+        }, delayMs);
+      }
+      return;
+    }
+
+    // Schedule auto-advance to next question
+    if (delayMs === 0) {
+      // Immediate auto-advance
+      const nextIndex = this.currentSession.currentQuestionIndex + 1;
+      console.log(`⏩ Auto-advancing to Q${nextIndex + 1} immediately`);
+      
+      this.currentSession.metadata.autoAdvanceCount++;
+      this.navigateToQuestion(nextIndex);
+      
+      this.emitEvent('auto_advance', {
+        sessionId: this.currentSession.sessionId,
+        currentState: 'active',
+        timestamp: new Date(),
+        metadata: { 
+          fromIndex: this.currentSession.currentQuestionIndex - 1, 
+          toIndex: nextIndex,
+          autoAdvanceCount: this.currentSession.metadata.autoAdvanceCount
+        },
+      });
+    } else {
+      // Delayed auto-advance
+      this.autoAdvanceTimeout = setTimeout(() => {
+        if (this.currentSession && this.canNavigateNext()) {
+          const nextIndex = this.currentSession.currentQuestionIndex + 1;
+          console.log(`⏩ Auto-advancing to Q${nextIndex + 1} after ${delayMs}ms`);
+          
+          this.currentSession.metadata.autoAdvanceCount++;
+          this.navigateToQuestion(nextIndex);
+          
+          this.emitEvent('auto_advance', {
+            sessionId: this.currentSession.sessionId,
+            currentState: 'active',
+            timestamp: new Date(),
+            metadata: { 
+              fromIndex: this.currentSession.currentQuestionIndex - 1, 
+              toIndex: nextIndex,
+              autoAdvanceCount: this.currentSession.metadata.autoAdvanceCount
+            },
+          });
+        }
+      }, delayMs);
+    }
+  }
+
+  /**
+   * Clear auto-advance timeout
+   */
+  private clearAutoAdvanceTimeout(): void {
+    if (this.autoAdvanceTimeout) {
+      clearTimeout(this.autoAdvanceTimeout);
+      this.autoAdvanceTimeout = null;
+    }
   }
 
   /**
@@ -537,6 +639,7 @@ class QuizSessionManager {
     if (this.sessionCheckInterval) {
       clearInterval(this.sessionCheckInterval);
     }
+    this.clearAutoAdvanceTimeout();
     if (this.hasActiveSession()) {
       this.abandonSession('app_shutdown');
     }

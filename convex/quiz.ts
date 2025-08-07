@@ -384,3 +384,183 @@ export const getUserBookmarks = query({
     return questions;
   },
 });
+
+// Save comprehensive quiz results
+export const saveQuizResults = mutation({
+  args: {
+    sessionId: v.string(),
+    userId: v.string(),
+    mode: v.string(),
+    score: v.number(),
+    totalQuestions: v.number(),
+    correctAnswers: v.number(),
+    incorrectAnswers: v.number(),
+    timeSpent: v.number(),
+    averageTimePerQuestion: v.number(),
+    completionRate: v.number(),
+    performanceMetrics: v.object({
+      accuracy: v.number(),
+      speed: v.number(),
+      consistency: v.number(),
+      strengthAreas: v.array(v.string()),
+      improvementAreas: v.array(v.string()),
+    }),
+    questionBreakdown: v.array(v.object({
+      questionId: v.string(),
+      category: v.string(),
+      difficulty: v.string(),
+      userAnswer: v.number(),
+      correctAnswer: v.number(),
+      isCorrect: v.boolean(),
+      timeSpent: v.optional(v.number()),
+    })),
+    timestamp: v.number(),
+    autoAdvanceCount: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    try {
+      const resultId = await ctx.db.insert("quizResults", {
+        sessionId: args.sessionId,
+        userId: args.userId,
+        mode: args.mode,
+        score: args.score,
+        totalQuestions: args.totalQuestions,
+        correctAnswers: args.correctAnswers,
+        incorrectAnswers: args.incorrectAnswers,
+        timeSpent: args.timeSpent,
+        averageTimePerQuestion: args.averageTimePerQuestion,
+        completionRate: args.completionRate,
+        performanceMetrics: args.performanceMetrics,
+        questionBreakdown: args.questionBreakdown,
+        timestamp: args.timestamp,
+        autoAdvanceCount: args.autoAdvanceCount || 0,
+        createdAt: Date.now(),
+      });
+      
+      console.log("Quiz results saved:", resultId);
+      return resultId;
+    } catch (error) {
+      console.error("Failed to save quiz results:", error);
+      throw new ConvexError("Failed to save quiz results");
+    }
+  },
+});
+
+// Get comprehensive quiz results for a user
+export const getUserQuizResults = query({
+  args: {
+    userId: v.string(),
+    limit: v.optional(v.number()),
+    mode: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    let query = ctx.db.query("quizResults")
+      .filter((q) => q.eq(q.field("userId"), args.userId));
+    
+    if (args.mode) {
+      query = query.filter((q) => q.eq(q.field("mode"), args.mode));
+    }
+    
+    const results = await query
+      .order("desc") // Most recent first
+      .take(args.limit ?? 20);
+    
+    return results;
+  },
+});
+
+// Get quiz analytics for a user
+export const getUserQuizAnalytics = query({
+  args: {
+    userId: v.string(),
+    timeframe: v.optional(v.union(v.literal("week"), v.literal("month"), v.literal("all"))),
+  },
+  handler: async (ctx, args) => {
+    const timeframe = args.timeframe || "all";
+    const now = Date.now();
+    let startTime = 0;
+    
+    switch (timeframe) {
+      case "week":
+        startTime = now - (7 * 24 * 60 * 60 * 1000);
+        break;
+      case "month":
+        startTime = now - (30 * 24 * 60 * 60 * 1000);
+        break;
+      default:
+        startTime = 0;
+    }
+    
+    const results = await ctx.db
+      .query("quizResults")
+      .filter((q) => 
+        q.and(
+          q.eq(q.field("userId"), args.userId),
+          q.gte(q.field("timestamp"), startTime)
+        )
+      )
+      .collect();
+    
+    if (results.length === 0) {
+      return {
+        totalQuizzes: 0,
+        averageScore: 0,
+        totalTimeSpent: 0,
+        strengthAreas: [],
+        improvementAreas: [],
+        progressTrend: "stable",
+      };
+    }
+    
+    // Calculate analytics
+    const totalQuizzes = results.length;
+    const averageScore = Math.round(results.reduce((sum, r) => sum + r.score, 0) / totalQuizzes);
+    const totalTimeSpent = results.reduce((sum, r) => sum + r.timeSpent, 0);
+    
+    // Aggregate strength and improvement areas
+    const strengthMap = new Map<string, number>();
+    const improvementMap = new Map<string, number>();
+    
+    results.forEach(result => {
+      result.performanceMetrics.strengthAreas.forEach(area => {
+        strengthMap.set(area, (strengthMap.get(area) || 0) + 1);
+      });
+      result.performanceMetrics.improvementAreas.forEach(area => {
+        improvementMap.set(area, (improvementMap.get(area) || 0) + 1);
+      });
+    });
+    
+    // Get top areas
+    const strengthAreas = Array.from(strengthMap.entries())
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5)
+      .map(([area]) => area);
+    
+    const improvementAreas = Array.from(improvementMap.entries())
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5)
+      .map(([area]) => area);
+    
+    // Calculate progress trend (simple version)
+    let progressTrend: "improving" | "declining" | "stable" = "stable";
+    if (results.length >= 3) {
+      const recent = results.slice(0, Math.ceil(results.length / 2));
+      const older = results.slice(Math.ceil(results.length / 2));
+      
+      const recentAvg = recent.reduce((sum, r) => sum + r.score, 0) / recent.length;
+      const olderAvg = older.reduce((sum, r) => sum + r.score, 0) / older.length;
+      
+      if (recentAvg > olderAvg + 5) progressTrend = "improving";
+      else if (recentAvg < olderAvg - 5) progressTrend = "declining";
+    }
+    
+    return {
+      totalQuizzes,
+      averageScore,
+      totalTimeSpent,
+      strengthAreas,
+      improvementAreas,
+      progressTrend,
+    };
+  },
+});

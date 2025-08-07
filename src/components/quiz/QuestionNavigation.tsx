@@ -151,27 +151,46 @@ export const QuestionNavigation: React.FC<QuestionNavigationProps> = ({
           })}
         </div>
 
-        {/* Next/Complete Button */}
-        {canGoNext ? (
-          <Button
-            onClick={handleNext}
-            variant="default"
-            size="sm"
-            className="flex items-center space-x-2"
-          >
-            <span>Next</span>
-            <ChevronRight className="h-4 w-4" />
-          </Button>
+        {/* Next/Complete Button - Hidden for auto-advance modes (quick and timed) */}
+        {session.autoAdvanceConfig.enabled && session.autoAdvanceConfig.skipToNext ? (
+          // Show completion button only for the last question in auto-advance modes
+          !canGoNext ? (
+            <Button
+              onClick={onComplete}
+              variant="default"
+              size="sm"
+              className="flex items-center space-x-2 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800"
+            >
+              <CheckCircle className="h-4 w-4" />
+              <span>Complete Quiz</span>
+            </Button>
+          ) : (
+            // Placeholder to maintain layout balance in auto-advance modes
+            <div className="w-16" />
+          )
         ) : (
-          <Button
-            onClick={onComplete}
-            variant="default"
-            size="sm"
-            className="flex items-center space-x-2 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800"
-          >
-            <CheckCircle className="h-4 w-4" />
-            <span>Complete Quiz</span>
-          </Button>
+          // Standard navigation for manual modes (custom)
+          canGoNext ? (
+            <Button
+              onClick={handleNext}
+              variant="default"
+              size="sm"
+              className="flex items-center space-x-2"
+            >
+              <span>Next</span>
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          ) : (
+            <Button
+              onClick={onComplete}
+              variant="default"
+              size="sm"
+              className="flex items-center space-x-2 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800"
+            >
+              <CheckCircle className="h-4 w-4" />
+              <span>Complete Quiz</span>
+            </Button>
+          )
         )}
       </div>
 
