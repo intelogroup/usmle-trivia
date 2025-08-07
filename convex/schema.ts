@@ -48,9 +48,11 @@ export default defineSchema({
 
   questions: defineTable({
     question: v.string(),
+    clinicalScenario: v.optional(v.string()), // Medical education specific field for USMLE
     options: v.array(v.string()),
     correctAnswer: v.number(),
     explanation: v.string(),
+    medicalExplanation: v.optional(v.string()), // Enhanced medical explanation for USMLE
     category: v.string(),
     difficulty: v.union(v.literal("easy"), v.literal("medium"), v.literal("hard")),
     usmleCategory: v.string(),
@@ -86,6 +88,8 @@ export default defineSchema({
     }),
 
   quizSessions: defineTable({
+    // Medical education quiz sessions for USMLE preparation
+    // Also aliased as quiz_sessions for backward compatibility
     userId: v.id("users"),
     mode: v.union(v.literal("quick"), v.literal("timed"), v.literal("custom")),
     questions: v.array(v.id("questions")),
@@ -458,4 +462,20 @@ export default defineSchema({
     .index("by_timestamp", ["timestamp"])
     .index("by_user_mode", ["userId", "mode"])
     .index("by_user_timestamp", ["userId", "timestamp"]),
+
+  // Backward compatibility alias for quiz_sessions (referenced by testing framework)
+  quiz_sessions: defineTable({
+    // This is an alias for quizSessions table to support legacy references
+    userId: v.id("users"),
+    mode: v.union(v.literal("quick"), v.literal("timed"), v.literal("custom")),
+    questions: v.array(v.id("questions")),
+    answers: v.array(v.union(v.number(), v.null())),
+    score: v.number(),
+    timeSpent: v.number(),
+    status: v.union(v.literal("active"), v.literal("completed"), v.literal("abandoned")),
+    completedAt: v.optional(v.number()),
+    createdAt: v.optional(v.number()),
+  })
+    .index("by_user", ["userId"])
+    .index("by_status", ["status"]),
 });

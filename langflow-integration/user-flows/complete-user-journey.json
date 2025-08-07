@@ -1,0 +1,391 @@
+{
+  "data": {
+    "edges": [
+      {
+        "source": "start-user-journey",
+        "sourceHandle": "output",
+        "target": "landing-page-test",
+        "targetHandle": "input",
+        "id": "edge-1"
+      },
+      {
+        "source": "landing-page-test",
+        "sourceHandle": "output",
+        "target": "authentication-flow",
+        "targetHandle": "input",
+        "id": "edge-2"
+      },
+      {
+        "source": "authentication-flow",
+        "sourceHandle": "success",
+        "target": "dashboard-interaction",
+        "targetHandle": "input",
+        "id": "edge-3"
+      },
+      {
+        "source": "authentication-flow",
+        "sourceHandle": "failure",
+        "target": "auth-error-handler",
+        "targetHandle": "input",
+        "id": "edge-4"
+      },
+      {
+        "source": "dashboard-interaction",
+        "sourceHandle": "output",
+        "target": "quiz-selection",
+        "targetHandle": "input",
+        "id": "edge-5"
+      },
+      {
+        "source": "quiz-selection",
+        "sourceHandle": "output",
+        "target": "quiz-taking-flow",
+        "targetHandle": "input",
+        "id": "edge-6"
+      },
+      {
+        "source": "quiz-taking-flow",
+        "sourceHandle": "completed",
+        "target": "results-analysis",
+        "targetHandle": "input",
+        "id": "edge-7"
+      },
+      {
+        "source": "quiz-taking-flow",
+        "sourceHandle": "abandoned",
+        "target": "abandonment-recovery",
+        "targetHandle": "input",
+        "id": "edge-8"
+      },
+      {
+        "source": "results-analysis",
+        "sourceHandle": "output",
+        "target": "progress-tracking",
+        "targetHandle": "input",
+        "id": "edge-9"
+      },
+      {
+        "source": "abandonment-recovery",
+        "sourceHandle": "output",
+        "target": "progress-tracking",
+        "targetHandle": "input",
+        "id": "edge-10"
+      },
+      {
+        "source": "progress-tracking",
+        "sourceHandle": "output",
+        "target": "user-profile-management",
+        "targetHandle": "input",
+        "id": "edge-11"
+      },
+      {
+        "source": "user-profile-management",
+        "sourceHandle": "output",
+        "target": "logout-flow",
+        "targetHandle": "input",
+        "id": "edge-12"
+      },
+      {
+        "source": "logout-flow",
+        "sourceHandle": "output",
+        "target": "journey-complete",
+        "targetHandle": "input",
+        "id": "edge-13"
+      },
+      {
+        "source": "auth-error-handler",
+        "sourceHandle": "retry",
+        "target": "authentication-flow",
+        "targetHandle": "input",
+        "id": "edge-14"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "start-user-journey",
+        "type": "ChatInput",
+        "position": {"x": 100, "y": 400},
+        "data": {
+          "type": "ChatInput",
+          "node": {
+            "base_classes": ["Message"],
+            "display_name": "Start MedQuiz Pro User Journey",
+            "description": "Initiates comprehensive user flow testing for medical education platform",
+            "template": {
+              "input_value": {
+                "required": true,
+                "placeholder": "Begin user journey test",
+                "show": true,
+                "multiline": false,
+                "value": "Start comprehensive user journey testing for MedQuiz Pro medical education platform. Test complete medical student workflow from landing to quiz completion with USMLE preparation focus.",
+                "password": false,
+                "name": "input_value",
+                "type": "str",
+                "list": false
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "landing-page-test",
+        "type": "Agent",
+        "position": {"x": 400, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Landing Page Experience Tester",
+            "description": "Tests landing page for medical students and USMLE preparation focus",
+            "template": {
+              "system_message": {
+                "value": "You are the Landing Page Experience Tester for MedQuiz Pro. Test the landing page for medical education effectiveness: 1) Medical branding and messaging 2) USMLE preparation focus 3) Professional medical education appeal 4) Call-to-action clarity for medical students 5) Mobile responsiveness for studying anywhere 6) Load performance for medical students. Validate: Medical student target audience appeal, USMLE preparation positioning, conversion optimization for medical education, professional healthcare design standards.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "authentication-flow",
+        "type": "Agent",
+        "position": {"x": 700, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Authentication Flow Tester",
+            "description": "Comprehensive authentication testing for medical students",
+            "template": {
+              "system_message": {
+                "value": "You are the Authentication Flow Tester for MedQuiz Pro medical platform. Test complete authentication workflow: 1) Registration: Medical student-focused signup, email validation, secure password creation 2) Login: Existing user authentication, session management, 'Remember me' functionality 3) Security: HIPAA-appropriate error handling, secure session tokens, medical data protection 4) User Experience: Medical student workflow optimization, mobile authentication, error recovery. Validate: Medical student authentication patterns, secure credential handling, professional error messaging, healthcare-appropriate privacy measures. Output success/failure paths for workflow branching.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "auth-error-handler",
+        "type": "Agent",
+        "position": {"x": 700, "y": 200},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Authentication Error Recovery",
+            "description": "Handles authentication failures and recovery scenarios",
+            "template": {
+              "system_message": {
+                "value": "You are the Authentication Error Recovery specialist for MedQuiz Pro. Handle authentication failures with medical-appropriate recovery: 1) Error Analysis: Identify specific authentication failure types 2) Medical Context: Ensure HIPAA-compliant error messaging without exposing sensitive data 3) Recovery Options: Password reset, account verification, technical support 4) User Guidance: Clear instructions for medical students to resolve issues 5) Escalation: When to provide additional support for medical education continuity. Focus on minimizing disruption to medical study schedules and maintaining professional healthcare standards.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "dashboard-interaction",
+        "type": "Agent",
+        "position": {"x": 1000, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Dashboard Experience Tester",
+            "description": "Tests medical student dashboard experience and functionality",
+            "template": {
+              "system_message": {
+                "value": "You are the Dashboard Experience Tester for MedQuiz Pro. Test the medical student dashboard: 1) Welcome Experience: Personalized medical student greeting, study progress overview 2) Statistics Display: 4 essential stats cards (Points, Completed, Accuracy, Streak) with medical relevance 3) Navigation: Intuitive access to quiz modes, progress tracking, medical resources 4) Medical Context: USMLE-appropriate language, medical education focus, professional design 5) Interactivity: Responsive elements, loading states, smooth animations 6) Accessibility: WCAG 2.1 AA compliance for medical professionals with disabilities. Validate dashboard serves medical education goals effectively.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "quiz-selection",
+        "type": "Agent",
+        "position": {"x": 1300, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Quiz Mode Selection Tester",
+            "description": "Tests quiz selection interface for medical education optimization",
+            "template": {
+              "system_message": {
+                "value": "You are the Quiz Mode Selection Tester for MedQuiz Pro. Test quiz selection for medical students: 1) Mode Options: Quick Quiz (5q), Timed Challenge (20q), Custom Practice - medical education appropriate 2) Medical Context: USMLE-style descriptions, clinical scenario preparation, exam simulation features 3) User Experience: Clear mode differentiation, medical student workflow optimization, time expectations 4) Accessibility: Touch-friendly for mobile medical students, keyboard navigation, screen reader support 5) Performance: Fast loading, responsive selection, smooth transitions 6) Medical Guidance: Help medical students choose appropriate study mode. Validate selection supports USMLE preparation effectively.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "quiz-taking-flow",
+        "type": "Agent",
+        "position": {"x": 1600, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Quiz Taking Experience Tester",
+            "description": "Comprehensive testing of USMLE-style quiz taking experience",
+            "template": {
+              "system_message": {
+                "value": "You are the Quiz Taking Experience Tester for MedQuiz Pro. Test complete USMLE quiz experience: 1) Question Display: Clinical scenarios, medical terminology, proper formatting for medical education 2) Answer Selection: Multiple choice interface, clear selection feedback, medical exam simulation 3) Timer Functionality: Accurate timing, visual indicators, exam-appropriate pressure simulation 4) Progress Tracking: Question progress, completion status, medical study session management 5) Medical Content: USMLE-appropriate clinical vignettes, accurate medical references, educational explanations 6) Interruption Handling: Session abandonment, resume capability, progress preservation 7) Completion Flow: Submit quiz, immediate feedback, results transition. Test both completed and abandoned scenarios for medical student workflow optimization.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "results-analysis",
+        "type": "Agent",
+        "position": {"x": 1900, "y": 500},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Quiz Results Analysis Tester",
+            "description": "Tests quiz results display and medical education value",
+            "template": {
+              "system_message": {
+                "value": "You are the Quiz Results Analysis Tester for MedQuiz Pro. Test results experience for medical education: 1) Score Display: Percentage accuracy, points earned, medical performance metrics 2) Question Review: Detailed explanations, medical references (First Aid, Pathoma), learning objectives 3) Performance Analytics: Strengths/weaknesses by medical topic, improvement recommendations 4) Medical Context: Clinical reasoning explanations, differential diagnosis discussion, medical education value 5) Next Steps: Study recommendations, topic focus areas, continued learning path 6) Data Persistence: Results saved to user profile, progress tracking, medical education continuity. Validate results provide meaningful medical education insights and USMLE preparation value.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "abandonment-recovery",
+        "type": "Agent",
+        "position": {"x": 1600, "y": 200},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Quiz Abandonment Recovery Tester",
+            "description": "Tests quiz session abandonment and recovery capabilities",
+            "template": {
+              "system_message": {
+                "value": "You are the Quiz Abandonment Recovery Tester for MedQuiz Pro. Test abandonment scenarios for medical students: 1) Interruption Scenarios: Browser close, network issues, device switching, emergency situations 2) Session Preservation: Progress saved automatically, answered questions retained, timer state preserved 3) Recovery Options: Resume within 24 hours, progress notification, seamless continuation 4) Medical Context: Understanding that medical students have unpredictable schedules, hospital duties, clinical responsibilities 5) User Experience: Clear recovery messaging, easy session resumption, no data loss anxiety 6) Technical Validation: Proper session management, database persistence, error recovery. Focus on maintaining medical education continuity despite interruptions.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "progress-tracking",
+        "type": "Agent",
+        "position": {"x": 1900, "y": 300},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Progress Tracking System Tester",
+            "description": "Tests medical education progress tracking and analytics",
+            "template": {
+              "system_message": {
+                "value": "You are the Progress Tracking System Tester for MedQuiz Pro. Test progress tracking for medical education: 1) Statistics Accuracy: Points calculation, quiz completion tracking, accuracy percentages, study streaks 2) Medical Analytics: Performance by medical specialty, USMLE topic mastery, clinical reasoning improvement 3) Visual Progress: Charts, graphs, medical education milestones, achievement badges 4) Historical Data: Quiz history, performance trends, medical knowledge progression 5) Goal Setting: USMLE preparation targets, study schedule integration, medical education objectives 6) Data Integrity: Accurate calculations, real-time updates, persistent storage. Validate progress tracking supports effective medical education and USMLE preparation planning.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "user-profile-management",
+        "type": "Agent",
+        "position": {"x": 2200, "y": 300},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "User Profile Management Tester",
+            "description": "Tests medical student profile management and settings",
+            "template": {
+              "system_message": {
+                "value": "You are the User Profile Management Tester for MedQuiz Pro. Test profile features for medical students: 1) Profile Information: Name, email, medical school, USMLE step preparation, study preferences 2) Settings Management: Notification preferences, study reminders, quiz difficulty, medical specialty focus 3) Privacy Controls: Data visibility, medical education data protection, HIPAA-appropriate settings 4) Study Preferences: Quiz types, time preferences, medical topic priorities, learning style adaptation 5) Account Security: Password changes, session management, medical data protection 6) Educational Integration: Medical school information, graduation timeline, USMLE exam dates. Validate profile supports personalized medical education experience while maintaining privacy.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "logout-flow",
+        "type": "Agent",
+        "position": {"x": 2500, "y": 300},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Logout Flow Tester",
+            "description": "Tests secure logout and session termination for medical platform",
+            "template": {
+              "system_message": {
+                "value": "You are the Logout Flow Tester for MedQuiz Pro medical platform. Test secure logout process: 1) Logout Trigger: Clear logout button, session timeout handling, security logout scenarios 2) Session Termination: Complete session cleanup, token invalidation, medical data security 3) Data Protection: No sensitive medical education data exposed, HIPAA-compliant session ending 4) User Experience: Confirmation messaging, clear logout completion, professional medical context 5) Security Validation: Proper authentication cleanup, secure redirect, session management 6) Medical Context: Understanding medical students may use shared computers in hospitals/libraries. Ensure complete medical data protection and secure session termination.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "journey-complete",
+        "type": "ChatOutput",
+        "position": {"x": 2800, "y": 300},
+        "data": {
+          "type": "ChatOutput",
+          "node": {
+            "base_classes": ["Message"],
+            "display_name": "User Journey Testing Complete",
+            "description": "Completion of comprehensive user flow testing for medical education platform",
+            "template": {
+              "input_value": {
+                "required": true,
+                "placeholder": "",
+                "show": true,
+                "multiline": false,
+                "name": "input_value",
+                "type": "str",
+                "list": false
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "description": "Comprehensive user journey testing workflow for MedQuiz Pro medical education platform. Tests complete medical student experience from landing page through authentication, dashboard interaction, quiz taking, results analysis, and logout with medical education focus and USMLE preparation optimization.",
+  "name": "MedQuiz Pro Complete User Journey Test",
+  "last_tested_version": "1.1.0",
+  "medical_focus": {
+    "target_audience": "Medical students preparing for USMLE",
+    "educational_context": "Clinical medical education and exam preparation",
+    "compliance_requirements": ["HIPAA educational data protection", "Medical accessibility standards", "Healthcare professional UX standards"],
+    "success_criteria": [
+      "Medical student workflow optimization",
+      "USMLE preparation effectiveness",
+      "Professional medical education standards",
+      "Healthcare-appropriate privacy and security",
+      "Medical education continuity across interruptions"
+    ]
+  }
+}

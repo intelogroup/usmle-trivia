@@ -1,0 +1,332 @@
+{
+  "data": {
+    "edges": [
+      {
+        "source": "workflow-execution-start",
+        "sourceHandle": "output",
+        "target": "primary-agent-workflow",
+        "targetHandle": "input",
+        "id": "edge-1"
+      },
+      {
+        "source": "primary-agent-workflow",
+        "sourceHandle": "output",
+        "target": "feedback-analyzer",
+        "targetHandle": "workflow_results",
+        "id": "edge-2"
+      },
+      {
+        "source": "feedback-analyzer",
+        "sourceHandle": "feedback_data",
+        "target": "improvement-recommender",
+        "targetHandle": "input",
+        "id": "edge-3"
+      },
+      {
+        "source": "improvement-recommender",
+        "sourceHandle": "recommendations",
+        "target": "agent-coordinator",
+        "targetHandle": "improvement_input",
+        "id": "edge-4"
+      },
+      {
+        "source": "agent-coordinator",
+        "sourceHandle": "coordination_output",
+        "target": "quality-validator",
+        "targetHandle": "input",
+        "id": "edge-5"
+      },
+      {
+        "source": "quality-validator",
+        "sourceHandle": "validation_passed",
+        "target": "integration-finalizer",
+        "targetHandle": "input",
+        "id": "edge-6"
+      },
+      {
+        "source": "quality-validator",
+        "sourceHandle": "validation_failed",
+        "target": "iterative-improver",
+        "targetHandle": "input",
+        "id": "edge-7"
+      },
+      {
+        "source": "iterative-improver",
+        "sourceHandle": "improvement_output",
+        "target": "agent-coordinator",
+        "targetHandle": "retry_input",
+        "id": "edge-8"
+      },
+      {
+        "source": "integration-finalizer",
+        "sourceHandle": "output",
+        "target": "user-flow-validator",
+        "targetHandle": "input",
+        "id": "edge-9"
+      },
+      {
+        "source": "user-flow-validator",
+        "sourceHandle": "output",
+        "target": "medical-compliance-checker",
+        "targetHandle": "input",
+        "id": "edge-10"
+      },
+      {
+        "source": "medical-compliance-checker",
+        "sourceHandle": "output",
+        "target": "feedback-loop-complete",
+        "targetHandle": "input",
+        "id": "edge-11"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "workflow-execution-start",
+        "type": "ChatInput",
+        "position": {"x": 100, "y": 400},
+        "data": {
+          "type": "ChatInput",
+          "node": {
+            "base_classes": ["Message"],
+            "display_name": "Feedback Loop Workflow Start",
+            "description": "Initiates feedback loop integration for agent coordination",
+            "template": {
+              "input_value": {
+                "required": true,
+                "placeholder": "Begin feedback loop integration",
+                "show": true,
+                "multiline": false,
+                "value": "Start MedQuiz Pro agent feedback loop integration. Execute agents, analyze results, implement improvements, and validate medical education platform excellence through iterative enhancement cycles.",
+                "password": false,
+                "name": "input_value",
+                "type": "str",
+                "list": false
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "primary-agent-workflow",
+        "type": "Agent",
+        "position": {"x": 400, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Primary Agent Workflow Executor",
+            "description": "Executes the primary agent workflow (sequential or parallel)",
+            "template": {
+              "system_message": {
+                "value": "You are the Primary Agent Workflow Executor for MedQuiz Pro feedback loop system. Execute the chosen agent workflow (sequential or parallel) and collect comprehensive results for feedback analysis: 1) Coordinate all 7 specialized agents (Code Quality, UI/UX, Performance, Testing, Security, DevOps, Architecture) 2) Monitor execution quality and medical compliance 3) Collect agent outputs, quality scores, and recommendations 4) Track medical education platform improvements 5) Prepare results for feedback loop analysis. Focus on medical platform excellence and USMLE preparation optimization.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "feedback-analyzer",
+        "type": "Agent",
+        "position": {"x": 700, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Feedback Analysis Engine",
+            "description": "Analyzes workflow results and generates feedback insights",
+            "template": {
+              "system_message": {
+                "value": "You are the Feedback Analysis Engine for MedQuiz Pro agent coordination. Analyze workflow execution results and generate actionable feedback: 1) Performance Analysis: Agent execution times, quality scores, success rates 2) Medical Compliance: HIPAA requirements, medical education standards, USMLE preparation effectiveness 3) Integration Quality: Cross-agent coordination, dependency management, system coherence 4) Improvement Opportunities: Bottlenecks, optimization potential, medical education enhancements 5) Success Metrics: Medical platform readiness, user experience quality, technical excellence. Generate data-driven insights for continuous improvement.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "improvement-recommender",
+        "type": "Agent",
+        "position": {"x": 1000, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Improvement Recommendation Engine",
+            "description": "Generates specific improvement recommendations based on feedback analysis",
+            "template": {
+              "system_message": {
+                "value": "You are the Improvement Recommendation Engine for MedQuiz Pro feedback loop. Generate specific, actionable recommendations based on feedback analysis: 1) Technical Improvements: Code quality enhancements, performance optimizations, architecture refinements 2) Medical Education Enhancements: USMLE content improvements, medical UX optimizations, healthcare workflow enhancements 3) Quality Upgrades: Testing coverage expansion, security hardening, accessibility improvements 4) User Experience: Medical student workflow optimization, mobile enhancements, professional interface polish 5) Integration Optimization: Agent coordination improvements, dependency optimization, system coherence. Prioritize recommendations by medical education impact and implementation effort.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "agent-coordinator",
+        "type": "Agent",
+        "position": {"x": 1300, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Agent Coordination Optimizer",
+            "description": "Coordinates agent improvements based on feedback recommendations",
+            "template": {
+              "system_message": {
+                "value": "You are the Agent Coordination Optimizer for MedQuiz Pro feedback loop. Implement improvements and coordinate agent optimizations: 1) Improvement Implementation: Apply feedback recommendations to agent coordination strategies 2) Quality Gate Refinement: Enhance quality gates based on medical education requirements 3) Agent Communication: Improve cross-agent information sharing and dependency management 4) Medical Focus Enhancement: Strengthen medical education context throughout agent coordination 5) Performance Optimization: Improve agent execution efficiency and resource utilization. Coordinate improvements across all agents for maximum medical education platform enhancement.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "quality-validator",
+        "type": "Agent",
+        "position": {"x": 1600, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Quality Validation Gateway",
+            "description": "Validates improvement quality and determines success/failure paths",
+            "template": {
+              "system_message": {
+                "value": "You are the Quality Validation Gateway for MedQuiz Pro feedback loop. Validate improvement implementation and determine workflow progression: 1) Quality Assessment: Measure improvement implementation success, medical education enhancement, technical advancement 2) Medical Compliance Validation: Ensure HIPAA compliance, medical education standards, USMLE preparation effectiveness 3) Integration Testing: Validate system coherence, agent coordination quality, cross-component functionality 4) Success Criteria: Medical platform readiness, user experience quality, production deployment viability 5) Decision Making: Pass to integration finalizer if quality met, route to iterative improver if additional work needed. Use strict medical education platform standards for validation.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "iterative-improver",
+        "type": "Agent",
+        "position": {"x": 1300, "y": 200},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Iterative Improvement Engine",
+            "description": "Handles quality validation failures and implements additional improvements",
+            "template": {
+              "system_message": {
+                "value": "You are the Iterative Improvement Engine for MedQuiz Pro feedback loop. Handle quality validation failures and implement additional improvements: 1) Failure Analysis: Identify specific areas not meeting medical education platform standards 2) Root Cause Investigation: Understand why improvements didn't achieve desired quality levels 3) Enhanced Improvement Strategy: Develop more targeted improvements for medical education excellence 4) Agent Re-coordination: Adjust agent coordination strategies for better results 5) Quality Enhancement: Implement additional optimizations for medical platform requirements 6) Feedback Integration: Use validation feedback to inform next improvement cycle. Focus on achieving medical education platform excellence through iterative enhancement.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "integration-finalizer",
+        "type": "Agent",
+        "position": {"x": 1900, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Integration Finalizer",
+            "description": "Finalizes successful improvements and prepares for user flow validation",
+            "template": {
+              "system_message": {
+                "value": "You are the Integration Finalizer for MedQuiz Pro feedback loop. Finalize successful improvements and prepare for comprehensive validation: 1) Integration Completion: Finalize all agent improvements and system optimizations 2) Medical Platform Assembly: Ensure all medical education components work cohesively 3) Documentation Update: Update system documentation with implemented improvements 4) Configuration Finalization: Apply final configurations for medical education platform 5) Validation Preparation: Prepare system for user flow and medical compliance validation 6) Quality Assurance: Ensure all improvements meet medical education platform standards. Deliver production-ready medical education platform ready for validation.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "user-flow-validator",
+        "type": "Agent",
+        "position": {"x": 2200, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "User Flow Validation Engine",
+            "description": "Validates complete user experience with implemented improvements",
+            "template": {
+              "system_message": {
+                "value": "You are the User Flow Validation Engine for MedQuiz Pro feedback loop. Validate complete medical student user experience with all improvements: 1) Authentication Flow: Test medical student login/registration with improvements 2) Dashboard Experience: Validate enhanced medical education interface and functionality 3) Quiz Taking Flow: Test USMLE-style quiz experience with all optimizations 4) Results Analysis: Validate improved medical education insights and recommendations 5) Progress Tracking: Test enhanced medical education progress monitoring 6) Mobile Experience: Validate cross-device medical student workflow 7) Medical Context: Ensure all improvements maintain medical education authenticity. Confirm user experience meets world-class medical education platform standards.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "medical-compliance-checker",
+        "type": "Agent",
+        "position": {"x": 2500, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Medical Compliance Final Checker",
+            "description": "Final validation of medical education standards and HIPAA compliance",
+            "template": {
+              "system_message": {
+                "value": "You are the Medical Compliance Final Checker for MedQuiz Pro feedback loop. Conduct final validation of medical education standards and compliance: 1) HIPAA Compliance: Validate educational data protection, error handling, privacy measures with all improvements 2) Medical Education Standards: Ensure USMLE preparation effectiveness, medical content accuracy, professional healthcare standards 3) Accessibility Compliance: Validate WCAG 2.1 AA compliance for medical professionals with disabilities 4) Security Validation: Confirm medical-grade security measures and data protection 5) Professional Standards: Ensure interface meets healthcare professional expectations 6) Final Certification: Provide final medical education platform compliance certification. Deliver comprehensive medical compliance validation for production deployment.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "feedback-loop-complete",
+        "type": "ChatOutput",
+        "position": {"x": 2800, "y": 400},
+        "data": {
+          "type": "ChatOutput",
+          "node": {
+            "base_classes": ["Message"],
+            "display_name": "Feedback Loop Integration Complete",
+            "description": "Completion of comprehensive feedback loop integration and validation",
+            "template": {
+              "input_value": {
+                "required": true,
+                "placeholder": "",
+                "show": true,
+                "multiline": false,
+                "name": "input_value",
+                "type": "str",
+                "list": false
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "description": "Comprehensive feedback loop integration workflow for MedQuiz Pro agent coordination. Implements iterative improvement cycles with quality validation, user flow testing, and medical compliance verification to ensure world-class medical education platform delivery.",
+  "name": "MedQuiz Pro Feedback Loop Integration",
+  "last_tested_version": "1.1.0",
+  "feedback_loop_features": {
+    "iterative_improvement": "Continuous enhancement through feedback analysis",
+    "quality_validation": "Medical education standard validation with retry loops", 
+    "user_flow_integration": "Complete medical student experience validation",
+    "medical_compliance": "HIPAA and medical education standard compliance",
+    "performance_optimization": "Continuous agent coordination improvement",
+    "success_criteria": [
+      "Medical education platform excellence",
+      "USMLE preparation effectiveness", 
+      "Healthcare professional standards compliance",
+      "World-class user experience delivery",
+      "Production-ready medical platform deployment"
+    ]
+  }
+}
