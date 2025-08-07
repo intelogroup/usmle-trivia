@@ -3,16 +3,17 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { ArrowLeft, Play, AlertTriangle } from 'lucide-react';
-import { EnhancedQuizEngine } from '../components/quiz/EnhancedQuizEngine';
+import { QuizEngine } from '../components/quiz/QuizEngine';
 import { QuizResults } from '../components/quiz/QuizResults';
 import { QuizResultsSummary } from '../components/quiz/QuizResultsSummary';
-import { SessionNavigationGuard, SessionStatusIndicator } from '../components/quiz/SessionNavigationGuard';
-import { useQuizSession, useQuizSessionEvents, useSafeNavigation } from '../hooks/useQuizSession';
+// Removed complex session components for simpler architecture
+import { CustomQuizConfig } from '../components/quiz/CustomQuizConfig';
+// Simplified architecture without complex session hooks
 import { useAppStore } from '../store';
-import { quizModes, sampleQuestions } from '../data/sampleQuestions';
+import { quizModes } from '../data/sampleQuestions';
 import type { QuizSession } from '../services/quiz';
 import type { Question } from '../services/quiz';
-import { QuizSessionData, quizSessionManager } from '../services/QuizSessionManager';
+// Removed complex session manager import
 
 type QuizMode = 'quick' | 'timed' | 'custom';
 type QuizState = 'setup' | 'active' | 'results';
@@ -26,7 +27,7 @@ export const Quiz: React.FC = () => {
   
   const [quizState, setQuizState] = useState<QuizState>('setup');
   const [completedSession, setCompletedSession] = useState<QuizSession | null>(null);
-  const [completedSessionData, setCompletedSessionData] = useState<QuizSessionData | null>(null);
+  // Simplified session data handling
   const [quizQuestions, setQuizQuestions] = useState<Question[]>([]);
   const [enhancedResults, setEnhancedResults] = useState<{
     pointsEarned: number;
@@ -34,19 +35,9 @@ export const Quiz: React.FC = () => {
     performanceMetrics: any;
   } | null>(null);
   const [startError, setStartError] = useState<string | null>(null);
+  const [customQuizConfig, setCustomQuizConfig] = useState<any>(null);
   
-  // Session management hooks
-  const { 
-    session, 
-    hasActiveSession, 
-    createSession, 
-    startSession, 
-    abandonSession,
-    error: sessionError 
-  } = useQuizSession();
-  
-  const { safeNavigate } = useSafeNavigation();
-  const { lastEvent } = useQuizSessionEvents();
+  // Simplified state management without complex session hooks
   
   // Enhanced quiz results now auto-saved - no manual save needed
   
@@ -54,64 +45,10 @@ export const Quiz: React.FC = () => {
     return m === 'quick' || m === 'timed' || m === 'custom';
   };
   
-  // Check for existing active session on mount
-  useEffect(() => {
-    if (session && session.state === 'active') {
-      setQuizState('active');
-    }
-  }, [session]);
-
-  // Handle session events
-  useEffect(() => {
-    if (lastEvent) {
-      switch (lastEvent.currentState) {
-        case 'active':
-          setQuizState('active');
-          break;
-        case 'completed':
-          if (session) {
-            // Convert session to QuizSession format for backward compatibility
-            const convertedSession: QuizSession = {
-              id: session.sessionId,
-              userId: session.userId,
-              mode: session.mode,
-              questions: session.questions,
-              answers: session.answers,
-              score: session.score,
-              timeSpent: session.timeSpent,
-              status: 'completed',
-              createdAt: session.startTime,
-              updatedAt: session.endTime || new Date(),
-            };
-            
-            // Prepare questions for results summary
-            const sessionQuestions: Question[] = sampleQuestions
-              .slice(0, session.questions.length)
-              .map((q, index) => ({
-                ...q,
-                id: session.questions[index] || `q${index + 1}`,
-              }));
-            
-            setCompletedSession(convertedSession);
-            setCompletedSessionData(session);
-            setQuizQuestions(sessionQuestions);
-            setQuizState('results');
-          }
-          break;
-        case 'abandoned':
-          setQuizState('setup');
-          setStartError('Previous quiz session was abandoned. You can start a new one.');
-          break;
-      }
-    }
-  }, [lastEvent, session]);
+  // Simplified state management - removed complex session handling
 
   const handleBack = () => {
-    if (hasActiveSession) {
-      safeNavigate('/dashboard');
-    } else {
-      navigate('/dashboard');
-    }
+    navigate('/dashboard');
   };
   
   const handleStartQuiz = async () => {
@@ -128,29 +65,35 @@ export const Quiz: React.FC = () => {
     setStartError(null);
 
     try {
+      let questionCount: number;
+      let timeLimit: number | undefined;
+      
+      if (mode === 'custom' && customQuizConfig) {
+        questionCount = customQuizConfig.questionCount;
+        timeLimit = customQuizConfig.timeLimit ? customQuizConfig.timeLimit * 60 : undefined; // convert minutes to seconds
+      } else {
+        // Default values for quick and timed modes
+        questionCount = mode === 'quick' ? 5 : mode === 'timed' ? 10 : 8;
+        timeLimit = mode === 'timed' ? 600 : mode === 'custom' ? 480 : undefined; // seconds
+      }
+      
       // Generate question IDs based on mode
-      const questionCount = mode === 'quick' ? 5 : mode === 'timed' ? 10 : 8;
       const questionIds = Array.from({ length: questionCount }, (_, i) => `q${i + 1}`);
-      
-      // Get time limit if applicable
-      const timeLimit = mode === 'timed' ? 600 : mode === 'custom' ? 480 : undefined; // seconds
 
-      console.log(`🎯 Creating ${mode} quiz session with ${questionCount} questions`);
+      console.log(`🎯 Starting ${mode} quiz with ${questionCount} questions`);
       
-      // Create session
-      const sessionId = await createSession(user.id, mode, questionIds, { timeLimit });
-      
-      console.log(`✅ Session created: ${sessionId}, starting...`);
-      
-      // Start the session
-      await startSession();
-      
-      console.log('🚀 Session started successfully');
+      // Simplified - directly start the quiz
+      setQuizState('active');
       
     } catch (error) {
       console.error('Failed to start quiz session:', error);
       setStartError(error instanceof Error ? error.message : 'Failed to start quiz session');
     }
+  };
+
+  const handleCustomQuizConfig = (config: any) => {
+    setCustomQuizConfig(config);
+    handleStartQuiz();
   };
   
   const handleQuizComplete = (session: QuizSession, enhancedData?: {
@@ -174,24 +117,7 @@ export const Quiz: React.FC = () => {
     navigate('/');
   };
 
-  // Handle session cleanup and unmounting after results
-  const handleUnmountSession = () => {
-    quizSessionManager.cleanup();
-    setCompletedSession(null);
-    setCompletedSessionData(null);
-    setQuizQuestions([]);
-    setEnhancedResults(null);
-  };
-
-  // Handle starting a new quiz from results
-  const handleStartNewQuiz = () => {
-    navigate('/dashboard');
-  };
-
-  // Handle returning to dashboard from results
-  const handleBackToDashboard = () => {
-    navigate('/dashboard');
-  };
+  // Simplified handlers
   
   if (!mode || !isValidMode(mode)) {
     return (
@@ -211,56 +137,44 @@ export const Quiz: React.FC = () => {
     );
   }
   
-  // Show enhanced quiz engine when active
+  // Show quiz engine when active
   if (quizState === 'active') {
     return (
-      <SessionNavigationGuard>
-        <SessionStatusIndicator />
-        <EnhancedQuizEngine 
-          onBack={() => setQuizState('setup')}
-          onComplete={handleQuizComplete}
-        />
-      </SessionNavigationGuard>
+      <QuizEngine 
+        mode={mode}
+        onBack={() => setQuizState('setup')}
+        onComplete={handleQuizComplete}
+      />
     );
   }
   
   // Show results when completed
-  if (quizState === 'results') {
-    // Use comprehensive results summary if session data and questions are available
-    if (completedSessionData && quizQuestions.length > 0) {
-      return (
-        <QuizResultsSummary
-          session={completedSessionData}
-          questions={quizQuestions}
-          pointsEarned={enhancedResults?.pointsEarned}
-          userStats={enhancedResults?.userStats}
-          onStartNewQuiz={handleStartNewQuiz}
-          onBackToDashboard={handleBackToDashboard}
-          onUnmountSession={handleUnmountSession}
-        />
-      );
-    }
-    
-    // Fallback to basic results if only basic session data is available
-    if (completedSession) {
-      return (
-        <QuizResults 
-          session={completedSession}
-          onHome={handleHomeReturn}
-          onRetry={handleRetryQuiz}
-        />
-      );
-    }
+  if (quizState === 'results' && completedSession) {
+    return (
+      <QuizResults 
+        session={completedSession}
+        onHome={handleHomeReturn}
+        onRetry={handleRetryQuiz}
+      />
+    );
   }
   
   // Get quiz mode configuration
   const modeConfig = quizModes[mode];
 
-  // Quiz setup screen
+  // Quiz setup screen - show custom config for custom mode
+  if (mode === 'custom') {
+    return (
+      <CustomQuizConfig 
+        onStartQuiz={handleCustomQuizConfig}
+        onBack={handleBack}
+      />
+    );
+  }
+  
+  // Quiz setup screen for quick and timed modes
   return (
-    <SessionNavigationGuard>
-      <SessionStatusIndicator />
-      <div className="space-y-6">
+    <div className="space-y-6">
       <div className="flex items-center gap-4">
         <Button variant="ghost" size="icon" onClick={handleBack}>
           <ArrowLeft className="h-4 w-4" />
@@ -281,29 +195,13 @@ export const Quiz: React.FC = () => {
         </CardHeader>
         <CardContent className="space-y-4">
           {/* Error Display */}
-          {(startError || sessionError) && (
+          {startError && (
             <div className="bg-red-50 border border-red-200 rounded-lg p-4">
               <div className="flex items-center space-x-2">
                 <AlertTriangle className="h-4 w-4 text-red-600 flex-shrink-0" />
                 <p className="text-sm text-red-700 font-medium">
-                  {startError || sessionError}
+                  {startError}
                 </p>
-              </div>
-            </div>
-          )}
-
-          {/* Session Conflict Warning */}
-          {hasActiveSession && session && session.mode !== mode && (
-            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-              <div className="flex items-center space-x-2">
-                <AlertTriangle className="h-4 w-4 text-amber-600 flex-shrink-0" />
-                <div className="text-sm text-amber-700">
-                  <p className="font-medium">Active Session Detected</p>
-                  <p>
-                    You have an active <span className="font-medium">{session.mode}</span> quiz session. 
-                    Starting a new {mode} quiz will abandon your current progress.
-                  </p>
-                </div>
               </div>
             </div>
           )}
@@ -341,38 +239,6 @@ export const Quiz: React.FC = () => {
           </div>
         </CardContent>
       </Card>
-
-      {/* Sample Question Preview */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">Sample Question Preview</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div className="p-4 bg-muted/50 rounded-lg">
-              <h3 className="font-medium mb-2">Question 1 of 10</h3>
-              <p className="text-sm mb-4">
-                A 45-year-old male presents with chest pain and shortness of breath. 
-                ECG shows ST-elevation in leads II, III, and aVF. Which coronary artery 
-                is most likely occluded?
-              </p>
-              
-              <div className="space-y-2">
-                {['A) Left anterior descending artery', 'B) Right coronary artery', 'C) Left circumflex artery', 'D) Left main coronary artery'].map((option, index) => (
-                  <div key={index} className="p-2 border rounded hover:bg-accent cursor-pointer transition-colors">
-                    {option}
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            <p className="text-xs text-muted-foreground text-center">
-              This is a preview. Actual quiz questions will be loaded when you start the quiz.
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-      </div>
-    </SessionNavigationGuard>
+    </div>
   );
 };

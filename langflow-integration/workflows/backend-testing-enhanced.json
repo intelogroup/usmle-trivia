@@ -1,0 +1,346 @@
+{
+  "data": {
+    "edges": [
+      {
+        "source": "start-backend-testing",
+        "sourceHandle": "output",
+        "target": "code-analyzer",
+        "targetHandle": "input",
+        "id": "edge-1"
+      },
+      {
+        "source": "code-analyzer",
+        "sourceHandle": "analysis_output",
+        "target": "database-tester",
+        "targetHandle": "input",
+        "id": "edge-2"
+      },
+      {
+        "source": "database-tester",
+        "sourceHandle": "db_results",
+        "target": "auth-service-tester",
+        "targetHandle": "input",
+        "id": "edge-3"
+      },
+      {
+        "source": "auth-service-tester",
+        "sourceHandle": "auth_results",
+        "target": "quiz-service-tester",
+        "targetHandle": "input",
+        "id": "edge-4"
+      },
+      {
+        "source": "quiz-service-tester",
+        "sourceHandle": "quiz_results",
+        "target": "medical-content-validator",
+        "targetHandle": "input",
+        "id": "edge-5"
+      },
+      {
+        "source": "medical-content-validator",
+        "sourceHandle": "content_results",
+        "target": "api-endpoint-tester",
+        "targetHandle": "input",
+        "id": "edge-6"
+      },
+      {
+        "source": "api-endpoint-tester",
+        "sourceHandle": "api_results",
+        "target": "performance-analyzer",
+        "targetHandle": "input",
+        "id": "edge-7"
+      },
+      {
+        "source": "performance-analyzer",
+        "sourceHandle": "performance_results",
+        "target": "security-validator",
+        "targetHandle": "input",
+        "id": "edge-8"
+      },
+      {
+        "source": "security-validator",
+        "sourceHandle": "security_results",
+        "target": "medical-compliance-checker",
+        "targetHandle": "input",
+        "id": "edge-9"
+      },
+      {
+        "source": "medical-compliance-checker",
+        "sourceHandle": "compliance_results",
+        "target": "improvement-recommender",
+        "targetHandle": "input",
+        "id": "edge-10"
+      },
+      {
+        "source": "improvement-recommender",
+        "sourceHandle": "recommendations",
+        "target": "testing-complete",
+        "targetHandle": "input",
+        "id": "edge-11"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "start-backend-testing",
+        "type": "ChatInput",
+        "position": {"x": 100, "y": 400},
+        "data": {
+          "type": "ChatInput",
+          "node": {
+            "base_classes": ["Message"],
+            "display_name": "Langflow-Enhanced Backend Testing Start",
+            "description": "Initiates comprehensive backend testing with AI enhancement",
+            "template": {
+              "input_value": {
+                "required": true,
+                "placeholder": "Start backend testing",
+                "show": true,
+                "multiline": false,
+                "value": "Begin comprehensive MedQuiz Pro backend testing with Langflow AI enhancement. Focus on medical education platform requirements: database connectivity, authentication security, quiz session management, medical content validation, API endpoints, performance optimization, and HIPAA compliance.",
+                "password": false,
+                "name": "input_value",
+                "type": "str",
+                "list": false
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "code-analyzer",
+        "type": "Agent",
+        "position": {"x": 400, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Langflow Code Intelligence Analyzer",
+            "description": "AI-powered backend code analysis and medical context integration",
+            "template": {
+              "system_message": {
+                "value": "You are the Langflow Code Intelligence Analyzer for MedQuiz Pro backend. Use AI-powered analysis to examine backend code structure: 1) Architecture Analysis: Convex backend, TypeScript services, medical data models 2) Medical Context Assessment: USMLE preparation features, healthcare data handling, medical content structure 3) Code Quality Evaluation: TypeScript compliance, error handling, medical-grade security 4) Dependency Analysis: Service interactions, database relationships, API connections 5) Performance Prediction: Bottleneck identification, scalability assessment, optimization opportunities. Generate intelligent insights for enhanced testing strategy and medical platform optimization.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "database-tester",
+        "type": "Agent",
+        "position": {"x": 700, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "AI-Enhanced Database Tester",
+            "description": "Intelligent database connectivity and medical data validation",
+            "template": {
+              "system_message": {
+                "value": "You are the AI-Enhanced Database Tester for MedQuiz Pro. Use Langflow intelligence to test database functionality: 1) Connection Testing: Convex database connectivity, authentication, response times 2) Schema Validation: Medical education data models, USMLE content structure, user progress tracking 3) CRUD Operations: Create/Read/Update/Delete operations for medical data 4) Data Integrity: Medical content accuracy, user progress persistence, quiz session management 5) Performance Analysis: Query optimization, indexing effectiveness, scalability assessment 6) Medical Compliance: HIPAA-appropriate data handling, educational data protection. Apply AI insights from code analysis to optimize testing approach and identify potential medical platform improvements.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "auth-service-tester",
+        "type": "Agent",
+        "position": {"x": 1000, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Medical Authentication Service Tester",
+            "description": "Healthcare-grade authentication testing with AI enhancement",
+            "template": {
+              "system_message": {
+                "value": "You are the Medical Authentication Service Tester with Langflow AI enhancement. Test authentication with medical context: 1) User Registration: Medical student signup, email validation, professional healthcare context 2) Login Security: JWT tokens, session management, bcrypt password handling 3) Medical Compliance: HIPAA-appropriate authentication, healthcare data protection 4) Session Management: Medical study session persistence, multi-device synchronization 5) Security Testing: Brute force protection, rate limiting, medical-grade security measures 6) Error Handling: Professional medical error messaging, privacy protection. Use AI insights to predict authentication vulnerabilities and optimize medical platform security for healthcare professionals.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "quiz-service-tester",
+        "type": "Agent",
+        "position": {"x": 1300, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "AI-Enhanced Quiz Session Tester",
+            "description": "Intelligent quiz session management and medical workflow testing",
+            "template": {
+              "system_message": {
+                "value": "You are the AI-Enhanced Quiz Session Tester for MedQuiz Pro. Use Langflow intelligence to test quiz functionality: 1) Session Creation: USMLE quiz modes (Quick/Timed/Custom), medical student workflow optimization 2) Question Management: Clinical scenario loading, medical content delivery, seen question tracking 3) Progress Tracking: Answer persistence, timer management, medical study session continuity 4) Abandonment Recovery: Browser close handling, session resumption, 24-hour recovery window 5) Medical Workflow: Healthcare professional study patterns, clinical environment interruptions 6) Performance Testing: Question loading speed, session synchronization, mobile medical student experience. Apply AI predictions to optimize quiz experience for medical education effectiveness.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "medical-content-validator",
+        "type": "Agent",
+        "position": {"x": 1600, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Langflow Medical Content Intelligence Validator",
+            "description": "AI-powered medical content accuracy and USMLE compliance testing",
+            "template": {
+              "system_message": {
+                "value": "You are the Langflow Medical Content Intelligence Validator for MedQuiz Pro. Use AI to validate medical content: 1) USMLE Accuracy: Clinical scenario authenticity, medical terminology correctness, diagnostic accuracy 2) Educational Value: Learning objective alignment, medical knowledge assessment, USMLE Step 1/2/3 preparation 3) Reference Validation: First Aid, Pathoma, medical literature accuracy, evidence-based explanations 4) Content Quality: Medical writing standards, professional healthcare language, clinical reasoning support 5) Accessibility Assessment: Medical terminology clarity, explanation quality, learning effectiveness 6) Medical Context: Healthcare professional appropriateness, clinical environment suitability. Apply AI intelligence to assess medical content quality and recommend improvements for medical education excellence.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "api-endpoint-tester",
+        "type": "Agent",
+        "position": {"x": 1900, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Medical API Endpoint Intelligence Tester",
+            "description": "AI-enhanced API testing with medical context awareness",
+            "template": {
+              "system_message": {
+                "value": "You are the Medical API Endpoint Intelligence Tester for MedQuiz Pro. Use Langflow AI to test API endpoints: 1) Endpoint Functionality: All backend APIs, request/response validation, medical data handling 2) Medical Context: Healthcare-appropriate responses, USMLE content delivery, medical student workflow support 3) Error Handling: HIPAA-compliant error messages, medical-grade exception handling, professional healthcare responses 4) Security Testing: Authentication validation, authorization checks, medical data protection 5) Performance Analysis: Response times, concurrent user handling, medical platform scalability 6) Integration Testing: Frontend-backend communication, medical content synchronization, cross-device functionality. Apply AI insights to predict API performance under medical education workloads and optimize for healthcare professional usage patterns.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "performance-analyzer",
+        "type": "Agent",
+        "position": {"x": 2200, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "AI Performance Intelligence Analyzer",
+            "description": "Langflow-powered performance analysis for medical platform optimization",
+            "template": {
+              "system_message": {
+                "value": "You are the AI Performance Intelligence Analyzer for MedQuiz Pro backend. Use Langflow AI to analyze performance: 1) Response Time Analysis: Medical content loading, quiz session performance, authentication speed 2) Scalability Assessment: Concurrent medical student capacity, database performance under load, API scalability 3) Resource Utilization: Memory usage patterns, CPU optimization, medical content caching effectiveness 4) Medical Workflow Optimization: Healthcare professional usage patterns, clinical environment performance requirements 5) Bottleneck Identification: Performance limiting factors, optimization opportunities, scalability improvements 6) Predictive Analysis: Performance trends, capacity planning, medical platform growth readiness. Generate AI-powered recommendations for medical education platform performance optimization.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "security-validator",
+        "type": "Agent",
+        "position": {"x": 2500, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Medical Security Intelligence Validator",
+            "description": "AI-enhanced security testing for healthcare-grade platform validation",
+            "template": {
+              "system_message": {
+                "value": "You are the Medical Security Intelligence Validator for MedQuiz Pro. Use Langflow AI for security testing: 1) Healthcare Security Assessment: Medical-grade authentication, healthcare data protection, professional security standards 2) HIPAA Compliance: Educational data handling, privacy protection, medical information security 3) Vulnerability Analysis: Security weakness identification, penetration testing simulation, medical platform hardening 4) Access Control: User authorization, role-based permissions, medical professional access management 5) Data Protection: Encryption validation, secure transmission, medical content protection 6) Threat Modeling: Healthcare-specific security threats, medical platform attack vectors, security mitigation strategies. Apply AI intelligence to predict security risks and optimize medical platform security for healthcare professional requirements.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "medical-compliance-checker",
+        "type": "Agent",
+        "position": {"x": 2800, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "AI Medical Compliance Intelligence Checker",
+            "description": "Langflow-powered medical education and healthcare compliance validation",
+            "template": {
+              "system_message": {
+                "value": "You are the AI Medical Compliance Intelligence Checker for MedQuiz Pro. Use Langflow AI for compliance validation: 1) Medical Education Standards: USMLE preparation effectiveness, medical content accuracy, educational value assessment 2) Healthcare Compliance: HIPAA educational data protection, medical privacy requirements, healthcare professional standards 3) Accessibility Standards: WCAG 2.1 AA compliance for medical professionals with disabilities, healthcare accessibility requirements 4) Professional Standards: Medical interface appropriateness, healthcare terminology accuracy, clinical workflow support 5) Regulatory Compliance: Medical education regulations, healthcare data protection laws, professional certification requirements 6) Quality Assurance: Medical platform excellence validation, healthcare professional experience standards. Generate AI-powered compliance assessment and medical platform certification recommendations.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "improvement-recommender",
+        "type": "Agent",
+        "position": {"x": 3100, "y": 400},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Langflow Medical Platform Intelligence Optimizer",
+            "description": "AI-powered improvement recommendations for medical education excellence",
+            "template": {
+              "system_message": {
+                "value": "You are the Langflow Medical Platform Intelligence Optimizer for MedQuiz Pro. Use comprehensive AI analysis to generate improvement recommendations: 1) Performance Optimization: Backend performance enhancements, medical content delivery optimization, healthcare workflow improvements 2) Medical Education Enhancement: USMLE preparation effectiveness improvements, medical content quality upgrades, educational value optimization 3) User Experience Optimization: Medical student workflow enhancements, healthcare professional interface improvements, clinical environment usability 4) Security Hardening: Healthcare security improvements, medical data protection enhancements, HIPAA compliance optimization 5) Scalability Planning: Medical platform growth preparation, global medical student capacity planning, enterprise medical school readiness 6) Innovation Opportunities: AI-powered medical education features, advanced healthcare analytics, next-generation medical platform capabilities. Prioritize recommendations by medical education impact and implementation feasibility.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "testing-complete",
+        "type": "ChatOutput",
+        "position": {"x": 3400, "y": 400},
+        "data": {
+          "type": "ChatOutput",
+          "node": {
+            "base_classes": ["Message"],
+            "display_name": "Backend Testing Complete with AI Intelligence",
+            "description": "Comprehensive backend testing completion with Langflow AI enhancement",
+            "template": {
+              "input_value": {
+                "required": true,
+                "placeholder": "",
+                "show": true,
+                "multiline": false,
+                "name": "input_value",
+                "type": "str",
+                "list": false
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "description": "Comprehensive Langflow-enhanced backend testing workflow for MedQuiz Pro medical education platform. Uses AI intelligence throughout the testing process to provide advanced code analysis, medical context awareness, performance optimization, security validation, and improvement recommendations for healthcare-grade platform excellence.",
+  "name": "MedQuiz Pro AI-Enhanced Backend Testing",
+  "last_tested_version": "1.1.0",
+  "langflow_enhancements": {
+    "ai_code_analysis": "Intelligent backend architecture assessment and optimization",
+    "medical_context_integration": "Healthcare-specific testing patterns and validation",
+    "predictive_performance_analysis": "AI-powered performance bottleneck prediction and optimization",
+    "intelligent_security_testing": "Advanced security threat modeling and vulnerability prediction",
+    "medical_compliance_automation": "HIPAA and medical education standard automated validation",
+    "continuous_improvement": "AI-generated optimization recommendations for medical platform excellence"
+  }
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { cn } from '../../lib/utils';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -26,7 +26,7 @@ const buttonVariants = {
   },
 };
 
-export const Button: React.FC<ButtonProps> = ({
+export const Button = memo<ButtonProps>(({
   className,
   variant = 'default',
   size = 'default',
@@ -46,4 +46,6 @@ export const Button: React.FC<ButtonProps> = ({
       {children}
     </button>
   );
-};
+});
+
+Button.displayName = 'Button';

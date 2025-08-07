@@ -15,13 +15,13 @@ import {
   XCircle, 
   TrendingUp, 
   BookOpen,
-  Download,
-  Share2,
+  // Download, // TODO: Implement download functionality
+  // Share2, // TODO: Implement share functionality
   RefreshCw,
   Home
 } from 'lucide-react';
-import { QuizSessionData } from '../../services/QuizSessionManager';
-import { Question } from '../../services/quiz';
+import { type QuizSessionData } from '../../services/QuizSessionManager';
+import { type Question } from '../../services/quiz';
 
 interface QuizResultsSummaryProps {
   session: QuizSessionData;
@@ -162,7 +162,7 @@ export const QuizResultsSummary: React.FC<QuizResultsSummaryProps> = ({
       setResults(calculatedResults);
       console.log('📊 Quiz results calculated:', calculatedResults);
     }
-  }, [session, questions]);
+  }, [session, questions, pointsEarned]);
 
   // Results are now automatically saved by enhanced completion - no manual save needed
 

@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build"
+  command = "npm run convex:deploy && npm run build"
   publish = "dist"
 
 [build.environment]
@@ -16,6 +16,10 @@
   VITE_CONVEX_URL = "https://formal-sardine-916.convex.cloud"
   NODE_ENV = "production"
   VITE_NODE_ENV = "production"
+  # Build optimizations for production
+  VITE_BUILD_SOURCEMAP = "false"
+  VITE_BUILD_MINIFY = "true"
+  VITE_DISABLE_CONSOLE = "true"
 
 # Preview deployments (for testing)
 [context.deploy-preview.environment]
@@ -44,7 +48,7 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     # Updated CSP for Convex Production with WebSocket support
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://formal-sardine-916.convex.cloud https://formal-sardine-916.convex.site wss://formal-sardine-916.convex.cloud"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://formal-sardine-916.convex.cloud https://formal-sardine-916.convex.site wss://formal-sardine-916.convex.cloud; font-src 'self' data:; object-src 'none';"
     # Performance headers
     X-DNS-Prefetch-Control = "on"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains"

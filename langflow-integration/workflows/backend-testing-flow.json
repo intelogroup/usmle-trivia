@@ -1,0 +1,375 @@
+{
+  "id": "backend-testing-workflow",
+  "name": "MedQuiz Pro Backend Testing with Langflow Intelligence",
+  "version": "1.0.0",
+  "description": "Advanced backend testing workflow with Langflow-powered intelligent analysis for medical education platform",
+  "created": "2025-08-07T11:51:00.000Z",
+  "nodes": [
+    {
+      "id": "backend-analysis-start",
+      "type": "TriggerNode",
+      "position": { "x": 100, "y": 100 },
+      "data": {
+        "label": "Backend Testing Trigger",
+        "description": "Initiates comprehensive backend testing suite",
+        "medical_context": "USMLE medical education platform",
+        "compliance_requirements": ["HIPAA", "Medical Education Standards", "Healthcare Accessibility"]
+      }
+    },
+    {
+      "id": "database-connectivity-analyzer",
+      "type": "DatabaseAnalyzerNode", 
+      "position": { "x": 300, "y": 100 },
+      "data": {
+        "label": "Database Connectivity Analysis",
+        "description": "Analyzes Convex database connectivity, schema validation, and medical data integrity",
+        "analysis_type": "database_connectivity",
+        "medical_focus": {
+          "data_integrity": "Medical content accuracy validation",
+          "performance_requirements": "Sub-200ms query times for medical content",
+          "compliance_checks": ["HIPAA data protection", "Medical education standards"],
+          "schema_validation": ["users", "questions", "quizSessions", "seenQuestions", "quizResults"]
+        },
+        "langflow_enhancements": {
+          "intelligent_query_analysis": true,
+          "medical_data_pattern_recognition": true,
+          "performance_optimization_suggestions": true
+        }
+      },
+      "connections": {
+        "input": ["backend-analysis-start"],
+        "output": ["authentication-security-analyzer"]
+      }
+    },
+    {
+      "id": "authentication-security-analyzer",
+      "type": "SecurityAnalyzerNode",
+      "position": { "x": 500, "y": 100 },
+      "data": {
+        "label": "Authentication & Security Analysis", 
+        "description": "Deep analysis of JWT authentication, bcrypt security, and healthcare-grade access control",
+        "analysis_type": "authentication_security",
+        "security_focus": {
+          "password_security": "bcrypt hashing validation",
+          "jwt_implementation": "Token generation and validation security",
+          "session_management": "Medical platform session security",
+          "access_control": "Role-based permissions for medical users",
+          "hipaa_compliance": "Healthcare data access protection"
+        },
+        "langflow_enhancements": {
+          "security_vulnerability_scanning": true,
+          "medical_compliance_validation": true,
+          "authentication_flow_optimization": true,
+          "threat_model_analysis": true
+        }
+      },
+      "connections": {
+        "input": ["database-connectivity-analyzer"],
+        "output": ["medical-content-validator"]
+      }
+    },
+    {
+      "id": "medical-content-validator",
+      "type": "MedicalContentAnalyzerNode",
+      "position": { "x": 700, "y": 100 },
+      "data": {
+        "label": "Medical Content Validation",
+        "description": "Validates USMLE content quality, medical accuracy, and educational compliance",
+        "analysis_type": "medical_content",
+        "medical_validation": {
+          "usmle_standards": "Clinical scenario authenticity",
+          "medical_accuracy": "Content fact-checking against medical references",
+          "educational_value": "Learning objective alignment",
+          "reference_integrity": "Medical source validation",
+          "terminology_compliance": "Medical terminology standards"
+        },
+        "langflow_enhancements": {
+          "medical_knowledge_graph_analysis": true,
+          "clinical_accuracy_validation": true,
+          "educational_effectiveness_scoring": true,
+          "medical_reference_verification": true
+        }
+      },
+      "connections": {
+        "input": ["authentication-security-analyzer"], 
+        "output": ["quiz-session-analyzer"]
+      }
+    },
+    {
+      "id": "quiz-session-analyzer",
+      "type": "SessionManagementAnalyzerNode",
+      "position": { "x": 900, "y": 100 },
+      "data": {
+        "label": "Quiz Session Management Analysis",
+        "description": "Analyzes session management, abandonment recovery, and medical learning analytics",
+        "analysis_type": "session_management",
+        "session_features": {
+          "abandonment_recovery": "24-hour resumption capability",
+          "progress_persistence": "Medical learning progress tracking",
+          "seen_questions_tracking": "Intelligent question selection",
+          "multi_device_sync": "Cross-platform medical study continuity",
+          "learning_analytics": "Medical education progress insights"
+        },
+        "langflow_enhancements": {
+          "learning_pattern_analysis": true,
+          "session_optimization_recommendations": true,
+          "medical_study_behavior_insights": true,
+          "abandonment_prediction_modeling": true
+        }
+      },
+      "connections": {
+        "input": ["medical-content-validator"],
+        "output": ["performance-optimizer"]
+      }
+    },
+    {
+      "id": "performance-optimizer", 
+      "type": "PerformanceAnalyzerNode",
+      "position": { "x": 1100, "y": 100 },
+      "data": {
+        "label": "Performance & Scalability Analysis",
+        "description": "Analyzes backend performance for medical education platform scalability",
+        "analysis_type": "performance_optimization",
+        "performance_metrics": {
+          "response_times": "Database queries <100ms, Auth <200ms, Quiz loading <300ms",
+          "concurrent_users": "1000+ simultaneous medical students",
+          "medical_content_delivery": "Optimized clinical scenario loading",
+          "real_time_sync": "Live progress synchronization",
+          "scalability_targets": "Global medical education deployment"
+        },
+        "langflow_enhancements": {
+          "performance_bottleneck_identification": true,
+          "scalability_prediction_modeling": true,
+          "optimization_strategy_generation": true,
+          "medical_workload_pattern_analysis": true
+        }
+      },
+      "connections": {
+        "input": ["quiz-session-analyzer"],
+        "output": ["compliance-validator"]
+      }
+    },
+    {
+      "id": "compliance-validator",
+      "type": "ComplianceAnalyzerNode",
+      "position": { "x": 1300, "y": 100 },
+      "data": {
+        "label": "Medical Compliance & HIPAA Validation",
+        "description": "Validates medical education compliance, HIPAA requirements, and healthcare standards",
+        "analysis_type": "medical_compliance",
+        "compliance_standards": {
+          "hipaa_compliance": "Healthcare data protection requirements",
+          "medical_education_standards": "Medical education accreditation compliance",
+          "accessibility_standards": "WCAG 2.1 AA compliance for medical professionals",
+          "error_handling": "Medical-grade error reporting and logging",
+          "data_privacy": "Medical student data protection"
+        },
+        "langflow_enhancements": {
+          "compliance_gap_analysis": true,
+          "regulatory_requirement_mapping": true,
+          "medical_standard_validation": true,
+          "privacy_risk_assessment": true
+        }
+      },
+      "connections": {
+        "input": ["performance-optimizer"],
+        "output": ["intelligence-aggregator"]
+      }
+    },
+    {
+      "id": "intelligence-aggregator",
+      "type": "IntelligenceAggregatorNode",
+      "position": { "x": 1500, "y": 100 },
+      "data": {
+        "label": "Langflow Intelligence Aggregator",
+        "description": "Aggregates all analysis results into comprehensive medical platform assessment",
+        "analysis_type": "intelligence_aggregation",
+        "aggregation_features": {
+          "comprehensive_scoring": "Overall medical platform readiness assessment",
+          "risk_identification": "Critical issues and improvement recommendations",
+          "optimization_roadmap": "Prioritized enhancement suggestions",
+          "medical_excellence_metrics": "Medical education platform quality scoring",
+          "deployment_readiness": "Production deployment validation"
+        },
+        "langflow_enhancements": {
+          "multi_dimensional_analysis": true,
+          "predictive_quality_assessment": true,
+          "recommendation_engine": true,
+          "medical_platform_benchmarking": true
+        }
+      },
+      "connections": {
+        "input": ["compliance-validator"],
+        "output": ["final-report-generator"]
+      }
+    },
+    {
+      "id": "final-report-generator",
+      "type": "ReportGeneratorNode", 
+      "position": { "x": 1700, "y": 100 },
+      "data": {
+        "label": "Comprehensive Backend Test Report",
+        "description": "Generates detailed medical platform backend assessment report",
+        "report_type": "medical_platform_assessment",
+        "report_sections": {
+          "executive_summary": "Overall backend health and medical platform readiness",
+          "technical_analysis": "Detailed technical component assessment",
+          "medical_compliance": "Healthcare and medical education compliance validation", 
+          "performance_metrics": "Scalability and performance analysis",
+          "security_assessment": "Healthcare-grade security validation",
+          "recommendations": "Prioritized improvement suggestions",
+          "deployment_readiness": "Production deployment authorization"
+        },
+        "langflow_enhancements": {
+          "intelligent_report_generation": true,
+          "medical_context_optimization": true,
+          "actionable_insights_extraction": true,
+          "strategic_recommendations": true
+        }
+      },
+      "connections": {
+        "input": ["intelligence-aggregator"],
+        "output": []
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-1",
+      "source": "backend-analysis-start",
+      "target": "database-connectivity-analyzer",
+      "type": "analysis_flow",
+      "data": {
+        "flow_type": "sequential_analysis",
+        "data_transfer": "test_configuration"
+      }
+    },
+    {
+      "id": "edge-2", 
+      "source": "database-connectivity-analyzer",
+      "target": "authentication-security-analyzer",
+      "type": "analysis_flow",
+      "data": {
+        "flow_type": "sequential_analysis",
+        "data_transfer": "database_analysis_results"
+      }
+    },
+    {
+      "id": "edge-3",
+      "source": "authentication-security-analyzer", 
+      "target": "medical-content-validator",
+      "type": "analysis_flow",
+      "data": {
+        "flow_type": "sequential_analysis",
+        "data_transfer": "security_analysis_results"
+      }
+    },
+    {
+      "id": "edge-4",
+      "source": "medical-content-validator",
+      "target": "quiz-session-analyzer", 
+      "type": "analysis_flow",
+      "data": {
+        "flow_type": "sequential_analysis",
+        "data_transfer": "medical_validation_results"
+      }
+    },
+    {
+      "id": "edge-5",
+      "source": "quiz-session-analyzer",
+      "target": "performance-optimizer",
+      "type": "analysis_flow", 
+      "data": {
+        "flow_type": "sequential_analysis",
+        "data_transfer": "session_analysis_results"
+      }
+    },
+    {
+      "id": "edge-6",
+      "source": "performance-optimizer",
+      "target": "compliance-validator",
+      "type": "analysis_flow",
+      "data": {
+        "flow_type": "sequential_analysis", 
+        "data_transfer": "performance_analysis_results"
+      }
+    },
+    {
+      "id": "edge-7",
+      "source": "compliance-validator",
+      "target": "intelligence-aggregator",
+      "type": "analysis_flow",
+      "data": {
+        "flow_type": "sequential_analysis",
+        "data_transfer": "compliance_analysis_results"
+      }
+    },
+    {
+      "id": "edge-8",
+      "source": "intelligence-aggregator", 
+      "target": "final-report-generator",
+      "type": "analysis_flow",
+      "data": {
+        "flow_type": "sequential_analysis",
+        "data_transfer": "aggregated_intelligence_results"
+      }
+    }
+  ],
+  "workflow_configuration": {
+    "execution_mode": "sequential_with_intelligence",
+    "medical_context": {
+      "platform_type": "USMLE medical education",
+      "target_users": "Medical students, residents, physicians",
+      "compliance_requirements": ["HIPAA", "Medical Education Standards", "Healthcare Accessibility"],
+      "quality_standards": "Medical education platform excellence"
+    },
+    "langflow_intelligence": {
+      "enabled": true,
+      "analysis_depth": "comprehensive",
+      "medical_domain_expertise": true,
+      "predictive_analytics": true,
+      "recommendation_engine": true,
+      "continuous_learning": true
+    },
+    "quality_gates": {
+      "database_connectivity": {
+        "minimum_score": 95,
+        "critical_checks": ["schema_validation", "medical_data_integrity", "performance"]
+      },
+      "authentication_security": {
+        "minimum_score": 98,
+        "critical_checks": ["password_security", "jwt_validation", "hipaa_compliance"]
+      },
+      "medical_content": {
+        "minimum_score": 92,
+        "critical_checks": ["usmle_standards", "medical_accuracy", "educational_value"]
+      },
+      "session_management": {
+        "minimum_score": 90,
+        "critical_checks": ["abandonment_recovery", "progress_persistence", "learning_analytics"]
+      },
+      "performance": {
+        "minimum_score": 88,
+        "critical_checks": ["response_times", "scalability", "concurrent_users"]
+      },
+      "compliance": {
+        "minimum_score": 100,
+        "critical_checks": ["hipaa_compliance", "medical_education_standards", "accessibility"]
+      }
+    },
+    "reporting": {
+      "format": "comprehensive_medical_platform_assessment",
+      "include_recommendations": true,
+      "medical_context_optimization": true,
+      "deployment_authorization": true
+    }
+  },
+  "metadata": {
+    "created_by": "Backend Testing Agent",
+    "medical_platform": "MedQuiz Pro",
+    "target_deployment": "Global medical education",
+    "langflow_version": "1.0.0",
+    "medical_compliance_level": "Healthcare-grade",
+    "testing_methodology": "Comprehensive backend validation with medical domain expertise"
+  }
+}

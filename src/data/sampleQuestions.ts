@@ -13,6 +13,11 @@ export interface QuestionData {
   usmleCategory: string;
   tags: string[];
   medicalReferences?: string[];
+  // New structured categorization
+  subject: string;       // Primary medical subject (e.g., "Internal Medicine", "Surgery", "Pediatrics")
+  system: string;        // Body system (e.g., "Cardiovascular", "Respiratory", "Nervous")
+  topics: string[];      // Sub-systems or specific topics (e.g., ["Myocardial Infarction", "ECG Interpretation"])
+  points: number;        // Points awarded for correct answer (based on difficulty)
 }
 
 export const sampleQuestions: QuestionData[] = [
@@ -30,7 +35,11 @@ export const sampleQuestions: QuestionData[] = [
     difficulty: "medium",
     usmleCategory: "pathology",
     tags: ["myocardial infarction", "ECG", "coronary anatomy", "cardiology"],
-    medicalReferences: ["First Aid USMLE Step 1 2025", "Pathoma Ch. 4"]
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Pathoma Ch. 4"],
+    subject: "Internal Medicine",
+    system: "Cardiovascular",
+    topics: ["Myocardial Infarction", "ECG Interpretation", "Coronary Anatomy"],
+    points: 15
   },
   {
     question: "A 32-year-old woman presents with fatigue, weight gain, and cold intolerance. Laboratory studies show TSH 15 mU/L (normal 0.5-5.0) and free T4 0.8 ng/dL (normal 1.0-2.3). What is the most likely diagnosis?",
@@ -46,7 +55,11 @@ export const sampleQuestions: QuestionData[] = [
     difficulty: "easy",
     usmleCategory: "pathology",
     tags: ["hypothyroidism", "Hashimoto's", "thyroid", "endocrinology"],
-    medicalReferences: ["First Aid USMLE Step 1 2025", "Pathoma Ch. 19"]
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Pathoma Ch. 19"],
+    subject: "Internal Medicine",
+    system: "Endocrine",
+    topics: ["Thyroid Disorders", "Hypothyroidism", "Autoimmune Diseases"],
+    points: 10
   },
   {
     question: "A 28-year-old man presents with a 3-day history of fever, headache, and neck stiffness. Lumbar puncture shows opening pressure 300 mmH2O, glucose 25 mg/dL (serum glucose 90 mg/dL), protein 200 mg/dL, and 500 WBCs/μL with 90% neutrophils. Gram stain shows gram-positive cocci in pairs. What is the most appropriate initial antibiotic therapy?",
@@ -62,7 +75,11 @@ export const sampleQuestions: QuestionData[] = [
     difficulty: "hard",
     usmleCategory: "microbiology",
     tags: ["meningitis", "CSF analysis", "S. pneumoniae", "antibiotics"],
-    medicalReferences: ["First Aid USMLE Step 1 2025", "Sketchy Micro"]
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Sketchy Micro"],
+    subject: "Internal Medicine",
+    system: "Nervous System", 
+    topics: ["CNS Infections", "Bacterial Meningitis", "Antibiotic Therapy"],
+    points: 20
   },
   {
     question: "A 55-year-old woman with a history of rheumatoid arthritis treated with methotrexate presents with progressive shortness of breath. Chest X-ray shows bilateral lower lobe reticular opacities. High-resolution CT shows honeycombing and traction bronchiectasis. Which of the following is the most likely cause?",
@@ -889,7 +906,1127 @@ export const sampleQuestions: QuestionData[] = [
     difficulty: "hard",
     usmleCategory: "pathology",
     tags: ["Cushing syndrome", "purple striae", "dexamethasone suppression", "buffalo hump"],
-    medicalReferences: ["First Aid USMLE Step 1 2025", "Pathoma Ch. 19"]
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Pathoma Ch. 19"],
+    subject: "Internal Medicine",
+    system: "Endocrine",
+    topics: ["Adrenal Disorders", "Cushing Syndrome"],
+    points: 20
+  },
+  // Additional HIGH-YIELD USMLE Questions - Expanding to 100+ total
+  // Cardiology - Arrhythmias
+  {
+    question: "A 70-year-old man with a history of atrial fibrillation presents with palpitations and dizziness. ECG shows irregularly irregular rhythm with narrow QRS complexes and absence of P waves. His heart rate is 140 bpm. He is hemodynamically stable. What is the most appropriate initial treatment?",
+    options: [
+      "Electrical cardioversion",
+      "Rate control with metoprolol",
+      "Rhythm control with amiodarone",
+      "Anticoagulation with warfarin only"
+    ],
+    correctAnswer: 1,
+    explanation: "For hemodynamically stable atrial fibrillation with rapid ventricular response, rate control is the initial priority. Beta-blockers like metoprolol or calcium channel blockers are first-line agents for rate control. Cardioversion is reserved for unstable patients or after adequate anticoagulation for elective cardioversion.",
+    category: "Cardiovascular",
+    difficulty: "medium",
+    usmleCategory: "pharmacology",
+    tags: ["atrial fibrillation", "rate control", "beta blockers", "arrhythmia"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Cardiovascular",
+    topics: ["Arrhythmias", "Atrial Fibrillation"],
+    points: 15
+  },
+  // Pulmonology - Asthma
+  {
+    question: "A 25-year-old woman presents to the ED with wheezing, cough, and shortness of breath that started after exposure to cats. Physical exam reveals decreased air entry bilaterally with expiratory wheeze. Peak flow is 40% of predicted. What is the most appropriate immediate treatment?",
+    options: [
+      "Oral prednisone",
+      "Nebulized albuterol",
+      "IV methylprednisolone",
+      "Inhaled fluticasone"
+    ],
+    correctAnswer: 1,
+    explanation: "This patient has acute asthma exacerbation. Nebulized short-acting beta-2 agonists (albuterol) are first-line treatment for acute bronchospasm. The peak flow of 40% predicted indicates moderate-to-severe exacerbation requiring immediate bronchodilation.",
+    category: "Pulmonary",
+    difficulty: "easy",
+    usmleCategory: "pharmacology",
+    tags: ["asthma", "bronchodilator", "albuterol", "acute exacerbation"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Respiratory",
+    topics: ["Asthma", "Bronchodilators"],
+    points: 10
+  },
+  // Gastroenterology - Upper GI Bleeding
+  {
+    question: "A 55-year-old man with a history of peptic ulcer disease presents with coffee-ground vomitus and melena. His blood pressure is 90/60 mmHg and heart rate is 110 bpm. Hemoglobin is 7.2 g/dL. What is the most appropriate initial management?",
+    options: [
+      "Upper endoscopy within 24 hours",
+      "IV fluid resuscitation and blood transfusion",
+      "High-dose proton pump inhibitor",
+      "Nasogastric tube placement"
+    ],
+    correctAnswer: 1,
+    explanation: "This patient has signs of upper GI bleeding with hemodynamic instability (hypotension, tachycardia) and severe anemia. Initial management focuses on hemodynamic stabilization with IV fluids and blood transfusion before diagnostic procedures. The ABC approach (Airway, Breathing, Circulation) takes priority.",
+    category: "Gastroenterology",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["upper GI bleeding", "hemodynamic instability", "resuscitation", "peptic ulcer"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Gastrointestinal",
+    topics: ["GI Bleeding", "Peptic Ulcer Disease"],
+    points: 15
+  },
+  // Nephrology - Acute Kidney Injury
+  {
+    question: "A 65-year-old diabetic man is admitted for pneumonia and treated with gentamicin. After 5 days, his creatinine rises from 1.2 mg/dL to 2.8 mg/dL. Urinalysis shows muddy brown casts. What is the most likely cause of his kidney injury?",
+    options: [
+      "Prerenal azotemia",
+      "Acute tubular necrosis",
+      "Acute glomerulonephritis",
+      "Postrenal obstruction"
+    ],
+    correctAnswer: 1,
+    explanation: "Gentamicin is nephrotoxic and commonly causes acute tubular necrosis (ATN). The presence of muddy brown casts (renal tubular epithelial cell casts) is pathognomonic for ATN. The temporal relationship with gentamicin therapy supports drug-induced ATN.",
+    category: "Nephrology",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["acute kidney injury", "gentamicin", "nephrotoxicity", "muddy brown casts"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Genitourinary",
+    topics: ["Acute Kidney Injury", "Drug-Induced Nephrotoxicity"],
+    points: 15
+  },
+  // Hematology - Iron Deficiency Anemia
+  {
+    question: "A 35-year-old woman with heavy menstrual periods presents with fatigue. Laboratory studies show Hgb 8.5 g/dL, MCV 68 fL, ferritin 8 ng/mL, and TIBC 450 μg/dL (normal 250-400). What is the most likely diagnosis?",
+    options: [
+      "Thalassemia minor",
+      "Iron deficiency anemia",
+      "Anemia of chronic disease",
+      "Sideroblastic anemia"
+    ],
+    correctAnswer: 1,
+    explanation: "This patient has classic iron deficiency anemia: microcytic anemia (low MCV), low ferritin (iron stores), and elevated TIBC (iron binding capacity increases when iron is low). Heavy menstruation is a common cause of iron deficiency in premenopausal women.",
+    category: "Hematology/Oncology",
+    difficulty: "easy",
+    usmleCategory: "pathology",
+    tags: ["iron deficiency anemia", "microcytic anemia", "ferritin", "menorrhagia"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Hematologic",
+    topics: ["Anemia", "Iron Deficiency"],
+    points: 10
+  },
+  // Rheumatology - Rheumatoid Arthritis
+  {
+    question: "A 45-year-old woman presents with morning stiffness lasting 2 hours and symmetric joint pain affecting her wrists and MCPs bilaterally. Physical exam reveals swan-neck deformities. Laboratory studies show positive rheumatoid factor and anti-CCP antibodies. What is the most appropriate initial treatment?",
+    options: [
+      "NSAIDs only",
+      "Methotrexate",
+      "Prednisone",
+      "Physical therapy"
+    ],
+    correctAnswer: 1,
+    explanation: "This patient has rheumatoid arthritis based on symmetric polyarthritis, morning stiffness >1 hour, positive RF and anti-CCP antibodies. Methotrexate is the first-line DMARD (disease-modifying antirheumatic drug) for RA and should be started early to prevent joint destruction.",
+    category: "Rheumatology",
+    difficulty: "medium",
+    usmleCategory: "pharmacology",
+    tags: ["rheumatoid arthritis", "methotrexate", "DMARD", "anti-CCP"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Musculoskeletal",
+    topics: ["Rheumatoid Arthritis", "DMARDs"],
+    points: 15
+  },
+  // Endocrinology - Diabetic Ketoacidosis
+  {
+    question: "A 19-year-old type 1 diabetic presents with nausea, vomiting, and abdominal pain. Vital signs show Kussmaul respirations. Laboratory studies reveal glucose 450 mg/dL, bicarbonate 8 mEq/L, and positive serum ketones. What is the most appropriate initial treatment?",
+    options: [
+      "IV regular insulin bolus",
+      "IV normal saline",
+      "Sodium bicarbonate",
+      "Potassium replacement"
+    ],
+    correctAnswer: 1,
+    explanation: "This patient has diabetic ketoacidosis (DKA). The initial priority is fluid resuscitation with normal saline to restore intravascular volume and improve perfusion. Insulin therapy should begin after initial fluid replacement, and potassium must be monitored/replaced as insulin drives potassium intracellularly.",
+    category: "Endocrine",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["diabetic ketoacidosis", "DKA", "fluid resuscitation", "Kussmaul respirations"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Emergency Medicine",
+    system: "Endocrine",
+    topics: ["Diabetes Complications", "DKA"],
+    points: 15
+  },
+  // Neurology - Migraine
+  {
+    question: "A 28-year-old woman presents with recurrent unilateral throbbing headaches preceded by visual aura. The headaches last 8-12 hours and are associated with nausea and photophobia. What is the most appropriate acute treatment?",
+    options: [
+      "Morphine",
+      "Sumatriptan",
+      "Acetaminophen",
+      "Prednisone"
+    ],
+    correctAnswer: 1,
+    explanation: "This patient has classic migraine with aura. Sumatriptan, a selective 5-HT1B/1D receptor agonist (triptan), is first-line acute treatment for moderate to severe migraine. It's most effective when taken early in the headache phase.",
+    category: "Neurology",
+    difficulty: "easy",
+    usmleCategory: "pharmacology",
+    tags: ["migraine", "sumatriptan", "triptan", "aura"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Nervous System",
+    topics: ["Headache Disorders", "Migraine"],
+    points: 10
+  },
+  // Infectious Disease - UTI
+  {
+    question: "A 25-year-old sexually active woman presents with dysuria, urinary frequency, and suprapubic pain. Urinalysis shows >100 WBCs/hpf, positive nitrites, and positive leukocyte esterase. What is the most appropriate treatment?",
+    options: [
+      "Ciprofloxacin 500mg BID x 7 days",
+      "Nitrofurantoin 100mg BID x 5 days",
+      "Trimethoprim-sulfamethoxazole DS BID x 3 days",
+      "Amoxicillin 500mg TID x 7 days"
+    ],
+    correctAnswer: 2,
+    explanation: "This patient has uncomplicated cystitis. Trimethoprim-sulfamethoxazole for 3 days is first-line treatment for uncomplicated UTI in areas with <20% E. coli resistance. The short course is as effective as longer treatments and reduces antibiotic exposure.",
+    category: "Infectious Disease",
+    difficulty: "easy",
+    usmleCategory: "microbiology",
+    tags: ["UTI", "cystitis", "trimethoprim-sulfamethoxazole", "E. coli"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Genitourinary",
+    topics: ["Urinary Tract Infections", "Antibiotic Therapy"],
+    points: 10
+  },
+  // Psychiatry - Major Depression
+  {
+    question: "A 35-year-old man presents with a 6-week history of depressed mood, loss of interest in activities, fatigue, poor concentration, and feelings of worthlessness. He has lost 15 pounds without trying. What is the most appropriate first-line treatment?",
+    options: [
+      "Amitriptyline",
+      "Sertraline",
+      "Lithium",
+      "Alprazolam"
+    ],
+    correctAnswer: 1,
+    explanation: "This patient meets criteria for major depressive disorder (depressed mood, anhedonia, plus neurovegetative symptoms >2 weeks). SSRIs like sertraline are first-line treatment due to their favorable side effect profile compared to tricyclics. They're generally well-tolerated and effective.",
+    category: "Psychiatry",
+    difficulty: "easy",
+    usmleCategory: "pharmacology",
+    tags: ["major depression", "SSRI", "sertraline", "anhedonia"],
+    medicalReferences: ["DSM-5", "First Aid USMLE Step 1 2025"],
+    subject: "Psychiatry",
+    system: "Nervous System",
+    topics: ["Mood Disorders", "Depression"],
+    points: 10
+  },
+  // Dermatology - Basal Cell Carcinoma
+  {
+    question: "A 65-year-old fair-skinned man who works outdoors presents with a 2cm pearly, flesh-colored papule with rolled borders and central ulceration on his nose. What is the most likely diagnosis?",
+    options: [
+      "Squamous cell carcinoma",
+      "Basal cell carcinoma",
+      "Melanoma",
+      "Sebaceous cyst"
+    ],
+    correctAnswer: 1,
+    explanation: "The description of a pearly papule with rolled borders and central ulceration (rodent ulcer) is classic for basal cell carcinoma (BCC). BCC is the most common skin cancer, typically occurring in sun-exposed areas in fair-skinned individuals. It rarely metastasizes but can be locally invasive.",
+    category: "Dermatology",
+    difficulty: "easy",
+    usmleCategory: "pathology",
+    tags: ["basal cell carcinoma", "pearly papule", "rolled borders", "sun exposure"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Integumentary",
+    topics: ["Skin Cancer", "BCC"],
+    points: 10
+  },
+  // Emergency Medicine - Anaphylaxis
+  {
+    question: "A 30-year-old woman develops hives, wheezing, and hypotension within minutes of eating shellfish at a restaurant. Her blood pressure is 70/40 mmHg. What is the most appropriate immediate treatment?",
+    options: [
+      "IV diphenhydramine",
+      "Intramuscular epinephrine",
+      "IV methylprednisolone",
+      "Nebulized albuterol"
+    ],
+    correctAnswer: 1,
+    explanation: "This patient has anaphylaxis with systemic symptoms (hypotension, wheezing, urticaria). Intramuscular epinephrine (0.3-0.5mg in the anterolateral thigh) is the first-line treatment for anaphylaxis. It reverses bronchospasm, increases blood pressure, and stabilizes mast cells.",
+    category: "Emergency Medicine",
+    difficulty: "medium",
+    usmleCategory: "pharmacology",
+    tags: ["anaphylaxis", "epinephrine", "food allergy", "hypotension"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Emergency Medicine",
+    system: "Immune System",
+    topics: ["Allergic Reactions", "Anaphylaxis"],
+    points: 15
+  },
+  // Orthopedics - Hip Fracture
+  {
+    question: "A 78-year-old woman falls and presents with right hip pain and inability to bear weight. Physical exam reveals right leg shortening and external rotation. X-ray shows an intertrochanteric hip fracture. What is the most appropriate treatment?",
+    options: [
+      "Conservative management with bed rest",
+      "Open reduction and internal fixation",
+      "Hip hemiarthroplasty",
+      "Total hip replacement"
+    ],
+    correctAnswer: 1,
+    explanation: "Intertrochanteric hip fractures, unlike femoral neck fractures, have good blood supply and heal well with internal fixation. ORIF with intramedullary nail or sliding hip screw is the treatment of choice. This allows early mobilization and reduces complications of prolonged bed rest.",
+    category: "Orthopedics",
+    difficulty: "medium",
+    usmleCategory: "surgery",
+    tags: ["intertrochanteric fracture", "ORIF", "hip fracture", "elderly"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Surgery",
+    system: "Musculoskeletal",
+    topics: ["Hip Fractures", "Orthopedic Surgery"],
+    points: 15
+  },
+  // Pediatrics - Febrile Seizure
+  {
+    question: "A 2-year-old previously healthy child presents with a 2-minute generalized tonic-clonic seizure during a febrile illness. Temperature is 39.5°C (103.1°F). The child is now alert and interactive. What is the most likely diagnosis?",
+    options: [
+      "Meningitis",
+      "Simple febrile seizure",
+      "Complex febrile seizure",
+      "Epilepsy"
+    ],
+    correctAnswer: 1,
+    explanation: "Simple febrile seizures occur in 3-5% of children aged 6 months to 5 years. They are generalized, last <15 minutes, and don't recur within 24 hours. This child meets criteria for simple febrile seizure. Complex febrile seizures are focal, prolonged (>15 min), or recurrent.",
+    category: "Pediatrics",
+    difficulty: "easy",
+    usmleCategory: "pathology",
+    tags: ["febrile seizure", "pediatric", "fever", "generalized seizure"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Pediatrics",
+    system: "Nervous System",
+    topics: ["Pediatric Seizures", "Febrile Seizures"],
+    points: 10
+  },
+  // Urology - Benign Prostatic Hyperplasia
+  {
+    question: "A 70-year-old man presents with urinary hesitancy, weak stream, and nocturia. Digital rectal exam reveals a uniformly enlarged, non-tender prostate. PSA is 5.2 ng/mL. What is the most appropriate initial treatment?",
+    options: [
+      "Immediate prostate biopsy",
+      "Alpha-blocker (tamsulosin)",
+      "5-alpha reductase inhibitor (finasteride)",
+      "Transurethral resection of prostate"
+    ],
+    correctAnswer: 1,
+    explanation: "This patient has benign prostatic hyperplasia (BPH) with lower urinary tract symptoms. Alpha-blockers like tamsulosin are first-line medical therapy for BPH as they relax prostatic smooth muscle and provide rapid symptom relief. The slightly elevated PSA can be explained by BPH.",
+    category: "Urology",
+    difficulty: "easy",
+    usmleCategory: "pharmacology",
+    tags: ["BPH", "alpha blocker", "tamsulosin", "LUTS"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Genitourinary",
+    topics: ["Benign Prostatic Hyperplasia", "Alpha Blockers"],
+    points: 10
+  },
+  // Radiology - Chest X-ray
+  {
+    question: "A 65-year-old smoker presents with cough and weight loss. Chest X-ray shows a 4cm mass in the right hilum with associated lymphadenopathy. What is the most appropriate next step?",
+    options: [
+      "CT chest with contrast",
+      "PET scan",
+      "Bronchoscopy with biopsy",
+      "Mediastinoscopy"
+    ],
+    correctAnswer: 2,
+    explanation: "A hilar mass in a smoker is highly suspicious for lung cancer. Bronchoscopy with biopsy is the most appropriate next step to obtain tissue diagnosis. Central/hilar lesions are usually accessible via bronchoscopy, making it the preferred diagnostic approach over transthoracic biopsy.",
+    category: "Radiology",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["lung cancer", "hilar mass", "bronchoscopy", "smoking"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Respiratory",
+    topics: ["Lung Cancer", "Bronchoscopy"],
+    points: 15
+  },
+  // Gastroenterology - Inflammatory Bowel Disease
+  {
+    question: "A 25-year-old man presents with chronic bloody diarrhea, tenesmus, and left lower quadrant pain. Colonoscopy shows continuous mucosal inflammation limited to the rectum and sigmoid colon with crypt abscesses. What is the most likely diagnosis?",
+    options: [
+      "Crohn's disease",
+      "Ulcerative colitis",
+      "Ischemic colitis",
+      "C. difficile colitis"
+    ],
+    correctAnswer: 1,
+    explanation: "Ulcerative colitis is characterized by continuous mucosal inflammation starting from the rectum and extending proximally. The presence of crypt abscesses and limitation to the left colon with bloody diarrhea and tenesmus are classic features of UC, distinguishing it from Crohn's disease which has skip lesions.",
+    category: "Gastroenterology",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["ulcerative colitis", "inflammatory bowel disease", "crypt abscesses", "bloody diarrhea"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Gastrointestinal",
+    topics: ["Inflammatory Bowel Disease", "Ulcerative Colitis"],
+    points: 15
+  },
+  // Infectious Disease - Community Acquired Pneumonia
+  {
+    question: "A 45-year-old healthy man presents with acute onset of fever, productive cough with rust-colored sputum, and pleuritic chest pain. Chest X-ray shows right lower lobe consolidation. What is the most likely causative organism?",
+    options: [
+      "Mycoplasma pneumoniae",
+      "Streptococcus pneumoniae",
+      "Haemophilus influenzae",
+      "Legionella pneumophila"
+    ],
+    correctAnswer: 1,
+    explanation: "The acute onset with fever, productive cough, rust-colored sputum, and lobar consolidation is classic for pneumococcal pneumonia. Streptococcus pneumoniae is the most common cause of community-acquired pneumonia in immunocompetent adults and typically presents with these features.",
+    category: "Infectious Disease",
+    difficulty: "easy",
+    usmleCategory: "microbiology",
+    tags: ["pneumonia", "S. pneumoniae", "lobar consolidation", "rust-colored sputum"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Respiratory",
+    topics: ["Community Acquired Pneumonia", "Bacterial Pneumonia"],
+    points: 10
+  },
+  // Neurology - Bell's Palsy
+  {
+    question: "A 35-year-old woman wakes up with sudden onset of left-sided facial weakness. She cannot close her left eye, wrinkle her forehead on the left, or smile on the left side. Hearing is normal and there are no other neurologic deficits. What is the most likely diagnosis?",
+    options: [
+      "Stroke involving facial nerve",
+      "Bell's palsy",
+      "Trigeminal neuralgia",
+      "Multiple sclerosis"
+    ],
+    correctAnswer: 1,
+    explanation: "Bell's palsy is idiopathic facial nerve (CN VII) paralysis affecting both upper and lower facial muscles unilaterally. The inability to wrinkle the forehead distinguishes peripheral (Bell's palsy) from central (stroke) facial nerve lesions, where forehead sparing occurs due to bilateral cortical innervation of the upper face.",
+    category: "Neurology",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["Bell's palsy", "facial nerve", "peripheral facial paralysis", "forehead involvement"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Nervous System",
+    topics: ["Cranial Nerve Disorders", "Facial Nerve Palsy"],
+    points: 15
+  },
+  // Psychiatry - Bipolar Disorder
+  {
+    question: "A 28-year-old man is brought to the ED by family for bizarre behavior. He has been awake for 3 days, believes he can fly, spent $10,000 on lottery tickets, and speaks rapidly with flight of ideas. One month ago he was severely depressed. What is the most likely diagnosis?",
+    options: [
+      "Schizophrenia",
+      "Bipolar I disorder",
+      "Major depression with psychotic features",
+      "Substance-induced mood disorder"
+    ],
+    correctAnswer: 1,
+    explanation: "This patient presents with a manic episode (grandiosity, decreased sleep, poor judgment, pressured speech, flight of ideas) following a major depressive episode. This pattern is diagnostic of Bipolar I disorder, which requires only one manic episode for diagnosis.",
+    category: "Psychiatry",
+    difficulty: "medium",
+    usmleCategory: "behavioral sciences",
+    tags: ["bipolar disorder", "mania", "grandiosity", "flight of ideas"],
+    medicalReferences: ["DSM-5", "First Aid USMLE Step 1 2025"],
+    subject: "Psychiatry",
+    system: "Nervous System",
+    topics: ["Mood Disorders", "Bipolar Disorder"],
+    points: 15
+  },
+  // Dermatology - Eczema
+  {
+    question: "A 4-year-old child presents with pruritic, erythematous, scaling patches in the antecubital and popliteal fossae. The mother reports similar rashes appearing and resolving since infancy. The child also has a history of asthma. What is the most likely diagnosis?",
+    options: [
+      "Contact dermatitis",
+      "Atopic dermatitis",
+      "Seborrheic dermatitis",
+      "Psoriasis"
+    ],
+    correctAnswer: 1,
+    explanation: "Atopic dermatitis (eczema) classically affects flexural areas in children (antecubital and popliteal fossae) and is associated with asthma and allergies (atopic triad). The chronic, relapsing nature and distribution pattern are characteristic. It often begins in infancy and may persist into childhood.",
+    category: "Dermatology",
+    difficulty: "easy",
+    usmleCategory: "pathology",
+    tags: ["atopic dermatitis", "eczema", "flexural distribution", "atopic triad"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Pediatrics",
+    system: "Integumentary",
+    topics: ["Pediatric Dermatology", "Atopic Dermatitis"],
+    points: 10
+  },
+  // EXPANDING TO 100+ QUESTIONS - HIGH-YIELD MEDICAL SPECIALTIES
+  // Additional Emergency Medicine
+  {
+    question: "A 55-year-old man presents with sudden onset of severe chest pain radiating to his back. Blood pressure is 180/100 mmHg with a 20 mmHg difference between arms. Chest X-ray shows widened mediastinum. What is the most likely diagnosis?",
+    options: [
+      "Acute myocardial infarction",
+      "Aortic dissection",
+      "Pulmonary embolism",
+      "Pneumothorax"
+    ],
+    correctAnswer: 1,
+    explanation: "The combination of severe chest pain radiating to the back, blood pressure differential between arms (>20 mmHg), and widened mediastinum on chest X-ray is classic for acute aortic dissection. This is a surgical emergency requiring immediate imaging (CT angiography) and blood pressure control.",
+    category: "Emergency Medicine",
+    difficulty: "hard",
+    usmleCategory: "pathology",
+    tags: ["aortic dissection", "widened mediastinum", "blood pressure differential", "chest pain"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Emergency Medicine",
+    system: "Cardiovascular",
+    topics: ["Aortic Emergencies", "Chest Pain"],
+    points: 20
+  },
+  // Additional Cardiology
+  {
+    question: "A 60-year-old diabetic woman presents with fatigue and shortness of breath. ECG shows Q waves in leads V1-V4. Echocardiogram reveals reduced ejection fraction of 35%. What is the most appropriate long-term medication?",
+    options: [
+      "Digoxin",
+      "ACE inhibitor (lisinopril)",
+      "Calcium channel blocker",
+      "Nitrates"
+    ],
+    correctAnswer: 1,
+    explanation: "This patient has heart failure with reduced ejection fraction (HFrEF) following anterior MI (Q waves in V1-V4). ACE inhibitors are first-line therapy for HFrEF as they improve survival by reducing afterload and preventing ventricular remodeling. They're especially important post-MI.",
+    category: "Cardiovascular",
+    difficulty: "medium",
+    usmleCategory: "pharmacology",
+    tags: ["heart failure", "ACE inhibitor", "reduced ejection fraction", "post-MI"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Cardiovascular",
+    topics: ["Heart Failure", "Post-MI Care"],
+    points: 15
+  },
+  // Additional Pulmonology
+  {
+    question: "A 45-year-old man with a history of smoking presents with progressive dyspnea. Pulmonary function tests show FEV1/FVC ratio of 0.6, increased total lung capacity, and decreased DLCO. What is the most likely diagnosis?",
+    options: [
+      "Asthma",
+      "Chronic bronchitis",
+      "Emphysema",
+      "Pulmonary fibrosis"
+    ],
+    correctAnswer: 2,
+    explanation: "The combination of reduced FEV1/FVC ratio (<0.7), increased TLC (air trapping), and decreased DLCO (impaired gas exchange) in a smoker is characteristic of emphysema. This represents destruction of alveolar walls leading to loss of elastic recoil and decreased surface area for gas exchange.",
+    category: "Pulmonary",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["emphysema", "COPD", "smoking", "DLCO"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Respiratory",
+    topics: ["COPD", "Emphysema"],
+    points: 15
+  },
+  // Additional Gastroenterology
+  {
+    question: "A 40-year-old woman presents with right upper quadrant pain, fever, and jaundice. Murphy's sign is positive. Ultrasound shows gallbladder wall thickening and pericholecystic fluid. What is the most appropriate management?",
+    options: [
+      "Antibiotics and observation",
+      "Emergency cholecystectomy",
+      "ERCP",
+      "Percutaneous cholecystostomy"
+    ],
+    correctAnswer: 1,
+    explanation: "This patient has acute cholecystitis (Charcot's triad: pain, fever, jaundice plus Murphy's sign). Emergency cholecystectomy within 72 hours is the preferred treatment for acute cholecystitis in suitable surgical candidates, as it reduces complications and length of stay compared to delayed surgery.",
+    category: "Gastroenterology",
+    difficulty: "medium",
+    usmleCategory: "surgery",
+    tags: ["acute cholecystitis", "Murphy's sign", "cholecystectomy", "Charcot's triad"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Surgery",
+    system: "Gastrointestinal",
+    topics: ["Biliary Disease", "Acute Cholecystitis"],
+    points: 15
+  },
+  // Additional Nephrology
+  {
+    question: "A 45-year-old man presents with flank pain and hematuria. CT shows multiple bilateral renal cysts and enlarged kidneys. His father had similar kidney problems and died from kidney failure. What is the most likely diagnosis?",
+    options: [
+      "Simple renal cysts",
+      "Autosomal dominant polycystic kidney disease",
+      "Acquired cystic kidney disease",
+      "Multicystic dysplastic kidney"
+    ],
+    correctAnswer: 1,
+    explanation: "Bilateral enlarged kidneys with multiple cysts and family history of renal failure strongly suggest autosomal dominant polycystic kidney disease (ADPKD). This is the most common inherited kidney disorder, typically presenting in adulthood with flank pain, hematuria, and progressive kidney enlargement.",
+    category: "Nephrology",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["ADPKD", "polycystic kidney disease", "bilateral renal cysts", "genetic"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Genitourinary",
+    topics: ["Cystic Kidney Disease", "Genetic Disorders"],
+    points: 15
+  },
+  // Additional Hematology/Oncology
+  {
+    question: "A 30-year-old man presents with painless testicular swelling. Physical exam reveals a firm, non-tender testicular mass. Tumor markers show elevated AFP and beta-hCG. What is the most likely diagnosis?",
+    options: [
+      "Seminoma",
+      "Non-seminomatous germ cell tumor",
+      "Epididymitis",
+      "Testicular torsion"
+    ],
+    correctAnswer: 1,
+    explanation: "Elevated AFP and beta-hCG in a young man with testicular mass indicates non-seminomatous germ cell tumor (NSGCT). Seminomas typically have normal AFP and may have elevated beta-hCG. The painless, firm nature distinguishes it from inflammatory conditions or torsion.",
+    category: "Hematology/Oncology",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["testicular cancer", "NSGCT", "AFP", "beta-hCG"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Surgery",
+    system: "Reproductive",
+    topics: ["Testicular Cancer", "Tumor Markers"],
+    points: 15
+  },
+  // Additional Rheumatology
+  {
+    question: "A 55-year-old man presents with severe pain and swelling in his great toe that awakens him from sleep. Joint aspiration reveals needle-shaped, negatively birefringent crystals. Serum uric acid is elevated. What is the most appropriate acute treatment?",
+    options: [
+      "Allopurinol",
+      "Colchicine",
+      "Probenecid",
+      "Aspirin"
+    ],
+    correctAnswer: 1,
+    explanation: "This patient has acute gout (podagra) confirmed by uric acid crystals. Colchicine is effective for acute gout attacks, especially if started within 24-48 hours. Allopurinol should never be started during an acute attack as it can worsen symptoms. NSAIDs are also first-line for acute gout.",
+    category: "Rheumatology",
+    difficulty: "medium",
+    usmleCategory: "pharmacology",
+    tags: ["acute gout", "colchicine", "uric acid crystals", "podagra"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Musculoskeletal",
+    topics: ["Crystal Arthropathy", "Gout"],
+    points: 15
+  },
+  // Additional Endocrinology
+  {
+    question: "A 35-year-old woman presents with palpitations, heat intolerance, and weight loss. Physical exam reveals diffuse goiter and exophthalmos. TSH is undetectable, T4 is elevated. What is the most likely diagnosis?",
+    options: [
+      "Toxic multinodular goiter",
+      "Graves' disease",
+      "Hashimoto's thyroiditis",
+      "Subacute thyroiditis"
+    ],
+    correctAnswer: 1,
+    explanation: "The combination of hyperthyroidism (suppressed TSH, elevated T4), diffuse goiter, and exophthalmos (eye protrusion) is pathognomonic for Graves' disease. The extrathyroidal manifestations (ophthalmopathy) distinguish it from other causes of hyperthyroidism.",
+    category: "Endocrine",
+    difficulty: "easy",
+    usmleCategory: "pathology",
+    tags: ["Graves disease", "hyperthyroidism", "exophthalmos", "diffuse goiter"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Endocrine",
+    topics: ["Thyroid Disorders", "Hyperthyroidism"],
+    points: 10
+  },
+  // Additional Neurology
+  {
+    question: "A 75-year-old man presents with progressive memory loss, confusion, and difficulty with familiar tasks. MRI shows cortical atrophy. CSF shows decreased amyloid-β42 and elevated tau protein. What is the most likely diagnosis?",
+    options: [
+      "Vascular dementia",
+      "Alzheimer's disease",
+      "Lewy body dementia",
+      "Frontotemporal dementia"
+    ],
+    correctAnswer: 1,
+    explanation: "Progressive memory loss with cortical atrophy and CSF biomarkers showing decreased Aβ42 and elevated tau is diagnostic of Alzheimer's disease. These biomarkers reflect amyloid plaques and neurofibrillary tangles, the pathologic hallmarks of AD.",
+    category: "Neurology",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["Alzheimer's disease", "dementia", "amyloid-β", "tau protein"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Nervous System",
+    topics: ["Dementia", "Alzheimer's Disease"],
+    points: 15
+  },
+  // Additional Infectious Disease
+  {
+    question: "A 25-year-old man who recently returned from Southeast Asia presents with fever, headache, and a painless eschar on his leg. He also has generalized lymphadenopathy. What is the most likely causative organism?",
+    options: [
+      "Rickettsia typhi",
+      "Orientia tsutsugamushi",
+      "Borrelia burgdorferi",
+      "Francisella tularensis"
+    ],
+    correctAnswer: 1,
+    explanation: "The combination of fever, headache, eschar (black scab), and lymphadenopathy in a traveler from Southeast Asia is classic for scrub typhus caused by Orientia tsutsugamushi. The painless eschar at the site of chigger bite is pathognomonic.",
+    category: "Infectious Disease",
+    difficulty: "hard",
+    usmleCategory: "microbiology",
+    tags: ["scrub typhus", "Orientia tsutsugamushi", "eschar", "Southeast Asia"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Multiple Systems",
+    topics: ["Rickettsial Diseases", "Travel Medicine"],
+    points: 20
+  },
+  // Additional Psychiatry
+  {
+    question: "A 19-year-old college student is brought to the ED by friends who report she has been acting strangely for 2 weeks. She believes her roommate is poisoning her food and hears voices telling her to stay away from people. What is the most likely diagnosis?",
+    options: [
+      "Major depressive disorder with psychotic features",
+      "Brief psychotic disorder",
+      "Schizophreniform disorder",
+      "Substance-induced psychosis"
+    ],
+    correctAnswer: 2,
+    explanation: "Psychotic symptoms (delusions, auditory hallucinations) lasting 1-6 months in a young adult suggests schizophreniform disorder. This is essentially schizophrenia but with duration <6 months. Brief psychotic disorder lasts <1 month, while schizophrenia requires ≥6 months of symptoms.",
+    category: "Psychiatry",
+    difficulty: "medium",
+    usmleCategory: "behavioral sciences",
+    tags: ["schizophreniform disorder", "psychosis", "delusions", "hallucinations"],
+    medicalReferences: ["DSM-5", "First Aid USMLE Step 1 2025"],
+    subject: "Psychiatry",
+    system: "Nervous System",
+    topics: ["Psychotic Disorders", "Schizophrenia Spectrum"],
+    points: 15
+  },
+  // Additional Dermatology
+  {
+    question: "A 30-year-old woman presents with symmetric, erythematous, scaly plaques on her elbows and knees that have been present for months. Scraping reveals pinpoint bleeding. What is the most likely diagnosis?",
+    options: [
+      "Eczema",
+      "Psoriasis",
+      "Lichen planus",
+      "Seborrheic dermatitis"
+    ],
+    correctAnswer: 1,
+    explanation: "Well-demarcated, erythematous, scaly plaques on extensor surfaces (elbows, knees) with pinpoint bleeding on scraping (Auspitz sign) is classic for psoriasis. The symmetric distribution and chronic nature are characteristic features.",
+    category: "Dermatology",
+    difficulty: "easy",
+    usmleCategory: "pathology",
+    tags: ["psoriasis", "Auspitz sign", "extensor surfaces", "scaly plaques"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Integumentary",
+    topics: ["Inflammatory Skin Conditions", "Psoriasis"],
+    points: 10
+  },
+  // Additional Emergency Medicine
+  {
+    question: "A 25-year-old woman presents with sudden severe headache, neck stiffness, and photophobia. She describes it as 'the worst headache of her life.' Non-contrast CT head is normal. What is the most appropriate next step?",
+    options: [
+      "MRI brain",
+      "Lumbar puncture",
+      "CT angiography of the head",
+      "Discharge with pain medication"
+    ],
+    correctAnswer: 1,
+    explanation: "This presentation suggests subarachnoid hemorrhage (SAH). When CT is normal but clinical suspicion for SAH is high, lumbar puncture is needed to look for blood or xanthochromia. The 'worst headache ever' (thunderclap headache) is classic for SAH.",
+    category: "Emergency Medicine",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["subarachnoid hemorrhage", "thunderclap headache", "lumbar puncture", "worst headache"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Emergency Medicine",
+    system: "Nervous System",
+    topics: ["Intracranial Hemorrhage", "Headache"],
+    points: 15
+  },
+  // Additional Orthopedics
+  {
+    question: "A 16-year-old basketball player presents with knee pain after pivoting. Physical exam reveals a positive Lachman test and anterior drawer sign. What structure is most likely injured?",
+    options: [
+      "Posterior cruciate ligament",
+      "Anterior cruciate ligament",
+      "Medial collateral ligament",
+      "Lateral collateral ligament"
+    ],
+    correctAnswer: 1,
+    explanation: "Positive Lachman test and anterior drawer sign indicate anterior cruciate ligament (ACL) tear. This commonly occurs in athletes during pivoting or cutting movements. The Lachman test is more sensitive than the anterior drawer test for ACL injury.",
+    category: "Orthopedics",
+    difficulty: "easy",
+    usmleCategory: "anatomy",
+    tags: ["ACL tear", "Lachman test", "anterior drawer", "sports injury"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Surgery",
+    system: "Musculoskeletal",
+    topics: ["Knee Injuries", "Ligament Tears"],
+    points: 10
+  },
+  // Additional Pediatrics
+  {
+    question: "A 6-month-old infant presents with failure to thrive, chronic diarrhea, and recurrent respiratory infections. Sweat chloride test is 70 mEq/L (normal <40). What is the most likely diagnosis?",
+    options: [
+      "Celiac disease",
+      "Cystic fibrosis",
+      "Immunodeficiency",
+      "Inflammatory bowel disease"
+    ],
+    correctAnswer: 1,
+    explanation: "Failure to thrive, chronic diarrhea (malabsorption), recurrent respiratory infections, and elevated sweat chloride >60 mEq/L is diagnostic of cystic fibrosis. This autosomal recessive disorder affects the CFTR gene, leading to thick secretions in multiple organs.",
+    category: "Pediatrics",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["cystic fibrosis", "sweat chloride test", "failure to thrive", "CFTR"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Pediatrics",
+    system: "Multiple Systems",
+    topics: ["Genetic Disorders", "Cystic Fibrosis"],
+    points: 15
+  },
+  // Additional Urology
+  {
+    question: "A 35-year-old man presents with sudden onset of severe left flank pain radiating to the groin, nausea, and hematuria. CT shows a 4mm stone in the left ureter. What is the most appropriate initial management?",
+    options: [
+      "Immediate ureteroscopy",
+      "Conservative management with hydration and analgesia",
+      "Extracorporeal shock wave lithotripsy",
+      "Open surgical removal"
+    ],
+    correctAnswer: 1,
+    explanation: "Small ureteral stones (<5mm) have a high likelihood of spontaneous passage (>90%). Conservative management with adequate hydration, pain control, and possibly alpha-blockers to facilitate passage is appropriate first-line therapy for stones <5mm without obstruction.",
+    category: "Urology",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["ureteral stone", "nephrolithiasis", "conservative management", "spontaneous passage"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Genitourinary",
+    topics: ["Kidney Stones", "Renal Colic"],
+    points: 15
+  },
+  // Additional Radiology
+  {
+    question: "A 50-year-old woman undergoes mammography for screening. The report describes irregular, spiculated mass with associated microcalcifications. What is the most appropriate next step?",
+    options: [
+      "Repeat mammography in 6 months",
+      "Breast ultrasound",
+      "Core needle biopsy",
+      "MRI breast"
+    ],
+    correctAnswer: 2,
+    explanation: "An irregular, spiculated mass with microcalcifications on mammography is highly suspicious for malignancy (BI-RADS 4 or 5). Core needle biopsy is the standard of care for tissue diagnosis of suspicious mammographic lesions, allowing for histologic and immunohistochemical analysis.",
+    category: "Radiology",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["mammography", "spiculated mass", "microcalcifications", "core needle biopsy"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Surgery",
+    system: "Reproductive",
+    topics: ["Breast Cancer Screening", "Breast Biopsy"],
+    points: 15
+  },
+  // Additional Gastroenterology
+  {
+    question: "A 50-year-old man with a history of heavy alcohol use presents with epigastric pain and steatorrhea. CT shows pancreatic calcifications and ductal dilatation. What is the most likely diagnosis?",
+    options: [
+      "Acute pancreatitis",
+      "Chronic pancreatitis",
+      "Pancreatic adenocarcinoma",
+      "Pancreatic pseudocyst"
+    ],
+    correctAnswer: 1,
+    explanation: "Chronic pancreatitis is characterized by irreversible pancreatic damage with calcifications, ductal changes, and exocrine insufficiency (steatorrhea). Heavy alcohol use is the most common cause in adults. The pancreatic calcifications on CT are pathognomonic.",
+    category: "Gastroenterology",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["chronic pancreatitis", "pancreatic calcifications", "steatorrhea", "alcohol"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Gastrointestinal",
+    topics: ["Pancreatic Disorders", "Chronic Pancreatitis"],
+    points: 15
+  },
+  // Additional Infectious Disease
+  {
+    question: "A 45-year-old immunocompromised patient presents with pneumonia that is not responding to standard antibiotics. Chest X-ray shows bilateral diffuse infiltrates. Induced sputum stains positive for cysts. What is the most likely organism?",
+    options: [
+      "Streptococcus pneumoniae",
+      "Pneumocystis jirovecii",
+      "Mycobacterium tuberculosis",
+      "Legionella pneumophila"
+    ],
+    correctAnswer: 1,
+    explanation: "Bilateral diffuse infiltrates in an immunocompromised patient with cysts seen on sputum stain is classic for Pneumocystis jirovecii pneumonia (PCP). This opportunistic infection typically occurs in patients with CD4 <200 or other forms of immunosuppression.",
+    category: "Infectious Disease",
+    difficulty: "medium",
+    usmleCategory: "microbiology",
+    tags: ["Pneumocystis jirovecii", "PCP", "immunocompromised", "bilateral infiltrates"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Respiratory",
+    topics: ["Opportunistic Infections", "Pneumocystis Pneumonia"],
+    points: 15
+  },
+  // Additional Neurology
+  {
+    question: "A 70-year-old man presents with resting tremor of his right hand, bradykinesia, and rigidity. Symptoms improve with levodopa. What is the most likely diagnosis?",
+    options: [
+      "Essential tremor",
+      "Parkinson's disease",
+      "Multiple sclerosis",
+      "Huntington's disease"
+    ],
+    correctAnswer: 1,
+    explanation: "The triad of resting tremor, bradykinesia, and rigidity that responds to levodopa is classic for Parkinson's disease. Essential tremor is an action tremor, not a resting tremor, and doesn't respond to levodopa. The dopamine responsiveness confirms the diagnosis.",
+    category: "Neurology",
+    difficulty: "easy",
+    usmleCategory: "pathology",
+    tags: ["Parkinson's disease", "resting tremor", "bradykinesia", "levodopa"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Nervous System",
+    topics: ["Movement Disorders", "Parkinson's Disease"],
+    points: 10
+  },
+  // Additional Psychiatry
+  {
+    question: "A 30-year-old woman presents with persistent sadness, loss of interest, sleep disturbance, and feelings of guilt for 3 months following the death of her spouse. She has no appetite and has lost 15 pounds. What is the most likely diagnosis?",
+    options: [
+      "Normal grief",
+      "Major depressive disorder",
+      "Adjustment disorder",
+      "Persistent complex bereavement disorder"
+    ],
+    correctAnswer: 1,
+    explanation: "While grief is expected after loss of a spouse, the persistence of symptoms for 3 months with neurovegetative signs (sleep disturbance, appetite loss, weight loss) and feelings of guilt suggest major depressive disorder. Normal grief typically doesn't include persistent feelings of worthlessness or significant functional impairment.",
+    category: "Psychiatry",
+    difficulty: "medium",
+    usmleCategory: "behavioral sciences",
+    tags: ["major depressive disorder", "grief", "bereavement", "neurovegetative symptoms"],
+    medicalReferences: ["DSM-5", "First Aid USMLE Step 1 2025"],
+    subject: "Psychiatry",
+    system: "Nervous System",
+    topics: ["Mood Disorders", "Grief and Bereavement"],
+    points: 15
+  },
+  // Additional Dermatology
+  {
+    question: "A 60-year-old man presents with a slowly growing, waxy, 'stuck-on' appearing lesion on his back. The lesion has a warty surface and appears to be sitting on top of the skin. What is the most likely diagnosis?",
+    options: [
+      "Basal cell carcinoma",
+      "Seborrheic keratosis",
+      "Squamous cell carcinoma",
+      "Melanoma"
+    ],
+    correctAnswer: 1,
+    explanation: "The 'stuck-on' appearance with waxy, warty surface is pathognomonic for seborrheic keratosis. These benign lesions are common in older adults and have a characteristic appearance of being pasted onto the skin surface. They require no treatment unless cosmetically bothersome.",
+    category: "Dermatology",
+    difficulty: "easy",
+    usmleCategory: "pathology",
+    tags: ["seborrheic keratosis", "stuck-on appearance", "waxy lesion", "benign"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Integumentary",
+    topics: ["Benign Skin Lesions", "Seborrheic Keratosis"],
+    points: 10
+  },
+  // FINAL QUESTIONS TO REACH 100+ - COMPLETING HIGH-YIELD SPECIALTIES
+  // Additional Obstetrics/Gynecology
+  {
+    question: "A 25-year-old woman at 32 weeks gestation presents with painless vaginal bleeding. Ultrasound shows placenta implanted over the internal cervical os. What is the most likely diagnosis?",
+    options: [
+      "Placental abruption",
+      "Placenta previa",
+      "Vasa previa",
+      "Cervical laceration"
+    ],
+    correctAnswer: 1,
+    explanation: "Painless vaginal bleeding in the third trimester with placenta covering the internal cervical os on ultrasound is diagnostic of placenta previa. This is distinguished from placental abruption, which typically presents with painful bleeding and uterine contractions.",
+    category: "Obstetrics/Gynecology",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["placenta previa", "painless bleeding", "third trimester", "internal os"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Obstetrics & Gynecology",
+    system: "Reproductive",
+    topics: ["Pregnancy Complications", "Placental Disorders"],
+    points: 15
+  },
+  // Additional Pediatrics - Immunizations
+  {
+    question: "A 2-month-old infant is brought for routine immunizations. The mother is concerned about vaccine safety. Which vaccine is contraindicated in immunocompromised patients?",
+    options: [
+      "DTaP (Diphtheria, Tetanus, Pertussis)",
+      "IPV (Inactivated Polio Vaccine)", 
+      "MMR (Measles, Mumps, Rubella)",
+      "Hib (Haemophilus influenzae type b)"
+    ],
+    correctAnswer: 2,
+    explanation: "MMR is a live attenuated vaccine and is contraindicated in immunocompromised patients due to risk of causing disease. DTaP, IPV, and Hib are inactivated vaccines and are safe in immunocompromised patients. Live vaccines should be avoided in immunodeficiency.",
+    category: "Pediatrics",
+    difficulty: "medium",
+    usmleCategory: "immunology",
+    tags: ["immunizations", "MMR vaccine", "immunocompromised", "live attenuated vaccine"],
+    medicalReferences: ["CDC Immunization Schedule", "First Aid USMLE Step 1 2025"],
+    subject: "Pediatrics",
+    system: "Immune System",
+    topics: ["Pediatric Immunizations", "Vaccine Safety"],
+    points: 15
+  },
+  // Additional Surgery
+  {
+    question: "A 45-year-old woman presents with a hard, fixed breast mass and skin dimpling. Core needle biopsy confirms invasive ductal carcinoma. Staging workup shows no distant metastases. What is the most appropriate initial treatment?",
+    options: [
+      "Chemotherapy first (neoadjuvant)",
+      "Surgical resection first",
+      "Radiation therapy first",
+      "Hormone therapy first"
+    ],
+    correctAnswer: 1,
+    explanation: "A hard, fixed breast mass with skin dimpling suggests locally advanced breast cancer (T4 disease). Neoadjuvant chemotherapy is preferred for locally advanced breast cancer to downsize the tumor and make it surgically resectable, potentially allowing breast-conserving surgery instead of mastectomy.",
+    category: "Surgery",
+    difficulty: "hard",
+    usmleCategory: "pathology",
+    tags: ["breast cancer", "locally advanced", "neoadjuvant chemotherapy", "skin dimpling"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Surgery",
+    system: "Reproductive",
+    topics: ["Breast Cancer", "Oncologic Surgery"],
+    points: 20
+  },
+  // Additional Infectious Disease - TB
+  {
+    question: "A 35-year-old immigrant from Asia presents with chronic cough, weight loss, and night sweats. Chest X-ray shows upper lobe cavitary lesions. Sputum acid-fast stain is positive. What is the most appropriate initial treatment regimen?",
+    options: [
+      "Isoniazid and rifampin for 9 months",
+      "Rifampin, isoniazid, ethambutol, and pyrazinamide for 2 months",
+      "Streptomycin and para-aminosalicylic acid",
+      "Fluoroquinolone monotherapy"
+    ],
+    correctAnswer: 1,
+    explanation: "Active pulmonary tuberculosis requires initial 4-drug therapy with rifampin, isoniazid, ethambutol, and pyrazinamide (RIPE) for 2 months, followed by rifampin and isoniazid for 4 months. This combination prevents drug resistance and ensures effective treatment.",
+    category: "Infectious Disease",
+    difficulty: "medium",
+    usmleCategory: "microbiology",
+    tags: ["tuberculosis", "RIPE therapy", "cavitary lesions", "acid-fast stain"],
+    medicalReferences: ["CDC TB Guidelines", "First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Respiratory",
+    topics: ["Tuberculosis", "Mycobacterial Infections"],
+    points: 15
+  },
+  // Additional Pharmacology
+  {
+    question: "A 65-year-old man with atrial fibrillation is started on warfarin. His INR goal is 2.0-3.0. After 3 days, his INR is 1.5. What is the most appropriate next step?",
+    options: [
+      "Continue current warfarin dose",
+      "Increase warfarin dose",
+      "Add aspirin",
+      "Switch to heparin"
+    ],
+    correctAnswer: 1,
+    explanation: "Warfarin takes 3-5 days to reach therapeutic levels due to its mechanism of action (inhibiting vitamin K-dependent clotting factors with long half-lives). An INR of 1.5 after 3 days is expected, and the dose should be increased to reach the target range of 2.0-3.0 for atrial fibrillation.",
+    category: "Pharmacology",
+    difficulty: "medium",
+    usmleCategory: "pharmacology",
+    tags: ["warfarin", "INR", "anticoagulation", "atrial fibrillation"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Cardiovascular",
+    topics: ["Anticoagulation", "Warfarin Therapy"],
+    points: 15
+  },
+  // Additional Pathology
+  {
+    question: "A 50-year-old woman undergoes colonoscopy for screening. A 1.5cm pedunculated polyp is found and removed. Histology shows adenomatous changes with high-grade dysplasia but no invasion through the muscularis mucosae. What is the most appropriate management?",
+    options: [
+      "No further treatment needed",
+      "Repeat colonoscopy in 1 year", 
+      "Segmental colectomy",
+      "Chemotherapy"
+    ],
+    correctAnswer: 1,
+    explanation: "This describes an adenomatous polyp with high-grade dysplasia but no invasion (adenoma, not carcinoma). Complete polypectomy is curative for adenomas. Surveillance colonoscopy should be performed in 3 years for high-grade dysplasia, but no additional treatment is needed if completely excised.",
+    category: "Pathology",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["adenomatous polyp", "high-grade dysplasia", "colonoscopy", "polypectomy"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Gastrointestinal",
+    topics: ["Colorectal Screening", "Adenomatous Polyps"],
+    points: 15
+  },
+  // Additional Emergency Medicine - Toxicology
+  {
+    question: "A 25-year-old man is brought to the ED after taking an overdose of acetaminophen 6 hours ago. He ingested approximately 15 grams. What is the most appropriate treatment?",
+    options: [
+      "Activated charcoal",
+      "N-acetylcysteine",
+      "Gastric lavage",
+      "Hemodialysis"
+    ],
+    correctAnswer: 1,
+    explanation: "N-acetylcysteine is the antidote for acetaminophen poisoning and is most effective when given within 8-10 hours of ingestion. At 6 hours post-ingestion with a large overdose (15g), NAC should be started immediately. Activated charcoal is only effective within 1-2 hours of ingestion.",
+    category: "Emergency Medicine",
+    difficulty: "medium",
+    usmleCategory: "pharmacology",
+    tags: ["acetaminophen overdose", "N-acetylcysteine", "toxicology", "antidote"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Emergency Medicine",
+    system: "Multiple Systems",
+    topics: ["Toxicology", "Drug Overdose"],
+    points: 15
+  },
+  // Additional Ophthalmology
+  {
+    question: "A 70-year-old diabetic man presents with sudden, painless vision loss in his right eye. Fundoscopic examination shows retinal whitening with a cherry-red spot at the macula. What is the most likely diagnosis?",
+    options: [
+      "Central retinal vein occlusion",
+      "Central retinal artery occlusion",
+      "Diabetic retinopathy",
+      "Age-related macular degeneration"
+    ],
+    correctAnswer: 1,
+    explanation: "Sudden, painless vision loss with retinal whitening and cherry-red spot at the macula is classic for central retinal artery occlusion (CRAO). The cherry-red spot represents the normal choroidal circulation visible through the thin foveal retina, while surrounding retina appears white due to ischemia.",
+    category: "Ophthalmology",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["central retinal artery occlusion", "cherry-red spot", "sudden vision loss", "retinal ischemia"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Internal Medicine",
+    system: "Nervous System",
+    topics: ["Retinal Vascular Disorders", "Vision Loss"],
+    points: 15
+  },
+  // Additional Anesthesiology
+  {
+    question: "A 30-year-old patient develops muscle rigidity, hyperthermia (temperature 42°C), and tachycardia during general anesthesia with succinylcholine and halothane. What is the most appropriate immediate treatment?",
+    options: [
+      "Cooling measures only",
+      "Dantrolene sodium",
+      "Epinephrine",
+      "Discontinue surgery immediately"
+    ],
+    correctAnswer: 1,
+    explanation: "This presentation is classic for malignant hyperthermia, a life-threatening reaction to certain anesthetic agents (succinylcholine, volatile anesthetics). Dantrolene sodium is the specific antidote that blocks calcium release from the sarcoplasmic reticulum, stopping the hypermetabolic crisis.",
+    category: "Anesthesiology",
+    difficulty: "hard",
+    usmleCategory: "pharmacology",
+    tags: ["malignant hyperthermia", "dantrolene", "succinylcholine", "hyperthermia"],
+    medicalReferences: ["First Aid USMLE Step 1 2025"],
+    subject: "Anesthesiology",
+    system: "Multiple Systems",
+    topics: ["Anesthetic Complications", "Malignant Hyperthermia"],
+    points: 20
+  },
+  // Additional Family Medicine
+  {
+    question: "A 55-year-old man with no significant medical history presents for routine health maintenance. His blood pressure readings are 145/92 mmHg and 148/90 mmHg on two separate visits. What is the most appropriate initial management?",
+    options: [
+      "Start ACE inhibitor immediately",
+      "Lifestyle modifications for 3 months, then reassess",
+      "24-hour ambulatory blood pressure monitoring",
+      "No treatment needed"
+    ],
+    correctAnswer: 1,
+    explanation: "This patient has stage 1 hypertension (SBP 130-139 or DBP 80-89 mmHg) without cardiovascular risk factors. Current guidelines recommend starting with lifestyle modifications (diet, exercise, weight loss) for 3 months before considering medication in low-risk patients with stage 1 hypertension.",
+    category: "Family Medicine",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["hypertension", "lifestyle modifications", "stage 1 HTN", "cardiovascular risk"],
+    medicalReferences: ["AHA/ACC Hypertension Guidelines", "First Aid USMLE Step 1 2025"],
+    subject: "Family Medicine",
+    system: "Cardiovascular",
+    topics: ["Hypertension Management", "Preventive Medicine"],
+    points: 15
   }
 ];
 
@@ -917,7 +2054,50 @@ export const usmleCategories = {
   preventive_medicine: "Preventive Medicine"
 };
 
-// Medical Specialty Categories
+// Medical Subject Categories (Primary Subjects)
+export const medicalSubjects = {
+  internal_medicine: "Internal Medicine",
+  surgery: "Surgery", 
+  pediatrics: "Pediatrics",
+  obstetrics_gynecology: "Obstetrics & Gynecology",
+  psychiatry: "Psychiatry",
+  emergency_medicine: "Emergency Medicine",
+  family_medicine: "Family Medicine",
+  pathology: "Pathology",
+  radiology: "Radiology",
+  anesthesiology: "Anesthesiology"
+};
+
+// Body System Categories
+export const bodySystems = {
+  cardiovascular: "Cardiovascular",
+  respiratory: "Respiratory", 
+  gastrointestinal: "Gastrointestinal",
+  genitourinary: "Genitourinary",
+  nervous: "Nervous System",
+  endocrine: "Endocrine",
+  musculoskeletal: "Musculoskeletal",
+  integumentary: "Integumentary",
+  hematologic: "Hematologic",
+  immune: "Immune System",
+  reproductive: "Reproductive"
+};
+
+// Topics by System (Sub-categories)
+export const systemTopics = {
+  cardiovascular: ["Myocardial Infarction", "Heart Failure", "Arrhythmias", "Hypertension", "ECG Interpretation", "Valvular Disease"],
+  respiratory: ["Pneumonia", "COPD", "Asthma", "Lung Cancer", "Pulmonary Embolism", "Pleural Disease"],
+  gastrointestinal: ["IBD", "GERD", "Liver Disease", "Pancreatitis", "GI Bleeding", "Bowel Obstruction"],
+  genitourinary: ["AKI", "CKD", "UTI", "Nephrolithiasis", "Glomerulonephritis", "Urological Cancer"],
+  nervous: ["Stroke", "Epilepsy", "Dementia", "Movement Disorders", "Neuromuscular", "CNS Infections"],
+  endocrine: ["Diabetes", "Thyroid Disorders", "Adrenal Disorders", "Pituitary Disorders", "Bone/Mineral", "Reproductive Hormones"],
+  musculoskeletal: ["Fractures", "Arthritis", "Sports Injuries", "Bone Tumors", "Connective Tissue", "Spine Disorders"],
+  integumentary: ["Skin Cancer", "Dermatitis", "Infections", "Autoimmune Skin", "Pediatric Dermatology", "Dermatopathology"],
+  hematologic: ["Anemia", "Bleeding Disorders", "Thrombosis", "Hematologic Malignancies", "Transfusion Medicine", "Bone Marrow Disorders"],
+  immune: ["Immunodeficiency", "Hypersensitivity", "Autoimmune Diseases", "Transplant Medicine", "Immunotherapy", "Vaccination"]
+};
+
+// Medical Specialty Categories (for backward compatibility)
 export const medicalSpecialties = {
   cardiovascular: "Cardiovascular",
   endocrine: "Endocrine", 
@@ -939,21 +2119,193 @@ export const medicalSpecialties = {
   hematology_oncology: "Hematology/Oncology"
 };
 
+// Points system based on difficulty
+export const difficultyPoints = {
+  easy: 10,
+  medium: 15,  
+  hard: 20
+};
+
+// Helper function to auto-categorize questions based on their category
+export function getQuestionCategorization(category: string, difficulty: 'easy' | 'medium' | 'hard') {
+  const categoryMap: Record<string, {subject: string, system: string, topics: string[]}> = {
+    'Cardiovascular': {
+      subject: 'Internal Medicine',
+      system: 'Cardiovascular', 
+      topics: ['Myocardial Infarction', 'Heart Disease']
+    },
+    'Endocrine': {
+      subject: 'Internal Medicine',
+      system: 'Endocrine',
+      topics: ['Thyroid Disorders', 'Hormone Disorders']
+    },
+    'Infectious Disease': {
+      subject: 'Internal Medicine', 
+      system: 'Immune System',
+      topics: ['Bacterial Infections', 'CNS Infections']
+    },
+    'Pulmonary': {
+      subject: 'Internal Medicine',
+      system: 'Respiratory',
+      topics: ['Lung Disease', 'Pulmonary Pathology']
+    },
+    'Neurology': {
+      subject: 'Internal Medicine',
+      system: 'Nervous System', 
+      topics: ['Neuromuscular', 'Dementia']
+    },
+    'Ophthalmology': {
+      subject: 'Surgery',
+      system: 'Nervous System',
+      topics: ['Eye Disorders', 'Retinal Disease']
+    },
+    'Obstetrics/Gynecology': {
+      subject: 'Obstetrics & Gynecology',
+      system: 'Reproductive',
+      topics: ['Pregnancy Complications', 'Maternal Health']
+    },
+    'Surgery': {
+      subject: 'Surgery',
+      system: 'Gastrointestinal', 
+      topics: ['Surgical Emergencies', 'Abdominal Pain']
+    },
+    'Psychiatry': {
+      subject: 'Psychiatry',
+      system: 'Nervous System',
+      topics: ['Psychotic Disorders', 'Mental Health']
+    },
+    'Dermatology': {
+      subject: 'Internal Medicine',
+      system: 'Integumentary',
+      topics: ['Skin Cancer', 'Dermatitis']
+    },
+    'Emergency Medicine': {
+      subject: 'Emergency Medicine',
+      system: 'Multiple Systems',
+      topics: ['Trauma', 'Emergency Care']
+    },
+    'Orthopedics': {
+      subject: 'Surgery',
+      system: 'Musculoskeletal',
+      topics: ['Fractures', 'Sports Injuries']
+    },
+    'Pediatrics': {
+      subject: 'Pediatrics',
+      system: 'Multiple Systems',
+      topics: ['Pediatric Emergencies', 'Child Development']
+    },
+    'Urology': {
+      subject: 'Surgery',
+      system: 'Genitourinary',
+      topics: ['Urological Disorders', 'Kidney Stones']
+    }
+  };
+  
+  const defaults = {
+    subject: 'Internal Medicine',
+    system: 'Multiple Systems', 
+    topics: ['General Medicine']
+  };
+  
+  const categorization = categoryMap[category] || defaults;
+  return {
+    ...categorization,
+    points: difficultyPoints[difficulty]
+  };
+}
+
 // Helper function to get questions by category
 export function getQuestionsByCategory(category: string): QuestionData[] {
-  return sampleQuestions.filter(q => q.category.toLowerCase() === category.toLowerCase());
+  return processedSampleQuestions.filter(q => q.category.toLowerCase() === category.toLowerCase());
+}
+
+// Helper function to get questions by subject
+export function getQuestionsBySubject(subject: string): QuestionData[] {
+  return processedSampleQuestions.filter(q => 
+    q.subject && q.subject.toLowerCase() === subject.toLowerCase()
+  );
+}
+
+// Helper function to get questions by system
+export function getQuestionsBySystem(system: string): QuestionData[] {
+  return processedSampleQuestions.filter(q => 
+    q.system && q.system.toLowerCase() === system.toLowerCase()
+  );
+}
+
+// Helper function to get questions by topic
+export function getQuestionsByTopic(topic: string): QuestionData[] {
+  return processedSampleQuestions.filter(q => 
+    q.topics && q.topics.some(t => t.toLowerCase() === topic.toLowerCase())
+  );
+}
+
+// Helper function to get questions with filters
+export function getFilteredQuestions(filters: {
+  subjects?: string[];
+  systems?: string[];
+  topics?: string[];
+  difficulty?: ('easy' | 'medium' | 'hard')[];
+  count?: number;
+}): QuestionData[] {
+  let filtered = processedSampleQuestions;
+  
+  if (filters.subjects && filters.subjects.length > 0) {
+    filtered = filtered.filter(q => 
+      q.subject && filters.subjects!.includes(q.subject)
+    );
+  }
+  
+  if (filters.systems && filters.systems.length > 0) {
+    filtered = filtered.filter(q => 
+      q.system && filters.systems!.includes(q.system)
+    );
+  }
+  
+  if (filters.topics && filters.topics.length > 0) {
+    filtered = filtered.filter(q => 
+      q.topics && q.topics.some(topic => filters.topics!.includes(topic))
+    );
+  }
+  
+  if (filters.difficulty && filters.difficulty.length > 0) {
+    filtered = filtered.filter(q => filters.difficulty!.includes(q.difficulty));
+  }
+  
+  // Shuffle the results
+  const shuffled = [...filtered].sort(() => 0.5 - Math.random());
+  
+  return filters.count ? shuffled.slice(0, filters.count) : shuffled;
 }
 
 // Helper function to get questions by difficulty
 export function getQuestionsByDifficulty(difficulty: 'easy' | 'medium' | 'hard'): QuestionData[] {
-  return sampleQuestions.filter(q => q.difficulty === difficulty);
+  return processedSampleQuestions.filter(q => q.difficulty === difficulty);
 }
 
 // Helper function to get random questions
 export function getRandomQuestions(count: number): QuestionData[] {
-  const shuffled = [...sampleQuestions].sort(() => 0.5 - Math.random());
+  const shuffled = [...processedSampleQuestions].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, Math.min(count, shuffled.length));
 }
+
+// Auto-populate missing fields in sample questions
+const processedQuestions = sampleQuestions.map(q => {
+  if (!q.subject || !q.system || !q.topics || !q.points) {
+    const categorization = getQuestionCategorization(q.category, q.difficulty);
+    return {
+      ...q,
+      subject: q.subject || categorization.subject,
+      system: q.system || categorization.system,
+      topics: q.topics || categorization.topics,
+      points: q.points || categorization.points
+    };
+  }
+  return q;
+});
+
+// Export the processed questions (replaces the original export)
+export const processedSampleQuestions = processedQuestions;
 
 // Quiz mode configurations
 export const quizModes = {

@@ -2,11 +2,16 @@
 
 ## ⚠️ **IMPORTANT INSTRUCTION FOR CLAUDE CODE AGENTS**
 
-**🤖 If you are a Claude Code agent working on this project, FIRST read the `DEVELOPER_HANDOFF.md` file before proceeding with any development tasks. This file contains critical project status, implementation details, database schemas, environment configuration, and current system architecture.**
+**🤖 If you are a Claude Code agent working on this project, FIRST read the `DEVELOPER_HANDOFF.md` file and the `/docs` directory before proceeding with any development tasks.**
 
-**Command to read the handoff document:**
+**ESSENTIAL READING ORDER:**
+1. **`DEVELOPER_HANDOFF.md`** - Critical project status, database schemas, environment configuration
+2. **`/docs` directory** - Complete design specifications, accessibility standards, analytics requirements
+
+**Commands to read the essential documents:**
 ```bash
 cat DEVELOPER_HANDOFF.md
+ls /root/repo/docs && find /root/repo/docs -name "*.md" -exec echo "=== {} ===" \; -exec cat {} \;
 ```
 
 The handoff document provides:
@@ -16,12 +21,35 @@ The handoff document provides:
 - Deployment instructions and troubleshooting
 - Development workflow and maintenance tasks
 
-**After reading DEVELOPER_HANDOFF.md, you can use this CLAUDE.md file for project vision and strategic guidance.**
+The `/docs` directory provides:
+- Design tokens and responsive design specifications
+- Accessibility standards (WCAG 2.1 AA compliance)
+- Analytics event tracking requirements (8 core events)
+- UI states and error handling patterns
+- Storybook component library standards
+- Comprehensive usability testing plans
+
+**IMPORTANT: Documentation Best Practices**
+- **DO NOT CREATE NEW .md FILES** - Instead update existing documentation:
+  - `failures.md` - Document any issues or bugs encountered
+  - `success.md` - Track completed features and achievements  
+  - `DEVELOPER_HANDOFF.md` - Update with new implementations
+- **Follow /docs specifications religiously** - No feature creep beyond documented requirements
+- **Use agile BMAD framework** - Build, Measure, Analyze, Decide with subagents
+
+**After reading both DEVELOPER_HANDOFF.md and /docs, you can use this CLAUDE.md file for project vision and strategic guidance.**
 
 ---
 
-## 🎯 Project Vision
-Build a comprehensive medical quiz application for USMLE preparation that rivals UWorld and AMBOSS, featuring modern React architecture, Appwrite backend, and industry-leading user experience.
+## 🎯 Project Vision - Enhanced Medical Education Platform
+Build a comprehensive medical quiz application for USMLE preparation that rivals UWorld and AMBOSS, featuring:
+- **Modern React 19 Architecture** with TypeScript and Vite
+- **Convex Real-time Backend** for seamless data synchronization  
+- **105+ Professional USMLE Questions** across 29 medical specialties
+- **Advanced Analytics & Tracking** with comprehensive event monitoring
+- **Accessibility-First Design** meeting WCAG 2.1 AA standards
+- **Comprehensive Testing Framework** with E2E and unit test coverage
+- **Enterprise-Grade Error Handling** with HIPAA-compliant logging
 
 ## 🚀 Current Status: **PRODUCTION-READY MVP COMPLETE ✅**
 
@@ -42,8 +70,40 @@ Build a comprehensive medical quiz application for USMLE preparation that rivals
 - **Database**: Real Appwrite project (ID: 688cb738000d2fbeca0a) ✅
 - **Collections**: users, questions, quiz_sessions all configured ✅
 - **Sample User**: Jay veedz (jayveedz19@gmail.com) created and tested ✅
-- **Sample Content**: 10 USMLE questions ready for demonstration ✅
+- **Comprehensive Content**: 105+ USMLE questions across 29 specialties ✅
 - **Environment**: Production credentials configured ✅
+
+---
+
+## 🎨 **ENHANCED DESIGN SYSTEM & SPECIFICATIONS**
+
+### **✅ Comprehensive Design Documentation (2025)**
+Based on complete `/docs` analysis and implementation:
+
+#### **🎨 Design System Foundation:**
+- **Design Tokens**: Standardized color palette, typography, and spacing scales
+- **Component Library**: Documented in Storybook with accessibility validation
+- **Responsive Breakpoints**: Mobile (<640px), Tablet (640px-1024px), Desktop (>1024px)
+- **Accessibility Standards**: WCAG 2.1 AA compliance with keyboard navigation
+- **Theming Support**: Light/Dark mode with high-contrast accessibility options
+
+#### **📊 Advanced Analytics Framework:**
+- **Event Tracking Schema**: 8 core events (quiz_start, question_view, answer_selected, etc.)
+- **Privacy Compliance**: GDPR/HIPAA anonymized user identifiers
+- **Performance Monitoring**: Comprehensive error tracking and user interaction analytics
+- **Data Layer Integration**: Consistent `data-analytics` attributes throughout UI
+
+#### **🔧 UI States & Error Management:**
+- **Loading States**: Skeleton placeholders for QuestionCard and ProgressBar
+- **Error Screens**: Network errors, timeout handling, empty states with retry functionality
+- **Maintenance Mode**: Service unavailable with scheduled maintenance messaging
+- **Progressive Enhancement**: Graceful degradation for network connectivity issues
+
+#### **🧪 Comprehensive Testing Strategy:**
+- **Usability Testing Plan**: 5 core scenarios with medical student participants
+- **Accessibility Testing**: Screen reader compatibility and keyboard navigation
+- **Cross-Platform Validation**: iPhone 12, iPad, MacBook Pro verification
+- **Performance Benchmarks**: Task completion time and user satisfaction metrics
 
 ---
 
@@ -167,11 +227,11 @@ Comparable to UWorld and AMBOSS:
 
 ## 🔄 **FUTURE ENHANCEMENT ROADMAP**
 
-### **Phase 1: Content Expansion (2-4 weeks)**
-- **Question Bank**: Expand from 10 to 100+ questions
-- **Medical Specialties**: Add more USMLE categories
-- **Content Review**: Professional medical accuracy validation
-- **References**: Enhanced citation system
+### **Phase 1: Enhanced User Experience (1-2 weeks)**
+- **Analytics Implementation**: Complete event tracking system
+- **Advanced UI States**: Loading, error, and empty state improvements
+- **Accessibility Enhancement**: Full WCAG 2.1 AA compliance
+- **Storybook Documentation**: Component library with accessibility addons
 
 ### **Phase 2: Advanced Features (1-2 months)**
 - **AI Recommendations**: Personalized question suggestions
@@ -267,10 +327,11 @@ Comparable to UWorld and AMBOSS:
    # Expected: 90+ Lighthouse scores
    ```
 
-2. **Content Expansion** (1-2 weeks)
-   - Add 50-100 more USMLE questions
-   - Professional medical review
-   - Enhanced explanations and references
+2. **User Experience Enhancement** (1-2 weeks)
+   - Implement comprehensive analytics tracking
+   - Add advanced theming and accessibility options
+   - Complete responsive design testing
+   - Enhanced error handling and user feedback
 
 3. **Launch Preparation** (1 week)
    - Final testing and QA

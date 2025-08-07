@@ -6,11 +6,11 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   quizSessionManager, 
-  QuizSessionData, 
-  QuizSessionState, 
-  QuizMode,
-  SessionEventData,
-  SessionEventHandler
+  type QuizSessionData, 
+  // type QuizSessionState, // Available but not used in current implementation
+  type QuizMode,
+  type SessionEventData,
+  type SessionEventHandler
 } from '../services/QuizSessionManager';
 
 /**
@@ -266,7 +266,7 @@ export function useSessionProtection() {
   const [attemptedNavigation, setAttemptedNavigation] = useState<string | null>(null);
 
   useEffect(() => {
-    const handleRouteChange = (event: PopStateEvent) => {
+    const handleRouteChange = (_event: PopStateEvent) => {
       if (quizSessionManager.hasActiveSession()) {
         const confirmAbandon = window.confirm(
           'You have an active quiz session. Leaving this page will abandon your progress. Are you sure?'

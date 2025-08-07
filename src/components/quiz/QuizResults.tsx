@@ -1,8 +1,9 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
 import { Button } from '../ui/Button';
-import { Trophy, Target, TrendingUp, Home, RotateCcw, BookOpen } from 'lucide-react';
+import { Trophy, Target, TrendingUp, Home, RotateCcw, BookOpen, Star } from 'lucide-react';
 import type { QuizSession } from '../../services/quiz';
+import { difficultyPoints } from '../../data/sampleQuestions';
 
 interface QuizResultsProps {
   session: QuizSession;
@@ -20,6 +21,11 @@ export const QuizResults: React.FC<QuizResultsProps> = ({ session, onHome, onRet
   const accuracy = correctAnswersCount;
   const timeSpentMinutes = Math.floor(session.timeSpent / 60);
   const timeSpentSeconds = session.timeSpent % 60;
+
+  // Calculate points earned (simplified - assuming medium difficulty for now)
+  // In real implementation, this would come from actual question difficulty data
+  const pointsEarned = correctAnswersCount * difficultyPoints.medium;
+  const maxPossiblePoints = totalQuestions * difficultyPoints.medium;
 
   // Performance messaging
   const getPerformanceMessage = (score: number): { message: string; color: string; icon: React.ReactNode } => {
@@ -66,9 +72,20 @@ export const QuizResults: React.FC<QuizResultsProps> = ({ session, onHome, onRet
       {/* Score Card */}
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-4xl font-bold text-primary">
-            {session.score}%
-          </CardTitle>
+          <div className="space-y-2">
+            <CardTitle className="text-4xl font-bold text-primary">
+              {session.score}%
+            </CardTitle>
+            <div className="flex items-center justify-center gap-2">
+              <Star className="h-5 w-5 text-yellow-500" />
+              <span className="text-2xl font-bold text-yellow-600">
+                {pointsEarned} pts
+              </span>
+              <span className="text-sm text-muted-foreground">
+                / {maxPossiblePoints}
+              </span>
+            </div>
+          </div>
           <p className={`text-lg font-medium ${performance.color}`}>
             {performance.message}
           </p>

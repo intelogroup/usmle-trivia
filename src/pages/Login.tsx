@@ -36,15 +36,15 @@ export const Login: React.FC = () => {
         {/* Enhanced Header */}
         <div className="text-center mb-8 animate-fade-up">
           <div className="flex justify-center mb-6">
-            <div className="p-4 bg-gradient-to-r from-primary to-primary/80 rounded-2xl shadow-custom-md">
+            <div className="p-4 bg-gradient-to-r from-primary to-primary/80 rounded-2xl shadow-custom-md" role="img" aria-label="MedQuiz Pro medical education logo">
               <Stethoscope className="h-12 w-12 text-white" />
             </div>
           </div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent mb-2">
-            Welcome back
+            MedQuiz Pro
           </h1>
           <p className="text-muted-foreground text-lg">
-            Sign in to continue your medical journey
+            USMLE Preparation Platform
           </p>
         </div>
 
@@ -52,7 +52,12 @@ export const Login: React.FC = () => {
         <div className="bg-card border shadow-custom-lg rounded-2xl p-8 animate-slide-in">
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
-              <div className="p-4 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive text-sm font-medium animate-in">
+              <div 
+                id="login-error"
+                role="alert"
+                aria-live="assertive"
+                className="p-4 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive text-sm font-medium animate-in"
+              >
                 {error}
               </div>
             )}
@@ -67,6 +72,7 @@ export const Login: React.FC = () => {
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                aria-describedby={error ? "login-error" : undefined}
                 className="w-full px-4 py-3 border-2 border-muted rounded-xl bg-background/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 text-base"
                 placeholder="Enter your email"
               />
@@ -82,6 +88,7 @@ export const Login: React.FC = () => {
                 required
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                aria-describedby={error ? "login-error" : undefined}
                 className="w-full px-4 py-3 border-2 border-muted rounded-xl bg-background/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 text-base"
                 placeholder="Enter your password"
               />

@@ -1,0 +1,271 @@
+{
+  "data": {
+    "edges": [
+      {
+        "source": "start-node",
+        "sourceHandle": "output",
+        "target": "code-quality-agent",
+        "targetHandle": "input",
+        "id": "edge-1"
+      },
+      {
+        "source": "code-quality-agent",
+        "sourceHandle": "output",
+        "target": "ui-ux-agent",
+        "targetHandle": "input",
+        "id": "edge-2"
+      },
+      {
+        "source": "ui-ux-agent", 
+        "sourceHandle": "output",
+        "target": "performance-agent",
+        "targetHandle": "input",
+        "id": "edge-3"
+      },
+      {
+        "source": "performance-agent",
+        "sourceHandle": "output", 
+        "target": "testing-agent",
+        "targetHandle": "input",
+        "id": "edge-4"
+      },
+      {
+        "source": "testing-agent",
+        "sourceHandle": "output",
+        "target": "security-agent", 
+        "targetHandle": "input",
+        "id": "edge-5"
+      },
+      {
+        "source": "security-agent",
+        "sourceHandle": "output",
+        "target": "devops-agent",
+        "targetHandle": "input",
+        "id": "edge-6"
+      },
+      {
+        "source": "devops-agent",
+        "sourceHandle": "output",
+        "target": "architecture-agent",
+        "targetHandle": "input", 
+        "id": "edge-7"
+      },
+      {
+        "source": "architecture-agent",
+        "sourceHandle": "output",
+        "target": "final-integration",
+        "targetHandle": "input",
+        "id": "edge-8"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "start-node",
+        "type": "ChatInput",
+        "position": {"x": 100, "y": 100},
+        "data": {
+          "type": "ChatInput",
+          "node": {
+            "base_classes": ["Message"],
+            "display_name": "Start MedQuiz Pro Agent Coordination",
+            "description": "Initiates the sequential agent optimization process",
+            "template": {
+              "input_value": {
+                "required": true,
+                "placeholder": "Begin MedQuiz Pro multi-agent optimization",
+                "show": true,
+                "multiline": false,
+                "value": "Start comprehensive MedQuiz Pro optimization with 7 specialized agents for medical education platform excellence",
+                "password": false,
+                "name": "input_value",
+                "type": "str",
+                "list": false
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "code-quality-agent",
+        "type": "Agent", 
+        "position": {"x": 300, "y": 100},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Code Quality & TypeScript Agent",
+            "description": "Handles TypeScript fixes, linting, and build optimization",
+            "template": {
+              "agent_llm": {
+                "required": true,
+                "placeholder": "",
+                "show": true,
+                "name": "agent_llm",
+                "type": "LanguageModel",
+                "list": false
+              },
+              "system_message": {
+                "required": false,
+                "placeholder": "",
+                "show": true,
+                "multiline": true,
+                "value": "You are the Code Quality & TypeScript Specialist Agent for MedQuiz Pro medical education platform. Your mission: Fix TypeScript export issues, clean up linting warnings, optimize builds. Focus on core application files in src/ directory. Ensure medical-grade code quality with strict TypeScript compliance. Report: TypeScript fixes made, lint issues resolved, build optimization results, production readiness status.",
+                "password": false,
+                "name": "system_message",
+                "type": "str",
+                "list": false
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "ui-ux-agent",
+        "type": "Agent",
+        "position": {"x": 500, "y": 100}, 
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "UI/UX Optimization Agent",
+            "description": "Medical-appropriate interface design and accessibility optimization",
+            "template": {
+              "system_message": {
+                "value": "You are the UI/UX Optimization Specialist Agent for MedQuiz Pro. Your mission: Enhance medical education interface design, implement accessibility standards (WCAG 2.1 AA), create minimalistic medical-appropriate design. Focus on: responsive design, medical color schemes, professional typography, stress-reducing interface for USMLE preparation. Report: UI improvements made, accessibility compliance status, medical design standards implementation, user experience enhancements.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "performance-agent",
+        "type": "Agent",
+        "position": {"x": 700, "y": 100},
+        "data": {
+          "type": "Agent", 
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Performance & Bundle Optimization Agent",
+            "description": "Bundle size optimization, PWA implementation, caching strategies",
+            "template": {
+              "system_message": {
+                "value": "You are the Performance & Bundle Optimization Specialist Agent for MedQuiz Pro. Your mission: Optimize bundle size (target <400KB), implement PWA offline capabilities, enhance loading performance for medical students. Focus on: code splitting, lazy loading, caching strategies, Core Web Vitals optimization for medical education context. Report: Bundle size reduction achieved, PWA implementation status, performance metrics improved, medical platform optimization results.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "testing-agent",
+        "type": "Agent",
+        "position": {"x": 900, "y": 100},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Testing & Quality Assurance Agent", 
+            "description": "Comprehensive testing strategy for medical education platform",
+            "template": {
+              "system_message": {
+                "value": "You are the Testing & Quality Assurance Specialist Agent for MedQuiz Pro. Your mission: Implement comprehensive testing (unit, integration, E2E), ensure medical compliance testing, validate USMLE content accuracy. Focus on: medical education workflows, cross-browser compatibility, accessibility testing, performance validation. Target: 85%+ test coverage, medical-grade reliability. Report: Test coverage achieved, medical compliance validation results, quality assurance metrics, production readiness assessment.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "security-agent",
+        "type": "Agent",
+        "position": {"x": 1100, "y": 100},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"], 
+            "display_name": "Security & HIPAA Compliance Agent",
+            "description": "Medical-grade security and HIPAA compliance assessment",
+            "template": {
+              "system_message": {
+                "value": "You are the Security & HIPAA Compliance Specialist Agent for MedQuiz Pro. Your mission: Ensure medical-grade security, validate HIPAA compliance for educational data, perform vulnerability assessment. Focus on: authentication security, data protection, medical privacy standards, secure error handling. Validate: no PII exposure, encrypted transmission, audit trails, medical compliance. Report: Security vulnerabilities fixed, HIPAA compliance status, medical privacy protection implemented, production security readiness.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "devops-agent",
+        "type": "Agent",
+        "position": {"x": 1300, "y": 100},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "DevOps & Deployment Agent",
+            "description": "CI/CD pipeline, monitoring, 99.9% uptime for medical platform",
+            "template": {
+              "system_message": {
+                "value": "You are the DevOps & Deployment Specialist Agent for MedQuiz Pro. Your mission: Create bulletproof deployment pipeline, implement 99.9% uptime monitoring, ensure medical-grade reliability. Focus on: CI/CD automation, performance monitoring, disaster recovery, global CDN optimization for medical students. Target: <5 minute deployments, <2 minute rollbacks, medical education continuity. Report: CI/CD pipeline status, monitoring implementation, uptime capabilities, medical platform operational excellence.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "architecture-agent",
+        "type": "Agent",
+        "position": {"x": 1500, "y": 100},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Architecture & System Design Agent",
+            "description": "System architecture review and integration coordination", 
+            "template": {
+              "system_message": {
+                "value": "You are the Architecture & System Design Specialist Agent for MedQuiz Pro. Your mission: Review system architecture, integrate all agent improvements, ensure scalable medical education platform design. Focus on: architectural consistency, scalability planning, medical domain modeling, enterprise readiness assessment. Evaluate: component design patterns, data flow optimization, medical education architecture suitability. Report: Architectural assessment results, integration quality score, scalability recommendations, medical platform architecture excellence.",
+                "type": "str", 
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "final-integration",
+        "type": "ChatOutput",
+        "position": {"x": 1700, "y": 100},
+        "data": {
+          "type": "ChatOutput",
+          "node": {
+            "base_classes": ["Message"],
+            "display_name": "Sequential Agent Integration Complete",
+            "description": "Final integration of all agent improvements",
+            "template": {
+              "input_value": {
+                "required": true,
+                "placeholder": "",
+                "show": true,
+                "multiline": false,
+                "name": "input_value", 
+                "type": "str",
+                "list": false
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "description": "Sequential execution workflow for MedQuiz Pro's 7 specialized optimization agents. Each agent builds upon previous agent improvements, creating quality gates and progressive enhancement for medical education platform excellence.",
+  "name": "MedQuiz Pro Sequential Agents Flow",
+  "last_tested_version": "1.1.0"
+}

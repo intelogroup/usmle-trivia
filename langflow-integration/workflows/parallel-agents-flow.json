@@ -1,0 +1,339 @@
+{
+  "data": {
+    "edges": [
+      {
+        "source": "start-coordinator",
+        "sourceHandle": "output",
+        "target": "code-quality-agent",
+        "targetHandle": "input",
+        "id": "edge-1"
+      },
+      {
+        "source": "start-coordinator",
+        "sourceHandle": "output",
+        "target": "ui-ux-agent", 
+        "targetHandle": "input",
+        "id": "edge-2"
+      },
+      {
+        "source": "start-coordinator",
+        "sourceHandle": "output",
+        "target": "performance-agent",
+        "targetHandle": "input",
+        "id": "edge-3"
+      },
+      {
+        "source": "code-quality-agent",
+        "sourceHandle": "output",
+        "target": "dependent-agents-coordinator",
+        "targetHandle": "code_quality_input",
+        "id": "edge-4"
+      },
+      {
+        "source": "ui-ux-agent",
+        "sourceHandle": "output", 
+        "target": "dependent-agents-coordinator",
+        "targetHandle": "ui_ux_input",
+        "id": "edge-5"
+      },
+      {
+        "source": "performance-agent",
+        "sourceHandle": "output",
+        "target": "dependent-agents-coordinator",
+        "targetHandle": "performance_input",
+        "id": "edge-6"
+      },
+      {
+        "source": "dependent-agents-coordinator",
+        "sourceHandle": "output",
+        "target": "testing-agent",
+        "targetHandle": "input",
+        "id": "edge-7"
+      },
+      {
+        "source": "dependent-agents-coordinator",
+        "sourceHandle": "output",
+        "target": "security-agent",
+        "targetHandle": "input", 
+        "id": "edge-8"
+      },
+      {
+        "source": "dependent-agents-coordinator",
+        "sourceHandle": "output",
+        "target": "devops-agent",
+        "targetHandle": "input",
+        "id": "edge-9"
+      },
+      {
+        "source": "testing-agent",
+        "sourceHandle": "output",
+        "target": "final-coordinator",
+        "targetHandle": "testing_input",
+        "id": "edge-10"
+      },
+      {
+        "source": "security-agent",
+        "sourceHandle": "output",
+        "target": "final-coordinator",
+        "targetHandle": "security_input",
+        "id": "edge-11"
+      },
+      {
+        "source": "devops-agent",
+        "sourceHandle": "output",
+        "target": "final-coordinator",
+        "targetHandle": "devops_input",
+        "id": "edge-12"
+      },
+      {
+        "source": "final-coordinator",
+        "sourceHandle": "output",
+        "target": "architecture-agent",
+        "targetHandle": "input",
+        "id": "edge-13"
+      },
+      {
+        "source": "architecture-agent",
+        "sourceHandle": "output",
+        "target": "integration-complete",
+        "targetHandle": "input",
+        "id": "edge-14"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "start-coordinator",
+        "type": "ChatInput",
+        "position": {"x": 100, "y": 300},
+        "data": {
+          "type": "ChatInput",
+          "node": {
+            "base_classes": ["Message"],
+            "display_name": "Parallel Agent Coordinator Start",
+            "description": "Initiates parallel execution of independent agents",
+            "template": {
+              "input_value": {
+                "required": true,
+                "placeholder": "Start parallel agent processing",
+                "show": true,
+                "multiline": false,
+                "value": "Begin parallel execution of MedQuiz Pro optimization agents: Code Quality, UI/UX, and Performance agents will work simultaneously on independent domains",
+                "password": false,
+                "name": "input_value",
+                "type": "str",
+                "list": false
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "code-quality-agent",
+        "type": "Agent",
+        "position": {"x": 400, "y": 100},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Code Quality Agent (Parallel)",
+            "description": "Independent TypeScript and build optimization",
+            "template": {
+              "system_message": {
+                "value": "You are the Code Quality Agent working in PARALLEL mode for MedQuiz Pro. Work independently on TypeScript fixes, linting, and build optimization. Do not wait for other agents. Focus on: TypeScript exports, ESLint errors, build performance. Report your findings for downstream agent coordination. Medical education platform requirements: strict typing, medical-grade code quality, production readiness.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "ui-ux-agent",
+        "type": "Agent", 
+        "position": {"x": 400, "y": 300},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "UI/UX Agent (Parallel)",
+            "description": "Independent interface and accessibility optimization",
+            "template": {
+              "system_message": {
+                "value": "You are the UI/UX Agent working in PARALLEL mode for MedQuiz Pro. Work independently on interface design, accessibility, and medical UX improvements. Do not wait for other agents. Focus on: responsive design, medical color schemes, WCAG compliance, minimalistic design. Report your findings for downstream coordination. Medical requirements: stress-reducing interface, professional medical design, USMLE-appropriate UX.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "performance-agent",
+        "type": "Agent",
+        "position": {"x": 400, "y": 500},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Performance Agent (Parallel)",
+            "description": "Independent performance and bundle optimization",
+            "template": {
+              "system_message": {
+                "value": "You are the Performance Agent working in PARALLEL mode for MedQuiz Pro. Work independently on bundle optimization, PWA implementation, and caching strategies. Do not wait for other agents. Focus on: bundle size reduction, lazy loading, Core Web Vitals, offline capabilities. Report findings for coordination. Medical requirements: fast loading for study sessions, offline quiz capability, mobile performance for medical students.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "dependent-agents-coordinator",
+        "type": "Agent",
+        "position": {"x": 700, "y": 300},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Dependent Agents Coordinator",
+            "description": "Coordinates agents that depend on parallel agent outputs",
+            "template": {
+              "system_message": {
+                "value": "You are the Dependent Agents Coordinator for MedQuiz Pro. Analyze outputs from Code Quality, UI/UX, and Performance agents. Synthesize their findings and prepare coordinated input for Testing, Security, and DevOps agents. Focus on: integration conflicts, dependency management, coordinated optimization strategies. Ensure medical platform coherence across all improvements.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "testing-agent",
+        "type": "Agent",
+        "position": {"x": 1000, "y": 100},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Testing Agent (Coordinated)",
+            "description": "Testing based on coordinated improvements from parallel agents",
+            "template": {
+              "system_message": {
+                "value": "You are the Testing Agent receiving coordinated input from Code Quality, UI/UX, and Performance improvements. Create comprehensive tests that validate all integrated improvements. Focus on: regression testing for code changes, accessibility testing for UI improvements, performance testing for optimizations. Medical requirements: USMLE content accuracy, medical workflow validation, cross-device compatibility for medical students.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "security-agent",
+        "type": "Agent",
+        "position": {"x": 1000, "y": 300},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Security Agent (Coordinated)",
+            "description": "Security assessment incorporating all parallel agent improvements",
+            "template": {
+              "system_message": {
+                "value": "You are the Security Agent receiving coordinated improvements from parallel agents. Assess security implications of code quality fixes, UI changes, and performance optimizations. Focus on: TypeScript security improvements, UI security patterns, performance optimization security implications. Medical requirements: HIPAA compliance validation, medical data protection, secure error handling for educational content.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "devops-agent", 
+        "type": "Agent",
+        "position": {"x": 1000, "y": 500},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "DevOps Agent (Coordinated)",
+            "description": "Deployment pipeline incorporating all improvements",
+            "template": {
+              "system_message": {
+                "value": "You are the DevOps Agent receiving coordinated improvements from parallel agents. Create deployment pipeline that incorporates code quality improvements, UI changes, and performance optimizations. Focus on: build pipeline optimization, UI deployment strategies, performance monitoring setup. Medical requirements: 99.9% uptime for medical students, zero-downtime deployments during study hours, global CDN optimization.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "final-coordinator",
+        "type": "Agent",
+        "position": {"x": 1300, "y": 300},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Final Integration Coordinator",
+            "description": "Coordinates final integration of all agent outputs",
+            "template": {
+              "system_message": {
+                "value": "You are the Final Integration Coordinator for MedQuiz Pro. Synthesize outputs from Testing, Security, and DevOps agents that were coordinated with parallel agent improvements. Prepare comprehensive integration report and recommendations for Architecture Agent final review. Focus on: system coherence, medical platform integrity, production readiness assessment, enterprise scalability validation.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "architecture-agent",
+        "type": "Agent", 
+        "position": {"x": 1600, "y": 300},
+        "data": {
+          "type": "Agent",
+          "node": {
+            "base_classes": ["Agent"],
+            "display_name": "Architecture Agent (Final Integration)",
+            "description": "Final architectural review of all parallel and sequential improvements",
+            "template": {
+              "system_message": {
+                "value": "You are the Architecture Agent conducting final integration review. Analyze the complete system with all parallel and coordinated agent improvements. Focus on: architectural consistency, scalability implications, medical domain suitability, enterprise readiness. Validate: system design coherence, performance characteristics, security architecture, medical education platform excellence. Provide final architectural assessment and deployment recommendations.",
+                "type": "str",
+                "multiline": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "integration-complete",
+        "type": "ChatOutput",
+        "position": {"x": 1900, "y": 300},
+        "data": {
+          "type": "ChatOutput",
+          "node": {
+            "base_classes": ["Message"],
+            "display_name": "Parallel Agent Integration Complete",
+            "description": "Final output from parallel agent coordination workflow",
+            "template": {
+              "input_value": {
+                "required": true,
+                "placeholder": "",
+                "show": true,
+                "multiline": false,
+                "name": "input_value",
+                "type": "str",
+                "list": false
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "description": "Parallel execution workflow for MedQuiz Pro agents with coordination points. Independent agents (Code Quality, UI/UX, Performance) work simultaneously, then coordinated agents (Testing, Security, DevOps) integrate their outputs, with final architectural integration.",
+  "name": "MedQuiz Pro Parallel Agents Flow", 
+  "last_tested_version": "1.1.0"
+}

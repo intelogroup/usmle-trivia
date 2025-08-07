@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { convexQuizService } from '../../services/convexQuiz';
-import { sampleQuestions } from '../../data/sampleQuestions';
+import { loadSampleQuestions } from '../../services/questionService';
 
 export function DatabaseSeeder() {
   const [isSeeding, setIsSeeding] = useState(false);
@@ -18,10 +18,15 @@ export function DatabaseSeeder() {
     const logs: string[] = [];
 
     logs.push(`🌱 Starting database seeding with Convex...`);
-    logs.push(`📊 Found ${sampleQuestions.length} questions to seed`);
+    logs.push(`📊 Loading sample questions...`);
     setResults([...logs]);
 
     try {
+      // Load questions dynamically
+      const sampleQuestions = await loadSampleQuestions();
+      logs.push(`📊 Found ${sampleQuestions.length} questions to seed`);
+      setResults([...logs]);
+
       // Use batch create for better performance
       const createdQuestions = await convexQuizService.seedQuestions(sampleQuestions);
       

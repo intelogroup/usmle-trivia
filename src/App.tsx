@@ -1,39 +1,52 @@
-import { useEffect } from 'react';
+import { useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AppLayout } from './components/layout/AppLayout';
-import { Landing } from './pages/Landing';
-import { Dashboard } from './pages/Dashboard';
-import { Quiz } from './pages/Quiz';
-import { Progress } from './pages/Progress';
-import { Leaderboard } from './pages/Leaderboard';
-import { Login } from './pages/Login';
-import { Register } from './pages/Register';
 import { useAppStore } from './store';
 import { authService } from './services/auth';
-import { UserProfile } from './components/profile/UserProfile';
-import { PerformanceChart } from './components/analytics/PerformanceChart';
-import { Social } from './pages/Social';
-import { NotFound } from './pages/NotFound';
 import { validateEnvironment, logEnvironmentInfo, isDevelopment } from './utils/envValidation';
 import { quizSessionManager } from './services/QuizSessionManager';
+import { PWAUpdateNotification, OfflineIndicator } from './components/PWAUpdateNotification';
+
+// Lazy load components to enable code splitting
+const AppLayout = lazy(() => import('./components/layout/AppLayout').then(module => ({ default: module.AppLayout })));
+const Landing = lazy(() => import('./pages/Landing').then(module => ({ default: module.Landing })));
+const Dashboard = lazy(() => import('./pages/Dashboard').then(module => ({ default: module.Dashboard })));
+const Quiz = lazy(() => import('./pages/Quiz').then(module => ({ default: module.Quiz })));
+const Progress = lazy(() => import('./pages/Progress').then(module => ({ default: module.Progress })));
+const Leaderboard = lazy(() => import('./pages/Leaderboard').then(module => ({ default: module.Leaderboard })));
+const Login = lazy(() => import('./pages/Login').then(module => ({ default: module.Login })));
+const Register = lazy(() => import('./pages/Register').then(module => ({ default: module.Register })));
+const UserProfile = lazy(() => import('./components/profile/UserProfile').then(module => ({ default: module.UserProfile })));
+const PerformanceChart = lazy(() => import('./components/analytics/PerformanceChart').then(module => ({ default: module.PerformanceChart })));
+const Social = lazy(() => import('./pages/Social').then(module => ({ default: module.Social })));
+const NotFound = lazy(() => import('./pages/NotFound').then(module => ({ default: module.NotFound })));
+
+// Loading spinner component for Suspense fallback
+const LoadingSpinner = () => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="flex items-center space-x-2">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      <span className="text-gray-600">Loading...</span>
+    </div>
+  </div>
+);
 
 // Protected Route Component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, isLoading } = useAppStore();
   
   if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
   
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
   
-  return <>{children}</>;
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      {children}
+    </Suspense>
+  );
 };
 
 function App() {
@@ -77,7 +90,8 @@ function App() {
 
   return (
     <Router>
-      <Routes>
+      <Suspense fallback={<LoadingSpinner />}>
+        <Routes>
         {/* Public routes */}
         <Route path="/" element={<Landing />} />
         <Route 
@@ -181,9 +195,14 @@ function App() {
           }
         />
         
-        {/* Catch-all route for 404 errors */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+          {/* Catch-all route for 404 errors */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+      
+      {/* PWA Features */}
+      <OfflineIndicator />
+      <PWAUpdateNotification />
     </Router>
   );
 }
