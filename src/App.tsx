@@ -15,6 +15,7 @@ import { PerformanceChart } from './components/analytics/PerformanceChart';
 import { Social } from './pages/Social';
 import { NotFound } from './pages/NotFound';
 import { validateEnvironment, logEnvironmentInfo, isDevelopment } from './utils/envValidation';
+import { quizSessionManager } from './services/QuizSessionManager';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -66,6 +67,13 @@ function App() {
 
     checkAuth();
   }, [setUser, setLoading]);
+
+  // Cleanup session manager on app unmount
+  useEffect(() => {
+    return () => {
+      quizSessionManager.cleanup();
+    };
+  }, []);
 
   return (
     <Router>

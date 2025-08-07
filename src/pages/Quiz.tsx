@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { ArrowLeft, Play } from 'lucide-react';
-import { QuizEngine } from '../components/quiz/QuizEngine';
+import { ArrowLeft, Play, AlertTriangle } from 'lucide-react';
+import { EnhancedQuizEngine } from '../components/quiz/EnhancedQuizEngine';
 import { QuizResults } from '../components/quiz/QuizResults';
+import { SessionNavigationGuard, SessionStatusIndicator } from '../components/quiz/SessionNavigationGuard';
+import { useQuizSession, useQuizSessionEvents, useSafeNavigation } from '../hooks/useQuizSession';
+import { useAppStore } from '../store';
 import { quizModes } from '../data/sampleQuestions';
 import type { QuizSession } from '../services/quiz';
 
@@ -16,20 +19,115 @@ export const Quiz: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const quizMode = location.state?.mode;
+  const { user } = useAppStore();
   
   const [quizState, setQuizState] = useState<QuizState>('setup');
   const [completedSession, setCompletedSession] = useState<QuizSession | null>(null);
+  const [startError, setStartError] = useState<string | null>(null);
+  
+  // Session management hooks
+  const { 
+    session, 
+    hasActiveSession, 
+    createSession, 
+    startSession, 
+    abandonSession,
+    error: sessionError 
+  } = useQuizSession();
+  
+  const { safeNavigate } = useSafeNavigation();
+  const { lastEvent } = useQuizSessionEvents();
   
   const isValidMode = (m: string | undefined): m is QuizMode => {
     return m === 'quick' || m === 'timed' || m === 'custom';
   };
   
+  // Check for existing active session on mount
+  useEffect(() => {
+    if (session && session.state === 'active') {
+      setQuizState('active');
+    }
+  }, [session]);
+
+  // Handle session events
+  useEffect(() => {
+    if (lastEvent) {
+      switch (lastEvent.currentState) {
+        case 'active':
+          setQuizState('active');
+          break;
+        case 'completed':
+          if (session) {
+            // Convert session to QuizSession format for results
+            const convertedSession: QuizSession = {
+              id: session.sessionId,
+              userId: session.userId,
+              mode: session.mode,
+              questions: session.questions,
+              answers: session.answers,
+              score: session.score,
+              timeSpent: session.timeSpent,
+              status: 'completed',
+              createdAt: session.startTime,
+              updatedAt: session.endTime || new Date(),
+            };
+            setCompletedSession(convertedSession);
+            setQuizState('results');
+          }
+          break;
+        case 'abandoned':
+          setQuizState('setup');
+          setStartError('Previous quiz session was abandoned. You can start a new one.');
+          break;
+      }
+    }
+  }, [lastEvent, session]);
+
   const handleBack = () => {
-    navigate('/');
+    if (hasActiveSession) {
+      safeNavigate('/dashboard');
+    } else {
+      navigate('/dashboard');
+    }
   };
   
-  const handleStartQuiz = () => {
-    setQuizState('active');
+  const handleStartQuiz = async () => {
+    if (!user) {
+      setStartError('Please log in to start a quiz session.');
+      return;
+    }
+
+    if (!mode || !isValidMode(mode)) {
+      setStartError('Invalid quiz mode selected.');
+      return;
+    }
+
+    setStartError(null);
+
+    try {
+      // Generate question IDs based on mode
+      const questionCount = mode === 'quick' ? 5 : mode === 'timed' ? 10 : 8;
+      const questionIds = Array.from({ length: questionCount }, (_, i) => `q${i + 1}`);
+      
+      // Get time limit if applicable
+      const timeLimit = mode === 'timed' ? 600 : mode === 'custom' ? 480 : undefined; // seconds
+
+      console.log(`🎯 Creating ${mode} quiz session with ${questionCount} questions`);
+      
+      // Create session
+      const sessionId = await createSession(user.id, mode, questionIds, { timeLimit });
+      
+      console.log(`✅ Session created: ${sessionId}, starting...`);
+      
+      // Start the session
+      await startSession();
+      
+      console.log('🚀 Session started successfully');
+      
+    } catch (error) {
+      console.error('Failed to start quiz session:', error);
+      setStartError(error instanceof Error ? error.message : 'Failed to start quiz session');
+    }
   };
   
   const handleQuizComplete = (session: QuizSession) => {
@@ -64,14 +162,16 @@ export const Quiz: React.FC = () => {
     );
   }
   
-  // Show quiz engine when active
+  // Show enhanced quiz engine when active
   if (quizState === 'active') {
     return (
-      <QuizEngine 
-        mode={mode}
-        onBack={() => setQuizState('setup')}
-        onComplete={handleQuizComplete}
-      />
+      <SessionNavigationGuard>
+        <SessionStatusIndicator />
+        <EnhancedQuizEngine 
+          onBack={() => setQuizState('setup')}
+          onComplete={handleQuizComplete}
+        />
+      </SessionNavigationGuard>
     );
   }
   
@@ -91,7 +191,9 @@ export const Quiz: React.FC = () => {
 
   // Quiz setup screen
   return (
-    <div className="space-y-6">
+    <SessionNavigationGuard>
+      <SessionStatusIndicator />
+      <div className="space-y-6">
       <div className="flex items-center gap-4">
         <Button variant="ghost" size="icon" onClick={handleBack}>
           <ArrowLeft className="h-4 w-4" />
@@ -111,6 +213,34 @@ export const Quiz: React.FC = () => {
           <CardTitle>Quiz Setup</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
+          {/* Error Display */}
+          {(startError || sessionError) && (
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+              <div className="flex items-center space-x-2">
+                <AlertTriangle className="h-4 w-4 text-red-600 flex-shrink-0" />
+                <p className="text-sm text-red-700 font-medium">
+                  {startError || sessionError}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Session Conflict Warning */}
+          {hasActiveSession && session && session.mode !== mode && (
+            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+              <div className="flex items-center space-x-2">
+                <AlertTriangle className="h-4 w-4 text-amber-600 flex-shrink-0" />
+                <div className="text-sm text-amber-700">
+                  <p className="font-medium">Active Session Detected</p>
+                  <p>
+                    You have an active <span className="font-medium">{session.mode}</span> quiz session. 
+                    Starting a new {mode} quiz will abandon your current progress.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+          
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
               <span className="text-muted-foreground">Questions:</span>
@@ -175,6 +305,7 @@ export const Quiz: React.FC = () => {
           </div>
         </CardContent>
       </Card>
-    </div>
+      </div>
+    </SessionNavigationGuard>
   );
 };
