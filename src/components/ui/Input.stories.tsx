@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Input } from './Input';
 import { Button } from './Button';
-import { theme } from '../../theme';
 
 const meta = {
   title: 'UI Components/Input',

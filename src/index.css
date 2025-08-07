@@ -2,71 +2,90 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import theme tokens for consistency */
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 216 90% 58%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 45.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 216 90% 58%;
-    --radius: 0.75rem;
-    --success: 142 76% 28%;
-    --success-foreground: 210 40% 98%;
-    --warning: 38 92% 50%;
-    --warning-foreground: 222.2 84% 4.9%;
-    --info: 204 94% 94%;
-    --info-foreground: 204 91% 20%;
-    --gradient-primary: linear-gradient(135deg, hsl(216 90% 58%) 0%, hsl(229 84% 61%) 100%);
-    --gradient-secondary: linear-gradient(135deg, hsl(210 40% 96.1%) 0%, hsl(204 94% 94%) 100%);
+    /* Design Token Based Colors - Generated from src/theme/index.ts */
+    --primary: 216 90% 39%;                    /* #0052CC */
+    --secondary: 216 100% 51%;                 /* #0065FF */ 
+    --success: 158 64% 47%;                    /* #36B37E */
+    --warning: 38 100% 50%;                    /* #FFAB00 */
+    --danger: 9 100% 59%;                      /* #FF5630 */
+    --destructive: 9 100% 59%;                 /* #FF5630 */
+    --background: 0 0% 100%;                   /* #FFFFFF */
+    --surface: 220 13% 96%;                    /* #F4F5F7 */
+    --text-primary: 214 32% 21%;               /* #172B4D */
+    --text-secondary: 218 11% 51%;             /* #6B778C */
+    --foreground: 214 32% 21%;                 /* #172B4D */
+    --card: 0 0% 100%;                         /* #FFFFFF */
+    --card-foreground: 214 32% 21%;            /* #172B4D */
+    --popover: 0 0% 100%;                      /* #FFFFFF */
+    --popover-foreground: 214 32% 21%;         /* #172B4D */
+    --primary-foreground: 0 0% 100%;           /* #FFFFFF */
+    --secondary-foreground: 214 32% 21%;       /* #172B4D */
+    --muted: 220 13% 96%;                      /* #F4F5F7 */
+    --muted-foreground: 218 11% 51%;           /* #6B778C */
+    --accent: 220 13% 96%;                     /* #F4F5F7 */
+    --accent-foreground: 214 32% 21%;          /* #172B4D */
+    --destructive-foreground: 0 0% 100%;       /* #FFFFFF */
+    --border: 214 20% 91%;                     /* #E4E7EC */
+    --input: 214 20% 91%;                      /* #E4E7EC */
+    --ring: 216 90% 39%;                       /* #0052CC */
+    --info: 208 100% 95%;                      /* #E7F3FF */
+    --info-foreground: 216 90% 39%;            /* #0052CC */
+
+    /* Medical Education Specific Colors */
+    --medical-anatomy: 0 76% 58%;              /* #E53E3E - Red for anatomy */
+    --medical-physiology: 210 64% 48%;         /* #3182CE - Blue for physiology */
+    --medical-pathology: 259 52% 59%;          /* #805AD5 - Purple for pathology */
+    --medical-pharmacology: 146 60% 43%;       /* #38A169 - Green for pharmacology */
+    --medical-microbiology: 38 77% 52%;        /* #D69E2E - Yellow for microbiology */
+    --medical-biochemistry: 21 85% 56%;        /* #ED8936 - Orange for biochemistry */
+
+    /* Design Token Based Shadows */
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+    /* Border Radius from Design Tokens */
+    --radius: 0.5rem;                          /* 8px - borderRadius.lg */
+
+    /* Gradient Definitions */
+    --gradient-primary: linear-gradient(135deg, hsl(216 90% 39%) 0%, hsl(216 100% 51%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(220 13% 96%) 0%, hsl(220 13% 96%) 100%);
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    /* Dark Mode Color Adjustments */
+    --background: 222 84% 5%;
     --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
+    --card: 222 84% 5%;
     --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
+    --popover: 222 84% 5%;
     --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 222 47% 11%;
+    --secondary: 217 33% 18%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
+    --muted: 217 33% 18%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 33% 18%;
     --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 35.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 217.2 91.2% 59.8%;
-    --success: 142 70% 35%;
-    --success-foreground: 210 40% 98%;
-    --warning: 38 92% 50%;
-    --warning-foreground: 222.2 84% 4.9%;
-    --info: 217.2 32.6% 17.5%;
+    --border: 217 33% 18%;
+    --input: 217 33% 18%;
+    --ring: 217 91% 60%;
+    --destructive: 0 63% 31%;
+    --info: 217 33% 18%;
     --info-foreground: 204 91% 80%;
-    --gradient-primary: linear-gradient(135deg, hsl(217.2 91.2% 59.8%) 0%, hsl(229 84% 61%) 100%);
-    --gradient-secondary: linear-gradient(135deg, hsl(217.2 32.6% 17.5%) 0%, hsl(222.2 84% 4.9%) 100%);
+
+    /* Dark Mode Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(229 84% 61%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(217 33% 18%) 0%, hsl(222 84% 5%) 100%);
+
+    /* Dark Mode Shadows */
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.2);
     --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3);
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
@@ -79,9 +98,11 @@
   * {
     border-color: hsl(var(--border));
   }
+  
   body {
     @apply bg-background text-foreground;
-    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    /* Design token typography - Inter font family */
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-feature-settings: 'cv11', 'ss01';
     font-variation-settings: 'opsz' 32;
     text-rendering: optimizeLegibility;
@@ -93,7 +114,7 @@
     scroll-behavior: smooth;
   }
   
-  /* Modern scrollbars */
+  /* Modern scrollbars with design token colors */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -112,31 +133,33 @@
     background: hsl(var(--muted-foreground) / 0.5);
   }
   
-  /* Focus rings */
+  /* Focus rings with design token colors */
   :focus-visible {
     outline: 2px solid hsl(var(--ring));
     outline-offset: 2px;
   }
   
-  /* Selection */
+  /* Selection with design token colors */
   ::selection {
     background: hsl(var(--primary) / 0.2);
   }
 }
 
 @layer components {
+  /* Animation classes using design token timing */
   .animate-in {
-    animation: animateIn 0.3s ease-out;
+    animation: animateIn 0.3s cubic-bezier(0.0, 0.0, 0.2, 1);
   }
   
   .animate-fade-up {
-    animation: fadeUp 0.5s ease-out;
+    animation: fadeUp 0.5s cubic-bezier(0.0, 0.0, 0.2, 1);
   }
   
   .animate-slide-in {
-    animation: slideIn 0.4s ease-out;
+    animation: slideIn 0.4s cubic-bezier(0.0, 0.0, 0.2, 1);
   }
   
+  /* Keyframes using design token values */
   @keyframes animateIn {
     from {
       opacity: 0;
@@ -170,12 +193,14 @@
     }
   }
   
+  /* Glass effect with design token colors */
   .glass-effect {
     backdrop-filter: blur(12px);
     background: hsl(var(--background) / 0.8);
     border: 1px solid hsl(var(--border) / 0.5);
   }
   
+  /* Gradient utilities using CSS variables */
   .gradient-primary {
     background: var(--gradient-primary);
   }
@@ -184,6 +209,7 @@
     background: var(--gradient-secondary);
   }
   
+  /* Shadow utilities using design tokens */
   .shadow-custom {
     box-shadow: var(--shadow);
   }
@@ -194,5 +220,58 @@
   
   .shadow-custom-lg {
     box-shadow: var(--shadow-lg);
+  }
+  
+  .shadow-custom-xl {
+    box-shadow: var(--shadow-xl);
+  }
+  
+  /* Medical color utilities */
+  .text-medical-anatomy {
+    color: hsl(var(--medical-anatomy));
+  }
+  
+  .text-medical-physiology {
+    color: hsl(var(--medical-physiology));
+  }
+  
+  .text-medical-pathology {
+    color: hsl(var(--medical-pathology));
+  }
+  
+  .text-medical-pharmacology {
+    color: hsl(var(--medical-pharmacology));
+  }
+  
+  .text-medical-microbiology {
+    color: hsl(var(--medical-microbiology));
+  }
+  
+  .text-medical-biochemistry {
+    color: hsl(var(--medical-biochemistry));
+  }
+  
+  .bg-medical-anatomy {
+    background-color: hsl(var(--medical-anatomy));
+  }
+  
+  .bg-medical-physiology {
+    background-color: hsl(var(--medical-physiology));
+  }
+  
+  .bg-medical-pathology {
+    background-color: hsl(var(--medical-pathology));
+  }
+  
+  .bg-medical-pharmacology {
+    background-color: hsl(var(--medical-pharmacology));
+  }
+  
+  .bg-medical-microbiology {
+    background-color: hsl(var(--medical-microbiology));
+  }
+  
+  .bg-medical-biochemistry {
+    background-color: hsl(var(--medical-biochemistry));
   }
 }

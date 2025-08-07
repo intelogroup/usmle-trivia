@@ -1,3 +1,5 @@
+import { tailwindColors, typography, spacing, borderRadius, animations } from './tailwind.theme.js';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ["class"],
@@ -14,49 +16,42 @@ export default {
       },
     },
     extend: {
+      // Use unified color system from design tokens
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
+        ...tailwindColors,
       },
+      // Use design token typography
+      fontFamily: {
+        sans: typography.fontFamily.base.split(', '),
+      },
+      fontSize: {
+        ...typography.fontSize,
+      },
+      fontWeight: {
+        ...typography.fontWeight,
+      },
+      lineHeight: {
+        ...typography.lineHeight,
+      },
+      // Use design token spacing (extend with additional values)
+      spacing: {
+        ...spacing,
+      },
+      // Use design token border radius with CSS variable fallback
       borderRadius: {
+        ...borderRadius,
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
+      // Use design token animations
+      transitionDuration: {
+        ...animations.duration,
       },
+      transitionTimingFunction: {
+        ...animations.easing,
+      },
+      // Custom keyframes and animations
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -66,10 +61,55 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        // Add custom animations based on design tokens
+        "animate-in": {
+          from: { 
+            opacity: "0", 
+            transform: "translateY(10px)" 
+          },
+          to: { 
+            opacity: "1", 
+            transform: "translateY(0)" 
+          },
+        },
+        "fade-up": {
+          from: { 
+            opacity: "0", 
+            transform: "translateY(20px)" 
+          },
+          to: { 
+            opacity: "1", 
+            transform: "translateY(0)" 
+          },
+        },
+        "slide-in": {
+          from: { 
+            opacity: "0", 
+            transform: "translateX(-20px)" 
+          },
+          to: { 
+            opacity: "1", 
+            transform: "translateX(0)" 
+          },
+        },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+        "accordion-down": `accordion-down ${animations.duration.normal} ${animations.easing.easeOut}`,
+        "accordion-up": `accordion-up ${animations.duration.normal} ${animations.easing.easeOut}`,
+        "animate-in": `animate-in ${animations.duration.slow} ${animations.easing.easeOut}`,
+        "fade-up": `fade-up 0.5s ${animations.easing.easeOut}`,
+        "slide-in": `slide-in 0.4s ${animations.easing.easeOut}`,
+      },
+      // Add medical-specific utilities
+      backgroundImage: {
+        'gradient-primary': 'var(--gradient-primary)',
+        'gradient-secondary': 'var(--gradient-secondary)',
+      },
+      boxShadow: {
+        'custom': 'var(--shadow)',
+        'custom-md': 'var(--shadow-md)',
+        'custom-lg': 'var(--shadow-lg)',
+        'custom-xl': 'var(--shadow-xl)',
       },
     },
   },
