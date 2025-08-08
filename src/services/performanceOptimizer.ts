@@ -296,7 +296,7 @@ export class PerformanceOptimizer {
    */
   private async optimizeMemoryUsage(): Promise<OptimizationResult> {
     const beforeMemory = this.getCurrentMemoryUsage();
-    let improvements: string[] = [];
+    const improvements: string[] = [];
 
     // Clean up old component metrics
     const componentMetrics = (performanceMonitor as any).componentMetrics;
@@ -355,7 +355,7 @@ export class PerformanceOptimizer {
    * Optimize network requests
    */
   private async optimizeNetworkRequests(): Promise<OptimizationResult> {
-    let optimizations: string[] = [];
+    const optimizations: string[] = [];
 
     // Implement request deduplication
     this.implementRequestDeduplication();

@@ -256,7 +256,7 @@ describe('WelcomeBanner Component', () => {
 
       malformedUsers.forEach((user, index) => {
         mockUseAppStore.mockReturnValue({ user });
-        const { container, rerender } = render(<WelcomeBanner />);
+        const { rerender } = render(<WelcomeBanner />);
         
         // Should still render but with appropriate fallbacks
         if (user.name) {

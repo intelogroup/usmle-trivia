@@ -11,9 +11,11 @@ export function PWAUpdateNotification() {
   } = useRegisterSW({
     onRegistered(r) {
       // Check for updates every 30 minutes
-      r && setInterval(() => {
-        r.update();
-      }, 30 * 60 * 1000);
+      if (r) {
+        setInterval(() => {
+          r.update();
+        }, 30 * 60 * 1000);
+      }
     },
     onRegisterError(error) {
       console.log('SW registration error:', error);

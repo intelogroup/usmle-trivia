@@ -40,13 +40,13 @@ async function testLoginNavigation() {
       await page.click('button[type="submit"]');
       
       // Wait for potential navigation and check URL changes
-      let urlBefore = page.url();
+      const urlBefore = page.url();
       console.log('URL before waiting:', urlBefore);
       
       // Wait for navigation to complete - either to dashboard or back to home
       await page.waitForTimeout(5000);
       
-      let urlAfter = page.url();
+      const urlAfter = page.url();
       console.log('URL after waiting:', urlAfter);
       
       if (urlBefore !== urlAfter) {

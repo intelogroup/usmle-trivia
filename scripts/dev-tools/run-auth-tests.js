@@ -7,9 +7,9 @@
  * and provides detailed reporting on system resilience.
  */
 
-const { spawn } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+import { spawn } from 'child_process';
+import fs from 'fs';
+import path from 'path';
 
 // Test configuration
 const BASE_URL = 'https://usmle-trivia.netlify.app';
