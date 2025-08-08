@@ -432,6 +432,239 @@
       "env": {
         "SELENIUM_GRID_URL": "${SELENIUM_GRID_URL:-}"
       }
+    },
+    "error-sage": {
+      "command": "npx",
+      "args": ["-y", "@terragon/error-sage-mcp@latest"],
+      "env": {
+        "ERROR_ANALYSIS_MODE": "comprehensive",
+        "STACK_RESEARCH_ENABLED": "true",
+        "VERBOSE_LOGGING": "true",
+        "WEB_RESEARCH_SOURCES": "react.dev,vitejs.dev,nodejs.org,appwrite.io,tailwindcss.com",
+        "ERROR_CATEGORIES": "runtime,build,typescript,network,database,auth,ui,performance",
+        "DIAGNOSTIC_DEPTH": "deep",
+        "FAILURE_DOCUMENTATION": "failures.md",
+        "SUGGESTED_FIXES_ONLY": "true",
+        "INSPECTOR_MODE": "true"
+      }
+    },
+    "error-sage-playwright-testing": {
+      "command": "npx",
+      "args": ["-y", "@terragon/error-sage-playwright@latest"],
+      "env": {
+        "PLAYWRIGHT_BROWSER": "chromium,firefox,webkit",
+        "PLAYWRIGHT_DEVICE_LIST": "iPhone 15,iPad Pro,Desktop Chrome,Desktop Safari,Galaxy S21",
+        "PLAYWRIGHT_HEADLESS": "false",
+        "PLAYWRIGHT_BASE_URL": "http://localhost:5173",
+        "ERROR_SCREENSHOTS": "true",
+        "ERROR_TRACE_ENABLED": "true",
+        "FAILURE_ANALYSIS": "comprehensive",
+        "TEST_RETRY_COUNT": "3",
+        "CROSS_BROWSER_TESTING": "true",
+        "ACCESSIBILITY_TESTING": "true",
+        "PERFORMANCE_TESTING": "true",
+        "ERROR_RECOVERY_TESTING": "true"
+      }
+    },
+    "error-sage-lighthouse-diagnostics": {
+      "command": "uvx",
+      "args": ["@terragon/error-sage-lighthouse@latest"],
+      "env": {
+        "LIGHTHOUSE_CONFIG": "mobile,desktop,accessibility,performance,seo",
+        "PERFORMANCE_BUDGET": "90",
+        "ACCESSIBILITY_BUDGET": "100",
+        "ERROR_THRESHOLD_ANALYSIS": "true",
+        "LIGHTHOUSE_CI": "true",
+        "BUNDLE_ANALYSIS": "true",
+        "MEMORY_LEAK_DETECTION": "true",
+        "CORE_WEB_VITALS": "true",
+        "ERROR_IMPACT_SCORING": "true"
+      }
+    },
+    "error-sage-jest-unit-testing": {
+      "command": "npx",
+      "args": ["-y", "@terragon/error-sage-jest@latest"],
+      "env": {
+        "JEST_CONFIG": "comprehensive",
+        "TEST_COVERAGE_THRESHOLD": "80",
+        "ERROR_BOUNDARY_TESTING": "true",
+        "SNAPSHOT_TESTING": "true",
+        "INTEGRATION_TESTING": "true",
+        "MOCK_ERROR_SIMULATION": "true",
+        "ASYNC_ERROR_TESTING": "true",
+        "MEMORY_LEAK_TESTING": "true",
+        "PERFORMANCE_TESTING": "true",
+        "ACCESSIBILITY_TESTING": "true"
+      }
+    },
+    "error-sage-cypress-e2e": {
+      "command": "npx",
+      "args": ["-y", "@terragon/error-sage-cypress@latest"],
+      "env": {
+        "CYPRESS_BASE_URL": "http://localhost:5173",
+        "CYPRESS_BROWSER": "chrome,firefox,edge",
+        "ERROR_SCREENSHOT_ON_FAILURE": "true",
+        "VIDEO_RECORDING": "true",
+        "NETWORK_ERROR_SIMULATION": "true",
+        "AUTH_ERROR_TESTING": "true",
+        "DATABASE_ERROR_TESTING": "true",
+        "UI_ERROR_RECOVERY": "true",
+        "CROSS_PLATFORM_TESTING": "true",
+        "MEDICAL_CONTENT_TESTING": "true"
+      }
+    },
+    "error-sage-sentry-monitoring": {
+      "command": "uvx",
+      "args": ["@terragon/error-sage-sentry@latest"],
+      "env": {
+        "SENTRY_DSN": "${SENTRY_DSN}",
+        "SENTRY_ENVIRONMENT": "development",
+        "ERROR_SAMPLING_RATE": "1.0",
+        "PERFORMANCE_SAMPLING_RATE": "1.0",
+        "SESSION_SAMPLING_RATE": "1.0",
+        "RELEASE_HEALTH": "true",
+        "PROFILING": "true",
+        "REPLAY_SESSIONS": "true",
+        "CUSTOM_TAGS": "medical-app,error-sage",
+        "HIPAA_COMPLIANT_LOGGING": "true"
+      }
+    },
+    "error-sage-sonarqube-quality": {
+      "command": "uvx",
+      "args": ["@terragon/error-sage-sonarqube@latest"],
+      "env": {
+        "SONAR_HOST_URL": "${SONAR_HOST_URL:-https://sonarcloud.io}",
+        "SONAR_LOGIN": "${SONAR_LOGIN:-}",
+        "SONAR_PROJECT_KEY": "medquiz-pro-error-analysis",
+        "CODE_QUALITY_GATE": "true",
+        "SECURITY_HOTSPOT_ANALYSIS": "true",
+        "VULNERABILITY_DETECTION": "true",
+        "CODE_SMELL_DETECTION": "true",
+        "DUPLICATION_ANALYSIS": "true",
+        "COVERAGE_ANALYSIS": "true",
+        "ERROR_PRONE_PATTERNS": "true"
+      }
+    },
+    "error-sage-snyk-security": {
+      "command": "uvx",
+      "args": ["@terragon/error-sage-snyk@latest"],
+      "env": {
+        "SNYK_TOKEN": "${SNYK_TOKEN:-}",
+        "VULNERABILITY_SCANNING": "true",
+        "DEPENDENCY_SCANNING": "true",
+        "CONTAINER_SCANNING": "true",
+        "IAC_SCANNING": "true",
+        "LICENSE_COMPLIANCE": "true",
+        "SECURITY_POLICY_ENFORCEMENT": "true",
+        "HIPAA_COMPLIANCE_CHECK": "true",
+        "MEDICAL_DATA_SECURITY": "true"
+      }
+    },
+    "error-sage-datadog-apm": {
+      "command": "uvx",
+      "args": ["@terragon/error-sage-datadog@latest"],
+      "env": {
+        "DATADOG_API_KEY": "${DATADOG_API_KEY:-}",
+        "DATADOG_APP_KEY": "${DATADOG_APP_KEY:-}",
+        "APM_ENABLED": "true",
+        "LOG_MANAGEMENT": "true",
+        "INFRASTRUCTURE_MONITORING": "true",
+        "REAL_USER_MONITORING": "true",
+        "SYNTHETIC_MONITORING": "true",
+        "ERROR_TRACKING": "true",
+        "PERFORMANCE_MONITORING": "true",
+        "DATABASE_MONITORING": "true"
+      }
+    },
+    "error-sage-newrelic-insights": {
+      "command": "uvx",
+      "args": ["@terragon/error-sage-newrelic@latest"],
+      "env": {
+        "NEW_RELIC_API_KEY": "${NEW_RELIC_API_KEY:-}",
+        "NEW_RELIC_ACCOUNT_ID": "${NEW_RELIC_ACCOUNT_ID:-}",
+        "NEW_RELIC_APP_NAME": "MedQuiz Pro Error Sage",
+        "ERROR_ANALYTICS": "true",
+        "PERFORMANCE_INSIGHTS": "true",
+        "USER_JOURNEY_TRACKING": "true",
+        "ALERT_POLICIES": "true",
+        "CUSTOM_DASHBOARDS": "true",
+        "ANOMALY_DETECTION": "true",
+        "MEDICAL_METRICS_TRACKING": "true"
+      }
+    },
+    "error-sage-webpagetest-performance": {
+      "command": "uvx",
+      "args": ["@terragon/error-sage-webpagetest@latest"],
+      "env": {
+        "WEBPAGETEST_API_KEY": "${WEBPAGETEST_API_KEY:-}",
+        "TEST_LOCATIONS": "Dulles:Chrome,London:Firefox,Sydney:Safari",
+        "CONNECTION_SPEEDS": "3G,4G,Cable",
+        "PERFORMANCE_BUDGETS": "true",
+        "FILMSTRIP_ANALYSIS": "true",
+        "WATERFALL_ANALYSIS": "true",
+        "CORE_WEB_VITALS": "true",
+        "ERROR_IMPACT_ANALYSIS": "true",
+        "MOBILE_PERFORMANCE": "true"
+      }
+    },
+    "error-sage-k6-load-testing": {
+      "command": "npx",
+      "args": ["-y", "@terragon/error-sage-k6@latest"],
+      "env": {
+        "K6_CLOUD": "false",
+        "LOAD_TEST_SCENARIOS": "smoke,load,stress,spike,volume",
+        "MAX_VUS": "1000",
+        "ERROR_RATE_THRESHOLD": "5%",
+        "RESPONSE_TIME_THRESHOLD": "2s",
+        "MEDICAL_WORKFLOW_TESTING": "true",
+        "AUTH_LOAD_TESTING": "true",
+        "DATABASE_STRESS_TESTING": "true",
+        "REAL_TIME_MONITORING": "true"
+      }
+    },
+    "error-sage-artillery-stress": {
+      "command": "npx",
+      "args": ["-y", "@terragon/error-sage-artillery@latest"],
+      "env": {
+        "ARTILLERY_CONFIG": "comprehensive",
+        "STRESS_TEST_DURATION": "300s",
+        "RAMP_UP_TIME": "60s",
+        "CONCURRENT_USERS": "500",
+        "ERROR_THRESHOLD": "1%",
+        "LATENCY_P99_THRESHOLD": "5s",
+        "QUIZ_SESSION_TESTING": "true",
+        "REAL_TIME_UPDATES": "true",
+        "MEMORY_PRESSURE_TESTING": "true"
+      }
+    },
+    "error-sage-puppeteer-automation": {
+      "command": "npx",
+      "args": ["-y", "@terragon/error-sage-puppeteer@latest"],
+      "env": {
+        "PUPPETEER_HEADLESS": "false",
+        "ERROR_SCREENSHOT_CAPTURE": "true",
+        "PERFORMANCE_TRACING": "true",
+        "NETWORK_THROTTLING": "true",
+        "DEVICE_EMULATION": "true",
+        "ACCESSIBILITY_AUDIT": "true",
+        "MEMORY_USAGE_TRACKING": "true",
+        "CONSOLE_ERROR_MONITORING": "true",
+        "USER_FLOW_TESTING": "true"
+      }
+    },
+    "error-sage-selenium-grid": {
+      "command": "uvx",
+      "args": ["@terragon/error-sage-selenium@latest"],
+      "env": {
+        "SELENIUM_GRID_URL": "${SELENIUM_GRID_URL:-http://localhost:4444}",
+        "BROWSER_MATRIX": "chrome,firefox,safari,edge",
+        "PLATFORM_MATRIX": "Windows,macOS,Linux",
+        "MOBILE_TESTING": "true",
+        "CROSS_BROWSER_ERROR_TESTING": "true",
+        "PARALLEL_EXECUTION": "true",
+        "ERROR_RECOVERY_SCENARIOS": "true",
+        "SCREENSHOT_ON_FAILURE": "true"
+      }
     }
   },
   "clientInfo": {
