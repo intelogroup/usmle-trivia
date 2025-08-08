@@ -1,16 +1,121 @@
 {
   "agentOrchestrationSystem": {
-    "version": "1.0.0",
-    "description": "MCP prioritization and agent deployment configuration for Claude Code",
-    "lastUpdated": "2025-08-08"
+    "version": "2.0.0",
+    "description": "Stack-aware MCP prioritization and agent deployment configuration for Claude Code",
+    "lastUpdated": "2025-08-08",
+    "features": [
+      "automatic-stack-detection",
+      "stack-specific-mcp-selection", 
+      "medical-education-optimization",
+      "context-aware-deployment"
+    ]
+  },
+  
+  "stackDetection": {
+    "medquizPro": {
+      "frontend": {
+        "framework": "React",
+        "version": "19.1.0",
+        "buildTool": "Vite",
+        "buildVersion": "6.0.7",
+        "language": "TypeScript"
+      },
+      "backend": {
+        "service": "Convex",
+        "type": "Real-time Database",
+        "websocket": true
+      },
+      "deployment": {
+        "platform": "Netlify",
+        "buildCommand": "npm run build",
+        "publishDir": "dist"
+      },
+      "testing": {
+        "e2e": "Playwright",
+        "unit": "Vitest", 
+        "component": "Storybook"
+      },
+      "styling": {
+        "framework": "Tailwind CSS",
+        "components": "Radix UI"
+      },
+      "specializations": {
+        "medical": true,
+        "usmle": true,
+        "hipaa": true,
+        "accessibility": true
+      }
+    }
+  },
+  
+  "stackSpecificMCPs": {
+    "react-vite-convex-netlify": {
+      "database-architecture": {
+        "primary": ["convex", "knowledge-graph-memory"],
+        "secondary": ["appwrite", "neon"],
+        "focus": "Convex real-time mutations and WebSocket optimization"
+      },
+      "frontend-development": {
+        "primary": ["storybook", "tailwindcss", "magicui"],
+        "secondary": ["figma", "chromatic"],
+        "focus": "React 19 features with Vite build optimization"
+      },
+      "devops-deployment": {
+        "primary": ["netlify", "terraform"],
+        "secondary": ["globalping", "docker-hub"],
+        "focus": "Netlify Functions and edge deployment optimization"
+      },
+      "testing-qa": {
+        "primary": ["playwright", "storybook", "lighthouse"],
+        "secondary": ["vitest", "percy"],
+        "focus": "Playwright E2E with Storybook component testing"
+      }
+    },
+    
+    "react-nextjs-supabase-vercel": {
+      "database-architecture": {
+        "primary": ["supabase-storage", "prisma", "neon"],
+        "secondary": ["hasura", "fauna"],
+        "focus": "PostgreSQL with real-time subscriptions and RLS"
+      },
+      "frontend-development": {
+        "primary": ["storybook", "tailwindcss", "figma"],
+        "secondary": ["chromatic", "magicui"],
+        "focus": "Next.js App Router with SSR optimization"
+      },
+      "devops-deployment": {
+        "primary": ["vercel", "terraform"],
+        "secondary": ["globalping", "aws-serverless"],
+        "focus": "Vercel Edge Runtime and API routes"
+      }
+    },
+    
+    "vue-nuxt-firebase-aws": {
+      "frontend-development": {
+        "primary": ["vue-devtools", "tailwindcss", "figma"],
+        "secondary": ["storybook", "chromatic"],
+        "focus": "Vue 3 Composition API with Nuxt optimization"
+      },
+      "database-architecture": {
+        "primary": ["firebase", "google-cloud"],
+        "secondary": ["firestore", "functions"],
+        "focus": "Firebase real-time listeners and cloud functions"
+      },
+      "devops-deployment": {
+        "primary": ["aws-serverless", "terraform", "powertools-aws"],
+        "secondary": ["kubernetes", "docker-hub"],
+        "focus": "AWS Lambda and CloudFront deployment"
+      }
+    }
   },
   
   "agentMCPPriority": {
     "database-architecture": {
-      "primary": ["appwrite", "neon", "prisma"],
-      "secondary": ["hasura", "fauna", "supabase-storage"],
-      "advanced": ["knowledge-graph-memory"],
-      "medical": ["appwrite", "neon"],
+      "primary": ["convex", "knowledge-graph-memory", "appwrite"],
+      "secondary": ["neon", "prisma", "hasura"],
+      "advanced": ["fauna", "supabase-storage"],
+      "medical": ["convex", "appwrite"],
+      "stackAware": true,
       "autoDeployTriggers": [
         "schema changes",
         "migration needs", 
