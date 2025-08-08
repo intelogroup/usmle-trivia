@@ -27,7 +27,7 @@ describe('WelcomeBanner Component', () => {
       render(<WelcomeBanner />);
       
       expect(screen.getByText('Welcome back, Dr. Sarah Johnson')).toBeInTheDocument();
-      expect(screen.getByText('Continue your medical studies and track your progress.')).toBeInTheDocument();
+      expect(screen.getByText('Continue your USMLE preparation journey with evidence-based medical questions and comprehensive explanations.')).toBeInTheDocument();
     });
 
     it('should not render when user is null', () => {
@@ -113,11 +113,12 @@ describe('WelcomeBanner Component', () => {
       const banner = container.firstChild as HTMLElement;
       
       expect(banner).toHaveClass('bg-gradient-to-r');
-      expect(banner).toHaveClass('from-slate-50');
-      expect(banner).toHaveClass('to-slate-100');
+      expect(banner).toHaveClass('from-primary/5');
+      expect(banner).toHaveClass('via-primary/10');
+      expect(banner).toHaveClass('to-primary/5');
       expect(banner).toHaveClass('border');
-      expect(banner).toHaveClass('border-slate-200');
-      expect(banner).toHaveClass('rounded-lg');
+      expect(banner).toHaveClass('border-primary/20');
+      expect(banner).toHaveClass('rounded-2xl');
       expect(banner).toHaveClass('p-6');
       expect(banner).toHaveClass('mb-6');
     });
@@ -131,9 +132,8 @@ describe('WelcomeBanner Component', () => {
       const heading = screen.getByRole('heading', { level: 1 });
       
       expect(heading).toHaveClass('text-xl');
-      expect(heading).toHaveClass('font-semibold');
+      expect(heading).toHaveClass('font-bold');
       expect(heading).toHaveClass('text-slate-900');
-      expect(heading).toHaveClass('mb-1');
     });
 
     it('should apply correct paragraph styles', () => {
@@ -142,9 +142,9 @@ describe('WelcomeBanner Component', () => {
       });
 
       render(<WelcomeBanner />);
-      const paragraph = screen.getByText('Continue your medical studies and track your progress.');
+      const paragraph = screen.getByText('Continue your USMLE preparation journey with evidence-based medical questions and comprehensive explanations.');
       
-      expect(paragraph).toHaveClass('text-slate-600');
+      expect(paragraph).toHaveClass('text-slate-700');
     });
   });
 
@@ -156,9 +156,9 @@ describe('WelcomeBanner Component', () => {
 
       render(<WelcomeBanner />);
       
-      const messageText = screen.getByText('Continue your medical studies and track your progress.');
+      const messageText = screen.getByText('Continue your USMLE preparation journey with evidence-based medical questions and comprehensive explanations.');
       expect(messageText).toBeInTheDocument();
-      expect(messageText.textContent).toContain('medical studies');
+      expect(messageText.textContent).toContain('USMLE preparation');
     });
 
     it('should work with different medical professional titles', () => {
@@ -204,7 +204,7 @@ describe('WelcomeBanner Component', () => {
       
       // Check that text content is properly structured for screen readers
       const heading = screen.getByRole('heading');
-      const paragraph = screen.getByText('Continue your medical studies and track your progress.');
+      const paragraph = screen.getByText('Continue your USMLE preparation journey with evidence-based medical questions and comprehensive explanations.');
       
       expect(heading).toBeInTheDocument();
       expect(paragraph).toBeInTheDocument();
@@ -218,11 +218,11 @@ describe('WelcomeBanner Component', () => {
       render(<WelcomeBanner />);
       
       const heading = screen.getByRole('heading');
-      const paragraph = screen.getByText('Continue your medical studies and track your progress.');
+      const paragraph = screen.getByText('Continue your USMLE preparation journey with evidence-based medical questions and comprehensive explanations.');
       
       // Verify dark text classes for good contrast
       expect(heading).toHaveClass('text-slate-900');
-      expect(paragraph).toHaveClass('text-slate-600');
+      expect(paragraph).toHaveClass('text-slate-700');
     });
   });
 
@@ -325,7 +325,7 @@ describe('WelcomeBanner Component', () => {
       render(<WelcomeBanner />);
       
       expect(screen.getByText('Welcome back, Sarah Chen')).toBeInTheDocument();
-      expect(screen.getByText('Continue your medical studies and track your progress.')).toBeInTheDocument();
+      expect(screen.getByText('Continue your USMLE preparation journey with evidence-based medical questions and comprehensive explanations.')).toBeInTheDocument();
     });
 
     it('should work within the larger dashboard context', () => {
