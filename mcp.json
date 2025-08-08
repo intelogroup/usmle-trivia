@@ -113,6 +113,325 @@
     "testzeus-hercules": {
       "command": "npx",
       "args": ["-y", "testzeus-hercules@latest"]
+    },
+    "neon": {
+      "command": "uvx",
+      "args": ["mcp-server-neon"],
+      "env": {
+        "NEON_API_KEY": "${NEON_API_KEY:-}"
+      }
+    },
+    "prisma": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-prisma@latest"],
+      "env": {
+        "DATABASE_URL": "${DATABASE_URL:-}"
+      }
+    },
+    "hasura": {
+      "command": "uvx",
+      "args": ["mcp-server-hasura"],
+      "env": {
+        "HASURA_GRAPHQL_ADMIN_SECRET": "${HASURA_ADMIN_SECRET:-}",
+        "HASURA_GRAPHQL_ENDPOINT": "${HASURA_ENDPOINT:-}"
+      }
+    },
+    "fauna": {
+      "command": "uvx",
+      "args": ["mcp-server-fauna"],
+      "env": {
+        "FAUNA_SECRET": "${FAUNA_SECRET:-}"
+      }
+    },
+    "supabase-storage": {
+      "command": "uvx",
+      "args": ["mcp-server-supabase-storage"],
+      "env": {
+        "SUPABASE_URL": "${SUPABASE_URL:-}",
+        "SUPABASE_ANON_KEY": "${SUPABASE_ANON_KEY:-}"
+      }
+    },
+    "storybook": {
+      "command": "npx",
+      "args": ["-y", "@storybook/mcp@latest"]
+    },
+    "chromatic": {
+      "command": "npx",
+      "args": ["-y", "chromatic-mcp@latest"],
+      "env": {
+        "CHROMATIC_PROJECT_TOKEN": "${CHROMATIC_PROJECT_TOKEN:-}"
+      }
+    },
+    "tailwindcss": {
+      "command": "npx",
+      "args": ["-y", "tailwindcss-mcp@latest"]
+    },
+    "auth0": {
+      "command": "uvx",
+      "args": ["mcp-server-auth0"],
+      "env": {
+        "AUTH0_DOMAIN": "${AUTH0_DOMAIN:-}",
+        "AUTH0_CLIENT_ID": "${AUTH0_CLIENT_ID:-}",
+        "AUTH0_CLIENT_SECRET": "${AUTH0_CLIENT_SECRET:-}"
+      }
+    },
+    "okta": {
+      "command": "uvx",
+      "args": ["mcp-server-okta"],
+      "env": {
+        "OKTA_DOMAIN": "${OKTA_DOMAIN:-}",
+        "OKTA_API_TOKEN": "${OKTA_API_TOKEN:-}"
+      }
+    },
+    "cloudflare-access": {
+      "command": "uvx",
+      "args": ["mcp-server-cloudflare-access"],
+      "env": {
+        "CLOUDFLARE_API_TOKEN": "${CLOUDFLARE_API_TOKEN:-}",
+        "CLOUDFLARE_ACCOUNT_ID": "${CLOUDFLARE_ACCOUNT_ID:-}"
+      }
+    },
+    "snyk": {
+      "command": "uvx",
+      "args": ["mcp-server-snyk"],
+      "env": {
+        "SNYK_TOKEN": "${SNYK_TOKEN:-}"
+      }
+    },
+    "zapier": {
+      "command": "uvx",
+      "args": ["mcp-server-zapier"],
+      "env": {
+        "ZAPIER_API_KEY": "${ZAPIER_API_KEY:-}"
+      }
+    },
+    "rapidapi": {
+      "command": "uvx",
+      "args": ["mcp-server-rapidapi"],
+      "env": {
+        "RAPIDAPI_KEY": "${RAPIDAPI_KEY:-}"
+      }
+    },
+    "n8n": {
+      "command": "uvx",
+      "args": ["mcp-server-n8n"],
+      "env": {
+        "N8N_API_KEY": "${N8N_API_KEY:-}",
+        "N8N_BASE_URL": "${N8N_BASE_URL:-}"
+      }
+    },
+    "temporal": {
+      "command": "uvx",
+      "args": ["mcp-server-temporal"],
+      "env": {
+        "TEMPORAL_ADDRESS": "${TEMPORAL_ADDRESS:-}",
+        "TEMPORAL_NAMESPACE": "${TEMPORAL_NAMESPACE:-}"
+      }
+    },
+    "airflow": {
+      "command": "uvx",
+      "args": ["mcp-server-airflow"],
+      "env": {
+        "AIRFLOW_API_BASE_URL": "${AIRFLOW_API_BASE_URL:-}",
+        "AIRFLOW_USERNAME": "${AIRFLOW_USERNAME:-}",
+        "AIRFLOW_PASSWORD": "${AIRFLOW_PASSWORD:-}"
+      }
+    },
+    "bullmq": {
+      "command": "uvx",
+      "args": ["mcp-server-bullmq"],
+      "env": {
+        "REDIS_URL": "${REDIS_URL:-}"
+      }
+    },
+    "cypress": {
+      "command": "npx",
+      "args": ["-y", "cypress-mcp@latest"]
+    },
+    "percy": {
+      "command": "npx",
+      "args": ["-y", "@percy/mcp@latest"],
+      "env": {
+        "PERCY_TOKEN": "${PERCY_TOKEN:-}"
+      }
+    },
+    "testcafe": {
+      "command": "npx",
+      "args": ["-y", "testcafe-mcp@latest"]
+    },
+    "terraform": {
+      "command": "uvx",
+      "args": ["mcp-server-terraform"],
+      "env": {
+        "TF_VAR_access_key": "${AWS_ACCESS_KEY_ID:-}",
+        "TF_VAR_secret_key": "${AWS_SECRET_ACCESS_KEY:-}"
+      }
+    },
+    "docker-hub": {
+      "command": "uvx",
+      "args": ["mcp-server-docker-hub"],
+      "env": {
+        "DOCKER_HUB_USERNAME": "${DOCKER_HUB_USERNAME:-}",
+        "DOCKER_HUB_PASSWORD": "${DOCKER_HUB_PASSWORD:-}"
+      }
+    },
+    "kubernetes": {
+      "command": "uvx",
+      "args": ["mcp-server-kubernetes"],
+      "env": {
+        "KUBECONFIG": "${KUBECONFIG:-}"
+      }
+    },
+    "new-relic": {
+      "command": "uvx",
+      "args": ["mcp-server-new-relic"],
+      "env": {
+        "NEW_RELIC_API_KEY": "${NEW_RELIC_API_KEY:-}",
+        "NEW_RELIC_ACCOUNT_ID": "${NEW_RELIC_ACCOUNT_ID:-}"
+      }
+    },
+    "webpagetest": {
+      "command": "uvx",
+      "args": ["mcp-server-webpagetest"],
+      "env": {
+        "WEBPAGETEST_API_KEY": "${WEBPAGETEST_API_KEY:-}"
+      }
+    },
+    "cloudflare-analytics": {
+      "command": "uvx",
+      "args": ["mcp-server-cloudflare-analytics"],
+      "env": {
+        "CLOUDFLARE_API_TOKEN": "${CLOUDFLARE_API_TOKEN:-}",
+        "CLOUDFLARE_ZONE_ID": "${CLOUDFLARE_ZONE_ID:-}"
+      }
+    },
+    "docusaurus": {
+      "command": "npx",
+      "args": ["-y", "@docusaurus/mcp@latest"]
+    },
+    "readme": {
+      "command": "uvx",
+      "args": ["mcp-server-readme"],
+      "env": {
+        "README_API_KEY": "${README_API_KEY:-}"
+      }
+    },
+    "algolia-docsearch": {
+      "command": "uvx",
+      "args": ["mcp-server-algolia-docsearch"],
+      "env": {
+        "ALGOLIA_APP_ID": "${ALGOLIA_APP_ID:-}",
+        "ALGOLIA_API_KEY": "${ALGOLIA_API_KEY:-}"
+      }
+    },
+    "elasticsearch": {
+      "command": "uvx",
+      "args": ["mcp-server-elasticsearch"],
+      "env": {
+        "ELASTICSEARCH_URL": "${ELASTICSEARCH_URL:-}",
+        "ELASTICSEARCH_USERNAME": "${ELASTICSEARCH_USERNAME:-}",
+        "ELASTICSEARCH_PASSWORD": "${ELASTICSEARCH_PASSWORD:-}"
+      }
+    },
+    "pinecone": {
+      "command": "uvx",
+      "args": ["mcp-server-pinecone"],
+      "env": {
+        "PINECONE_API_KEY": "${PINECONE_API_KEY:-}",
+        "PINECONE_ENVIRONMENT": "${PINECONE_ENVIRONMENT:-}"
+      }
+    },
+    "serpapi": {
+      "command": "uvx",
+      "args": ["mcp-server-serpapi"],
+      "env": {
+        "SERPAPI_API_KEY": "${SERPAPI_API_KEY:-}"
+      }
+    },
+    "datadog": {
+      "command": "uvx",
+      "args": ["mcp-server-datadog"],
+      "env": {
+        "DATADOG_API_KEY": "${DATADOG_API_KEY:-}",
+        "DATADOG_APP_KEY": "${DATADOG_APP_KEY:-}"
+      }
+    },
+    "mixpanel": {
+      "command": "uvx",
+      "args": ["mcp-server-mixpanel"],
+      "env": {
+        "MIXPANEL_PROJECT_TOKEN": "${MIXPANEL_PROJECT_TOKEN:-}",
+        "MIXPANEL_API_SECRET": "${MIXPANEL_API_SECRET:-}"
+      }
+    },
+    "sonarqube": {
+      "command": "uvx",
+      "args": ["mcp-server-sonarqube"],
+      "env": {
+        "SONAR_HOST_URL": "${SONAR_HOST_URL:-}",
+        "SONAR_LOGIN": "${SONAR_LOGIN:-}"
+      }
+    },
+    "eslint": {
+      "command": "npx",
+      "args": ["-y", "eslint-mcp@latest"]
+    },
+    "prettier": {
+      "command": "npx",
+      "args": ["-y", "prettier-mcp@latest"]
+    },
+    "google-cloud": {
+      "command": "uvx",
+      "args": ["mcp-server-google-cloud"],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS:-}",
+        "GOOGLE_CLOUD_PROJECT": "${GOOGLE_CLOUD_PROJECT:-}"
+      }
+    },
+    "azure": {
+      "command": "uvx",
+      "args": ["mcp-server-azure"],
+      "env": {
+        "AZURE_CLIENT_ID": "${AZURE_CLIENT_ID:-}",
+        "AZURE_CLIENT_SECRET": "${AZURE_CLIENT_SECRET:-}",
+        "AZURE_TENANT_ID": "${AZURE_TENANT_ID:-}"
+      }
+    },
+    "hashicorp-vault": {
+      "command": "uvx",
+      "args": ["mcp-server-vault"],
+      "env": {
+        "VAULT_ADDR": "${VAULT_ADDR:-}",
+        "VAULT_TOKEN": "${VAULT_TOKEN:-}"
+      }
+    },
+    "openai": {
+      "command": "uvx",
+      "args": ["mcp-server-openai"],
+      "env": {
+        "OPENAI_API_KEY": "${OPENAI_API_KEY:-}"
+      }
+    },
+    "huggingface": {
+      "command": "uvx",
+      "args": ["mcp-server-huggingface"],
+      "env": {
+        "HUGGINGFACE_API_TOKEN": "${HUGGINGFACE_API_TOKEN:-}"
+      }
+    },
+    "cohere": {
+      "command": "uvx",
+      "args": ["mcp-server-cohere"],
+      "env": {
+        "COHERE_API_KEY": "${COHERE_API_KEY:-}"
+      }
+    },
+    "selenium": {
+      "command": "uvx",
+      "args": ["mcp-server-selenium"],
+      "env": {
+        "SELENIUM_GRID_URL": "${SELENIUM_GRID_URL:-}"
+      }
     }
   },
   "clientInfo": {
