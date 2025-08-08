@@ -1,0 +1,2015 @@
+{
+  "title": "MedQuiz Pro - Comprehensive Accessibility Audit Report",
+  "date": "2025-08-08T19:15:53.245Z",
+  "wcagLevel": "AA",
+  "summary": {
+    "totalTests": 4,
+    "passed": -80,
+    "failed": 84,
+    "warnings": 0,
+    "wcagLevel": "AA",
+    "overallScore": 0
+  },
+  "keyFindings": {
+    "totalIssues": 84,
+    "criticalIssues": 0,
+    "highIssues": 45,
+    "mediumIssues": 35,
+    "lowIssues": 4,
+    "complianceScore": 0
+  },
+  "pageResults": {
+    "Landing Page": {
+      "url": "http://localhost:4173/",
+      "pageName": "Landing Page",
+      "issues": [
+        {
+          "type": "WCAG_1.3.1",
+          "severity": "high",
+          "element": "body",
+          "message": "Missing main landmark element",
+          "wcagCriterion": "1.3.1 Info and Relationships"
+        },
+        {
+          "type": "WCAG_1.3.1",
+          "severity": "medium",
+          "element": "navigation",
+          "message": "No nav elements found for navigation sections",
+          "wcagCriterion": "1.3.1 Info and Relationships"
+        },
+        {
+          "type": "WCAG_2.4.3",
+          "severity": "medium",
+          "element": "BODY",
+          "message": "Focusable element is not visible",
+          "wcagCriterion": "2.4.3 Focus Order"
+        },
+        {
+          "type": "WCAG_2.4.3",
+          "severity": "medium",
+          "element": "BODY",
+          "message": "Focusable element is not visible",
+          "wcagCriterion": "2.4.3 Focus Order"
+        },
+        {
+          "type": "WCAG_2.4.1",
+          "severity": "medium",
+          "element": "navigation",
+          "message": "Missing skip link as first focusable element",
+          "wcagCriterion": "2.4.1 Bypass Blocks"
+        },
+        {
+          "type": "WCAG_1.3.1",
+          "severity": "medium",
+          "element": "page structure",
+          "message": "Missing navigation landmark",
+          "wcagCriterion": "1.3.1 Info and Relationships"
+        },
+        {
+          "type": "WCAG_1.3.1",
+          "severity": "medium",
+          "element": "page structure",
+          "message": "Missing main landmark",
+          "wcagCriterion": "1.3.1 Info and Relationships"
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV#root",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "A",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "H1",
+          "message": "Insufficient color contrast: 1.64:1 (required: 3:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 3,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "72px"
+          }
+        },
+        {
+          "type": "MEDICAL_ACCESSIBILITY",
+          "severity": "low",
+          "element": "text content",
+          "message": "Medical abbreviation \"USMLE\" should be marked up with <abbr> tag and full explanation",
+          "wcagCriterion": "3.1.4 Abbreviations",
+          "medicalEducationImpact": "High - Critical for medical students with learning disabilities"
+        }
+      ],
+      "wcagViolations": [
+        {
+          "type": "AXE_ERROR",
+          "severity": "high",
+          "message": "Axe-core test failed: page.evaluate: Error: unknown rule `keyboard-navigation` in options.rules\n    at https://unpkg.com/axe-core@latest/axe.min.js:12:448859\n    at Array.forEach (<anonymous>)\n    at e.value (https://unpkg.com/axe-core@latest/axe.min.js:12:448815)\n    at e.value (https://unpkg.com/axe-core@latest/axe.min.js:12:446559)\n    at https://unpkg.com/axe-core@latest/axe.min.js:12:452294\n    at c (https://unpkg.com/axe-core@latest/axe.min.js:12:103329)\n    at Object.defer (https://unpkg.com/axe-core@latest/axe.min.js:12:103609)\n    at Object.H0 [as _runRules] (https://unpkg.com/axe-core@latest/axe.min.js:12:452272)\n    at axe.run (https://unpkg.com/axe-core@latest/axe.min.js:12:458083)\n    at eval (eval at evaluate (:291:30), <anonymous>:3:15)"
+        }
+      ],
+      "keyboardNavigation": {
+        "passed": false,
+        "issues": [
+          {
+            "type": "WCAG_2.4.3",
+            "severity": "medium",
+            "element": "BODY",
+            "message": "Focusable element is not visible",
+            "wcagCriterion": "2.4.3 Focus Order"
+          },
+          {
+            "type": "WCAG_2.4.3",
+            "severity": "medium",
+            "element": "BODY",
+            "message": "Focusable element is not visible",
+            "wcagCriterion": "2.4.3 Focus Order"
+          },
+          {
+            "type": "WCAG_2.4.1",
+            "severity": "medium",
+            "element": "navigation",
+            "message": "Missing skip link as first focusable element",
+            "wcagCriterion": "2.4.1 Bypass Blocks"
+          }
+        ]
+      },
+      "screenReader": {
+        "passed": false,
+        "issues": [
+          {
+            "type": "WCAG_1.3.1",
+            "severity": "medium",
+            "element": "page structure",
+            "message": "Missing navigation landmark",
+            "wcagCriterion": "1.3.1 Info and Relationships"
+          },
+          {
+            "type": "WCAG_1.3.1",
+            "severity": "medium",
+            "element": "page structure",
+            "message": "Missing main landmark",
+            "wcagCriterion": "1.3.1 Info and Relationships"
+          }
+        ]
+      },
+      "colorContrast": {
+        "passed": false,
+        "issues": [
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV#root",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "A",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "H1",
+            "message": "Insufficient color contrast: 1.64:1 (required: 3:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 3,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "72px"
+            }
+          }
+        ]
+      },
+      "focusManagement": {
+        "passed": true,
+        "issues": []
+      },
+      "semanticStructure": {
+        "passed": false,
+        "issues": [
+          {
+            "type": "WCAG_1.3.1",
+            "severity": "high",
+            "element": "body",
+            "message": "Missing main landmark element",
+            "wcagCriterion": "1.3.1 Info and Relationships"
+          },
+          {
+            "type": "WCAG_1.3.1",
+            "severity": "medium",
+            "element": "navigation",
+            "message": "No nav elements found for navigation sections",
+            "wcagCriterion": "1.3.1 Info and Relationships"
+          }
+        ]
+      },
+      "forms": {
+        "passed": true,
+        "issues": []
+      },
+      "medicalContent": {
+        "passed": false,
+        "issues": [
+          {
+            "type": "MEDICAL_ACCESSIBILITY",
+            "severity": "low",
+            "element": "text content",
+            "message": "Medical abbreviation \"USMLE\" should be marked up with <abbr> tag and full explanation",
+            "wcagCriterion": "3.1.4 Abbreviations",
+            "medicalEducationImpact": "High - Critical for medical students with learning disabilities"
+          }
+        ]
+      }
+    },
+    "Login Page": {
+      "url": "http://localhost:4173/login",
+      "pageName": "Login Page",
+      "issues": [
+        {
+          "type": "WCAG_1.3.1",
+          "severity": "high",
+          "element": "body",
+          "message": "Missing main landmark element",
+          "wcagCriterion": "1.3.1 Info and Relationships"
+        },
+        {
+          "type": "WCAG_1.3.1",
+          "severity": "medium",
+          "element": "navigation",
+          "message": "No nav elements found for navigation sections",
+          "wcagCriterion": "1.3.1 Info and Relationships"
+        },
+        {
+          "type": "WCAG_2.4.3",
+          "severity": "medium",
+          "element": "BODY",
+          "message": "Focusable element is not visible",
+          "wcagCriterion": "2.4.3 Focus Order"
+        },
+        {
+          "type": "WCAG_2.4.3",
+          "severity": "medium",
+          "element": "BODY",
+          "message": "Focusable element is not visible",
+          "wcagCriterion": "2.4.3 Focus Order"
+        },
+        {
+          "type": "WCAG_2.4.3",
+          "severity": "medium",
+          "element": "BODY",
+          "message": "Focusable element is not visible",
+          "wcagCriterion": "2.4.3 Focus Order"
+        },
+        {
+          "type": "WCAG_2.4.3",
+          "severity": "medium",
+          "element": "BODY",
+          "message": "Focusable element is not visible",
+          "wcagCriterion": "2.4.3 Focus Order"
+        },
+        {
+          "type": "WCAG_2.4.3",
+          "severity": "medium",
+          "element": "BODY",
+          "message": "Focusable element is not visible",
+          "wcagCriterion": "2.4.3 Focus Order"
+        },
+        {
+          "type": "WCAG_2.4.1",
+          "severity": "medium",
+          "element": "navigation",
+          "message": "Missing skip link as first focusable element",
+          "wcagCriterion": "2.4.1 Bypass Blocks"
+        },
+        {
+          "type": "WCAG_1.3.1",
+          "severity": "medium",
+          "element": "page structure",
+          "message": "Missing banner landmark",
+          "wcagCriterion": "1.3.1 Info and Relationships"
+        },
+        {
+          "type": "WCAG_1.3.1",
+          "severity": "medium",
+          "element": "page structure",
+          "message": "Missing navigation landmark",
+          "wcagCriterion": "1.3.1 Info and Relationships"
+        },
+        {
+          "type": "WCAG_1.3.1",
+          "severity": "medium",
+          "element": "page structure",
+          "message": "Missing main landmark",
+          "wcagCriterion": "1.3.1 Info and Relationships"
+        },
+        {
+          "type": "WCAG_1.3.1",
+          "severity": "medium",
+          "element": "page structure",
+          "message": "Missing contentinfo landmark",
+          "wcagCriterion": "1.3.1 Info and Relationships"
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV#root",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "LABEL",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "14px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "LABEL",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "14px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "A",
+          "message": "Insufficient color contrast: 2.95:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "2.95",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(10, 82, 189)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_3.3.2",
+          "severity": "medium",
+          "element": "email#email",
+          "message": "Required field not clearly indicated",
+          "wcagCriterion": "3.3.2 Labels or Instructions"
+        },
+        {
+          "type": "WCAG_3.3.2",
+          "severity": "medium",
+          "element": "password#password",
+          "message": "Required field not clearly indicated",
+          "wcagCriterion": "3.3.2 Labels or Instructions"
+        },
+        {
+          "type": "MEDICAL_ACCESSIBILITY",
+          "severity": "low",
+          "element": "text content",
+          "message": "Medical abbreviation \"USMLE\" should be marked up with <abbr> tag and full explanation",
+          "wcagCriterion": "3.1.4 Abbreviations",
+          "medicalEducationImpact": "High - Critical for medical students with learning disabilities"
+        }
+      ],
+      "wcagViolations": [
+        {
+          "type": "AXE_ERROR",
+          "severity": "high",
+          "message": "Axe-core test failed: page.evaluate: Error: unknown rule `keyboard-navigation` in options.rules\n    at https://unpkg.com/axe-core@latest/axe.min.js:12:448859\n    at Array.forEach (<anonymous>)\n    at e.value (https://unpkg.com/axe-core@latest/axe.min.js:12:448815)\n    at e.value (https://unpkg.com/axe-core@latest/axe.min.js:12:446559)\n    at https://unpkg.com/axe-core@latest/axe.min.js:12:452294\n    at c (https://unpkg.com/axe-core@latest/axe.min.js:12:103329)\n    at Object.defer (https://unpkg.com/axe-core@latest/axe.min.js:12:103609)\n    at Object.H0 [as _runRules] (https://unpkg.com/axe-core@latest/axe.min.js:12:452272)\n    at axe.run (https://unpkg.com/axe-core@latest/axe.min.js:12:458083)\n    at eval (eval at evaluate (:291:30), <anonymous>:3:15)"
+        }
+      ],
+      "keyboardNavigation": {
+        "passed": false,
+        "issues": [
+          {
+            "type": "WCAG_2.4.3",
+            "severity": "medium",
+            "element": "BODY",
+            "message": "Focusable element is not visible",
+            "wcagCriterion": "2.4.3 Focus Order"
+          },
+          {
+            "type": "WCAG_2.4.3",
+            "severity": "medium",
+            "element": "BODY",
+            "message": "Focusable element is not visible",
+            "wcagCriterion": "2.4.3 Focus Order"
+          },
+          {
+            "type": "WCAG_2.4.3",
+            "severity": "medium",
+            "element": "BODY",
+            "message": "Focusable element is not visible",
+            "wcagCriterion": "2.4.3 Focus Order"
+          },
+          {
+            "type": "WCAG_2.4.3",
+            "severity": "medium",
+            "element": "BODY",
+            "message": "Focusable element is not visible",
+            "wcagCriterion": "2.4.3 Focus Order"
+          },
+          {
+            "type": "WCAG_2.4.3",
+            "severity": "medium",
+            "element": "BODY",
+            "message": "Focusable element is not visible",
+            "wcagCriterion": "2.4.3 Focus Order"
+          },
+          {
+            "type": "WCAG_2.4.1",
+            "severity": "medium",
+            "element": "navigation",
+            "message": "Missing skip link as first focusable element",
+            "wcagCriterion": "2.4.1 Bypass Blocks"
+          }
+        ]
+      },
+      "screenReader": {
+        "passed": false,
+        "issues": [
+          {
+            "type": "WCAG_1.3.1",
+            "severity": "medium",
+            "element": "page structure",
+            "message": "Missing banner landmark",
+            "wcagCriterion": "1.3.1 Info and Relationships"
+          },
+          {
+            "type": "WCAG_1.3.1",
+            "severity": "medium",
+            "element": "page structure",
+            "message": "Missing navigation landmark",
+            "wcagCriterion": "1.3.1 Info and Relationships"
+          },
+          {
+            "type": "WCAG_1.3.1",
+            "severity": "medium",
+            "element": "page structure",
+            "message": "Missing main landmark",
+            "wcagCriterion": "1.3.1 Info and Relationships"
+          },
+          {
+            "type": "WCAG_1.3.1",
+            "severity": "medium",
+            "element": "page structure",
+            "message": "Missing contentinfo landmark",
+            "wcagCriterion": "1.3.1 Info and Relationships"
+          }
+        ]
+      },
+      "colorContrast": {
+        "passed": false,
+        "issues": [
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV#root",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "LABEL",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "14px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "LABEL",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "14px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "A",
+            "message": "Insufficient color contrast: 2.95:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "2.95",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(10, 82, 189)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          }
+        ]
+      },
+      "focusManagement": {
+        "passed": true,
+        "issues": []
+      },
+      "semanticStructure": {
+        "passed": false,
+        "issues": [
+          {
+            "type": "WCAG_1.3.1",
+            "severity": "high",
+            "element": "body",
+            "message": "Missing main landmark element",
+            "wcagCriterion": "1.3.1 Info and Relationships"
+          },
+          {
+            "type": "WCAG_1.3.1",
+            "severity": "medium",
+            "element": "navigation",
+            "message": "No nav elements found for navigation sections",
+            "wcagCriterion": "1.3.1 Info and Relationships"
+          }
+        ]
+      },
+      "forms": {
+        "passed": false,
+        "issues": [
+          {
+            "type": "WCAG_3.3.2",
+            "severity": "medium",
+            "element": "email#email",
+            "message": "Required field not clearly indicated",
+            "wcagCriterion": "3.3.2 Labels or Instructions"
+          },
+          {
+            "type": "WCAG_3.3.2",
+            "severity": "medium",
+            "element": "password#password",
+            "message": "Required field not clearly indicated",
+            "wcagCriterion": "3.3.2 Labels or Instructions"
+          }
+        ]
+      },
+      "medicalContent": {
+        "passed": false,
+        "issues": [
+          {
+            "type": "MEDICAL_ACCESSIBILITY",
+            "severity": "low",
+            "element": "text content",
+            "message": "Medical abbreviation \"USMLE\" should be marked up with <abbr> tag and full explanation",
+            "wcagCriterion": "3.1.4 Abbreviations",
+            "medicalEducationImpact": "High - Critical for medical students with learning disabilities"
+          }
+        ]
+      }
+    },
+    "Register Page": {
+      "url": "http://localhost:4173/register",
+      "pageName": "Register Page",
+      "issues": [
+        {
+          "type": "WCAG_1.3.1",
+          "severity": "high",
+          "element": "body",
+          "message": "Missing main landmark element",
+          "wcagCriterion": "1.3.1 Info and Relationships"
+        },
+        {
+          "type": "WCAG_1.3.1",
+          "severity": "medium",
+          "element": "navigation",
+          "message": "No nav elements found for navigation sections",
+          "wcagCriterion": "1.3.1 Info and Relationships"
+        },
+        {
+          "type": "WCAG_2.4.3",
+          "severity": "medium",
+          "element": "BODY",
+          "message": "Focusable element is not visible",
+          "wcagCriterion": "2.4.3 Focus Order"
+        },
+        {
+          "type": "WCAG_2.4.3",
+          "severity": "medium",
+          "element": "BODY",
+          "message": "Focusable element is not visible",
+          "wcagCriterion": "2.4.3 Focus Order"
+        },
+        {
+          "type": "WCAG_2.4.1",
+          "severity": "medium",
+          "element": "navigation",
+          "message": "Missing skip link as first focusable element",
+          "wcagCriterion": "2.4.1 Bypass Blocks"
+        },
+        {
+          "type": "WCAG_1.3.1",
+          "severity": "medium",
+          "element": "page structure",
+          "message": "Missing banner landmark",
+          "wcagCriterion": "1.3.1 Info and Relationships"
+        },
+        {
+          "type": "WCAG_1.3.1",
+          "severity": "medium",
+          "element": "page structure",
+          "message": "Missing navigation landmark",
+          "wcagCriterion": "1.3.1 Info and Relationships"
+        },
+        {
+          "type": "WCAG_1.3.1",
+          "severity": "medium",
+          "element": "page structure",
+          "message": "Missing main landmark",
+          "wcagCriterion": "1.3.1 Info and Relationships"
+        },
+        {
+          "type": "WCAG_1.3.1",
+          "severity": "medium",
+          "element": "page structure",
+          "message": "Missing contentinfo landmark",
+          "wcagCriterion": "1.3.1 Info and Relationships"
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV#root",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "LABEL",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "14px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "LABEL",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "14px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "LABEL",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "14px"
+          }
+        },
+        {
+          "type": "WCAG_3.3.2",
+          "severity": "medium",
+          "element": "text#name",
+          "message": "Required field not clearly indicated",
+          "wcagCriterion": "3.3.2 Labels or Instructions"
+        },
+        {
+          "type": "WCAG_3.3.2",
+          "severity": "medium",
+          "element": "email#email",
+          "message": "Required field not clearly indicated",
+          "wcagCriterion": "3.3.2 Labels or Instructions"
+        },
+        {
+          "type": "WCAG_3.3.2",
+          "severity": "medium",
+          "element": "password#password",
+          "message": "Required field not clearly indicated",
+          "wcagCriterion": "3.3.2 Labels or Instructions"
+        },
+        {
+          "type": "WCAG_3.3.2",
+          "severity": "medium",
+          "element": "password#confirmPassword",
+          "message": "Required field not clearly indicated",
+          "wcagCriterion": "3.3.2 Labels or Instructions"
+        },
+        {
+          "type": "MEDICAL_ACCESSIBILITY",
+          "severity": "low",
+          "element": "text content",
+          "message": "Medical abbreviation \"USMLE\" should be marked up with <abbr> tag and full explanation",
+          "wcagCriterion": "3.1.4 Abbreviations",
+          "medicalEducationImpact": "High - Critical for medical students with learning disabilities"
+        }
+      ],
+      "wcagViolations": [
+        {
+          "type": "AXE_ERROR",
+          "severity": "high",
+          "message": "Axe-core test failed: page.evaluate: Error: unknown rule `keyboard-navigation` in options.rules\n    at https://unpkg.com/axe-core@latest/axe.min.js:12:448859\n    at Array.forEach (<anonymous>)\n    at e.value (https://unpkg.com/axe-core@latest/axe.min.js:12:448815)\n    at e.value (https://unpkg.com/axe-core@latest/axe.min.js:12:446559)\n    at https://unpkg.com/axe-core@latest/axe.min.js:12:452294\n    at c (https://unpkg.com/axe-core@latest/axe.min.js:12:103329)\n    at Object.defer (https://unpkg.com/axe-core@latest/axe.min.js:12:103609)\n    at Object.H0 [as _runRules] (https://unpkg.com/axe-core@latest/axe.min.js:12:452272)\n    at axe.run (https://unpkg.com/axe-core@latest/axe.min.js:12:458083)\n    at eval (eval at evaluate (:291:30), <anonymous>:3:15)"
+        }
+      ],
+      "keyboardNavigation": {
+        "passed": false,
+        "issues": [
+          {
+            "type": "WCAG_2.4.3",
+            "severity": "medium",
+            "element": "BODY",
+            "message": "Focusable element is not visible",
+            "wcagCriterion": "2.4.3 Focus Order"
+          },
+          {
+            "type": "WCAG_2.4.3",
+            "severity": "medium",
+            "element": "BODY",
+            "message": "Focusable element is not visible",
+            "wcagCriterion": "2.4.3 Focus Order"
+          },
+          {
+            "type": "WCAG_2.4.1",
+            "severity": "medium",
+            "element": "navigation",
+            "message": "Missing skip link as first focusable element",
+            "wcagCriterion": "2.4.1 Bypass Blocks"
+          }
+        ]
+      },
+      "screenReader": {
+        "passed": false,
+        "issues": [
+          {
+            "type": "WCAG_1.3.1",
+            "severity": "medium",
+            "element": "page structure",
+            "message": "Missing banner landmark",
+            "wcagCriterion": "1.3.1 Info and Relationships"
+          },
+          {
+            "type": "WCAG_1.3.1",
+            "severity": "medium",
+            "element": "page structure",
+            "message": "Missing navigation landmark",
+            "wcagCriterion": "1.3.1 Info and Relationships"
+          },
+          {
+            "type": "WCAG_1.3.1",
+            "severity": "medium",
+            "element": "page structure",
+            "message": "Missing main landmark",
+            "wcagCriterion": "1.3.1 Info and Relationships"
+          },
+          {
+            "type": "WCAG_1.3.1",
+            "severity": "medium",
+            "element": "page structure",
+            "message": "Missing contentinfo landmark",
+            "wcagCriterion": "1.3.1 Info and Relationships"
+          }
+        ]
+      },
+      "colorContrast": {
+        "passed": false,
+        "issues": [
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV#root",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "LABEL",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "14px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "LABEL",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "14px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "LABEL",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "14px"
+            }
+          }
+        ]
+      },
+      "focusManagement": {
+        "passed": true,
+        "issues": []
+      },
+      "semanticStructure": {
+        "passed": false,
+        "issues": [
+          {
+            "type": "WCAG_1.3.1",
+            "severity": "high",
+            "element": "body",
+            "message": "Missing main landmark element",
+            "wcagCriterion": "1.3.1 Info and Relationships"
+          },
+          {
+            "type": "WCAG_1.3.1",
+            "severity": "medium",
+            "element": "navigation",
+            "message": "No nav elements found for navigation sections",
+            "wcagCriterion": "1.3.1 Info and Relationships"
+          }
+        ]
+      },
+      "forms": {
+        "passed": false,
+        "issues": [
+          {
+            "type": "WCAG_3.3.2",
+            "severity": "medium",
+            "element": "text#name",
+            "message": "Required field not clearly indicated",
+            "wcagCriterion": "3.3.2 Labels or Instructions"
+          },
+          {
+            "type": "WCAG_3.3.2",
+            "severity": "medium",
+            "element": "email#email",
+            "message": "Required field not clearly indicated",
+            "wcagCriterion": "3.3.2 Labels or Instructions"
+          },
+          {
+            "type": "WCAG_3.3.2",
+            "severity": "medium",
+            "element": "password#password",
+            "message": "Required field not clearly indicated",
+            "wcagCriterion": "3.3.2 Labels or Instructions"
+          },
+          {
+            "type": "WCAG_3.3.2",
+            "severity": "medium",
+            "element": "password#confirmPassword",
+            "message": "Required field not clearly indicated",
+            "wcagCriterion": "3.3.2 Labels or Instructions"
+          }
+        ]
+      },
+      "medicalContent": {
+        "passed": false,
+        "issues": [
+          {
+            "type": "MEDICAL_ACCESSIBILITY",
+            "severity": "low",
+            "element": "text content",
+            "message": "Medical abbreviation \"USMLE\" should be marked up with <abbr> tag and full explanation",
+            "wcagCriterion": "3.1.4 Abbreviations",
+            "medicalEducationImpact": "High - Critical for medical students with learning disabilities"
+          }
+        ]
+      }
+    },
+    "Dashboard": {
+      "url": "http://localhost:4173/dashboard",
+      "pageName": "Dashboard",
+      "issues": [
+        {
+          "type": "WCAG_1.3.1",
+          "severity": "high",
+          "element": "H2",
+          "message": "Page should start with h1 element",
+          "wcagCriterion": "1.3.1 Info and Relationships"
+        },
+        {
+          "type": "WCAG_2.4.3",
+          "severity": "medium",
+          "element": "BODY",
+          "message": "Focusable element is not visible",
+          "wcagCriterion": "2.4.3 Focus Order"
+        },
+        {
+          "type": "WCAG_2.4.1",
+          "severity": "medium",
+          "element": "navigation",
+          "message": "Missing skip link as first focusable element",
+          "wcagCriterion": "2.4.1 Bypass Blocks"
+        },
+        {
+          "type": "WCAG_1.3.1",
+          "severity": "high",
+          "element": "input[type=\"search\"]",
+          "message": "Form control missing accessible label",
+          "wcagCriterion": "1.3.1 Info and Relationships"
+        },
+        {
+          "type": "WCAG_1.3.1",
+          "severity": "medium",
+          "element": "page structure",
+          "message": "Missing navigation landmark",
+          "wcagCriterion": "1.3.1 Info and Relationships"
+        },
+        {
+          "type": "WCAG_1.3.1",
+          "severity": "medium",
+          "element": "page structure",
+          "message": "Missing contentinfo landmark",
+          "wcagCriterion": "1.3.1 Info and Relationships"
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV#root",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "H2",
+          "message": "Insufficient color contrast: 1.64:1 (required: 3:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 3,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "18px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "A",
+          "message": "Insufficient color contrast: 1.00:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.00",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(10, 82, 189)",
+            "background": "rgba(10, 82, 189, 0.1)",
+            "fontSize": "14px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "SPAN",
+          "message": "Insufficient color contrast: 2.95:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "2.95",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(10, 82, 189)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "14px"
+          }
+        },
+        {
+          "type": "WCAG_1.4.3",
+          "severity": "high",
+          "element": "DIV",
+          "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+          "wcagCriterion": "1.4.3 Contrast (Minimum)",
+          "details": {
+            "actualContrast": "1.64",
+            "requiredContrast": 4.5,
+            "foreground": "rgb(36, 51, 71)",
+            "background": "rgba(0, 0, 0, 0)",
+            "fontSize": "16px"
+          }
+        },
+        {
+          "type": "MEDICAL_ACCESSIBILITY",
+          "severity": "low",
+          "element": "text content",
+          "message": "Medical abbreviation \"USMLE\" should be marked up with <abbr> tag and full explanation",
+          "wcagCriterion": "3.1.4 Abbreviations",
+          "medicalEducationImpact": "High - Critical for medical students with learning disabilities"
+        }
+      ],
+      "wcagViolations": [
+        {
+          "type": "AXE_ERROR",
+          "severity": "high",
+          "message": "Axe-core test failed: page.evaluate: Error: unknown rule `keyboard-navigation` in options.rules\n    at https://unpkg.com/axe-core@latest/axe.min.js:12:448859\n    at Array.forEach (<anonymous>)\n    at e.value (https://unpkg.com/axe-core@latest/axe.min.js:12:448815)\n    at e.value (https://unpkg.com/axe-core@latest/axe.min.js:12:446559)\n    at https://unpkg.com/axe-core@latest/axe.min.js:12:452294\n    at c (https://unpkg.com/axe-core@latest/axe.min.js:12:103329)\n    at Object.defer (https://unpkg.com/axe-core@latest/axe.min.js:12:103609)\n    at Object.H0 [as _runRules] (https://unpkg.com/axe-core@latest/axe.min.js:12:452272)\n    at axe.run (https://unpkg.com/axe-core@latest/axe.min.js:12:458083)\n    at eval (eval at evaluate (:291:30), <anonymous>:3:15)"
+        }
+      ],
+      "keyboardNavigation": {
+        "passed": false,
+        "issues": [
+          {
+            "type": "WCAG_2.4.3",
+            "severity": "medium",
+            "element": "BODY",
+            "message": "Focusable element is not visible",
+            "wcagCriterion": "2.4.3 Focus Order"
+          },
+          {
+            "type": "WCAG_2.4.1",
+            "severity": "medium",
+            "element": "navigation",
+            "message": "Missing skip link as first focusable element",
+            "wcagCriterion": "2.4.1 Bypass Blocks"
+          }
+        ]
+      },
+      "screenReader": {
+        "passed": false,
+        "issues": [
+          {
+            "type": "WCAG_1.3.1",
+            "severity": "high",
+            "element": "input[type=\"search\"]",
+            "message": "Form control missing accessible label",
+            "wcagCriterion": "1.3.1 Info and Relationships"
+          },
+          {
+            "type": "WCAG_1.3.1",
+            "severity": "medium",
+            "element": "page structure",
+            "message": "Missing navigation landmark",
+            "wcagCriterion": "1.3.1 Info and Relationships"
+          },
+          {
+            "type": "WCAG_1.3.1",
+            "severity": "medium",
+            "element": "page structure",
+            "message": "Missing contentinfo landmark",
+            "wcagCriterion": "1.3.1 Info and Relationships"
+          }
+        ]
+      },
+      "colorContrast": {
+        "passed": false,
+        "issues": [
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV#root",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "H2",
+            "message": "Insufficient color contrast: 1.64:1 (required: 3:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 3,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "18px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "A",
+            "message": "Insufficient color contrast: 1.00:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.00",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(10, 82, 189)",
+              "background": "rgba(10, 82, 189, 0.1)",
+              "fontSize": "14px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "SPAN",
+            "message": "Insufficient color contrast: 2.95:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "2.95",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(10, 82, 189)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "14px"
+            }
+          },
+          {
+            "type": "WCAG_1.4.3",
+            "severity": "high",
+            "element": "DIV",
+            "message": "Insufficient color contrast: 1.64:1 (required: 4.5:1)",
+            "wcagCriterion": "1.4.3 Contrast (Minimum)",
+            "details": {
+              "actualContrast": "1.64",
+              "requiredContrast": 4.5,
+              "foreground": "rgb(36, 51, 71)",
+              "background": "rgba(0, 0, 0, 0)",
+              "fontSize": "16px"
+            }
+          }
+        ]
+      },
+      "focusManagement": {
+        "passed": true,
+        "issues": []
+      },
+      "semanticStructure": {
+        "passed": false,
+        "issues": [
+          {
+            "type": "WCAG_1.3.1",
+            "severity": "high",
+            "element": "H2",
+            "message": "Page should start with h1 element",
+            "wcagCriterion": "1.3.1 Info and Relationships"
+          }
+        ]
+      },
+      "forms": {
+        "passed": true,
+        "issues": []
+      },
+      "medicalContent": {
+        "passed": false,
+        "issues": [
+          {
+            "type": "MEDICAL_ACCESSIBILITY",
+            "severity": "low",
+            "element": "text content",
+            "message": "Medical abbreviation \"USMLE\" should be marked up with <abbr> tag and full explanation",
+            "wcagCriterion": "3.1.4 Abbreviations",
+            "medicalEducationImpact": "High - Critical for medical students with learning disabilities"
+          }
+        ]
+      }
+    }
+  },
+  "medicalEducationSpecific": [
+    {
+      "category": "Quiz Interface",
+      "recommendation": "Implement proper ARIA radiogroup structure for multiple choice questions",
+      "priority": "High",
+      "impact": "Critical for screen reader users taking medical exams"
+    },
+    {
+      "category": "Medical Content",
+      "recommendation": "Add <abbr> tags for medical abbreviations with full explanations",
+      "priority": "Medium",
+      "impact": "Helps students with learning disabilities understand terminology"
+    },
+    {
+      "category": "Timer Accessibility",
+      "recommendation": "Ensure exam timers are announced to assistive technology",
+      "priority": "High",
+      "impact": "Critical for timed medical examinations"
+    },
+    {
+      "category": "Complex Images",
+      "recommendation": "Provide detailed alternative text for medical diagrams and charts",
+      "priority": "Critical",
+      "impact": "Essential for visually impaired medical students"
+    }
+  ],
+  "recommendations": [
+    {
+      "title": "Implement Skip Navigation",
+      "description": "Add skip links to help keyboard users bypass repetitive navigation",
+      "wcagCriterion": "2.4.1 Bypass Blocks",
+      "implementation": "Add hidden skip link as first focusable element",
+      "priority": "High"
+    },
+    {
+      "title": "Improve Color Contrast",
+      "description": "Ensure all text meets WCAG AA contrast requirements",
+      "wcagCriterion": "1.4.3 Contrast (Minimum)",
+      "implementation": "Review color palette and adjust contrast ratios",
+      "priority": "Critical"
+    },
+    {
+      "title": "Enhance Focus Indicators",
+      "description": "Provide visible focus indicators for all interactive elements",
+      "wcagCriterion": "2.4.7 Focus Visible",
+      "implementation": "Add CSS outline or box-shadow for focus states",
+      "priority": "High"
+    },
+    {
+      "title": "Screen Reader Optimization",
+      "description": "Add proper ARIA labels and descriptions",
+      "wcagCriterion": "1.3.1 Info and Relationships",
+      "implementation": "Implement comprehensive ARIA labeling strategy",
+      "priority": "High"
+    }
+  ],
+  "nextSteps": [
+    "Fix all critical and high severity issues",
+    "Implement medical education specific enhancements",
+    "Conduct user testing with assistive technology",
+    "Regular accessibility audits during development"
+  ]
+}

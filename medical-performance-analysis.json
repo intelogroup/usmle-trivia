@@ -1,0 +1,258 @@
+{
+  "timestamp": "2025-08-08T19:46:28.054Z",
+  "platform": "MedQuiz Pro - Medical Education Platform",
+  "summary": {
+    "overallMedicalReadiness": "EXCELLENT",
+    "bundleOptimization": "NEEDS_OPTIMIZATION",
+    "mobileStudyViability": "NEEDS_IMPROVEMENT",
+    "criticalIssues": 1,
+    "medicalEducationScore": 100
+  },
+  "bundleAnalysis": {
+    "totalSizeKB": 599,
+    "chunks": [
+      {
+        "file": "react-vendor-DwjphtfF.js",
+        "sizeKB": 247,
+        "type": "JavaScript"
+      },
+      {
+        "file": "questions-data-CPAvPb88.js",
+        "sizeKB": 107,
+        "type": "JavaScript"
+      },
+      {
+        "file": "convex-B3ilR6nI.js",
+        "sizeKB": 48,
+        "type": "JavaScript"
+      },
+      {
+        "file": "vendor-Btqltrw-.js",
+        "sizeKB": 35,
+        "type": "JavaScript"
+      },
+      {
+        "file": "quiz-components-DTS4i5yB.js",
+        "sizeKB": 34,
+        "type": "JavaScript"
+      },
+      {
+        "file": "Social-YfDmfY88.js",
+        "sizeKB": 19,
+        "type": "JavaScript"
+      },
+      {
+        "file": "services-CcvrBvq9.js",
+        "sizeKB": 16,
+        "type": "JavaScript"
+      },
+      {
+        "file": "Dashboard-CEFSxDQC.js",
+        "sizeKB": 12,
+        "type": "JavaScript"
+      },
+      {
+        "file": "AppLayout-BLXuRxAV.js",
+        "sizeKB": 11,
+        "type": "JavaScript"
+      },
+      {
+        "file": "index-DO9cg6HP.js",
+        "sizeKB": 11,
+        "type": "JavaScript"
+      },
+      {
+        "file": "UserProfile-B64GxfZi.js",
+        "sizeKB": 10,
+        "type": "JavaScript"
+      },
+      {
+        "file": "ui-components-BaZv6l5C.js",
+        "sizeKB": 9,
+        "type": "JavaScript"
+      },
+      {
+        "file": "Landing-BhfAznq1.js",
+        "sizeKB": 7,
+        "type": "JavaScript"
+      },
+      {
+        "file": "Leaderboard-DoIjymsC.js",
+        "sizeKB": 7,
+        "type": "JavaScript"
+      },
+      {
+        "file": "PerformanceChart-BiuDQXRz.js",
+        "sizeKB": 6,
+        "type": "JavaScript"
+      },
+      {
+        "file": "state-CQwh4XwO.js",
+        "sizeKB": 6,
+        "type": "JavaScript"
+      },
+      {
+        "file": "Register-BfVt-fHe.js",
+        "sizeKB": 5,
+        "type": "JavaScript"
+      },
+      {
+        "file": "Login-VgJIak_H.js",
+        "sizeKB": 3,
+        "type": "JavaScript"
+      },
+      {
+        "file": "NotFound-C664QvEo.js",
+        "sizeKB": 3,
+        "type": "JavaScript"
+      },
+      {
+        "file": "Quiz-CkDbjfTw.js",
+        "sizeKB": 3,
+        "type": "JavaScript"
+      },
+      {
+        "file": "Progress-BIc2shUm.js",
+        "sizeKB": 0,
+        "type": "JavaScript"
+      },
+      {
+        "file": "radix-ui-Dc_FVRD7.js",
+        "sizeKB": 0,
+        "type": "JavaScript"
+      }
+    ],
+    "medicalContentSize": 141,
+    "vendorSize": 330,
+    "meetsTarget": false,
+    "optimization": {
+      "largestChunks": [
+        {
+          "file": "react-vendor-DwjphtfF.js",
+          "sizeKB": 247,
+          "type": "JavaScript"
+        },
+        {
+          "file": "questions-data-CPAvPb88.js",
+          "sizeKB": 107,
+          "type": "JavaScript"
+        }
+      ],
+      "medicalDataOptimization": "Medical data chunked"
+    }
+  },
+  "coreWebVitals": {
+    "Landing": {
+      "loadTime": 808,
+      "lcp": 1076,
+      "cls": 0,
+      "fcp": 212,
+      "assessment": {
+        "lcp": "GOOD",
+        "cls": "GOOD",
+        "fcp": "GOOD"
+      },
+      "medicalContext": {
+        "readabilityImpact": "LOW",
+        "studySessionViability": "EXCELLENT for study sessions"
+      }
+    },
+    "Login": {
+      "loadTime": 844,
+      "lcp": 1136,
+      "cls": 0,
+      "fcp": 300,
+      "assessment": {
+        "lcp": "GOOD",
+        "cls": "GOOD",
+        "fcp": "GOOD"
+      },
+      "medicalContext": {
+        "readabilityImpact": "LOW",
+        "studySessionViability": "EXCELLENT for study sessions"
+      }
+    },
+    "Dashboard": {
+      "loadTime": 726,
+      "lcp": 736,
+      "cls": 0,
+      "fcp": 148,
+      "assessment": {
+        "lcp": "GOOD",
+        "cls": "GOOD",
+        "fcp": "GOOD"
+      },
+      "medicalContext": {
+        "readabilityImpact": "LOW",
+        "studySessionViability": "EXCELLENT for study sessions"
+      }
+    }
+  },
+  "mobilePerformance": {
+    "iPhone_12": {
+      "loadTime": 853,
+      "error": "Navigation test failed",
+      "medicalStudyViability": {
+        "suitableForQuizzes": false
+      }
+    },
+    "iPad": {
+      "loadTime": 735,
+      "error": "Navigation test failed",
+      "medicalStudyViability": {
+        "suitableForQuizzes": false
+      }
+    },
+    "Android_Phone": {
+      "loadTime": 716,
+      "error": "Navigation test failed",
+      "medicalStudyViability": {
+        "suitableForQuizzes": false
+      }
+    }
+  },
+  "userExperience": {
+    "interactionTests": [
+      {
+        "action": "navigation",
+        "time": 111,
+        "success": true
+      },
+      {
+        "action": "form_input",
+        "time": 187,
+        "success": true
+      }
+    ],
+    "averageResponseTime": 149,
+    "medicalEducationAssessment": {
+      "quizReadiness": true,
+      "learningFlowDisruption": "MINIMAL",
+      "accessibilityForMedicalTerms": "NEEDS_TESTING"
+    }
+  },
+  "medicalSpecific": {},
+  "recommendations": [
+    {
+      "category": "Medical Content Optimization",
+      "priority": "HIGH",
+      "issue": "Bundle size (599KB) may slow initial access to medical content",
+      "solution": "Implement lazy loading for medical questions and images. Prioritize core quiz functionality.",
+      "medicalImpact": "Faster access to study materials improves learning efficiency"
+    },
+    {
+      "category": "Medical Data Chunking",
+      "priority": "MEDIUM",
+      "issue": "Medical content (141KB) in large chunks",
+      "solution": "Split medical questions by specialty or difficulty level for progressive loading",
+      "medicalImpact": "Enables specialty-focused study sessions with faster loading"
+    },
+    {
+      "category": "Medical Education Optimization",
+      "priority": "MEDIUM",
+      "issue": "Medical platform needs specialized performance considerations",
+      "solution": "Implement medical image lazy loading, offline question caching, and study session persistence",
+      "medicalImpact": "Enables uninterrupted study sessions and better learning retention"
+    }
+  ]
+}

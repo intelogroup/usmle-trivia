@@ -1,0 +1,144 @@
+{
+  "timestamp": "2025-08-08T19:23:51.743Z",
+  "testSuite": "Accessibility and Keyboard Navigation Tests",
+  "results": [
+    {
+      "category": "ARIA Attributes",
+      "testName": "ARIA Elements Present",
+      "status": "WARNING",
+      "details": "Elements with ARIA attributes: 0",
+      "screenshot": "accessibility-test-01-landing-accessibility-1754681032693.png",
+      "timestamp": "2025-08-08T19:23:53.371Z"
+    },
+    {
+      "category": "Images",
+      "testName": "Alt Text Coverage",
+      "status": "PASS",
+      "details": "0/0 images have alt text (100.0%)",
+      "screenshot": "accessibility-test-01-landing-accessibility-1754681032693.png",
+      "timestamp": "2025-08-08T19:23:53.379Z"
+    },
+    {
+      "category": "HTML Semantics",
+      "testName": "Semantic Elements",
+      "status": "PASS",
+      "details": "Semantic elements found: 12",
+      "screenshot": "accessibility-test-01-landing-accessibility-1754681032693.png",
+      "timestamp": "2025-08-08T19:23:53.386Z"
+    },
+    {
+      "category": "Color Contrast",
+      "testName": "Basic Contrast Check",
+      "status": "WARNING",
+      "details": "Potential contrast issues: 3",
+      "screenshot": "accessibility-test-01-landing-accessibility-1754681032693.png",
+      "timestamp": "2025-08-08T19:23:53.554Z"
+    },
+    {
+      "category": "Keyboard Navigation",
+      "testName": "Tab Navigation",
+      "status": "PASS",
+      "details": "Focus sequence: A.text-muted-foreground → A",
+      "screenshot": "accessibility-test-01-landing-accessibility-1754681032693.png",
+      "timestamp": "2025-08-08T19:23:54.573Z"
+    },
+    {
+      "category": "Focus Management",
+      "testName": "Focus Visibility",
+      "status": "PASS",
+      "details": "Focus styles applied: true",
+      "screenshot": "accessibility-test-02-focus-visible-1754681034573.png",
+      "timestamp": "2025-08-08T19:23:55.133Z"
+    },
+    {
+      "category": "Form Labels",
+      "testName": "Input Labels",
+      "status": "PASS",
+      "details": "2/2 inputs have labels",
+      "screenshot": "accessibility-test-03-form-accessibility-1754681035187.png",
+      "timestamp": "2025-08-08T19:23:55.434Z"
+    },
+    {
+      "category": "Required Fields",
+      "testName": "Required Indicators",
+      "status": "PASS",
+      "details": "Required fields: 2, Indicators: 16",
+      "screenshot": "accessibility-test-03-form-accessibility-1754681035187.png",
+      "timestamp": "2025-08-08T19:23:55.457Z"
+    },
+    {
+      "category": "Error Handling",
+      "testName": "Error Message Accessibility",
+      "status": "PASS",
+      "details": "Error messages found: 0",
+      "screenshot": "accessibility-test-04-error-messages-1754681036874.png",
+      "timestamp": "2025-08-08T19:23:57.100Z"
+    },
+    {
+      "category": "Keyboard Navigation",
+      "testName": "Form Keyboard Input",
+      "status": "FAIL",
+      "details": "Email filled: false, Password filled: true",
+      "screenshot": "accessibility-test-05-keyboard-form-fill-1754681037912.png",
+      "timestamp": "2025-08-08T19:23:58.105Z"
+    },
+    {
+      "category": "Keyboard Navigation",
+      "testName": "Enter Key Submit",
+      "status": "WARNING",
+      "details": "Form submitted via Enter key: false",
+      "screenshot": "accessibility-test-06-keyboard-submit-1754681041113.png",
+      "timestamp": "2025-08-08T19:24:01.322Z"
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "01-landing-accessibility",
+      "description": "Landing page accessibility check",
+      "filename": "accessibility-test-01-landing-accessibility-1754681032693.png",
+      "filepath": "/root/repo/accessibility-test-screenshots/accessibility-test-01-landing-accessibility-1754681032693.png",
+      "timestamp": 1754681032693
+    },
+    {
+      "name": "02-focus-visible",
+      "description": "Focus visibility check",
+      "filename": "accessibility-test-02-focus-visible-1754681034573.png",
+      "filepath": "/root/repo/accessibility-test-screenshots/accessibility-test-02-focus-visible-1754681034573.png",
+      "timestamp": 1754681034573
+    },
+    {
+      "name": "03-form-accessibility",
+      "description": "Form accessibility check",
+      "filename": "accessibility-test-03-form-accessibility-1754681035187.png",
+      "filepath": "/root/repo/accessibility-test-screenshots/accessibility-test-03-form-accessibility-1754681035187.png",
+      "timestamp": 1754681035187
+    },
+    {
+      "name": "04-error-messages",
+      "description": "Error message accessibility",
+      "filename": "accessibility-test-04-error-messages-1754681036874.png",
+      "filepath": "/root/repo/accessibility-test-screenshots/accessibility-test-04-error-messages-1754681036874.png",
+      "timestamp": 1754681036874
+    },
+    {
+      "name": "05-keyboard-form-fill",
+      "description": "Keyboard form filling",
+      "filename": "accessibility-test-05-keyboard-form-fill-1754681037912.png",
+      "filepath": "/root/repo/accessibility-test-screenshots/accessibility-test-05-keyboard-form-fill-1754681037912.png",
+      "timestamp": 1754681037912
+    },
+    {
+      "name": "06-keyboard-submit",
+      "description": "Keyboard form submission",
+      "filename": "accessibility-test-06-keyboard-submit-1754681041113.png",
+      "filepath": "/root/repo/accessibility-test-screenshots/accessibility-test-06-keyboard-submit-1754681041113.png",
+      "timestamp": 1754681041113
+    }
+  ],
+  "summary": {
+    "total": 11,
+    "passed": 7,
+    "failed": 1,
+    "warnings": 3
+  }
+}
