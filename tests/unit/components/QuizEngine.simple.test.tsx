@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // Simple mock for QuizEngine component without complex dependencies
-const MockQuizEngine = ({ mode, onBack, onComplete }) => {
+const MockQuizEngine = ({ mode, onBack }) => {
   return (
     <div data-testid="quiz-engine">
       <h1>{mode} Quiz</h1>

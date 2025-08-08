@@ -3,8 +3,8 @@
  * Netlify Site Configuration and Automation
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 class MedQuizInfrastructure {
   constructor() {
@@ -502,10 +502,10 @@ echo "🏥 Medical platform service restored"
 }
 
 // Export for use in build scripts
-module.exports = MedQuizInfrastructure;
+export default MedQuizInfrastructure;
 
 // CLI usage
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   const infrastructure = new MedQuizInfrastructure();
   infrastructure.save();
 }
