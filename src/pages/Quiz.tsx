@@ -120,6 +120,26 @@ export const Quiz: React.FC = () => {
     setCompletedSession(session);
     if (enhancedData) {
       setEnhancedResults(enhancedData);
+      
+      // Update user stats in real-time for immediate UI feedback
+      if (user && enhancedData.pointsEarned > 0) {
+        const currentPoints = user.points || 0;
+        const newPoints = currentPoints + enhancedData.pointsEarned;
+        const newLevel = Math.floor(newPoints / 100) + 1;
+        const currentTotalQuizzes = user.totalQuizzes || 0;
+        const newTotalQuizzes = currentTotalQuizzes + 1;
+        const newAccuracy = currentTotalQuizzes === 0 
+          ? enhancedData.userStats.accuracy 
+          : Math.round((((user.accuracy || 0) * currentTotalQuizzes) + enhancedData.userStats.accuracy) / newTotalQuizzes);
+        
+        // Update user stats in store for immediate UI feedback
+        useAppStore.getState().updateUserStats({
+          points: newPoints,
+          level: newLevel,
+          totalQuizzes: newTotalQuizzes,
+          accuracy: newAccuracy,
+        });
+      }
     }
     setQuizState('results');
   };

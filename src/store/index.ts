@@ -26,6 +26,7 @@ interface AppState {
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   register: (email: string, password: string, name: string) => Promise<void>;
+  updateUserStats: (updates: Partial<IUser>) => void;
   
   // Quiz actions
   startQuiz: (config: IQuizConfig) => void;
@@ -191,6 +192,38 @@ export const useAppStore = create<AppState>()(
         },
         
         clearNotifications: () => set({ notifications: [] }),
+        
+        // Update user stats after quiz completion for real-time UI updates
+        updateUserStats: (updates: Partial<IUser>) => {
+          set((state) => {
+            if (!state.user) return state;
+            
+            const updatedUser = { ...state.user, ...updates };
+            
+            // Show notification for points earned if included
+            if (updates.points && updates.points > (state.user.points || 0)) {
+              const pointsEarned = updates.points - (state.user.points || 0);
+              get().addNotification({
+                type: 'success',
+                title: 'Points Earned! 🎉',
+                message: `+${pointsEarned} points! Total: ${updates.points}`,
+                duration: 4000,
+              });
+            }
+            
+            // Show level up notification if level increased
+            if (updates.level && updates.level > (state.user.level || 1)) {
+              get().addNotification({
+                type: 'success',
+                title: 'Level Up! 🚀',
+                message: `Congratulations! You reached Level ${updates.level}`,
+                duration: 5000,
+              });
+            }
+            
+            return { ...state, user: updatedUser };
+          });
+        },
       }),
       {
         name: 'medquiz-storage',
