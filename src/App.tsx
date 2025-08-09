@@ -4,7 +4,6 @@ import { useAppStore } from './store';
 import { authService } from './services/auth';
 import { validateEnvironment, logEnvironmentInfo, isDevelopment } from './utils/envValidation';
 import { quizSessionManager } from './services/QuizSessionManager';
-import { PWAUpdateNotification, OfflineIndicator } from './components/PWAUpdateNotification';
 
 // Lazy load components to enable code splitting
 const AppLayout = lazy(() => import('./components/layout/AppLayout').then(module => ({ default: module.AppLayout })));
@@ -199,10 +198,6 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
-      
-      {/* PWA Features */}
-      <OfflineIndicator />
-      <PWAUpdateNotification />
     </Router>
   );
 }
