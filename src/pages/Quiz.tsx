@@ -74,10 +74,13 @@ export const Quiz: React.FC = () => {
       if (mode === 'custom' && customQuizConfig) {
         questionCount = customQuizConfig.questionCount;
         timeLimit = customQuizConfig.timeLimit ? customQuizConfig.timeLimit * 60 : undefined; // convert minutes to seconds
+      } else if (mode === 'timed' && timedQuizConfig) {
+        questionCount = timedQuizConfig.questionCount;
+        timeLimit = timedQuizConfig.timeLimit; // already in seconds
       } else {
         // Default values for quick and timed modes
-        questionCount = mode === 'quick' ? 5 : mode === 'timed' ? 10 : 8;
-        timeLimit = mode === 'timed' ? 600 : mode === 'custom' ? 480 : undefined; // seconds
+        questionCount = mode === 'quick' ? 5 : mode === 'timed' ? 15 : 8;
+        timeLimit = mode === 'timed' ? 30 * 60 : mode === 'custom' ? 480 : undefined; // seconds
       }
       
       // Generate question IDs based on mode
