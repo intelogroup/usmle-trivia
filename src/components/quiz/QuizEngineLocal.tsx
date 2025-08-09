@@ -56,7 +56,7 @@ function convertToQuestion(questionData: QuestionData, index: number): Question 
   };
 }
 
-export const QuizEngineLocal: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete }) => {
+export const QuizEngineLocal: React.FC<QuizEngineProps> = ({ mode, config, onBack, onComplete }) => {
   const { user } = useAppStore();
   const [error, setError] = useState<string | null>(null);
   
