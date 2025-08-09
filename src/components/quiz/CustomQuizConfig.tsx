@@ -78,6 +78,30 @@ export const CustomQuizConfig: React.FC<CustomQuizConfigProps> = ({ onStartQuiz,
     }));
   };
 
+  const handleSelectAll = (category: CategoryTab) => {
+    const allItems = getCurrentItems();
+    const selectedItems = getSelectedItems();
+    
+    // If all items are selected, deselect all. Otherwise, select all.
+    if (selectedItems.length === allItems.length) {
+      setConfig(prev => ({
+        ...prev,
+        [category]: []
+      }));
+    } else {
+      setConfig(prev => ({
+        ...prev,
+        [category]: [...allItems]
+      }));
+    }
+  };
+
+  const isAllSelected = () => {
+    const allItems = getCurrentItems();
+    const selectedItems = getSelectedItems();
+    return allItems.length > 0 && selectedItems.length === allItems.length;
+  };
+
   const canStartQuiz = config.subjects.length > 0 && availableQuestions >= config.questionCount;
 
   const getCurrentItems = () => {
@@ -167,6 +191,33 @@ export const CustomQuizConfig: React.FC<CustomQuizConfigProps> = ({ onStartQuiz,
 
       {/* Selection Grid */}
       <Card className="p-4">
+        {getCurrentItems().length > 0 && (
+          <div className="mb-3 pb-3 border-b border-gray-200">
+            <button
+              onClick={() => handleSelectAll(activeTab)}
+              className={cn(
+                "flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md transition-all",
+                isAllSelected()
+                  ? "bg-blue-100 text-blue-700 border border-blue-200"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300"
+              )}
+            >
+              <div className={cn(
+                "w-4 h-4 rounded border-2 flex-shrink-0 flex items-center justify-center",
+                isAllSelected() ? "bg-blue-600 border-blue-600" : "border-gray-400"
+              )}>
+                {isAllSelected() && (
+                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                )}
+              </div>
+              <span>All {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</span>
+              <span className="text-xs text-gray-500">({getCurrentItems().length})</span>
+            </button>
+          </div>
+        )}
+        
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
           {getCurrentItems().map((item) => {
             const isSelected = getSelectedItems().includes(item);
