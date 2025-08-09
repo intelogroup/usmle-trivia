@@ -3,7 +3,7 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { ArrowLeft, Play, AlertTriangle } from 'lucide-react';
-import { QuizEngine } from '../components/quiz/QuizEngine';
+import { QuizEngineLocal as QuizEngine } from '../components/quiz/QuizEngineLocal';
 import { QuizResults } from '../components/quiz/QuizResults';
 import { QuizResultsSummary } from '../components/quiz/QuizResultsSummary';
 import { TransitionScreen } from '../components/ui/LoadingStates';
