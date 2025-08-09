@@ -1,8 +1,8 @@
-# 🎨 Unified Theme System Documentation
+# 🎨 Minimal Light Theme System Documentation
 
 ## Overview
 
-The MedQuiz Pro application now uses a **unified theme system** that consolidates design tokens with Tailwind CSS, ensuring consistency between documentation, TypeScript code, and CSS styling.
+The MedQuiz Pro application uses a **minimal light theme system** focused on clean functionality, optimal performance, and accessibility. This system consolidates design tokens with Tailwind CSS for consistent, efficient styling across all components.
 
 ## Architecture
 
@@ -21,10 +21,11 @@ docs/
 
 ## Core Features
 
-### ✅ Design Token Compliance
-- **100% compliant** with `/docs/design-tokens.md` specifications
-- All colors, typography, spacing, and other tokens exactly match documentation
-- Hex colors (`#0052CC`) automatically converted to HSL for CSS compatibility
+### ✅ Minimal Design Token System
+- **Simplified color palette** for optimal performance and consistency
+- **Clean typography scale** with Inter font and system fallbacks
+- **Streamlined spacing system** with logical progression
+- **Performance optimized** CSS generation
 
 ### ✅ Dual Format Support
 Every color provides both hex and HSL values:
@@ -40,14 +41,12 @@ CSS variables work seamlessly with Tailwind:
 <div className="bg-medical-anatomy">  {/* Medical specialty colors */}
 ```
 
-### ✅ Medical Education Specific
-Specialized colors for medical subjects:
-- `medical-anatomy` - Red for anatomy
-- `medical-physiology` - Blue for physiology
-- `medical-pathology` - Purple for pathology
-- `medical-pharmacology` - Green for pharmacology
-- `medical-microbiology` - Yellow for microbiology
-- `medical-biochemistry` - Orange for biochemistry
+### ✅ Medical Education Focused
+**Simplified approach** removes complex medical specialty colors in favor of:
+- **Primary blue** (#0052CC) for all medical content
+- **Semantic colors** (success, warning, danger) for functional feedback
+- **Grayscale system** for text hierarchy and UI structure
+- **Clean contrast** optimized for medical learning environments
 
 ## Usage Examples
 
@@ -108,28 +107,22 @@ const buttonPadding = theme.components.button.padding.md;
 
 ### Available Colors
 
-#### Core Brand Colors (from design tokens)
-- `primary` - #0052CC (Medical blue)
-- `secondary` - #0065FF (Bright blue)
-- `success` - #36B37E (Medical green)
-- `warning` - #FFAB00 (Medical amber)
-- `danger` - #FF5630 (Medical red)
+#### Simplified Core Colors
+- `primary` - #0052CC (Professional medical blue)
+- `success` - #16A34A (Clean green for correct answers)
+- `warning` - #EA580C (Orange for caution states)
+- `danger` - #DC2626 (Red for errors and incorrect answers)
 
-#### Medical Specialty Colors
-- `medical-anatomy` - #E53E3E (Red)
-- `medical-physiology` - #3182CE (Blue)
-- `medical-pathology` - #805AD5 (Purple)
-- `medical-pharmacology` - #38A169 (Green)
-- `medical-microbiology` - #D69E2E (Yellow)
-- `medical-biochemistry` - #ED8936 (Orange)
+#### Background & Surface Colors
+- `background` - #FFFFFF (Pure white)
+- `surface` - #F8F9FA (Subtle gray for cards)
+- `border` - #E5E7EB (Light gray borders)
+- `border-light` - #F3F4F6 (Very light borders)
 
-#### UI Semantic Colors
-- `background` - #FFFFFF
-- `foreground` - #172B4D
-- `muted` - #F4F5F7
-- `border` - #E4E7EC
-- `input` - #E4E7EC
-- And many more...
+#### Text & Content Colors
+- `text-primary` - #1A1A1A (High contrast black)
+- `text-secondary` - #666666 (Medium gray for secondary text)
+- `gray-50` to `gray-900` - Complete grayscale system
 
 ### Typography Scale
 
@@ -164,24 +157,21 @@ spacing: {
 }
 ```
 
-## Dark Mode Support
+## Light Theme Focus
 
-The theme system includes complete dark mode support:
+The minimal theme system **focuses exclusively on light theme** for:
 
-```css
-.dark {
-  --background: 222 84% 5%;
-  --foreground: 210 40% 98%;
-  --primary: 217 91% 60%;
-  /* ... all colors adjusted for dark mode */
-}
-```
+### Performance Benefits
+- **Reduced CSS complexity** - No duplicate color definitions
+- **Smaller bundle size** - Single theme reduces generated CSS
+- **Faster rendering** - No theme switching logic
+- **Simpler maintenance** - One theme to test and optimize
 
-Enable dark mode by adding the `dark` class to the root element:
-
-```jsx
-<html className="dark">
-```
+### Future Dark Mode Considerations
+If dark mode becomes necessary:
+- **Selective implementation** based on user feedback
+- **Performance-first approach** maintaining minimal complexity
+- **Medical education appropriate** ensuring readability for learning
 
 ## Advanced Features
 
@@ -206,14 +196,16 @@ import { colors } from '../theme';
 const primaryHex = colors.primary.hex; // New way
 ```
 
-### Medical Color Utilities
+### Simplified Medical Utilities
 
-Special utilities for medical education:
+Minimal utilities focus on core functionality:
 
 ```jsx
-// Use medical specialty colors in components
-<span className="text-medical-anatomy">Anatomy</span>
-<div className="bg-medical-physiology">Physiology</div>
+// Primary medical theme colors
+<div className="bg-primary text-white">Medical Content</div>
+<div className="text-success">Correct Answer</div>
+<div className="text-danger">Incorrect Answer</div>
+<div className="bg-surface border border-gray-200">Question Card</div>
 ```
 
 ## Migration Guide
@@ -254,15 +246,17 @@ const primaryHsl = theme.colors.primary.hsl;   // "216 90% 39%"
 
 ### ✅ Do:
 - Use semantic color names (`bg-primary`, `text-success`)
-- Leverage medical specialty colors for subject-specific UI
-- Use design token spacing and typography
-- Import from the unified theme system
+- Leverage simplified grayscale system for hierarchy
+- Use standardized spacing and typography tokens
+- Focus on accessibility and readability
+- Optimize for performance with minimal CSS
 
 ### ❌ Don't:
-- Hard-code color values or spacing
-- Mix old and new theme approaches in the same component
-- Override CSS variables without updating theme tokens
-- Use non-semantic color references
+- Add unnecessary visual complexity or gradients
+- Create custom colors outside the simplified palette
+- Use complex animations or visual effects
+- Override core theme tokens without documentation updates
+- Sacrifice performance for visual flourishes
 
 ## Troubleshooting
 
@@ -273,28 +267,29 @@ If you encounter build errors:
 2. Check that CSS variables match the generated values
 3. Verify imports use the correct file paths
 
-### Color Inconsistencies
-If colors don't match between CSS and TypeScript:
+### Color Consistency
+To maintain the minimal color system:
 
-1. Use the hex-to-HSL conversion utility
-2. Check that CSS variables are generated from design tokens
-3. Ensure dark mode colors are properly configured
+1. Use only approved colors from the simplified palette
+2. Check that all colors meet WCAG 2.1 AA contrast requirements
+3. Ensure consistent application across all components
 
-### Performance
-The theme system is optimized for:
-- Build-time processing (no runtime overhead)
-- CSS variable efficiency
-- Tree-shaking unused theme parts
+### Performance Optimization
+The minimal theme system delivers:
+- **Reduced CSS bundle size** through simplified color palette
+- **Faster rendering** with clean, simple styles
+- **Better paint performance** without complex visual effects
+- **Optimized loading** with system font stack prioritization
 
 ## Contributing
 
-When adding new colors or theme tokens:
+When adding new design elements:
 
-1. Update `src/theme/index.ts` with TypeScript definitions
-2. Update `tailwind.theme.js` with JavaScript exports
-3. Update `src/index.css` with CSS variables
-4. Add documentation to this README
-5. Test both light and dark modes
+1. **Justify the addition** - Ensure it serves medical education goals
+2. **Check performance impact** - Measure CSS bundle size changes
+3. **Validate accessibility** - Ensure WCAG 2.1 AA compliance
+4. **Update documentation** - Maintain consistency across docs
+5. **Test thoroughly** - Verify across all device sizes
 
 ## Reference Links
 
@@ -304,4 +299,4 @@ When adding new colors or theme tokens:
 
 ---
 
-**🏥 This unified theme system ensures MedQuiz Pro maintains consistent, professional medical education branding across all interfaces while providing developers with a flexible, maintainable styling solution.**
+**🏥 This minimal theme system ensures MedQuiz Pro delivers fast, accessible, and distraction-free medical education experiences while maintaining professional appearance and optimal performance.**

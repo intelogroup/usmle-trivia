@@ -1,10 +1,9 @@
 import React from 'react';
-import { Trophy, Target, TrendingUp, Flame, Play, Timer, Settings } from 'lucide-react';
+import { Trophy, Target, TrendingUp, Flame } from 'lucide-react';
 import { StatsCard } from './StatsCard';
 import { QuizModeSelector } from './QuizModeSelector';
 import { WelcomeBanner } from './WelcomeBanner';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
-import { FloatingActionButton } from '../ui/FloatingActionButton';
 import { useAppStore } from '../../store';
 import { useGetUserQuizHistory } from '../../services/convexQuiz';
 import { useGetLeaderboard } from '../../services/convexAuth';
@@ -89,59 +88,33 @@ export const DashboardGrid: React.FC = () => {
     });
   }, [quizHistory]);
 
-  // FAB actions for quick quiz access
-  const fabActions = [
-    {
-      icon: Play,
-      label: 'Quick Quiz',
-      onClick: () => navigate('/quiz?mode=quick')
-    },
-    {
-      icon: Timer,
-      label: 'Timed Challenge',
-      onClick: () => navigate('/quiz?mode=timed')
-    },
-    {
-      icon: Settings,
-      label: 'Custom Quiz',
-      onClick: () => navigate('/quiz?mode=custom')
-    }
-  ];
 
   return (
     <div className="space-y-6">
       {/* Welcome Banner */}
       <WelcomeBanner />
       
-      {/* Essential Stats - Only 4 Cards */}
-      <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
+      {/* Essential Stats */}
+      <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         <StatsCard
           title="Points"
           value={userStats.totalPoints.toLocaleString()}
           icon={Trophy}
-          color="blue"
-          compact
         />
         <StatsCard
           title="Completed"
           value={userStats.quizzesCompleted}
           icon={Target}
-          color="green"
-          compact
         />
         <StatsCard
           title="Accuracy"
           value={`${userStats.accuracy}%`}
           icon={TrendingUp}
-          color="purple"
-          compact
         />
         <StatsCard
           title="Streak"
           value={`${userStats.currentStreak}`}
           icon={Flame}
-          color="orange"
-          compact
         />
       </div>
 
@@ -247,8 +220,6 @@ export const DashboardGrid: React.FC = () => {
         </Card>
       </div>
 
-      {/* Floating Action Button */}
-      <FloatingActionButton actions={fabActions} />
     </div>
   );
 };
