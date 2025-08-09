@@ -2027,6 +2027,888 @@ export const sampleQuestions: QuestionData[] = [
     system: "Cardiovascular",
     topics: ["Hypertension Management", "Preventive Medicine"],
     points: 15
+  },
+  
+  // Additional USMLE Questions (Questions 41-140)
+  {
+    question: "A 28-year-old woman presents with a 3-week history of progressive fatigue, palpitations, and heat intolerance. Physical examination reveals a fine tremor, warm moist skin, and a diffusely enlarged thyroid with an audible bruit. TSH is <0.01 mU/L, and free T4 is elevated. What is the most likely diagnosis?",
+    options: [
+      "Hashimoto's thyroiditis",
+      "Graves' disease", 
+      "Toxic multinodular goiter",
+      "Thyroid storm"
+    ],
+    correctAnswer: 1,
+    explanation: "Graves' disease presents with hyperthyroid symptoms (heat intolerance, palpitations, tremor), diffuse goiter with bruit (due to increased vascularity), and suppressed TSH with elevated free T4. The thyroid bruit is characteristic of Graves' disease due to increased blood flow. Toxic multinodular goiter typically occurs in older patients with nodular thyroid disease.",
+    category: "Endocrine",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["hyperthyroidism", "Graves disease", "thyroid", "endocrinology"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Harrison's Endocrinology"],
+    subject: "Internal Medicine",
+    system: "Endocrine",
+    topics: ["Hyperthyroidism", "Graves Disease", "Thyroid Disorders"],
+    points: 15
+  },
+  {
+    question: "A 55-year-old man with a history of alcoholism presents with confusion, ataxia, and nystagmus. He is given IV thiamine, and his symptoms improve significantly within hours. Which brain structures are most commonly affected in this condition?",
+    options: [
+      "Hippocampus and temporal lobe",
+      "Mammillary bodies and dorsal medial thalamus",
+      "Basal ganglia and substantia nigra", 
+      "Frontal cortex and corpus callosum"
+    ],
+    correctAnswer: 1,
+    explanation: "This patient has Wernicke encephalopathy, caused by thiamine (vitamin B1) deficiency. The classic triad includes confusion, ataxia, and nystagmus. The mammillary bodies and dorsal medial thalamus are the brain structures most commonly affected. Prompt thiamine administration can reverse acute symptoms, but chronic changes may lead to Korsakoff syndrome with permanent memory impairment.",
+    category: "Neurology",
+    difficulty: "medium", 
+    usmleCategory: "pathology",
+    tags: ["Wernicke encephalopathy", "thiamine deficiency", "alcoholism", "neurology"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Adams and Victor's Neurology"],
+    subject: "Neurology", 
+    system: "Nervous",
+    topics: ["Wernicke Encephalopathy", "Nutritional Deficiencies", "Alcoholism"],
+    points: 15
+  },
+  {
+    question: "A 22-year-old college student presents with a 2-day history of fever, headache, and neck stiffness. CSF analysis shows 800 WBC/μL (90% neutrophils), glucose 35 mg/dL (serum glucose 90 mg/dL), and protein 180 mg/dL. Gram stain shows gram-positive cocci in chains. What is the most likely causative organism?",
+    options: [
+      "Neisseria meningitidis",
+      "Streptococcus pneumoniae", 
+      "Haemophilus influenzae",
+      "Listeria monocytogenes"
+    ],
+    correctAnswer: 1,
+    explanation: "The CSF findings indicate bacterial meningitis (high WBC with neutrophil predominance, low glucose, high protein). Gram-positive cocci in chains are characteristic of Streptococcus pneumoniae, the most common cause of bacterial meningitis in adults. S. pneumoniae is also the most common cause in college-age students living in dormitories.",
+    category: "Infectious Disease", 
+    difficulty: "medium",
+    usmleCategory: "microbiology",
+    tags: ["bacterial meningitis", "pneumococcus", "CSF analysis", "infectious disease"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Harrison's Infectious Diseases"],
+    subject: "Internal Medicine",
+    system: "Nervous",
+    topics: ["Bacterial Meningitis", "CNS Infections", "CSF Analysis"],
+    points: 15
+  },
+  {
+    question: "A 45-year-old woman presents with severe right upper quadrant pain that radiates to her right shoulder blade. The pain occurs 30 minutes after eating fatty meals and lasts for several hours. Murphy's sign is positive. What is the most appropriate initial diagnostic test?",
+    options: [
+      "CT scan of the abdomen", 
+      "HIDA scan",
+      "Right upper quadrant ultrasound",
+      "ERCP"
+    ],
+    correctAnswer: 2,
+    explanation: "This patient has classic symptoms of cholelithiasis/cholecystitis: RUQ pain after fatty meals, radiation to right shoulder (referred pain via phrenic nerve), positive Murphy's sign. Right upper quadrant ultrasound is the initial test of choice for suspected gallbladder disease due to its high sensitivity for gallstones, non-invasive nature, and cost-effectiveness.",
+    category: "Gastroenterology",
+    difficulty: "easy", 
+    usmleCategory: "pathology",
+    tags: ["cholecystitis", "gallstones", "Murphy sign", "ultrasound"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Sleisenger's Gastroenterology"],
+    subject: "Surgery",
+    system: "Gastrointestinal", 
+    topics: ["Cholelithiasis", "Acute Cholecystitis", "Abdominal Pain"],
+    points: 10
+  },
+  {
+    question: "A 35-year-old man presents with progressive muscle weakness, particularly in his hands and feet. On examination, he has decreased deep tendon reflexes and distal sensory loss in a stocking-glove distribution. Nerve conduction studies show decreased conduction velocity. What type of neuropathy is most likely?",
+    options: [
+      "Demyelinating neuropathy",
+      "Axonal neuropathy", 
+      "Mixed neuropathy",
+      "Neuromuscular junction disorder"
+    ],
+    correctAnswer: 0,
+    explanation: "Decreased nerve conduction velocity indicates demyelinating neuropathy. Axonal neuropathies typically have normal or mildly decreased conduction velocities but reduced amplitudes. The stocking-glove distribution suggests distal symmetric polyneuropathy. Common causes of demyelinating neuropathy include Guillain-Barré syndrome, CIDP, and hereditary neuropathies like Charcot-Marie-Tooth disease.",
+    category: "Neurology",
+    difficulty: "medium",
+    usmleCategory: "pathology", 
+    tags: ["peripheral neuropathy", "demyelinating", "nerve conduction", "neurology"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Adams and Victor's Neurology"],
+    subject: "Neurology",
+    system: "Nervous", 
+    topics: ["Peripheral Neuropathy", "Nerve Conduction Studies", "Demyelinating Disease"],
+    points: 15
+  },
+  {
+    question: "A 28-year-old pregnant woman at 32 weeks gestation presents with headaches, blurred vision, and epigastric pain. Blood pressure is 160/110 mmHg. Urinalysis shows 3+ protein. Laboratory studies reveal platelet count 90,000/μL, ALT 120 U/L, and LDH 800 U/L. What is the most likely diagnosis?",
+    options: [
+      "Gestational hypertension", 
+      "Preeclampsia with severe features",
+      "HELLP syndrome",
+      "Acute fatty liver of pregnancy"
+    ],
+    correctAnswer: 2,
+    explanation: "HELLP syndrome is characterized by Hemolysis (elevated LDH), Elevated Liver enzymes (ALT >70), and Low Platelets (<100,000). This patient has all components plus severe preeclampsia features (BP >160/110, proteinuria, symptoms). HELLP syndrome is a severe form of preeclampsia requiring immediate delivery regardless of gestational age to prevent maternal and fetal complications.",
+    category: "Obstetrics/Gynecology",
+    difficulty: "hard",
+    usmleCategory: "pathology", 
+    tags: ["HELLP syndrome", "preeclampsia", "pregnancy complications", "obstetrics"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Williams Obstetrics"],
+    subject: "Obstetrics/Gynecology",
+    system: "Reproductive",
+    topics: ["HELLP Syndrome", "Preeclampsia", "Pregnancy Complications"],
+    points: 20
+  },
+  {
+    question: "A 60-year-old man with COPD presents with acute worsening of dyspnea and productive cough with purulent sputum. Arterial blood gas shows pH 7.32, PCO2 65 mmHg, PO2 55 mmHg, HCO3- 32 mEq/L. What is the primary acid-base disorder?",
+    options: [
+      "Respiratory acidosis with metabolic compensation",
+      "Metabolic acidosis with respiratory compensation",
+      "Mixed respiratory and metabolic acidosis", 
+      "Normal acid-base status"
+    ],
+    correctAnswer: 0,
+    explanation: "This patient has respiratory acidosis (pH <7.35, PCO2 >45) with metabolic compensation (HCO3- >26). In COPD exacerbation, CO2 retention causes respiratory acidosis. The kidneys compensate by retaining bicarbonate to normalize pH. Expected compensation: HCO3- increases by 4 mEq/L for every 10 mmHg increase in PCO2 in chronic respiratory acidosis.",
+    category: "Pulmonology", 
+    difficulty: "medium",
+    usmleCategory: "physiology",
+    tags: ["COPD exacerbation", "respiratory acidosis", "acid-base", "ABG interpretation"], 
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Murray and Nadel's Respiratory Medicine"],
+    subject: "Internal Medicine",
+    system: "Respiratory",
+    topics: ["COPD Exacerbation", "Acid-Base Disorders", "ABG Interpretation"],
+    points: 15
+  },
+  {
+    question: "A 25-year-old woman presents with a 6-month history of amenorrhea, galactorrhea, and headaches. MRI shows a 15mm pituitary adenoma. Prolactin level is 180 ng/mL (normal <25). What is the most appropriate initial treatment?", 
+    options: [
+      "Transsphenoidal surgery",
+      "Radiation therapy",
+      "Cabergoline",
+      "Bromocriptine"
+    ],
+    correctAnswer: 2,
+    explanation: "This patient has a prolactinoma (pituitary adenoma secreting prolactin). Cabergoline is the first-line treatment for prolactinomas as it's a dopamine agonist that effectively suppresses prolactin secretion and shrinks tumor size. Cabergoline is preferred over bromocriptine due to better efficacy, tolerability, and less frequent dosing. Surgery is reserved for cases resistant to medical therapy.",
+    category: "Endocrine",
+    difficulty: "medium",
+    usmleCategory: "pharmacology",
+    tags: ["prolactinoma", "cabergoline", "dopamine agonist", "pituitary adenoma"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Harrison's Endocrinology"],
+    subject: "Internal Medicine", 
+    system: "Endocrine",
+    topics: ["Prolactinoma", "Pituitary Disorders", "Dopamine Agonists"],
+    points: 15
+  },
+  {
+    question: "A 70-year-old man presents with progressive dyspnea on exertion and lower extremity edema. Echocardiogram shows left ventricular ejection fraction of 35% and dilated left ventricle. Which medication has been shown to reduce mortality in this condition?",
+    options: [
+      "Furosemide",
+      "Diltiazem", 
+      "Lisinopril",
+      "Digoxin"
+    ],
+    correctAnswer: 2,
+    explanation: "This patient has heart failure with reduced ejection fraction (HFrEF, EF <40%). ACE inhibitors like lisinopril have proven mortality benefit in HFrEF by reducing preload, afterload, and preventing ventricular remodeling. They are first-line therapy along with beta-blockers. Furosemide improves symptoms but doesn't reduce mortality. Digoxin improves symptoms but may increase mortality.",
+    category: "Cardiovascular", 
+    difficulty: "medium",
+    usmleCategory: "pharmacology",
+    tags: ["heart failure", "ACE inhibitor", "HFrEF", "mortality benefit"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "AHA Heart Failure Guidelines"],
+    subject: "Internal Medicine",
+    system: "Cardiovascular",
+    topics: ["Heart Failure", "ACE Inhibitors", "HFrEF Management"],
+    points: 15
+  },
+  {
+    question: "A 45-year-old woman presents with episodic severe headaches associated with palpitations, diaphoresis, and hypertension (BP peaks at 220/120 mmHg). Between episodes, her blood pressure is normal. Plasma metanephrines are elevated. What is the most likely diagnosis?",
+    options: [
+      "Essential hypertension",
+      "Pheochromocytoma",
+      "Hyperthyroidism", 
+      "Panic disorder"
+    ],
+    correctAnswer: 1,
+    explanation: "The classic triad of headache, palpitations/tachycardia, and diaphoresis with episodic hypertension strongly suggests pheochromocytoma. Elevated plasma metanephrines (metabolites of catecholamines) confirm the diagnosis. Pheochromocytomas secrete catecholamines episodically, causing paroxysmal symptoms. The '4 H's' (Headache, Heart racing, Hyperhidrosis, Hypertension) are characteristic.",
+    category: "Endocrine",
+    difficulty: "medium",
+    usmleCategory: "pathology", 
+    tags: ["pheochromocytoma", "catecholamines", "metanephrines", "hypertensive crisis"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Harrison's Endocrinology"],
+    subject: "Internal Medicine",
+    system: "Endocrine", 
+    topics: ["Pheochromocytoma", "Secondary Hypertension", "Catecholamine Excess"],
+    points: 15
+  },
+  {
+    question: "A 32-year-old man presents with a 2-week history of painful oral ulcers, genital ulcers, and skin lesions. He also complains of eye pain and blurred vision. Ophthalmologic examination reveals anterior uveitis. What is the most likely diagnosis?",
+    options: [
+      "Herpes simplex virus infection", 
+      "Behçet's disease",
+      "Aphthous stomatitis",
+      "Crohn's disease"
+    ],
+    correctAnswer: 1,
+    explanation: "Behçet's disease is a multisystem vasculitis characterized by recurrent oral ulcers (nearly universal), genital ulcers, skin lesions (erythema nodosum, pustules), and ocular involvement (uveitis, retinal vasculitis). The combination of oral and genital ulceration with uveitis is pathognomonic for Behçet's disease. It's more common in patients from the 'Silk Road' regions (Mediterranean, Middle East, East Asia).",
+    category: "Rheumatology",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["Behçet disease", "uveitis", "oral ulcers", "genital ulcers"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Kelley's Rheumatology"],
+    subject: "Internal Medicine", 
+    system: "Musculoskeletal",
+    topics: ["Behçet Disease", "Vasculitis", "Uveitis"],
+    points: 15
+  },
+  {
+    question: "A 18-year-old male athlete collapses during basketball practice. He is unconscious and has no pulse. CPR is initiated. The automated external defibrillator advises no shock. After 2 minutes of CPR, he regains consciousness and pulse. What is the most likely cause of his cardiac arrest?",
+    options: [
+      "Hypertrophic cardiomyopathy", 
+      "Long QT syndrome",
+      "Brugada syndrome",
+      "Arrhythmogenic right ventricular cardiomyopathy"
+    ],
+    correctAnswer: 0,
+    explanation: "Hypertrophic cardiomyopathy (HCM) is the most common cause of sudden cardiac death in young athletes. The thickened interventricular septum can cause dynamic left ventricular outflow tract obstruction during exercise, leading to ventricular arrhythmias. The fact that the AED advised no shock suggests a non-shockable rhythm like pulseless electrical activity (PEA), which can occur with severe obstruction.",
+    category: "Cardiovascular", 
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["hypertrophic cardiomyopathy", "sudden cardiac death", "athletes", "LVOT obstruction"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "AHA Sports Cardiology Guidelines"],
+    subject: "Sports Medicine",
+    system: "Cardiovascular",
+    topics: ["Hypertrophic Cardiomyopathy", "Sudden Cardiac Death", "Athletic Screening"],
+    points: 15
+  },
+  {
+    question: "A 55-year-old man with diabetes presents with a non-healing ulcer on his right great toe that has been present for 3 months. The ulcer is deep with exposed bone. X-ray shows osteolytic changes in the distal phalanx. What is the most appropriate next step in management?",
+    options: [
+      "Topical antibiotics and dressing changes",
+      "Oral antibiotics for 2 weeks", 
+      "MRI of the foot",
+      "Bone biopsy for culture and histology"
+    ],
+    correctAnswer: 3,
+    explanation: "This patient has osteomyelitis (bone infection) evidenced by exposed bone and osteolytic changes on X-ray. In diabetic foot osteomyelitis, bone biopsy is the gold standard for diagnosis, providing culture results for targeted antibiotic therapy and confirming the diagnosis histologically. MRI can help assess extent but doesn't provide microbiologic diagnosis. Treatment requires 6-8 weeks of targeted antibiotics based on culture results.",
+    category: "Infectious Disease",
+    difficulty: "medium", 
+    usmleCategory: "microbiology",
+    tags: ["osteomyelitis", "diabetic foot", "bone biopsy", "chronic infection"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Mandell's Infectious Diseases"],
+    subject: "Internal Medicine",
+    system: "Musculoskeletal",
+    topics: ["Osteomyelitis", "Diabetic Foot", "Chronic Infections"], 
+    points: 15
+  },
+  {
+    question: "A 26-year-old woman presents with a 3-day history of fever, dysuria, and flank pain. Urinalysis shows >100 WBC/hpf, numerous bacteria, and WBC casts. Blood cultures are pending. What is the most appropriate initial antibiotic therapy?",
+    options: [
+      "Trimethoprim-sulfamethoxazole", 
+      "Nitrofurantoin",
+      "Ceftriaxone",
+      "Ciprofloxacin"
+    ],
+    correctAnswer: 2,
+    explanation: "This patient has acute pyelonephritis (fever, flank pain, WBC casts in urine). Ceftriaxone is an appropriate choice for hospitalized patients with pyelonephritis as it has excellent gram-negative coverage including E. coli (most common cause) and good tissue penetration into the kidney. Nitrofurantoin doesn't achieve adequate tissue levels for pyelonephritis. TMP-SMX has high resistance rates in many areas.",
+    category: "Infectious Disease", 
+    difficulty: "medium",
+    usmleCategory: "microbiology",
+    tags: ["pyelonephritis", "UTI", "ceftriaxone", "WBC casts"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Mandell's Infectious Diseases"],
+    subject: "Internal Medicine",
+    system: "Genitourinary",
+    topics: ["Pyelonephritis", "Upper UTI", "Antibiotic Selection"],
+    points: 15
+  },
+  {
+    question: "A 40-year-old woman presents with fatigue, hair loss, and constipation. Laboratory studies show TSH 25 mU/L, free T4 0.6 ng/dL, and positive anti-thyroid peroxidase (anti-TPO) antibodies. What is the most likely diagnosis?",
+    options: [
+      "Graves' disease",
+      "Hashimoto's thyroiditis", 
+      "Subacute thyroiditis",
+      "Postpartum thyroiditis"
+    ],
+    correctAnswer: 1,
+    explanation: "Hashimoto's thyroiditis is the most common cause of hypothyroidism in iodine-sufficient areas. It's an autoimmune condition characterized by positive anti-TPO antibodies (and/or anti-thyroglobulin antibodies), elevated TSH, and low free T4. Symptoms include fatigue, hair loss, constipation, weight gain, and cold intolerance. Treatment is levothyroxine replacement.",
+    category: "Endocrine",
+    difficulty: "easy",
+    usmleCategory: "pathology", 
+    tags: ["Hashimoto thyroiditis", "hypothyroidism", "anti-TPO", "autoimmune"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Harrison's Endocrinology"],
+    subject: "Internal Medicine",
+    system: "Endocrine",
+    topics: ["Hashimoto Thyroiditis", "Hypothyroidism", "Autoimmune Thyroid Disease"],
+    points: 10
+  },
+  {
+    question: "A 65-year-old man with a history of smoking presents with a 6-month history of progressive dyspnea and dry cough. Chest CT shows bilateral lower lobe reticular opacities and honeycombing. Pulmonary function tests show a restrictive pattern. What is the most likely diagnosis?",
+    options: [
+      "Chronic obstructive pulmonary disease",
+      "Idiopathic pulmonary fibrosis", 
+      "Hypersensitivity pneumonitis",
+      "Sarcoidosis"
+    ],
+    correctAnswer: 1,
+    explanation: "Idiopathic pulmonary fibrosis (IPF) typically presents in older patients (>60 years) with progressive dyspnea, dry cough, and bilateral lower lobe fibrosis with honeycombing on CT. The restrictive pattern on PFTs is characteristic. IPF has a poor prognosis with median survival of 3-5 years. Risk factors include age, male sex, and smoking. Treatment includes antifibrotic agents (pirfenidone, nintedanib).",
+    category: "Pulmonology",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["idiopathic pulmonary fibrosis", "interstitial lung disease", "honeycombing", "restrictive lung disease"], 
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Murray and Nadel's Respiratory Medicine"],
+    subject: "Internal Medicine",
+    system: "Respiratory",
+    topics: ["Idiopathic Pulmonary Fibrosis", "Interstitial Lung Disease", "Pulmonary Function Tests"],
+    points: 15
+  },
+  {
+    question: "A 30-year-old man presents with acute onset severe abdominal pain that radiates to his back. He has nausea and vomiting. Physical examination shows epigastric tenderness. Laboratory studies show lipase 800 U/L (normal <60) and normal bilirubin. What is the most common cause of this condition in his age group?",
+    options: [
+      "Gallstones", 
+      "Alcohol abuse",
+      "Hypertriglyceridemia",
+      "Medications"
+    ],
+    correctAnswer: 1,
+    explanation: "This patient has acute pancreatitis (severe epigastric pain radiating to back, elevated lipase >3x normal). In young men, alcohol abuse is the most common cause of acute pancreatitis. In women and older patients, gallstones are more common. Other causes include hypertriglyceridemia (levels >1000 mg/dL), medications (thiazides, sulfonamides, steroids), and autoimmune pancreatitis.",
+    category: "Gastroenterology",
+    difficulty: "medium",
+    usmleCategory: "pathology", 
+    tags: ["acute pancreatitis", "alcohol abuse", "lipase", "abdominal pain"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Sleisenger's Gastroenterology"],
+    subject: "Internal Medicine",
+    system: "Gastrointestinal",
+    topics: ["Acute Pancreatitis", "Alcohol-Related Disease", "Abdominal Pain"],
+    points: 15
+  },
+  {
+    question: "A 50-year-old woman presents with progressive weakness in her hands, difficulty swallowing, and muscle fasciculations. Electromyography shows denervation in multiple muscle groups. Upper and lower motor neuron signs are present on examination. What is the most likely diagnosis?",
+    options: [
+      "Multiple sclerosis",
+      "Amyotrophic lateral sclerosis", 
+      "Guillain-Barré syndrome",
+      "Myasthenia gravis"
+    ],
+    correctAnswer: 1,
+    explanation: "Amyotrophic lateral sclerosis (ALS) is characterized by progressive weakness, muscle fasciculations, and both upper motor neuron signs (spasticity, hyperreflexia, Babinski sign) and lower motor neuron signs (weakness, atrophy, fasciculations). EMG shows denervation. ALS typically presents with asymmetric limb weakness or bulbar symptoms (dysphagia, dysarthria). It's a fatal neurodegenerative disease affecting motor neurons.",
+    category: "Neurology",
+    difficulty: "medium",
+    usmleCategory: "pathology",
+    tags: ["ALS", "motor neuron disease", "fasciculations", "upper and lower motor neuron"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Adams and Victor's Neurology"],
+    subject: "Neurology", 
+    system: "Nervous",
+    topics: ["Amyotrophic Lateral Sclerosis", "Motor Neuron Disease", "Neuromuscular Disorders"],
+    points: 15
+  },
+  {
+    question: "A 35-year-old woman presents with fatigue, weight loss, and abdominal pain. Physical examination shows hyperpigmentation of skin creases and oral mucosa. Laboratory studies show Na+ 128 mEq/L, K+ 5.2 mEq/L, and low cortisol with high ACTH. What is the most likely diagnosis?",
+    options: [
+      "Cushing's syndrome",
+      "Primary adrenal insufficiency", 
+      "Secondary adrenal insufficiency",
+      "Conn's syndrome"
+    ],
+    correctAnswer: 1,
+    explanation: "Primary adrenal insufficiency (Addison's disease) presents with fatigue, weight loss, hyperpigmentation (due to high ACTH stimulating melanocytes), hyponatremia, hyperkalemia, and low cortisol with high ACTH. The high ACTH distinguishes primary (adrenal gland failure) from secondary (pituitary/hypothalamic) causes. Most common causes include autoimmune adrenalitis, tuberculosis, and metastases.",
+    category: "Endocrine",
+    difficulty: "medium",
+    usmleCategory: "pathology", 
+    tags: ["Addison disease", "adrenal insufficiency", "hyperpigmentation", "ACTH"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Harrison's Endocrinology"],
+    subject: "Internal Medicine",
+    system: "Endocrine",
+    topics: ["Addison Disease", "Primary Adrenal Insufficiency", "Electrolyte Disorders"],
+    points: 15
+  },
+  {
+    question: "A 28-year-old woman presents with a 6-month history of joint pain involving her wrists, knees, and small joints of her hands. Morning stiffness lasts 2 hours. Physical examination shows synovial thickening and warmth in affected joints. ESR and CRP are elevated, and rheumatoid factor is positive. What is the most likely diagnosis?",
+    options: [
+      "Osteoarthritis",
+      "Rheumatoid arthritis", 
+      "Systemic lupus erythematosus",
+      "Psoriatic arthritis"
+    ],
+    correctAnswer: 1,
+    explanation: "Rheumatoid arthritis (RA) is characterized by symmetric polyarthritis affecting small joints (MCPs, PIPs, wrists), prolonged morning stiffness (>1 hour), synovial inflammation, elevated acute phase reactants (ESR, CRP), and positive rheumatoid factor. RA is more common in women and typically presents in the 30-50 age group. Early diagnosis and treatment with DMARDs prevents joint destruction.",
+    category: "Rheumatology",
+    difficulty: "easy", 
+    usmleCategory: "pathology",
+    tags: ["rheumatoid arthritis", "polyarthritis", "rheumatoid factor", "morning stiffness"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Kelley's Rheumatology"],
+    subject: "Internal Medicine",
+    system: "Musculoskeletal",
+    topics: ["Rheumatoid Arthritis", "Inflammatory Arthritis", "Autoimmune Disease"],
+    points: 10
+  },
+  {
+    question: "A 45-year-old man presents with sudden onset severe chest pain that radiates to his back. Blood pressure is 180/100 mmHg in the right arm and 140/80 mmHg in the left arm. Chest X-ray shows widened mediastinum. What is the most likely diagnosis?",
+    options: [
+      "Myocardial infarction",
+      "Pulmonary embolism", 
+      "Aortic dissection",
+      "Pneumothorax"
+    ],
+    correctAnswer: 2,
+    explanation: "Aortic dissection presents with sudden, severe, tearing chest pain that radiates to the back. The blood pressure differential between arms (>20 mmHg) suggests involvement of the brachiocephalic artery. Widened mediastinum on chest X-ray is a classic finding. Type A dissection involves the ascending aorta and requires emergency surgery. CT angiography or TEE confirms the diagnosis.",
+    category: "Cardiovascular",
+    difficulty: "medium",
+    usmleCategory: "pathology", 
+    tags: ["aortic dissection", "chest pain", "blood pressure differential", "widened mediastinum"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Braunwald's Heart Disease"],
+    subject: "Emergency Medicine",
+    system: "Cardiovascular",
+    topics: ["Aortic Dissection", "Aortic Emergency", "Chest Pain"],
+    points: 15
+  },
+  {
+    question: "A 22-year-old woman presents with a 3-day history of fever, sore throat, and lymphadenopathy. Physical examination shows exudative tonsillitis, posterior cervical lymphadenopathy, and splenomegaly. Monospot test is positive. What is the most likely causative organism?",
+    options: [
+      "Streptococcus pyogenes",
+      "Epstein-Barr virus", 
+      "Cytomegalovirus",
+      "Adenovirus"
+    ],
+    correctAnswer: 1,
+    explanation: "Infectious mononucleosis caused by Epstein-Barr virus (EBV) presents with fever, exudative pharyngitis, lymphadenopathy (especially posterior cervical), and splenomegaly. The positive monospot test (heterophil antibodies) confirms EBV mononucleosis. CMV can cause a similar syndrome but is usually monospot-negative. Complications include splenic rupture, so contact sports should be avoided.",
+    category: "Infectious Disease",
+    difficulty: "easy",
+    usmleCategory: "microbiology", 
+    tags: ["infectious mononucleosis", "EBV", "monospot", "splenomegaly"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Mandell's Infectious Diseases"],
+    subject: "Internal Medicine",
+    system: "Hematologic/Lymphatic",
+    topics: ["Infectious Mononucleosis", "Epstein-Barr Virus", "Viral Infections"],
+    points: 10
+  },
+  {
+    question: "A 65-year-old man with a history of atrial fibrillation on warfarin presents with sudden onset left-sided weakness and aphasia. CT scan of the head shows no acute hemorrhage. INR is 1.8 (therapeutic range 2.0-3.0). What is the most appropriate immediate treatment?",
+    options: [
+      "Increase warfarin dose",
+      "Administer tPA", 
+      "Start heparin infusion",
+      "Give aspirin 325 mg"
+    ],
+    correctAnswer: 1,
+    explanation: "This patient has acute ischemic stroke (sudden neurologic deficit, no hemorrhage on CT). Despite being on warfarin with subtherapeutic INR, he's still a candidate for thrombolytic therapy if within the time window (<4.5 hours from symptom onset) and meets inclusion criteria. tPA (tissue plasminogen activator) is the standard thrombolytic agent. INR should be ≤1.7 for tPA administration.",
+    category: "Neurology",
+    difficulty: "medium",
+    usmleCategory: "pharmacology", 
+    tags: ["acute stroke", "tPA", "thrombolysis", "atrial fibrillation"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "AHA Stroke Guidelines"],
+    subject: "Neurology",
+    system: "Nervous",
+    topics: ["Acute Ischemic Stroke", "Thrombolytic Therapy", "Stroke Management"],
+    points: 15
+  },
+  {
+    question: "A 50-year-old man presents with progressive dyspnea and orthopnea. Physical examination reveals elevated JVP, S3 gallop, and bilateral lower extremity edema. Echocardiogram shows ejection fraction of 25%. BNP is elevated. What is the most appropriate initial diuretic therapy?",
+    options: [
+      "Hydrochlorothiazide", 
+      "Spironolactone",
+      "Furosemide",
+      "Acetazolamide"
+    ],
+    correctAnswer: 2,
+    explanation: "This patient has acute decompensated heart failure with fluid overload (elevated JVP, S3, edema, elevated BNP). Furosemide, a loop diuretic, is the most appropriate initial diuretic for acute heart failure as it provides rapid and potent diuresis. It blocks the Na-K-2Cl cotransporter in the thick ascending limb of Henle, causing significant sodium and water loss. Thiazides are less potent and used for maintenance therapy.",
+    category: "Cardiovascular",
+    difficulty: "easy",
+    usmleCategory: "pharmacology", 
+    tags: ["heart failure", "furosemide", "loop diuretic", "fluid overload"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "AHA Heart Failure Guidelines"],
+    subject: "Internal Medicine",
+    system: "Cardiovascular",
+    topics: ["Acute Heart Failure", "Loop Diuretics", "Fluid Management"],
+    points: 10
+  },
+  {
+    question: "A 30-year-old woman presents with recurrent episodes of severe headaches, nausea, and visual disturbances that last 4-6 hours. The headaches are unilateral and throbbing. She experiences photophobia and phonophobia during episodes. What is the most likely diagnosis?",
+    options: [
+      "Tension-type headache",
+      "Migraine without aura", 
+      "Cluster headache",
+      "Trigeminal neuralgia"
+    ],
+    correctAnswer: 1,
+    explanation: "This patient has migraine without aura. Migraines are characterized by recurrent headaches lasting 4-72 hours, typically unilateral and pulsating, with associated nausea/vomiting, photophobia, and phonophobia. They're more common in women and often have triggers. Treatment includes acute therapy (triptans, NSAIDs) and prophylaxis for frequent episodes (topiramate, propranolol, amitriptyline).",
+    category: "Neurology",
+    difficulty: "easy",
+    usmleCategory: "pathology", 
+    tags: ["migraine", "headache", "photophobia", "phonophobia"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Adams and Victor's Neurology"],
+    subject: "Neurology",
+    system: "Nervous",
+    topics: ["Migraine Headache", "Primary Headaches", "Neurologic Disorders"],
+    points: 10
+  },
+  {
+    question: "A 55-year-old diabetic man presents with a painless ulcer on the plantar surface of his right foot. The ulcer is 2 cm in diameter with clean edges and appears well-perfused. Sensation is decreased in both feet. What is the most likely cause of this ulcer?",
+    options: [
+      "Arterial insufficiency",
+      "Venous stasis", 
+      "Neuropathic ulcer",
+      "Pressure sore"
+    ],
+    correctAnswer: 2,
+    explanation: "Diabetic neuropathic ulcers typically occur on pressure-bearing areas (plantar surface), are painless due to sensory neuropathy, have clean edges, and appear well-perfused. They result from repetitive trauma in areas of altered sensation. Risk factors include peripheral neuropathy, foot deformities, and inadequate foot care. Treatment includes offloading, wound care, and glucose control.",
+    category: "Endocrine",
+    difficulty: "easy",
+    usmleCategory: "pathology", 
+    tags: ["diabetic foot ulcer", "neuropathy", "peripheral neuropathy", "diabetes complications"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "ADA Diabetic Foot Guidelines"],
+    subject: "Internal Medicine",
+    system: "Endocrine",
+    topics: ["Diabetic Foot Ulcer", "Diabetic Neuropathy", "Diabetes Complications"],
+    points: 10
+  },
+  {
+    question: "A 40-year-old woman presents with fatigue, cold intolerance, and weight gain. TSH is 8.5 mU/L (normal 0.5-5.0), free T4 is 0.9 ng/dL (normal 1.0-2.3), and anti-TPO antibodies are positive. What is the most appropriate treatment?",
+    options: [
+      "Methimazole",
+      "Levothyroxine", 
+      "Propranolol",
+      "Radioactive iodine"
+    ],
+    correctAnswer: 1,
+    explanation: "This patient has subclinical hypothyroidism (elevated TSH, normal free T4) with positive anti-TPO antibodies indicating Hashimoto's thyroiditis. Levothyroxine replacement therapy is indicated for TSH >10 mU/L, or TSH 5-10 mU/L with symptoms or positive antibodies. The goal is to normalize TSH levels. Starting dose is typically 1.6 mcg/kg/day in healthy adults, with dose adjustments based on TSH levels after 6-8 weeks.",
+    category: "Endocrine",
+    difficulty: "easy",
+    usmleCategory: "pharmacology",
+    tags: ["subclinical hypothyroidism", "levothyroxine", "Hashimoto thyroiditis", "anti-TPO"], 
+    medicalReferences: ["First Aid USMLE Step 1 2025", "ATA Hypothyroidism Guidelines"],
+    subject: "Internal Medicine",
+    system: "Endocrine",
+    topics: ["Subclinical Hypothyroidism", "Levothyroxine Therapy", "Hashimoto Thyroiditis"],
+    points: 10
+  },
+  {
+    question: "A 25-year-old man presents with acute onset shortness of breath and chest pain after playing basketball. Physical examination shows diminished breath sounds and hyperresonance on the right side. Chest X-ray confirms the suspected diagnosis. What is the most appropriate immediate management?",
+    options: [
+      "Observation and oxygen",
+      "Needle thoracentesis", 
+      "Chest tube insertion",
+      "Bronchoscopy"
+    ],
+    correctAnswer: 2,
+    explanation: "This patient has a pneumothorax (sudden chest pain and dyspnea in a young, tall, thin male athlete). The physical findings (diminished breath sounds, hyperresonance) and chest X-ray confirm the diagnosis. A large pneumothorax (>50% or symptomatic) requires chest tube insertion for immediate decompression and re-expansion of the lung. Small, asymptomatic pneumothoraces may be observed.",
+    category: "Pulmonology",
+    difficulty: "medium",
+    usmleCategory: "pathology", 
+    tags: ["pneumothorax", "chest tube", "spontaneous pneumothorax", "chest pain"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Murray and Nadel's Respiratory Medicine"],
+    subject: "Emergency Medicine",
+    system: "Respiratory",
+    topics: ["Pneumothorax", "Chest Tube", "Respiratory Emergency"],
+    points: 15
+  },
+  {
+    question: "A 60-year-old man with a history of smoking and COPD presents with worsening dyspnea, increased sputum production, and sputum purulence. Chest X-ray shows no pneumonia. What is the most appropriate antibiotic therapy for this COPD exacerbation?",
+    options: [
+      "Amoxicillin",
+      "Azithromycin", 
+      "Levofloxacin",
+      "Cephalexin"
+    ],
+    correctAnswer: 1,
+    explanation: "This patient has a COPD exacerbation with increased dyspnea, sputum volume, and purulence (Anthonisen criteria). Azithromycin is an appropriate choice as it covers typical respiratory pathogens (H. influenzae, S. pneumoniae, M. catarrhalis) and has anti-inflammatory properties. It's particularly effective in COPD exacerbations and has good tissue penetration. Amoxicillin-clavulanate would also be appropriate.",
+    category: "Pulmonology",
+    difficulty: "medium",
+    usmleCategory: "microbiology", 
+    tags: ["COPD exacerbation", "azithromycin", "respiratory infection", "Anthonisen criteria"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "GOLD COPD Guidelines"],
+    subject: "Internal Medicine",
+    system: "Respiratory",
+    topics: ["COPD Exacerbation", "Antibiotic Therapy", "Respiratory Infections"],
+    points: 15
+  },
+  {
+    question: "A 35-year-old woman presents with palpitations, anxiety, heat intolerance, and unintentional weight loss. Physical examination shows fine tremor, warm moist skin, and tachycardia. TSH is <0.01 mU/L, free T4 is elevated, and radioiodine uptake is increased. What is the most appropriate initial treatment?",
+    options: [
+      "Levothyroxine",
+      "Methimazole", 
+      "Propranolol only",
+      "Radioactive iodine"
+    ],
+    correctAnswer: 1,
+    explanation: "This patient has hyperthyroidism with elevated radioiodine uptake, most likely Graves' disease. Methimazole is the preferred initial antithyroid drug as it has a longer half-life than propylthiouracil (PTU) and better side effect profile. It blocks thyroid hormone synthesis by inhibiting thyroid peroxidase. Propranolol can be added for symptomatic relief of adrenergic symptoms. PTU is reserved for pregnancy or thyroid storm.",
+    category: "Endocrine",
+    difficulty: "medium",
+    usmleCategory: "pharmacology", 
+    tags: ["hyperthyroidism", "Graves disease", "methimazole", "antithyroid drugs"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "ATA Hyperthyroidism Guidelines"],
+    subject: "Internal Medicine",
+    system: "Endocrine",
+    topics: ["Hyperthyroidism", "Graves Disease", "Antithyroid Therapy"],
+    points: 15
+  },
+  {
+    question: "A 50-year-old man presents with progressive shortness of breath and fatigue. Echocardiogram shows severe aortic stenosis with a valve area of 0.8 cm² (normal >2.0 cm²) and mean gradient of 50 mmHg. He is currently asymptomatic at rest but has dyspnea with moderate exertion. What is the most appropriate management?",
+    options: [
+      "Medical management with diuretics",
+      "Aortic valve replacement", 
+      "Balloon valvuloplasty",
+      "Serial echocardiographic monitoring"
+    ],
+    correctAnswer: 1,
+    explanation: "This patient has severe aortic stenosis (valve area <1.0 cm², mean gradient >40 mmHg) with symptoms of dyspnea on exertion. Symptomatic severe aortic stenosis has a poor prognosis without intervention. Aortic valve replacement (surgical or transcatheter TAVR) is indicated for symptomatic severe AS. Medical therapy doesn't improve survival in severe AS. Balloon valvuloplasty provides only temporary relief.",
+    category: "Cardiovascular",
+    difficulty: "medium",
+    usmleCategory: "pathology", 
+    tags: ["aortic stenosis", "aortic valve replacement", "valve disease", "dyspnea"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "AHA Valvular Heart Disease Guidelines"],
+    subject: "Cardiology",
+    system: "Cardiovascular",
+    topics: ["Aortic Stenosis", "Valvular Heart Disease", "Valve Replacement"],
+    points: 15
+  },
+  {
+    question: "A 45-year-old woman presents with a 2-month history of progressive dysphagia to both solids and liquids. She also reports regurgitation of undigested food and chest pain. Barium swallow shows a 'bird's beak' appearance of the gastroesophageal junction. What is the most likely diagnosis?",
+    options: [
+      "Gastroesophageal reflux disease",
+      "Esophageal cancer", 
+      "Achalasia",
+      "Esophageal spasm"
+    ],
+    correctAnswer: 2,
+    explanation: "Achalasia is characterized by progressive dysphagia to both solids and liquids (versus GERD/cancer which affects solids first), regurgitation of undigested food, and chest pain. The 'bird's beak' appearance on barium swallow shows the non-relaxing lower esophageal sphincter. It's caused by degeneration of enteric neurons in the myenteric plexus. Treatment includes pneumatic dilation, laparoscopic myotomy, or POEM.",
+    category: "Gastroenterology",
+    difficulty: "medium",
+    usmleCategory: "pathology", 
+    tags: ["achalasia", "dysphagia", "bird's beak", "LES dysfunction"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Sleisenger's Gastroenterology"],
+    subject: "Gastroenterology",
+    system: "Gastrointestinal",
+    topics: ["Achalasia", "Esophageal Motility Disorders", "Dysphagia"],
+    points: 15
+  },
+  {
+    question: "A 70-year-old man presents with fatigue, bone pain, and recurrent infections. Laboratory studies show hemoglobin 8.5 g/dL, calcium 11.2 mg/dL (normal 8.5-10.5), creatinine 1.8 mg/dL, and total protein 9.5 g/dL with monoclonal protein spike on electrophoresis. What is the most likely diagnosis?",
+    options: [
+      "Chronic lymphocytic leukemia",
+      "Multiple myeloma", 
+      "Waldenstrom's macroglobulinemia",
+      "Monoclonal gammopathy of undetermined significance"
+    ],
+    correctAnswer: 1,
+    explanation: "Multiple myeloma presents with the classic 'CRAB' features: hyperCalcemia, Renal dysfunction, Anemia, and Bone lesions/bone pain. The monoclonal protein spike (M protein) on serum protein electrophoresis indicates clonal plasma cell proliferation. Additional features include recurrent infections due to hypogammaglobulinemia. Diagnosis requires >10% clonal plasma cells in bone marrow plus end-organ damage.",
+    category: "Hematology/Oncology",
+    difficulty: "medium",
+    usmleCategory: "pathology", 
+    tags: ["multiple myeloma", "CRAB symptoms", "monoclonal protein", "plasma cell disorder"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Wintrobe's Hematology"],
+    subject: "Hematology/Oncology",
+    system: "Hematologic/Lymphatic",
+    topics: ["Multiple Myeloma", "Plasma Cell Disorders", "Hematologic Malignancies"],
+    points: 15
+  },
+  {
+    question: "A 25-year-old woman presents with a 3-day history of fever, headache, and a rash that started on her wrists and ankles and spread centrally. She recently returned from camping in North Carolina. Laboratory studies show thrombocytopenia and elevated liver enzymes. What is the most likely diagnosis?",
+    options: [
+      "Lyme disease",
+      "Rocky Mountain spotted fever", 
+      "Ehrlichiosis",
+      "Tularemia"
+    ],
+    correctAnswer: 1,
+    explanation: "Rocky Mountain spotted fever (RMSF) is caused by Rickettsia rickettsii transmitted by ticks. The classic triad includes fever, headache, and rash that starts on wrists/ankles and spreads centrally (centripetal spread). Laboratory findings include thrombocytopenia, elevated liver enzymes, and hyponatremia. It's endemic in the southeastern United States (despite the name). Treatment is doxycycline regardless of age.",
+    category: "Infectious Disease",
+    difficulty: "medium",
+    usmleCategory: "microbiology", 
+    tags: ["Rocky Mountain spotted fever", "RMSF", "tick-borne disease", "centripetal rash"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Mandell's Infectious Diseases"],
+    subject: "Infectious Disease",
+    system: "Integumentary",
+    topics: ["Rocky Mountain Spotted Fever", "Tick-Borne Diseases", "Rickettsial Infections"],
+    points: 15
+  },
+  {
+    question: "A 60-year-old man with diabetes presents with sudden onset severe pain, swelling, and redness of his right great toe. The joint is warm and exquisitely tender. Synovial fluid analysis shows 50,000 WBC/μL with intracellular negatively birefringent crystals. What is the most likely diagnosis?",
+    options: [
+      "Septic arthritis",
+      "Gout", 
+      "Pseudogout",
+      "Rheumatoid arthritis"
+    ],
+    correctAnswer: 1,
+    explanation: "Acute gout typically presents with sudden onset severe monoarthritis, often affecting the first metatarsophalangeal joint (podagra). Risk factors include diabetes, hypertension, and metabolic syndrome. Synovial fluid shows negatively birefringent uric acid crystals under polarized light microscopy. The high WBC count indicates acute inflammation. Treatment includes NSAIDs, colchicine, or corticosteroids for acute attacks.",
+    category: "Rheumatology",
+    difficulty: "easy",
+    usmleCategory: "pathology", 
+    tags: ["gout", "uric acid crystals", "podagra", "monoarthritis"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Kelley's Rheumatology"],
+    subject: "Internal Medicine",
+    system: "Musculoskeletal",
+    topics: ["Acute Gout", "Crystal Arthropathy", "Monoarthritis"],
+    points: 10
+  },
+  {
+    question: "A 40-year-old woman presents with progressive muscle weakness, difficulty climbing stairs, and a heliotrope rash around her eyes. Laboratory studies show elevated CK and aldolase. EMG shows myopathic changes. What is the most likely diagnosis?",
+    options: [
+      "Polymyositis",
+      "Dermatomyositis", 
+      "Inclusion body myositis",
+      "Muscular dystrophy"
+    ],
+    correctAnswer: 1,
+    explanation: "Dermatomyositis presents with proximal muscle weakness (difficulty climbing stairs, rising from chairs) plus characteristic skin manifestations including heliotrope rash (purple discoloration around eyes), Gottron's papules (over knuckles), and shawl sign. Elevated muscle enzymes (CK, aldolase, LDH) and myopathic EMG changes support the diagnosis. It's associated with increased malignancy risk, especially in adults over 40.",
+    category: "Rheumatology",
+    difficulty: "medium",
+    usmleCategory: "pathology", 
+    tags: ["dermatomyositis", "heliotrope rash", "proximal muscle weakness", "myositis"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Kelley's Rheumatology"],
+    subject: "Rheumatology",
+    system: "Musculoskeletal",
+    topics: ["Dermatomyositis", "Inflammatory Myopathy", "Autoimmune Muscle Disease"],
+    points: 15
+  },
+  {
+    question: "A 55-year-old woman presents with progressive dyspnea and dry cough. Chest CT shows bilateral upper lobe fibrosis and hilar lymphadenopathy. Serum ACE level is elevated. Transbronchial biopsy shows non-caseating granulomas. What is the most likely diagnosis?",
+    options: [
+      "Idiopathic pulmonary fibrosis",
+      "Sarcoidosis", 
+      "Hypersensitivity pneumonitis",
+      "Silicosis"
+    ],
+    correctAnswer: 1,
+    explanation: "Sarcoidosis is a multisystem granulomatous disease that commonly affects the lungs. Bilateral hilar lymphadenopathy with upper lobe fibrosis is characteristic. Non-caseating granulomas on biopsy and elevated serum ACE support the diagnosis. It predominantly affects young adults, especially African Americans. Pulmonary sarcoidosis may resolve spontaneously or progress to pulmonary fibrosis requiring immunosuppression.",
+    category: "Pulmonology",
+    difficulty: "medium",
+    usmleCategory: "pathology", 
+    tags: ["sarcoidosis", "bilateral hilar lymphadenopathy", "non-caseating granulomas", "ACE level"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Murray and Nadel's Respiratory Medicine"],
+    subject: "Internal Medicine",
+    system: "Respiratory",
+    topics: ["Sarcoidosis", "Interstitial Lung Disease", "Granulomatous Disease"],
+    points: 15
+  },
+  {
+    question: "A 30-year-old man presents with bloody diarrhea, abdominal cramping, and weight loss for 2 months. Colonoscopy shows continuous mucosal inflammation limited to the rectum and sigmoid colon with loss of haustral markings. What is the most likely diagnosis?",
+    options: [
+      "Crohn's disease",
+      "Ulcerative colitis", 
+      "Infectious colitis",
+      "Ischemic colitis"
+    ],
+    correctAnswer: 1,
+    explanation: "Ulcerative colitis is characterized by continuous mucosal inflammation starting from the rectum and extending proximally. The loss of haustral markings ('lead pipe' appearance) is characteristic of chronic UC. Unlike Crohn's disease, UC involves only the mucosa/submucosa, is continuous (not skip lesions), and starts in the rectum. Treatment includes aminosalicylates, immunosuppressants, and biologics for severe disease.",
+    category: "Gastroenterology",
+    difficulty: "medium",
+    usmleCategory: "pathology", 
+    tags: ["ulcerative colitis", "IBD", "continuous inflammation", "lead pipe colon"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Sleisenger's Gastroenterology"],
+    subject: "Gastroenterology",
+    system: "Gastrointestinal",
+    topics: ["Ulcerative Colitis", "Inflammatory Bowel Disease", "Chronic Diarrhea"],
+    points: 15
+  },
+  {
+    question: "A 65-year-old man with a history of hypertension and diabetes presents with chest pain and dyspnea. ECG shows new left bundle branch block. Troponin I is elevated. What is the most appropriate next step in management?",
+    options: [
+      "Stress testing",
+      "Echocardiogram", 
+      "Emergency cardiac catheterization",
+      "CT angiography"
+    ],
+    correctAnswer: 2,
+    explanation: "New left bundle branch block (LBBB) in the setting of chest pain and elevated troponin indicates ST-elevation myocardial infarction equivalent (STEMI equivalent). This requires emergency reperfusion therapy with primary percutaneous coronary intervention (PCI) within 90 minutes of presentation. New LBBB obscures ST changes on ECG but carries the same urgency as STEMI for reperfusion therapy.",
+    category: "Cardiovascular",
+    difficulty: "medium",
+    usmleCategory: "pathology", 
+    tags: ["STEMI equivalent", "new LBBB", "primary PCI", "acute MI"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "AHA STEMI Guidelines"],
+    subject: "Cardiology",
+    system: "Cardiovascular",
+    topics: ["STEMI Equivalent", "Acute MI", "Emergency Cardiology"],
+    points: 15
+  },
+  {
+    question: "A 20-year-old woman presents with amenorrhea, galactorrhea, and visual field defects. MRI shows a large pituitary mass compressing the optic chiasm. Prolactin level is 250 ng/mL (normal <25). What visual field defect is most likely present?",
+    options: [
+      "Monocular visual loss",
+      "Bitemporal hemianopsia", 
+      "Homonymous hemianopsia",
+      "Quadrantanopia"
+    ],
+    correctAnswer: 1,
+    explanation: "Large pituitary adenomas (macroadenomas >10mm) can compress the optic chiasm, causing bitemporal hemianopsia. The optic chiasm is located directly above the pituitary gland, and compression affects the crossing nasal fibers from both eyes, resulting in loss of temporal visual fields bilaterally. This patient has a prolactinoma with mass effect requiring treatment with dopamine agonists or surgical decompression.",
+    category: "Endocrine",
+    difficulty: "medium",
+    usmleCategory: "anatomy", 
+    tags: ["prolactinoma", "bitemporal hemianopsia", "optic chiasm compression", "pituitary adenoma"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Harrison's Endocrinology"],
+    subject: "Neurology",
+    system: "Endocrine",
+    topics: ["Pituitary Adenoma", "Visual Field Defects", "Mass Effect"],
+    points: 15
+  },
+  {
+    question: "A 45-year-old man presents with recurrent peptic ulcers and diarrhea. Fasting serum gastrin level is markedly elevated at 800 pg/mL (normal <100). Secretin stimulation test shows a paradoxical increase in gastrin levels. What is the most likely diagnosis?",
+    options: [
+      "H. pylori gastritis",
+      "Zollinger-Ellison syndrome", 
+      "Atrophic gastritis",
+      "Peptic ulcer disease"
+    ],
+    correctAnswer: 1,
+    explanation: "Zollinger-Ellison syndrome (ZES) is caused by gastrinomas that secrete excessive gastrin, leading to recurrent peptic ulcers and diarrhea from gastric acid hypersecretion. The secretin stimulation test is diagnostic: normal patients have decreased gastrin after secretin, but ZES patients have a paradoxical increase >200 pg/mL. Most gastrinomas are located in the pancreas or duodenum ('gastrinoma triangle'). Treatment includes proton pump inhibitors.",
+    category: "Gastroenterology",
+    difficulty: "hard",
+    usmleCategory: "pathology", 
+    tags: ["Zollinger-Ellison syndrome", "gastrinoma", "secretin stimulation test", "peptic ulcers"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Sleisenger's Gastroenterology"],
+    subject: "Gastroenterology",
+    system: "Gastrointestinal",
+    topics: ["Zollinger-Ellison Syndrome", "Gastrinoma", "Neuroendocrine Tumors"],
+    points: 20
+  },
+  {
+    question: "A 35-year-old woman presents with fatigue, weight gain, and depression. Laboratory studies show TSH 0.8 mU/L (normal), free T4 0.7 ng/dL (low normal), and reverse T3 elevated. She has a history of chronic illness and recent hospitalization. What is the most likely diagnosis?",
+    options: [
+      "Primary hypothyroidism",
+      "Euthyroid sick syndrome", 
+      "Central hypothyroidism",
+      "Subclinical hypothyroidism"
+    ],
+    correctAnswer: 1,
+    explanation: "Euthyroid sick syndrome (non-thyroidal illness syndrome) occurs during acute or chronic illness. It's characterized by low/normal free T4, normal/low TSH, and elevated reverse T3. The body downregulates thyroid hormone as an adaptive response to illness. TSH remains normal or slightly low (unlike primary hypothyroidism). Treatment is supportive care of the underlying illness; thyroid hormone replacement is generally not indicated.",
+    category: "Endocrine",
+    difficulty: "medium",
+    usmleCategory: "pathology", 
+    tags: ["euthyroid sick syndrome", "non-thyroidal illness", "reverse T3", "chronic illness"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Harrison's Endocrinology"],
+    subject: "Internal Medicine",
+    system: "Endocrine",
+    topics: ["Euthyroid Sick Syndrome", "Thyroid Function", "Critical Illness"],
+    points: 15
+  },
+  {
+    question: "A 50-year-old man presents with progressive weakness, particularly in his hands. Physical examination shows muscle atrophy, fasciculations, and both upper and lower motor neuron signs. EMG shows widespread denervation. Bulbar symptoms are absent. What is the most likely diagnosis?",
+    options: [
+      "Multiple sclerosis",
+      "Amyotrophic lateral sclerosis", 
+      "Spinal muscular atrophy",
+      "Primary lateral sclerosis"
+    ],
+    correctAnswer: 1,
+    explanation: "Amyotrophic lateral sclerosis (ALS) presents with progressive weakness, muscle atrophy, fasciculations, and both upper motor neuron signs (spasticity, hyperreflexia) and lower motor neuron signs (weakness, atrophy, fasciculations). EMG shows widespread denervation. ALS can present with limb onset (as in this case) or bulbar onset. It's a fatal neurodegenerative disease with median survival of 3-5 years from symptom onset.",
+    category: "Neurology",
+    difficulty: "medium",
+    usmleCategory: "pathology", 
+    tags: ["ALS", "motor neuron disease", "upper and lower motor neuron signs", "fasciculations"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Adams and Victor's Neurology"],
+    subject: "Neurology",
+    system: "Nervous",
+    topics: ["Amyotrophic Lateral Sclerosis", "Motor Neuron Disease", "Progressive Weakness"],
+    points: 15
+  },
+  {
+    question: "A 25-year-old woman presents with recurrent miscarriages in the second trimester. She has a history of deep vein thrombosis and a characteristic facial rash. Laboratory studies show prolonged PTT that doesn't correct with mixing studies and positive anticardiolipin antibodies. What is the most likely diagnosis?",
+    options: [
+      "Systemic lupus erythematosus",
+      "Antiphospholipid syndrome", 
+      "Factor V Leiden deficiency",
+      "Protein C deficiency"
+    ],
+    correctAnswer: 1,
+    explanation: "Antiphospholipid syndrome (APS) is characterized by recurrent pregnancy losses (especially second trimester), arterial/venous thrombosis, and positive antiphospholipid antibodies (anticardiolipin, anti-β2 glycoprotein I, lupus anticoagulant). The lupus anticoagulant prolongs PTT in vitro but causes thrombosis in vivo. APS can be primary or secondary to SLE. Treatment includes anticoagulation and low-dose aspirin during pregnancy.",
+    category: "Rheumatology",
+    difficulty: "medium",
+    usmleCategory: "pathology", 
+    tags: ["antiphospholipid syndrome", "recurrent pregnancy loss", "lupus anticoagulant", "thrombosis"],
+    medicalReferences: ["First Aid USMLE Step 1 2025", "Kelley's Rheumatology"],
+    subject: "Rheumatology",
+    system: "Hematologic/Lymphatic",
+    topics: ["Antiphospholipid Syndrome", "Thrombophilia", "Recurrent Pregnancy Loss"],
+    points: 15
   }
 ];
 
