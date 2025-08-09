@@ -34,9 +34,9 @@ const quizModes: QuizMode[] = [
     description: 'Test your speed and accuracy',
     icon: Clock,
     color: 'from-blue-500 to-purple-600',
-    features: ['20 questions', 'Time pressure', 'Detailed review'],
-    duration: '30 min',
-    questions: 20,
+    features: ['10-20 questions', 'Choose difficulty', 'Customizable time limit'],
+    duration: '20-50 min',
+    questions: 15,
   },
   {
     id: 'custom',
