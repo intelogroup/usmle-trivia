@@ -13,6 +13,11 @@ import type { QuestionData } from '../../data/sampleQuestions';
 
 interface QuizEngineProps {
   mode: 'quick' | 'timed' | 'custom';
+  config?: {
+    questionCount?: number;
+    difficulty?: 'easy' | 'medium' | 'hard' | 'mixed';
+    timeLimit?: number; // in seconds
+  };
   onBack: () => void;
   onComplete: (session: QuizSession, enhancedResults?: {
     pointsEarned: number;
