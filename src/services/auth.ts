@@ -1,32 +1,40 @@
-import { convexAuthService } from './convexAuth';
+// UPDATED AUTH SERVICE - Now uses Convex Auth instead of legacy system
+// Simple wrapper around Convex Auth for consistent API
+
+import { useAuth } from './convexAuth';
 import type { IUser } from '../types';
 
+// Export the main auth hook
+export { useAuth } from './convexAuth';
+
+// Legacy compatibility wrapper - will be removed once all components are updated
 export const authService = {
+  // These methods are deprecated - use useAuth() hook instead
   async createAccount(email: string, password: string, name: string) {
-    return convexAuthService.createAccount(email, password, name);
+    throw new Error('DEPRECATED: Use useAuth() hook with register() method instead');
   },
 
   async login(email: string, password: string) {
-    return convexAuthService.login(email, password);
+    throw new Error('DEPRECATED: Use useAuth() hook with login() method instead');
   },
 
   async logout() {
-    return convexAuthService.logout();
+    throw new Error('DEPRECATED: Use useAuth() hook with logout() method instead');
   },
 
   async getCurrentUser(): Promise<IUser | null> {
-    return convexAuthService.getCurrentUser();
+    throw new Error('DEPRECATED: Use useAuth() hook with user property instead');
   },
 
   async updateProfile(userId: string, data: Partial<IUser>) {
-    return convexAuthService.updateProfile(userId, data);
+    throw new Error('DEPRECATED: Use Convex Auth mutations directly');
   },
 
   async resetPassword(email: string) {
-    return convexAuthService.resetPassword(email);
+    throw new Error('DEPRECATED: Use Convex Auth password reset');
   },
 
   async updatePassword(password: string, newPassword: string) {
-    return convexAuthService.updatePassword(password, newPassword);
+    throw new Error('DEPRECATED: Use Convex Auth password update');
   },
 };

@@ -5,13 +5,13 @@ import { Button } from '../components/ui/Button';
 import { ArrowLeft, Play, AlertTriangle } from 'lucide-react';
 import { QuizEngineLocal as QuizEngine } from '../components/quiz/QuizEngineLocal';
 import { QuizResults } from '../components/quiz/QuizResults';
-import { QuizResultsSummary } from '../components/quiz/QuizResultsSummary';
 import { TransitionScreen } from '../components/ui/LoadingStates';
 // Removed complex session components for simpler architecture
 import { CustomQuizConfig } from '../components/quiz/CustomQuizConfig';
 import { TimedQuizConfig, type TimedQuizConfig as TimedQuizConfigType } from '../components/quiz/TimedQuizConfig';
 // Simplified architecture without complex session hooks
 import { useAppStore } from '../store';
+import { useAuth } from '../services/convexAuth';
 import { quizModes } from '../data/sampleQuestions';
 import type { QuizSession } from '../services/quiz';
 import type { Question } from '../services/quiz';
@@ -25,7 +25,7 @@ export const Quiz: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const quizMode = location.state?.mode;
-  const { user } = useAppStore();
+  const { user } = useAuth();
   
   const [quizState, setQuizState] = useState<QuizState>('setup');
   const [completedSession, setCompletedSession] = useState<QuizSession | null>(null);

@@ -1,8 +1,8 @@
 import React from 'react';
-import { useAppStore } from '../../store';
+import { useAuth } from '../../services/convexAuth';
 
 export const WelcomeBanner: React.FC = () => {
-  const { user } = useAppStore();
+  const { user } = useAuth();
 
   if (!user) return null;
 

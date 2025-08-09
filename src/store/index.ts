@@ -1,14 +1,8 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 import type { IUser, IQuizSession, IQuizConfig, IAnswer, INotification } from '../types';
-import { authService } from '../services/auth';
 
 interface AppState {
-  // User state
-  user: IUser | null;
-  isAuthenticated: boolean;
-  isLoading: boolean;
-  
   // Quiz state
   currentQuiz: IQuizSession | null;
   
@@ -20,14 +14,7 @@ interface AppState {
   // Notifications
   notifications: INotification[];
   
-  // Actions
-  setUser: (user: IUser | null) => void;
-  setLoading: (loading: boolean) => void;
-  login: (email: string, password: string) => Promise<void>;
-  logout: () => Promise<void>;
-  register: (email: string, password: string, name: string) => Promise<void>;
-  updateUserStats: (updates: Partial<IUser>) => void;
-  
+  // Actions - AUTH IS NOW HANDLED BY CONVEX AUTH HOOKS
   // Quiz actions
   startQuiz: (config: IQuizConfig) => void;
   submitAnswer: (answer: IAnswer) => void;
@@ -42,106 +29,21 @@ interface AppState {
   addNotification: (notification: Omit<INotification, 'id'>) => void;
   removeNotification: (id: string) => void;
   clearNotifications: () => void;
+  
+  // User stats updates (for real-time feedback after quiz completion)
+  updateUserStats: (updates: Partial<IUser>) => void;
 }
 
 export const useAppStore = create<AppState>()(
   devtools(
     persist(
       (set, get) => ({
-        // Initial state
-        user: null,
-        isAuthenticated: false,
-        isLoading: true,
+        // Initial state - AUTH STATE IS NOW MANAGED BY CONVEX AUTH
         currentQuiz: null,
         sidebarOpen: true,
         isMobile: false,
         theme: 'light',
         notifications: [],
-        
-        // User actions
-        setUser: (user) => set({ user, isAuthenticated: !!user }),
-        setLoading: (loading) => set({ isLoading: loading }),
-        
-        login: async (email: string, password: string) => {
-          try {
-            console.log('🏪 Store: Starting login process for:', email);
-            set({ isLoading: true });
-            
-            console.log('🏪 Store: Calling authService.login...');
-            const { user } = await authService.login(email, password);
-            
-            console.log('🏪 Store: Login successful, setting user state');
-            set({ user, isAuthenticated: true });
-            
-            get().addNotification({
-              type: 'success',
-              title: 'Welcome back!',
-              message: 'You have successfully logged in.',
-            });
-            console.log('🏪 Store: Login process completed successfully');
-          } catch (error) {
-            console.error('🏪 Store: Login error:', error);
-            get().addNotification({
-              type: 'error',
-              title: 'Login failed',
-              message: error instanceof Error ? error.message : 'An error occurred',
-            });
-            throw error;
-          } finally {
-            set({ isLoading: false });
-          }
-        },
-        
-        logout: async () => {
-          try {
-            set({ isLoading: true });
-            await authService.logout();
-            set({ user: null, isAuthenticated: false, currentQuiz: null });
-            get().addNotification({
-              type: 'info',
-              title: 'Logged out',
-              message: 'You have been logged out successfully.',
-            });
-          } catch (error) {
-            get().addNotification({
-              type: 'error',
-              title: 'Logout failed',
-              message: error instanceof Error ? error.message : 'An error occurred',
-            });
-          } finally {
-            set({ isLoading: false });
-          }
-        },
-        
-        register: async (email: string, password: string, name: string) => {
-          try {
-            console.log('🏪 Store: Starting registration process for:', email);
-            set({ isLoading: true });
-            
-            console.log('🏪 Store: Calling authService.createAccount...');
-            const { user } = await authService.createAccount(email, password, name);
-            
-            console.log('🏪 Store: Registration successful, setting user state');
-            set({ user: user as unknown as IUser, isAuthenticated: true });
-            
-            get().addNotification({
-              type: 'success',
-              title: 'Welcome to MedQuiz Pro!',
-              message: 'Your account has been created successfully.',
-            });
-            console.log('🏪 Store: Registration process completed successfully');
-          } catch (error) {
-            console.error('🏪 Store: Registration error:', error);
-            get().addNotification({
-              type: 'error',
-              title: 'Registration failed',
-              message: error instanceof Error ? error.message : 'An error occurred',
-            });
-            throw error;
-          } finally {
-            set({ isLoading: false });
-          }
-        },
         
         // Quiz actions
         startQuiz: (config: IQuizConfig) => {
@@ -194,42 +96,43 @@ export const useAppStore = create<AppState>()(
         clearNotifications: () => set({ notifications: [] }),
         
         // Update user stats after quiz completion for real-time UI updates
+        // NOTE: This is just for UI feedback - actual auth state is managed by Convex Auth
         updateUserStats: (updates: Partial<IUser>) => {
-          set((state) => {
-            if (!state.user) return state;
-            
-            const updatedUser = { ...state.user, ...updates };
-            
-            // Show notification for points earned if included
-            if (updates.points && updates.points > (state.user.points || 0)) {
-              const pointsEarned = updates.points - (state.user.points || 0);
-              get().addNotification({
-                type: 'success',
-                title: 'Points Earned! 🎉',
-                message: `+${pointsEarned} points! Total: ${updates.points}`,
-                duration: 4000,
-              });
-            }
-            
-            // Show level up notification if level increased
-            if (updates.level && updates.level > (state.user.level || 1)) {
-              get().addNotification({
-                type: 'success',
-                title: 'Level Up! 🚀',
-                message: `Congratulations! You reached Level ${updates.level}`,
-                duration: 5000,
-              });
-            }
-            
-            return { ...state, user: updatedUser };
-          });
+          // Show notification for points earned if included
+          if (updates.points !== undefined) {
+            get().addNotification({
+              type: 'success',
+              title: 'Points Earned! 🎉',
+              message: `You now have ${updates.points} total points!`,
+              duration: 4000,
+            });
+          }
+          
+          // Show level up notification if level increased
+          if (updates.level !== undefined) {
+            get().addNotification({
+              type: 'success',
+              title: 'Level Up! 🚀',
+              message: `Congratulations! You reached Level ${updates.level}`,
+              duration: 5000,
+            });
+          }
+          
+          // Show accuracy improvement if included
+          if (updates.accuracy !== undefined) {
+            get().addNotification({
+              type: 'info',
+              title: 'Stats Updated',
+              message: `Current accuracy: ${updates.accuracy}%`,
+              duration: 3000,
+            });
+          }
         },
       }),
       {
         name: 'medquiz-storage',
         partialize: (state) => ({
-          user: state.user,
-          isAuthenticated: state.isAuthenticated,
+          // Only persist UI state - auth is handled by Convex Auth
           sidebarOpen: state.sidebarOpen,
           theme: state.theme,
         }),
@@ -237,3 +140,15 @@ export const useAppStore = create<AppState>()(
     )
   )
 );
+
+// DEPRECATED: Legacy auth actions removed
+// Use useAuth() hook from @/services/convexAuth instead:
+//
+// const { user, isAuthenticated, isLoading, login, logout, register } = useAuth();
+//
+// Migration guide:
+// - Replace useAppStore().user with useAuth().user
+// - Replace useAppStore().isAuthenticated with useAuth().isAuthenticated
+// - Replace useAppStore().login() with useAuth().login()
+// - Replace useAppStore().logout() with useAuth().logout()
+// - Replace useAppStore().register() with useAuth().register()

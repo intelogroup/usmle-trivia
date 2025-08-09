@@ -53,6 +53,7 @@
     "load:test:stress": "node scripts/medical-load-test.js stress"
   },
   "dependencies": {
+    "@convex-dev/auth": "^0.0.88",
     "@missionsquad/mcp-github": "^0.10.7",
     "@netlify/mcp": "^1.10.0",
     "@radix-ui/react-collapsible": "^1.1.11",

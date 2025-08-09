@@ -363,6 +363,25 @@ export const logoutUser = mutation({
   },
 });
 
+// Get current user from auth token (for Convex Auth integration)
+export const getCurrentUserFromToken = query({
+  args: {},
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return null;
+    }
+    
+    // Find user by email from identity
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_email", (q) => q.eq("email", identity.email!))
+      .first();
+    
+    return user;
+  },
+});
+
 // Update user statistics after quiz completion (CRITICAL - was missing)
 export const updateUserStats = mutation({
   args: {
@@ -457,5 +476,84 @@ export const updateUserStats = mutation({
       },
       message: `Great job! You earned ${args.pointsEarned} points and scored ${args.quizScore}%`
     };
+  },
+});
+
+// Get leaderboard
+export const getLeaderboard = query({
+  args: {
+    limit: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const users = await ctx.db
+      .query("users")
+      .withIndex("by_points")
+      .order("desc")
+      .take(args.limit || 10);
+    
+    return users.map((user, index) => ({
+      userId: user._id,
+      userName: user.name,
+      points: user.points || 0,
+      accuracy: user.accuracy || 0,
+      totalQuizzes: user.totalQuizzes || 0,
+      rank: index + 1,
+      level: user.level || 1,
+      streak: user.currentStreak || 0,
+      avgSessionLength: 0, // Calculate if needed
+    }));
+  },
+});
+
+// Get user profile
+export const getUserProfile = query({
+  args: {
+    userId: v.id("users"),
+  },
+  handler: async (ctx, args) => {
+    const user = await ctx.db.get(args.userId);
+    return user;
+  },
+});
+
+// Update user profile
+export const updateUserProfile = mutation({
+  args: {
+    userId: v.id("users"),
+    updates: v.object({
+      name: v.optional(v.string()),
+      medicalLevel: v.optional(v.string()),
+      studyGoals: v.optional(v.string()),
+      avatar: v.optional(v.string()),
+    }),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.userId, {
+      ...args.updates,
+      updatedAt: Date.now(),
+    });
+    
+    return await ctx.db.get(args.userId);
+  },
+});
+
+// Search users
+export const searchUsers = query({
+  args: {
+    searchTerm: v.string(),
+    limit: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    // Simple search by name
+    const users = await ctx.db.query("users").collect();
+    
+    const filtered = users
+      .filter(user => 
+        user.name.toLowerCase().includes(args.searchTerm.toLowerCase()) ||
+        user.email.toLowerCase().includes(args.searchTerm.toLowerCase())
+      )
+      .slice(0, args.limit || 20);
+    
+    return filtered;
   },
 });
