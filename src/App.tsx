@@ -15,8 +15,6 @@ const Leaderboard = lazy(() => import('./pages/Leaderboard').then(module => ({ d
 const Login = lazy(() => import('./pages/Login').then(module => ({ default: module.Login })));
 const Register = lazy(() => import('./pages/Register').then(module => ({ default: module.Register })));
 const UserProfile = lazy(() => import('./components/profile/UserProfile').then(module => ({ default: module.UserProfile })));
-const PerformanceChart = lazy(() => import('./components/analytics/PerformanceChart').then(module => ({ default: module.PerformanceChart })));
-const Social = lazy(() => import('./pages/Social').then(module => ({ default: module.Social })));
 const NotFound = lazy(() => import('./pages/NotFound').then(module => ({ default: module.NotFound })));
 
 // Loading spinner component for Suspense fallback
@@ -164,31 +162,11 @@ function App() {
           }
         />
         <Route
-          path="/analytics"
-          element={
-            <ProtectedRoute>
-              <AppLayout>
-                <PerformanceChart />
-              </AppLayout>
-            </ProtectedRoute>
-          }
-        />
-        <Route
           path="/profile"
           element={
             <ProtectedRoute>
               <AppLayout>
                 <UserProfile />
-              </AppLayout>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/social"
-          element={
-            <ProtectedRoute>
-              <AppLayout>
-                <Social />
               </AppLayout>
             </ProtectedRoute>
           }

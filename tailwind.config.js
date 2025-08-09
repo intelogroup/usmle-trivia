@@ -1,8 +1,5 @@
-import { tailwindColors, typography, spacing, borderRadius, animations } from './tailwind.theme.js';
-
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: ["class"],
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -16,100 +13,45 @@ export default {
       },
     },
     extend: {
-      // Use unified color system from design tokens
       colors: {
-        ...tailwindColors,
+        primary: {
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))'
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))'
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--primary-foreground))'
+        },
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))'
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))'
+        },
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        // Medical colors
+        'medical-anatomy': 'hsl(var(--medical-anatomy))',
+        'medical-physiology': 'hsl(var(--medical-physiology))',
+        'medical-pathology': 'hsl(var(--medical-pathology))',
+        'medical-pharmacology': 'hsl(var(--medical-pharmacology))'
       },
-      // Use design token typography
       fontFamily: {
-        sans: typography.fontFamily.base.split(', '),
+        sans: ['Inter', 'system-ui', 'sans-serif']
       },
-      fontSize: {
-        ...typography.fontSize,
-      },
-      fontWeight: {
-        ...typography.fontWeight,
-      },
-      lineHeight: {
-        ...typography.lineHeight,
-      },
-      // Use design token spacing (extend with additional values)
-      spacing: {
-        ...spacing,
-      },
-      // Use design token border radius with CSS variable fallback
       borderRadius: {
-        ...borderRadius,
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
-      },
-      // Use design token animations
-      transitionDuration: {
-        ...animations.duration,
-      },
-      transitionTimingFunction: {
-        ...animations.easing,
-      },
-      // Custom keyframes and animations
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-        // Add custom animations based on design tokens
-        "animate-in": {
-          from: { 
-            opacity: "0", 
-            transform: "translateY(10px)" 
-          },
-          to: { 
-            opacity: "1", 
-            transform: "translateY(0)" 
-          },
-        },
-        "fade-up": {
-          from: { 
-            opacity: "0", 
-            transform: "translateY(20px)" 
-          },
-          to: { 
-            opacity: "1", 
-            transform: "translateY(0)" 
-          },
-        },
-        "slide-in": {
-          from: { 
-            opacity: "0", 
-            transform: "translateX(-20px)" 
-          },
-          to: { 
-            opacity: "1", 
-            transform: "translateX(0)" 
-          },
-        },
-      },
-      animation: {
-        "accordion-down": `accordion-down ${animations.duration.normal} ${animations.easing.easeOut}`,
-        "accordion-up": `accordion-up ${animations.duration.normal} ${animations.easing.easeOut}`,
-        "animate-in": `animate-in ${animations.duration.slow} ${animations.easing.easeOut}`,
-        "fade-up": `fade-up 0.5s ${animations.easing.easeOut}`,
-        "slide-in": `slide-in 0.4s ${animations.easing.easeOut}`,
-      },
-      // Add medical-specific utilities
-      backgroundImage: {
-        'gradient-primary': 'var(--gradient-primary)',
-        'gradient-secondary': 'var(--gradient-secondary)',
-      },
-      boxShadow: {
-        'custom': 'var(--shadow)',
-        'custom-md': 'var(--shadow-md)',
-        'custom-lg': 'var(--shadow-lg)',
-        'custom-xl': 'var(--shadow-xl)',
       },
     },
   },
