@@ -4,7 +4,7 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  NPM_FLAGS = "--force"
+  NPM_FLAGS = "--force --no-audit"
   # Production build optimizations
   VITE_BUILD_SOURCEMAP = "false"
   NODE_OPTIONS = "--max-old-space-size=1024"
