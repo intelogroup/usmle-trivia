@@ -188,11 +188,20 @@ export const Quiz: React.FC = () => {
   // Get quiz mode configuration
   const modeConfig = quizModes[mode];
 
-  // Quiz setup screen - show custom config for custom mode
+  // Quiz setup screen - show config for custom and timed modes
   if (mode === 'custom') {
     return (
-      <CustomQuizConfig 
+      <CustomQuizConfig
         onStartQuiz={handleCustomQuizConfig}
+        onBack={handleBack}
+      />
+    );
+  }
+
+  if (mode === 'timed') {
+    return (
+      <TimedQuizConfig
+        onStartQuiz={handleTimedQuizConfig}
         onBack={handleBack}
       />
     );
