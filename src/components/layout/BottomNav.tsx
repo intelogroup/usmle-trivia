@@ -1,21 +1,21 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { Home, FileText, BarChart3, Trophy, User } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 interface BottomNavItem {
   id: string;
   label: string;
-  icon: string;
-  activeIcon: string;
+  icon: React.ElementType;
   href: string;
 }
 
 const mobileNavItems: BottomNavItem[] = [
-  { id: 'home', label: 'Home', icon: '🏠', activeIcon: '🏠', href: '/dashboard' },
-  { id: 'quiz', label: 'Quiz', icon: '📝', activeIcon: '📝', href: '/quiz' },
-  { id: 'progress', label: 'Progress', icon: '📊', activeIcon: '📊', href: '/progress' },
-  { id: 'leaderboard', label: 'Rank', icon: '🏆', activeIcon: '🏆', href: '/leaderboard' },
-  { id: 'profile', label: 'Profile', icon: '👤', activeIcon: '👤', href: '/profile' },
+  { id: 'home', label: 'Home', icon: Home, href: '/dashboard' },
+  { id: 'quiz', label: 'Quiz', icon: FileText, href: '/quiz' },
+  { id: 'progress', label: 'Progress', icon: BarChart3, href: '/progress' },
+  { id: 'leaderboard', label: 'Rank', icon: Trophy, href: '/leaderboard' },
+  { id: 'profile', label: 'Profile', icon: User, href: '/profile' },
 ];
 
 export const BottomNav: React.FC = () => {
@@ -41,12 +41,12 @@ export const BottomNav: React.FC = () => {
                 : "text-gray-500 hover:text-gray-700"
             )}
           >
-            <div className={cn(
-              "text-2xl mb-0.5 transition-all duration-200",
-              isActive(item.href) && "scale-110"
-            )}>
-              {isActive(item.href) ? item.activeIcon : item.icon}
-            </div>
+            <item.icon className={cn(
+              "h-6 w-6 mb-0.5 transition-all duration-200",
+              isActive(item.href) 
+                ? "text-blue-600 scale-110" 
+                : "text-gray-500"
+            )} />
             <span className={cn(
               "text-xs font-medium leading-tight",
               isActive(item.href) && "text-blue-600 font-semibold"

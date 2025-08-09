@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
 import { Button } from '../ui/Button';
-import { Trophy, Target, TrendingUp, Home, RotateCcw, BookOpen, Star } from 'lucide-react';
+import { Trophy, Target, TrendingUp, Home, RotateCcw, BookOpen, Star, Lightbulb } from 'lucide-react';
 import type { QuizSession } from '../../services/quiz';
 import { difficultyPoints } from '../../data/sampleQuestions';
 
@@ -201,9 +201,10 @@ export const QuizResults: React.FC<QuizResultsProps> = ({ session, onHome, onRet
               </div>
             )}
 
-            <div className="text-sm text-muted-foreground">
-              💡 <strong>Tip:</strong> Regular practice with spaced repetition is key to long-term retention. 
-              Try to quiz yourself on these topics again in a few days.
+            <div className="text-sm text-muted-foreground flex items-start gap-2">
+              <Lightbulb className="h-4 w-4 text-yellow-500 flex-shrink-0 mt-0.5" />
+              <span><strong>Tip:</strong> Regular practice with spaced repetition is key to long-term retention. 
+              Try to quiz yourself on these topics again in a few days.</span>
             </div>
           </div>
         </CardContent>

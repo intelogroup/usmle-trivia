@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { useAppStore } from '../store';
+import { Search } from 'lucide-react';
 
 export const NotFound = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export const NotFound = () => {
     <div className="min-h-screen bg-white flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center">
         <div className="mb-8">
-          <div className="text-8xl mb-4">🔍</div>
+          <Search className="h-20 w-20 text-gray-400 mx-auto mb-4" />
           <h1 className="text-6xl font-bold text-gray-900 mb-4">404</h1>
           <h2 className="text-xl font-semibold text-gray-800 mb-4">
             Page Not Found

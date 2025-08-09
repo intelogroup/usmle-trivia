@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Link } from 'react-router-dom';
+import { Target, Clock, TrendingUp } from 'lucide-react';
 
 export const Progress: React.FC = () => {
   return (
@@ -15,7 +16,7 @@ export const Progress: React.FC = () => {
       <Card className="p-8">
         <CardContent className="text-center p-0">
           <div className="mb-6">
-            <div className="text-6xl mb-4">📈</div>
+            <TrendingUp className="h-16 w-16 text-blue-500 mx-auto mb-4" />
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
               Start Your Learning Journey
             </h3>
@@ -41,7 +42,7 @@ export const Progress: React.FC = () => {
       <div className="grid md:grid-cols-2 gap-4">
         <Card className="p-6 border-dashed border-gray-300 bg-gray-50">
           <div className="text-center">
-            <div className="text-3xl mb-2">🎯</div>
+            <Target className="h-8 w-8 text-blue-500 mx-auto mb-2" />
             <h4 className="font-semibold text-gray-700 mb-1">Accuracy Tracking</h4>
             <p className="text-sm text-gray-600">Monitor your performance across different medical topics</p>
           </div>
@@ -49,7 +50,7 @@ export const Progress: React.FC = () => {
         
         <Card className="p-6 border-dashed border-gray-300 bg-gray-50">
           <div className="text-center">
-            <div className="text-3xl mb-2">⏱️</div>
+            <Clock className="h-8 w-8 text-blue-500 mx-auto mb-2" />
             <h4 className="font-semibold text-gray-700 mb-1">Study Time</h4>
             <p className="text-sm text-gray-600">Track daily and weekly study sessions</p>
           </div>

@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { BookOpen, AlertTriangle, Building2 } from 'lucide-react';
 import { analyticsService } from './analytics';
 
 // Error types and interfaces
@@ -562,7 +563,7 @@ const AppErrorFallback: React.FC<{ error?: Error; resetErrorBoundary?: () => voi
 }) => (
   <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
     <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-6 text-center">
-      <div className="text-6xl mb-4">🏥</div>
+      <Building2 className="h-16 w-16 text-blue-500 mx-auto mb-4" />
       <h1 className="text-xl font-bold text-gray-900 mb-2">
         Medical Platform Error
       </h1>
@@ -601,7 +602,7 @@ const QuizErrorFallback: React.FC<{ error?: Error; resetErrorBoundary?: () => vo
 }) => (
   <div className="flex items-center justify-center min-h-[400px] p-4">
     <div className="max-w-md w-full bg-white rounded-lg border border-red-200 p-6 text-center">
-      <div className="text-4xl mb-4">📚</div>
+      <BookOpen className="h-12 w-12 text-red-400 mx-auto mb-4" />
       <h2 className="text-lg font-semibold text-gray-900 mb-2">
         Quiz Loading Error
       </h2>
@@ -631,7 +632,7 @@ const ComponentErrorFallback: React.FC<{ error?: Error; resetErrorBoundary?: () 
 }) => (
   <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 m-2">
     <div className="flex items-center">
-      <div className="text-yellow-600 mr-3">⚠️</div>
+      <AlertTriangle className="h-5 w-5 text-yellow-600 mr-3" />
       <div className="flex-1">
         <h3 className="text-sm font-medium text-yellow-800">
           Component Error

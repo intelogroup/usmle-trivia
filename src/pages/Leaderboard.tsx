@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
+import { TrendingUp, Calendar, CalendarDays, BookOpen, Trophy, Medal, Award, Search, Users, Star, Lightbulb, Flame } from 'lucide-react';
 
 // Mock data for demonstration - in real app this would come from the database
 const mockLeaderboardData = [
@@ -86,9 +87,9 @@ export const Leaderboard: React.FC = () => {
   const [selectedLevel, setSelectedLevel] = useState<string>('all');
 
   const getRankIcon = (rank: number) => {
-    if (rank === 1) return <span className="text-xl">🥇</span>;
-    if (rank === 2) return <span className="text-xl">🥈</span>;
-    if (rank === 3) return <span className="text-xl">🥉</span>;
+    if (rank === 1) return <Trophy className="h-6 w-6 text-yellow-500" />;
+    if (rank === 2) return <Medal className="h-6 w-6 text-gray-400" />;
+    if (rank === 3) return <Award className="h-6 w-6 text-amber-600" />;
     return <span className="h-5 w-5 flex items-center justify-center text-sm font-bold text-gray-600">#{rank}</span>;
   };
 
@@ -100,10 +101,10 @@ export const Leaderboard: React.FC = () => {
   };
 
   const categories = [
-    { id: 'all', label: 'All Time', icon: '📈' },
-    { id: 'weekly', label: 'This Week', icon: '📅' },
-    { id: 'monthly', label: 'This Month', icon: '🗓️' },
-    { id: 'by-level', label: 'By Level', icon: '📚' }
+    { id: 'all', label: 'All Time', icon: TrendingUp },
+    { id: 'weekly', label: 'This Week', icon: Calendar },
+    { id: 'monthly', label: 'This Month', icon: CalendarDays },
+    { id: 'by-level', label: 'By Level', icon: BookOpen }
   ];
 
   const medicalLevels = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
@@ -119,7 +120,10 @@ export const Leaderboard: React.FC = () => {
     <div className="space-y-6">
       {/* Header */}
       <div className="text-center space-y-2">
-        <h1 className="text-2xl font-semibold text-gray-900">🏆 Leaderboard</h1>
+        <h1 className="text-2xl font-semibold text-gray-900 flex items-center justify-center gap-2">
+          <Trophy className="h-6 w-6 text-yellow-500" />
+          Leaderboard
+        </h1>
         <p className="text-gray-600">
           See how you rank against other medical students in your USMLE preparation
         </p>
@@ -129,7 +133,7 @@ export const Leaderboard: React.FC = () => {
       <Card>
         <CardHeader>
           <CardTitle className="text-lg flex items-center gap-2">
-            <span>🔍</span>
+            <Search className="h-5 w-5" />
             Filter Rankings
           </CardTitle>
         </CardHeader>
@@ -142,7 +146,7 @@ export const Leaderboard: React.FC = () => {
                 onClick={() => setSelectedCategory(category.id as LeaderboardCategory)}
                 className="w-full flex items-center gap-2 text-sm"
               >
-                <span>{category.icon}</span>
+                <category.icon className="h-4 w-4" />
                 {category.label}
               </Button>
             ))}
@@ -197,8 +201,9 @@ export const Leaderboard: React.FC = () => {
                 <div className="text-sm text-muted-foreground">
                   Level {user.level} • {user.accuracy}% accuracy
                 </div>
-                <div className="text-xs text-muted-foreground">
-                  🔥 {user.streak} day streak
+                <div className="text-xs text-muted-foreground flex items-center justify-center gap-1">
+                  <Flame className="h-3 w-3 text-orange-500" />
+                  {user.streak} day streak
                 </div>
               </div>
             </CardContent>
@@ -210,7 +215,7 @@ export const Leaderboard: React.FC = () => {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <span>👥</span>
+            <Users className="h-5 w-5" />
             Full Rankings
           </CardTitle>
         </CardHeader>
@@ -251,8 +256,9 @@ export const Leaderboard: React.FC = () => {
                     <div className="text-lg font-bold text-primary">
                       {user.points.toLocaleString()}
                     </div>
-                    <div className="text-xs text-muted-foreground">
-                      🔥 {user.streak} days
+                    <div className="text-xs text-muted-foreground flex items-center gap-1">
+                      <Flame className="h-3 w-3 text-orange-500" />
+                      {user.streak} days
                     </div>
                   </div>
                 </div>
@@ -266,7 +272,7 @@ export const Leaderboard: React.FC = () => {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <span>⭐</span>
+            <Star className="h-5 w-5 text-yellow-500" />
             Points System
           </CardTitle>
         </CardHeader>
@@ -286,9 +292,10 @@ export const Leaderboard: React.FC = () => {
             </div>
           </div>
           <div className="mt-4 p-3 bg-muted rounded-lg">
-            <p className="text-sm text-muted-foreground">
-              💡 <strong>Tip:</strong> Build your ranking by maintaining study streaks, achieving high accuracy, 
-              and tackling challenging questions. Consistency is key to climbing the leaderboard!
+            <p className="text-sm text-muted-foreground flex items-start gap-2">
+              <Lightbulb className="h-4 w-4 text-yellow-500 flex-shrink-0 mt-0.5" />
+              <span><strong>Tip:</strong> Build your ranking by maintaining study streaks, achieving high accuracy, 
+              and tackling challenging questions. Consistency is key to climbing the leaderboard!</span>
             </p>
           </div>
         </CardContent>

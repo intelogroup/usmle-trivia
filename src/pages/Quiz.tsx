@@ -6,6 +6,7 @@ import { ArrowLeft, Play, AlertTriangle } from 'lucide-react';
 import { QuizEngine } from '../components/quiz/QuizEngine';
 import { QuizResults } from '../components/quiz/QuizResults';
 import { QuizResultsSummary } from '../components/quiz/QuizResultsSummary';
+import { TransitionScreen } from '../components/ui/LoadingStates';
 // Removed complex session components for simpler architecture
 import { CustomQuizConfig } from '../components/quiz/CustomQuizConfig';
 // Simplified architecture without complex session hooks
@@ -16,7 +17,7 @@ import type { Question } from '../services/quiz';
 // Removed complex session manager import
 
 type QuizMode = 'quick' | 'timed' | 'custom';
-type QuizState = 'setup' | 'active' | 'results';
+type QuizState = 'setup' | 'starting' | 'active' | 'results';
 
 export const Quiz: React.FC = () => {
   const { mode } = useParams<{ mode?: string }>();
@@ -82,8 +83,13 @@ export const Quiz: React.FC = () => {
 
       console.log(`🎯 Starting ${mode} quiz with ${questionCount} questions`);
       
-      // Simplified - directly start the quiz
-      setQuizState('active');
+      // Show loading state before starting quiz
+      setQuizState('starting');
+      
+      // Add small delay for smooth transition
+      setTimeout(() => {
+        setQuizState('active');
+      }, 2000);
       
     } catch (error) {
       console.error('Failed to start quiz session:', error);
@@ -134,6 +140,16 @@ export const Quiz: React.FC = () => {
           </CardContent>
         </Card>
       </div>
+    );
+  }
+  
+  // Show starting transition
+  if (quizState === 'starting') {
+    return (
+      <TransitionScreen
+        type="quiz-starting"
+        message={`Preparing your ${mode} quiz with ${quizModes[mode as QuizMode]?.questionCount || 5} questions`}
+      />
     );
   }
   
