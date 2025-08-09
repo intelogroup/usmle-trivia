@@ -70,13 +70,21 @@ export const QuizEngineLocal: React.FC<QuizEngineProps> = ({ mode, config, onBac
     hasAnswered: false,
   });
 
-  // Quiz configuration based on mode
+  // Quiz configuration based on mode and props
   const getQuizConfig = useCallback(() => {
+    // Use config props if provided, otherwise use defaults
+    if (config) {
+      return {
+        numQuestions: config.questionCount || 15,
+        timeLimit: config.timeLimit || null
+      };
+    }
+
     switch (mode) {
       case 'quick':
         return { numQuestions: 5, timeLimit: null };
       case 'timed':
-        return { numQuestions: 10, timeLimit: 600 }; // 10 minutes
+        return { numQuestions: 15, timeLimit: 30 * 60 }; // 30 minutes default
       case 'custom':
         return { numQuestions: 8, timeLimit: null };
       default:
