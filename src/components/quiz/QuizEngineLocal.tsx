@@ -118,7 +118,7 @@ export const QuizEngineLocal: React.FC<QuizEngineProps> = ({ mode, config, onBac
             ...prev,
             questions,
             answers: new Array(questions.length).fill(null),
-            timeRemaining: config.timeLimit,
+            timeRemaining: quizConfig.timeLimit,
           }));
 
           // Create local quiz session
