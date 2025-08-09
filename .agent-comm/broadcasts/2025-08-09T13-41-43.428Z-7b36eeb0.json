@@ -1,0 +1,9 @@
+{
+  "id": "7b36eeb0",
+  "from": "agent-6903",
+  "to": "ALL",
+  "timestamp": "2025-08-09T13:41:43.428Z",
+  "priority": "normal",
+  "message": "Auth system needs bcrypt replacement - affects cod",
+  "type": "broadcast"
+}

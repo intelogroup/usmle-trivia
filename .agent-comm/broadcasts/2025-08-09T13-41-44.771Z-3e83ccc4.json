@@ -1,0 +1,9 @@
+{
+  "id": "3e83ccc4",
+  "from": "agent-6904",
+  "to": "ALL",
+  "timestamp": "2025-08-09T13:41:44.771Z",
+  "priority": "normal",
+  "message": "Found 92 TypeScript any types and 20 ESLint errors",
+  "type": "broadcast"
+}

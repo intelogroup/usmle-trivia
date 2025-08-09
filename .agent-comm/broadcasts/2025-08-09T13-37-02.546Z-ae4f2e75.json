@@ -1,0 +1,9 @@
+{
+  "id": "ae4f2e75",
+  "from": "agent-6622",
+  "to": "ALL",
+  "timestamp": "2025-08-09T13:37:02.546Z",
+  "priority": "normal",
+  "message": "System test - communication active",
+  "type": "broadcast"
+}
