@@ -9,6 +9,7 @@ import { QuizResultsSummary } from '../components/quiz/QuizResultsSummary';
 import { TransitionScreen } from '../components/ui/LoadingStates';
 // Removed complex session components for simpler architecture
 import { CustomQuizConfig } from '../components/quiz/CustomQuizConfig';
+import { TimedQuizConfig, type TimedQuizConfig as TimedQuizConfigType } from '../components/quiz/TimedQuizConfig';
 // Simplified architecture without complex session hooks
 import { useAppStore } from '../store';
 import { quizModes } from '../data/sampleQuestions';
