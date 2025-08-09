@@ -61,8 +61,14 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
     }
   }, [mode]);
 
+  const config = getQuizConfig();
+
   // Convex hooks
-  const getRandomQuestions = useGetRandomQuestions();
+  const questions = useGetRandomQuestions({
+    count: config.numQuestions,
+    difficulty: undefined,
+    category: undefined
+  });
   const createQuizSession = useCreateQuizSession();
   const submitAnswer = useSubmitAnswer();
   const completeQuizWithStats = useCompleteQuizWithStats();
@@ -71,54 +77,67 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
   useEffect(() => {
     const initializeQuiz = async () => {
       try {
-        if (!user) throw new Error('User not authenticated');
+        if (!user || !questions || questions.length === 0) return;
         
-        const config = getQuizConfig();
-        const questions = await handleAsyncError(async () => {
-          return await getRandomQuestions({ count: config.numQuestions });
-        }, 'Load Questions');
+        // Only initialize once
+        if (quizState.questions.length > 0) return;
 
-        if (questions && questions.length > 0) {
-          // Track question view for first question
-          analyticsService.trackQuestionView(questions[0].id, 0);
-          
-          setQuizState(prev => ({
-            ...prev,
-            questions,
-            answers: new Array(questions.length).fill(null),
-            timeRemaining: config.timeLimit,
-          }));
+        // Track question view for first question
+        analyticsService.trackQuestionView(questions[0]._id, 0);
+        
+        // Convert ConvexQuestion to Question format
+        const convertedQuestions = questions.map(q => ({
+          id: q._id,
+          question: q.question,
+          options: q.options,
+          correctAnswer: q.correctAnswer,
+          explanation: q.explanation,
+          category: q.category,
+          difficulty: q.difficulty,
+          usmleCategory: q.usmleCategory,
+          tags: q.tags,
+          medicalReferences: q.medicalReferences,
+          imageUrl: q.imageUrl,
+          lastReviewed: q.lastReviewed ? new Date(q.lastReviewed) : undefined,
+          createdAt: new Date(q._creationTime),
+          updatedAt: new Date(q._creationTime),
+        }));
+        
+        setQuizState(prev => ({
+          ...prev,
+          questions: convertedQuestions,
+          answers: new Array(convertedQuestions.length).fill(null),
+          timeRemaining: config.timeLimit,
+        }));
 
-          // Create quiz session
-          const sessionId = await createQuizSession({
+        // Create quiz session
+        const sessionId = await createQuizSession({
+          userId: user.id,
+          mode,
+          questionIds: questions.map(q => q._id),
+        });
+
+        setQuizState(prev => ({
+          ...prev,
+          session: {
+            id: sessionId,
             userId: user.id,
             mode,
-            questionIds: questions.map(q => q.id),
-            startTime: new Date().toISOString(),
-          });
-
-          setQuizState(prev => ({
-            ...prev,
-            session: {
-              id: sessionId,
-              userId: user.id,
-              mode,
-              questions: questions.map(q => q.id),
-              answers: [],
-              score: 0,
-              status: 'in_progress',
-              startTime: prev.startTime,
-              timeSpent: 0,
-            } as QuizSession
-          }));
-        }
+            questions: questions.map(q => q._id),
+            answers: [],
+            score: 0,
+            status: 'in_progress',
+            startTime: prev.startTime,
+            timeSpent: 0,
+          } as QuizSession
+        }));
       } catch (error) {
         console.error('Failed to initialize quiz:', error);
       }
     };
 
     initializeQuiz();
-  }, [user, mode, getQuizConfig, getRandomQuestions, createQuizSession, handleAsyncError]);
+  }, [user, questions, createQuizSession, mode, config.timeLimit, quizState.questions.length]);
 
   // Handle answer selection
   const handleAnswerSelect = useCallback(async (answerIndex: number) => {
@@ -180,7 +199,7 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
       
       const enhancedResult = await completeQuizWithStats({
         sessionId: quizState.session!.id,
-        timeSpent: finalTimeSpent,
+        finalTimeSpent: finalTimeSpent,
       });
 
       if (enhancedResult && enhancedResult.session) {
