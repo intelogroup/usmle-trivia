@@ -90,7 +90,7 @@ export const QuizEngineLocal: React.FC<QuizEngineProps> = ({ mode, config, onBac
       default:
         return { numQuestions: 5, timeLimit: null };
     }
-  }, [mode]);
+  }, [mode, config]);
 
   // Initialize quiz
   useEffect(() => {
