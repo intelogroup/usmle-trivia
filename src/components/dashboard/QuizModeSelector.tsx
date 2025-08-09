@@ -83,7 +83,7 @@ export const QuizModeSelector: React.FC = () => {
           {quizModes.map((mode) => (
             <div
               key={mode.id}
-              className="group relative overflow-hidden rounded-xl border bg-background p-6 hover:shadow-custom-lg transition-all duration-300 cursor-pointer animate-in hover:scale-105"
+              className="border bg-card rounded-lg p-6 hover:bg-muted/50 transition-colors cursor-pointer"
               onClick={() => handleStartQuiz(mode)}
               {...getAnalyticsAttributes('quiz_start', { 
                 mode: mode.id,
@@ -91,14 +91,12 @@ export const QuizModeSelector: React.FC = () => {
                 duration: mode.duration || 'unknown'
               })}
             >
-              {/* Gradient accent */}
-              <div className={cn('absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r rounded-t-xl', mode.color)} />
               
               <div className="pt-2">
                 {/* Icon and title */}
                 <div className="flex items-start gap-4 mb-4">
-                  <div className={cn('p-3 rounded-xl bg-gradient-to-br text-white shadow-custom transition-transform duration-200 group-hover:scale-110', mode.color)}>
-                    <mode.icon className="h-6 w-6" />
+                  <div className="p-3 rounded-lg bg-muted border">
+                    <mode.icon className="h-6 w-6 text-primary" />
                   </div>
                   <div className="flex-1">
                     <h3 className="font-bold text-xl mb-1">{mode.title}</h3>
@@ -124,9 +122,9 @@ export const QuizModeSelector: React.FC = () => {
 
                 {/* Action button */}
                 <Button 
-                  variant="gradient"
+                  variant="default"
                   size="lg"
-                  className="w-full group-hover:shadow-custom-md"
+                  className="w-full"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleStartQuiz(mode);
