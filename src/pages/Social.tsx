@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, Routes, Route } from 'react-router-dom';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
@@ -13,7 +13,8 @@ import {
   Star,
   Activity,
   Bell,
-  TrendingUp
+  TrendingUp,
+  Loader2
 } from 'lucide-react';
 
 interface SocialTab {
@@ -32,8 +33,51 @@ const socialTabs: SocialTab[] = [
   { id: 'settings', label: 'Settings', icon: Settings, href: '/social/settings' },
 ];
 
+// Loading component
+const LoadingCard: React.FC = () => (
+  <Card className="p-4">
+    <CardContent className="p-0 text-center">
+      <div className="animate-pulse">
+        <div className="h-8 w-8 bg-gray-200 rounded mx-auto mb-2"></div>
+        <div className="h-6 w-8 bg-gray-200 rounded mx-auto mb-1"></div>
+        <div className="h-4 w-12 bg-gray-200 rounded mx-auto"></div>
+      </div>
+    </CardContent>
+  </Card>
+);
+
 // Social Hub Component (main page)
 const SocialHub: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading data
+    const timer = setTimeout(() => setIsLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="space-y-6">
+        <div>
+          <div className="h-8 w-48 bg-gray-200 rounded mb-2 animate-pulse"></div>
+          <div className="h-5 w-96 bg-gray-200 rounded animate-pulse"></div>
+        </div>
+        
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <LoadingCard />
+          <LoadingCard />
+          <LoadingCard />
+          <LoadingCard />
+        </div>
+        
+        <div className="space-y-4">
+          <div className="h-96 bg-gray-100 rounded-lg animate-pulse"></div>
+          <div className="h-64 bg-gray-100 rounded-lg animate-pulse"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -44,11 +88,11 @@ const SocialHub: React.FC = () => {
       </div>
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4" role="region" aria-label="Social statistics">
         <Card className="p-4">
           <CardContent className="p-0 text-center">
-            <Users className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-            <div className="text-2xl font-heading font-semibold text-gray-900">12</div>
+            <Users className="h-8 w-8 text-blue-600 mx-auto mb-2" aria-hidden="true" />
+            <div className="text-2xl font-heading font-semibold text-gray-900" aria-label="12 friends">12</div>
             <div className="text-sm text-gray-600">Friends</div>
           </CardContent>
         </Card>
@@ -80,17 +124,18 @@ const SocialHub: React.FC = () => {
 
       {/* Navigation Tabs */}
       <div className="border-b border-gray-200">
-        <nav className="-mb-px flex space-x-8 overflow-x-auto">
+        <nav className="-mb-px flex space-x-8 overflow-x-auto" role="navigation" aria-label="Social navigation">
           {socialTabs.map((tab) => (
             <Link
               key={tab.id}
               to={tab.href}
-              className="group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap hover:text-blue-600 hover:border-blue-300 transition-colors"
+              className="group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap hover:text-blue-600 hover:border-blue-300 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              aria-label={`${tab.label}${tab.count ? ` (${tab.count} items)` : ''}`}
             >
-              <tab.icon className="h-5 w-5 mr-2 group-hover:text-blue-600" />
+              <tab.icon className="h-5 w-5 mr-2 group-hover:text-blue-600" aria-hidden="true" />
               {tab.label}
               {tab.count && (
-                <span className="ml-2 bg-blue-100 text-blue-600 py-0.5 px-2 rounded-full text-xs font-medium">
+                <span className="ml-2 bg-blue-100 text-blue-600 py-0.5 px-2 rounded-full text-xs font-medium" aria-label={`${tab.count} notifications`}>
                   {tab.count}
                 </span>
               )}
