@@ -1,0 +1,486 @@
+{
+  "summary": {
+    "totalTests": 24,
+    "passedTests": 17,
+    "failedTests": 7,
+    "startTime": "2025-08-08T20:02:34.772Z",
+    "endTime": "2025-08-08T20:03:30.361Z"
+  },
+  "browserCompatibility": [
+    {
+      "browser": "Chrome",
+      "success": true,
+      "loadTime": 958,
+      "title": "USMLE Trivia - Medical Quiz App",
+      "hasContent": true,
+      "hasNavigation": false,
+      "hasButtons": false,
+      "timestamp": "2025-08-08T20:02:36.700Z"
+    },
+    {
+      "browser": "Firefox",
+      "success": true,
+      "loadTime": 1692,
+      "title": "USMLE Trivia - Medical Quiz App",
+      "hasContent": true,
+      "hasNavigation": false,
+      "hasButtons": false,
+      "timestamp": "2025-08-08T20:02:41.593Z"
+    },
+    {
+      "browser": "Safari",
+      "success": true,
+      "loadTime": 1358,
+      "title": "USMLE Trivia - Medical Quiz App",
+      "hasContent": true,
+      "hasNavigation": false,
+      "hasButtons": false,
+      "timestamp": "2025-08-08T20:02:55.462Z"
+    }
+  ],
+  "deviceCompatibility": [
+    {
+      "device": "iPhone_SE",
+      "category": "mobile",
+      "viewport": {
+        "width": 375,
+        "height": 667
+      },
+      "responsive": {
+        "success": false,
+        "viewport": {
+          "width": 375,
+          "height": 667
+        },
+        "contentFitsScreen": true,
+        "noHorizontalScroll": false
+      },
+      "touchInterface": {
+        "success": true,
+        "touchFriendlyElements": 8,
+        "totalInteractiveElements": 9,
+        "percentage": 88.88888888888889
+      },
+      "success": false,
+      "timestamp": "2025-08-08T20:02:59.615Z"
+    },
+    {
+      "device": "iPhone_12",
+      "category": "mobile",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "responsive": {
+        "success": true,
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "contentFitsScreen": true,
+        "noHorizontalScroll": true
+      },
+      "touchInterface": {
+        "success": true,
+        "touchFriendlyElements": 8,
+        "totalInteractiveElements": 9,
+        "percentage": 88.88888888888889
+      },
+      "success": true,
+      "timestamp": "2025-08-08T20:03:01.059Z"
+    },
+    {
+      "device": "iPhone_14_Pro",
+      "category": "mobile",
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "responsive": {
+        "success": true,
+        "viewport": {
+          "width": 393,
+          "height": 852
+        },
+        "contentFitsScreen": true,
+        "noHorizontalScroll": true
+      },
+      "touchInterface": {
+        "success": true,
+        "touchFriendlyElements": 8,
+        "totalInteractiveElements": 9,
+        "percentage": 88.88888888888889
+      },
+      "success": true,
+      "timestamp": "2025-08-08T20:03:02.505Z"
+    },
+    {
+      "device": "Samsung_Galaxy_S21",
+      "category": "mobile",
+      "viewport": {
+        "width": 384,
+        "height": 854
+      },
+      "responsive": {
+        "success": false,
+        "viewport": {
+          "width": 384,
+          "height": 854
+        },
+        "contentFitsScreen": true,
+        "noHorizontalScroll": false
+      },
+      "touchInterface": {
+        "success": true,
+        "touchFriendlyElements": 8,
+        "totalInteractiveElements": 9,
+        "percentage": 88.88888888888889
+      },
+      "success": false,
+      "timestamp": "2025-08-08T20:03:04.033Z"
+    },
+    {
+      "device": "Pixel_7",
+      "category": "mobile",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "responsive": {
+        "success": true,
+        "viewport": {
+          "width": 412,
+          "height": 915
+        },
+        "contentFitsScreen": true,
+        "noHorizontalScroll": true
+      },
+      "touchInterface": {
+        "success": true,
+        "touchFriendlyElements": 8,
+        "totalInteractiveElements": 9,
+        "percentage": 88.88888888888889
+      },
+      "success": true,
+      "timestamp": "2025-08-08T20:03:05.602Z"
+    },
+    {
+      "device": "iPad",
+      "category": "tablet",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "responsive": {
+        "success": true,
+        "viewport": {
+          "width": 768,
+          "height": 1024
+        },
+        "contentFitsScreen": true,
+        "noHorizontalScroll": true
+      },
+      "touchInterface": {
+        "success": true,
+        "touchFriendlyElements": 8,
+        "totalInteractiveElements": 9,
+        "percentage": 88.88888888888889
+      },
+      "success": true,
+      "timestamp": "2025-08-08T20:03:07.154Z"
+    },
+    {
+      "device": "iPad_Pro_11",
+      "category": "tablet",
+      "viewport": {
+        "width": 834,
+        "height": 1194
+      },
+      "responsive": {
+        "success": true,
+        "viewport": {
+          "width": 834,
+          "height": 1194
+        },
+        "contentFitsScreen": true,
+        "noHorizontalScroll": true
+      },
+      "touchInterface": {
+        "success": false,
+        "touchFriendlyElements": 7,
+        "totalInteractiveElements": 9,
+        "percentage": 77.77777777777779
+      },
+      "success": false,
+      "timestamp": "2025-08-08T20:03:08.717Z"
+    },
+    {
+      "device": "iPad_Pro_12",
+      "category": "tablet",
+      "viewport": {
+        "width": 1024,
+        "height": 1366
+      },
+      "responsive": {
+        "success": true,
+        "viewport": {
+          "width": 1024,
+          "height": 1366
+        },
+        "contentFitsScreen": true,
+        "noHorizontalScroll": true
+      },
+      "touchInterface": {
+        "success": false,
+        "touchFriendlyElements": 7,
+        "totalInteractiveElements": 9,
+        "percentage": 77.77777777777779
+      },
+      "success": false,
+      "timestamp": "2025-08-08T20:03:10.371Z"
+    },
+    {
+      "device": "Desktop_1366x768",
+      "category": "desktop",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "responsive": {
+        "success": true,
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "contentFitsScreen": true,
+        "noHorizontalScroll": true
+      },
+      "touchInterface": {
+        "success": true,
+        "message": "Desktop device"
+      },
+      "success": true,
+      "timestamp": "2025-08-08T20:03:12.034Z"
+    },
+    {
+      "device": "Desktop_1920x1080",
+      "category": "desktop",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "responsive": {
+        "success": true,
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "contentFitsScreen": true,
+        "noHorizontalScroll": true
+      },
+      "touchInterface": {
+        "success": true,
+        "message": "Desktop device"
+      },
+      "success": true,
+      "timestamp": "2025-08-08T20:03:13.892Z"
+    },
+    {
+      "device": "Desktop_2560x1440",
+      "category": "desktop",
+      "viewport": {
+        "width": 2560,
+        "height": 1440
+      },
+      "responsive": {
+        "success": true,
+        "viewport": {
+          "width": 2560,
+          "height": 1440
+        },
+        "contentFitsScreen": true,
+        "noHorizontalScroll": true
+      },
+      "touchInterface": {
+        "success": true,
+        "message": "Desktop device"
+      },
+      "success": true,
+      "timestamp": "2025-08-08T20:03:15.874Z"
+    },
+    {
+      "device": "Small_Mobile_320x568",
+      "category": "mobile",
+      "viewport": {
+        "width": 320,
+        "height": 568
+      },
+      "responsive": {
+        "success": false,
+        "viewport": {
+          "width": 320,
+          "height": 568
+        },
+        "contentFitsScreen": true,
+        "noHorizontalScroll": false
+      },
+      "touchInterface": {
+        "success": true,
+        "touchFriendlyElements": 8,
+        "totalInteractiveElements": 9,
+        "percentage": 88.88888888888889
+      },
+      "success": false,
+      "timestamp": "2025-08-08T20:03:17.316Z"
+    },
+    {
+      "device": "Ultrawide_3440x1440",
+      "category": "desktop",
+      "viewport": {
+        "width": 3440,
+        "height": 1440
+      },
+      "responsive": {
+        "success": true,
+        "viewport": {
+          "width": 3440,
+          "height": 1440
+        },
+        "contentFitsScreen": true,
+        "noHorizontalScroll": true
+      },
+      "touchInterface": {
+        "success": true,
+        "message": "Desktop device"
+      },
+      "success": true,
+      "timestamp": "2025-08-08T20:03:19.446Z"
+    }
+  ],
+  "responsiveDesign": [],
+  "medicalFeatures": [
+    {
+      "test": "Medical Content Presentation",
+      "medicalTermsFound": [
+        "usmle",
+        "medical",
+        "quiz",
+        "questions",
+        "study",
+        "exam"
+      ],
+      "hasQuizElements": true,
+      "success": true,
+      "timestamp": "2025-08-08T20:03:21.245Z"
+    },
+    {
+      "test": "Mobile Medical Interface",
+      "success": false,
+      "error": "page.evaluate: SyntaxError: Failed to execute 'querySelectorAll' on 'Document': '[data-testid*=\"quiz\"], .quiz, button:has-text(\"Start\"), button:has-text(\"Quiz\")' is not a valid selector.\n    at eval (eval at evaluate (:291:30), <anonymous>:20:39)\n    at UtilityScript.evaluate (<anonymous>:293:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+      "timestamp": "2025-08-08T20:03:22.697Z"
+    },
+    {
+      "test": "Medical Student Authentication",
+      "success": false,
+      "error": "page.evaluate: SyntaxError: Failed to execute 'querySelector' on 'Document': 'a[href*=\"login\"], button:has-text(\"Login\"), button:has-text(\"Sign In\")' is not a valid selector.\n    at eval (eval at evaluate (:291:30), <anonymous>:2:35)\n    at UtilityScript.evaluate (<anonymous>:293:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+      "timestamp": "2025-08-08T20:03:24.313Z"
+    }
+  ],
+  "accessibility": [
+    {
+      "basicTests": {
+        "hasTitle": true,
+        "hasMetaDescription": true,
+        "hasAltTexts": true,
+        "hasProperHeadings": true,
+        "hasSkipLinks": false,
+        "hasFocusIndicators": true
+      },
+      "keyboardNavigation": {
+        "success": true,
+        "hasFocusableElements": true,
+        "focusableCount": 9
+      },
+      "passRate": "83.3",
+      "wcagCompliance": "Good",
+      "timestamp": "2025-08-08T20:03:30.297Z"
+    }
+  ],
+  "performance": [
+    {
+      "networkCondition": "Fast_WiFi",
+      "loadTime": 929,
+      "functionality": {
+        "success": true,
+        "score": 3,
+        "details": {
+          "hasMainContent": true,
+          "hasNavigation": false,
+          "hasInteractiveElements": true,
+          "pageLoaded": true
+        }
+      },
+      "acceptable": true,
+      "timestamp": "2025-08-08T20:03:25.480Z"
+    },
+    {
+      "networkCondition": "Hospital_WiFi",
+      "loadTime": 951,
+      "functionality": {
+        "success": true,
+        "score": 3,
+        "details": {
+          "hasMainContent": true,
+          "hasNavigation": false,
+          "hasInteractiveElements": true,
+          "pageLoaded": true
+        }
+      },
+      "acceptable": true,
+      "timestamp": "2025-08-08T20:03:26.506Z"
+    },
+    {
+      "networkCondition": "Mobile_4G",
+      "loadTime": 942,
+      "functionality": {
+        "success": true,
+        "score": 3,
+        "details": {
+          "hasMainContent": true,
+          "hasNavigation": false,
+          "hasInteractiveElements": true,
+          "pageLoaded": true
+        }
+      },
+      "acceptable": true,
+      "timestamp": "2025-08-08T20:03:27.523Z"
+    },
+    {
+      "networkCondition": "Slow_3G",
+      "loadTime": 908,
+      "functionality": {
+        "success": true,
+        "score": 3,
+        "details": {
+          "hasMainContent": true,
+          "hasNavigation": false,
+          "hasInteractiveElements": true,
+          "pageLoaded": true
+        }
+      },
+      "acceptable": true,
+      "timestamp": "2025-08-08T20:03:28.501Z"
+    }
+  ],
+  "criticalIssues": [],
+  "recommendations": [
+    "Implement service worker for offline medical studying",
+    "Add progressive image loading for medical diagrams",
+    "Optimize for hospital WiFi networks",
+    "Test with medical students for real-world usability",
+    "Consider dark mode for late-night studying",
+    "Add touch gestures for mobile quiz navigation",
+    "Implement haptic feedback for quiz answers",
+    "Optimize for one-handed mobile usage during rounds"
+  ]
+}

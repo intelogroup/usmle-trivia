@@ -1,0 +1,80 @@
+{
+  "timestamp": "2025-08-08T20:05:43.027Z",
+  "medicalStudentBrowserTesting": {
+    "hospitalUsage": [
+      {
+        "test": "Hospital Network Access",
+        "loadTime": 968,
+        "acceptable": true,
+        "criticalContent": {
+          "hasUsmleContent": true,
+          "hasQuizInterface": true,
+          "hasMedicalTerms": true
+        },
+        "hospitalReady": true
+      },
+      {
+        "test": "Shared Hospital Computer",
+        "lowResolutionSupport": true,
+        "basicFunctionality": true,
+        "noComplexAnimations": true,
+        "suitable": true
+      }
+    ],
+    "mobileRotations": [
+      {
+        "test": "One-Handed Usage",
+        "totalInteractive": 0,
+        "thumbReachable": 0,
+        "oneHandedFriendly": false,
+        "rotationFriendly": false
+      }
+    ],
+    "accessibilityFeatures": [
+      {
+        "test": "Glove-Friendly Interface",
+        "totalTargets": 0,
+        "gloveFriendlyTargets": 0,
+        "gloveFriendlyPercentage": 100,
+        "medicalStudentReady": true
+      },
+      {
+        "test": "Visual Clarity for Tired Eyes",
+        "totalTextElements": 1,
+        "highContrastElements": 0,
+        "contrastRatio": 0,
+        "fatigueResistant": false
+      },
+      {
+        "test": "Keyboard Navigation",
+        "focusableElements": 0,
+        "tabIndexSet": 0,
+        "keyboardAccessible": false,
+        "fatigueReduction": false
+      }
+    ],
+    "lateNightStudy": [
+      {
+        "test": "Dark Mode Compatibility",
+        "darkBackground": false,
+        "totalTextElements": 0,
+        "readableTextElements": 0,
+        "nightFriendly": false,
+        "lateNightReady": false
+      },
+      {
+        "test": "Eye Strain Reduction",
+        "totalElements": 18,
+        "lowStrainElements": 17,
+        "eyeStrainReduction": true,
+        "fatigueReduction": true
+      }
+    ]
+  },
+  "summary": {
+    "hospitalUsageReady": true,
+    "mobileRotationsSupport": false,
+    "accessibilityForMedical": true,
+    "lateNightStudyReady": true
+  }
+}

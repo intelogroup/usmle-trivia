@@ -1,0 +1,215 @@
+{
+  "timestamp": "2025-08-08T19:21:27.244Z",
+  "testSuite": "UI Functionality Comprehensive Tests",
+  "results": [
+    {
+      "category": "Landing Page",
+      "testName": "Logo Display",
+      "status": "PASS",
+      "details": "Logo present: true",
+      "screenshot": "ui-test-01-landing-page-1754680888322.png",
+      "timestamp": "2025-08-08T19:21:29.063Z"
+    },
+    {
+      "category": "Landing Page",
+      "testName": "Get Started Button",
+      "status": "FAIL",
+      "details": "Button present: false",
+      "screenshot": "ui-test-01-landing-page-1754680888322.png",
+      "timestamp": "2025-08-08T19:21:29.063Z"
+    },
+    {
+      "category": "Landing Page",
+      "testName": "Sign In Button",
+      "status": "PASS",
+      "details": "Button present: true",
+      "screenshot": "ui-test-01-landing-page-1754680888322.png",
+      "timestamp": "2025-08-08T19:21:29.063Z"
+    },
+    {
+      "category": "Navigation",
+      "testName": "Navigate to Login",
+      "status": "PASS",
+      "details": "URL: http://localhost:5173/login",
+      "screenshot": "ui-test-02-login-page-1754680889321.png",
+      "timestamp": "2025-08-08T19:21:29.543Z"
+    },
+    {
+      "category": "Login Form",
+      "testName": "Email Field Present",
+      "status": "PASS",
+      "details": "Email field found: true",
+      "screenshot": "ui-test-02-login-page-1754680889321.png",
+      "timestamp": "2025-08-08T19:21:29.543Z"
+    },
+    {
+      "category": "Login Form",
+      "testName": "Password Field Present",
+      "status": "PASS",
+      "details": "Password field found: true",
+      "screenshot": "ui-test-02-login-page-1754680889321.png",
+      "timestamp": "2025-08-08T19:21:29.543Z"
+    },
+    {
+      "category": "Login Form",
+      "testName": "Submit Button Present",
+      "status": "PASS",
+      "details": "Login button found: true",
+      "screenshot": "ui-test-02-login-page-1754680889321.png",
+      "timestamp": "2025-08-08T19:21:29.543Z"
+    },
+    {
+      "category": "Form Validation",
+      "testName": "Empty Form Validation",
+      "status": "FAIL",
+      "details": "Validation messages shown: false",
+      "screenshot": "ui-test-03-form-validation-1754680890846.png",
+      "timestamp": "2025-08-08T19:21:31.053Z"
+    },
+    {
+      "category": "Form Interaction",
+      "testName": "Email Field Input",
+      "status": "PASS",
+      "details": "Email value: jayveedz19@gmail.com",
+      "screenshot": "ui-test-04-login-filled-1754680891999.png",
+      "timestamp": "2025-08-08T19:21:32.181Z"
+    },
+    {
+      "category": "Form Interaction",
+      "testName": "Password Field Input",
+      "status": "PASS",
+      "details": "Password entered: 10 characters",
+      "screenshot": "ui-test-04-login-filled-1754680891999.png",
+      "timestamp": "2025-08-08T19:21:32.181Z"
+    },
+    {
+      "category": "Authentication",
+      "testName": "Login Success",
+      "status": "PASS",
+      "details": "Current URL: http://localhost:5173/dashboard",
+      "screenshot": "ui-test-05-after-login-1754680895459.png",
+      "timestamp": "2025-08-08T19:21:35.621Z"
+    },
+    {
+      "category": "Authentication",
+      "testName": "User Data Display",
+      "status": "FAIL",
+      "details": "User elements found: false",
+      "screenshot": "ui-test-05-after-login-1754680895459.png",
+      "timestamp": "2025-08-08T19:21:35.621Z"
+    },
+    {
+      "category": "Dashboard",
+      "testName": "Stats Cards Present",
+      "status": "PASS",
+      "details": "Stats cards found: true",
+      "screenshot": "ui-test-06-dashboard-overview-1754680897622.png",
+      "timestamp": "2025-08-08T19:21:37.811Z"
+    },
+    {
+      "category": "Dashboard",
+      "testName": "Quiz Options Available",
+      "status": "FAIL",
+      "details": "Quiz buttons found: false",
+      "screenshot": "ui-test-06-dashboard-overview-1754680897622.png",
+      "timestamp": "2025-08-08T19:21:37.811Z"
+    },
+    {
+      "category": "Dashboard",
+      "testName": "Navigation Elements",
+      "status": "PASS",
+      "details": "Navigation found: true",
+      "screenshot": "ui-test-06-dashboard-overview-1754680897622.png",
+      "timestamp": "2025-08-08T19:21:37.811Z"
+    },
+    {
+      "category": "Quiz Engine",
+      "testName": "Quiz Page Load",
+      "status": "PASS",
+      "details": "Quiz page detected: true",
+      "screenshot": "ui-test-07-quiz-interface-1754680900095.png",
+      "timestamp": "2025-08-08T19:21:40.192Z"
+    },
+    {
+      "category": "Quiz Engine",
+      "testName": "Question Content",
+      "status": "PASS",
+      "details": "Question content found: true",
+      "screenshot": "ui-test-07-quiz-interface-1754680900095.png",
+      "timestamp": "2025-08-08T19:21:40.192Z"
+    },
+    {
+      "category": "Quiz Engine",
+      "testName": "Answer Options",
+      "status": "PASS",
+      "details": "Answer options found: true",
+      "screenshot": "ui-test-07-quiz-interface-1754680900095.png",
+      "timestamp": "2025-08-08T19:21:40.192Z"
+    },
+    {
+      "category": "System",
+      "testName": "Test Execution",
+      "status": "FAIL",
+      "details": "Error: locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('input[type=\"radio\"], button').first()\n    - locator resolved to <button class=\"lg:hidden p-1 rounded-md hover:bg-accent\">…</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is not visible\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is not visible\n    - retrying click action\n      - waiting 100ms\n    58 × waiting for element to be visible, enabled and stable\n       - element is not visible\n     - retrying click action\n       - waiting 500ms\n",
+      "screenshot": "",
+      "timestamp": "2025-08-08T19:22:10.404Z"
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "01-landing-page",
+      "description": "Initial landing page load",
+      "filename": "ui-test-01-landing-page-1754680888322.png",
+      "filepath": "/root/repo/ui-test-screenshots/ui-test-01-landing-page-1754680888322.png",
+      "timestamp": 1754680888322
+    },
+    {
+      "name": "02-login-page",
+      "description": "Navigation to login page",
+      "filename": "ui-test-02-login-page-1754680889321.png",
+      "filepath": "/root/repo/ui-test-screenshots/ui-test-02-login-page-1754680889321.png",
+      "timestamp": 1754680889321
+    },
+    {
+      "name": "03-form-validation",
+      "description": "Form validation testing",
+      "filename": "ui-test-03-form-validation-1754680890846.png",
+      "filepath": "/root/repo/ui-test-screenshots/ui-test-03-form-validation-1754680890846.png",
+      "timestamp": 1754680890846
+    },
+    {
+      "name": "04-login-filled",
+      "description": "Login form filled with credentials",
+      "filename": "ui-test-04-login-filled-1754680891999.png",
+      "filepath": "/root/repo/ui-test-screenshots/ui-test-04-login-filled-1754680891999.png",
+      "timestamp": 1754680891999
+    },
+    {
+      "name": "05-after-login",
+      "description": "After login submission",
+      "filename": "ui-test-05-after-login-1754680895459.png",
+      "filepath": "/root/repo/ui-test-screenshots/ui-test-05-after-login-1754680895459.png",
+      "timestamp": 1754680895459
+    },
+    {
+      "name": "06-dashboard-overview",
+      "description": "Dashboard UI elements",
+      "filename": "ui-test-06-dashboard-overview-1754680897622.png",
+      "filepath": "/root/repo/ui-test-screenshots/ui-test-06-dashboard-overview-1754680897622.png",
+      "timestamp": 1754680897622
+    },
+    {
+      "name": "07-quiz-interface",
+      "description": "Quiz interface",
+      "filename": "ui-test-07-quiz-interface-1754680900095.png",
+      "filepath": "/root/repo/ui-test-screenshots/ui-test-07-quiz-interface-1754680900095.png",
+      "timestamp": 1754680900095
+    }
+  ],
+  "summary": {
+    "total": 19,
+    "passed": 14,
+    "failed": 5,
+    "warnings": 0
+  }
+}

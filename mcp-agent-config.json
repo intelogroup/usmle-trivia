@@ -1,0 +1,424 @@
+{
+  "agentOrchestrationSystem": {
+    "version": "2.0.0",
+    "description": "Stack-aware MCP prioritization and agent deployment configuration for Claude Code",
+    "lastUpdated": "2025-08-08",
+    "features": [
+      "automatic-stack-detection",
+      "stack-specific-mcp-selection", 
+      "medical-education-optimization",
+      "context-aware-deployment"
+    ]
+  },
+  
+  "stackDetection": {
+    "medquizPro": {
+      "frontend": {
+        "framework": "React",
+        "version": "19.1.0",
+        "buildTool": "Vite",
+        "buildVersion": "6.0.7",
+        "language": "TypeScript"
+      },
+      "backend": {
+        "service": "Convex",
+        "type": "Real-time Database",
+        "websocket": true
+      },
+      "deployment": {
+        "platform": "Netlify",
+        "buildCommand": "npm run build",
+        "publishDir": "dist"
+      },
+      "testing": {
+        "e2e": "Playwright",
+        "unit": "Vitest", 
+        "component": "Storybook"
+      },
+      "styling": {
+        "framework": "Tailwind CSS",
+        "components": "Radix UI"
+      },
+      "specializations": {
+        "medical": true,
+        "usmle": true,
+        "hipaa": true,
+        "accessibility": true
+      }
+    }
+  },
+  
+  "stackSpecificMCPs": {
+    "react-vite-convex-netlify": {
+      "database-architecture": {
+        "primary": ["convex", "knowledge-graph-memory"],
+        "secondary": ["appwrite", "neon"],
+        "focus": "Convex real-time mutations and WebSocket optimization"
+      },
+      "frontend-development": {
+        "primary": ["storybook", "tailwindcss", "magicui"],
+        "secondary": ["figma", "chromatic"],
+        "focus": "React 19 features with Vite build optimization"
+      },
+      "devops-deployment": {
+        "primary": ["netlify", "terraform"],
+        "secondary": ["globalping", "docker-hub"],
+        "focus": "Netlify Functions and edge deployment optimization"
+      },
+      "testing-qa": {
+        "primary": ["playwright", "storybook", "lighthouse"],
+        "secondary": ["vitest", "percy"],
+        "focus": "Playwright E2E with Storybook component testing"
+      }
+    },
+    
+    "react-nextjs-supabase-vercel": {
+      "database-architecture": {
+        "primary": ["supabase-storage", "prisma", "neon"],
+        "secondary": ["hasura", "fauna"],
+        "focus": "PostgreSQL with real-time subscriptions and RLS"
+      },
+      "frontend-development": {
+        "primary": ["storybook", "tailwindcss", "figma"],
+        "secondary": ["chromatic", "magicui"],
+        "focus": "Next.js App Router with SSR optimization"
+      },
+      "devops-deployment": {
+        "primary": ["vercel", "terraform"],
+        "secondary": ["globalping", "aws-serverless"],
+        "focus": "Vercel Edge Runtime and API routes"
+      }
+    },
+    
+    "vue-nuxt-firebase-aws": {
+      "frontend-development": {
+        "primary": ["vue-devtools", "tailwindcss", "figma"],
+        "secondary": ["storybook", "chromatic"],
+        "focus": "Vue 3 Composition API with Nuxt optimization"
+      },
+      "database-architecture": {
+        "primary": ["firebase", "google-cloud"],
+        "secondary": ["firestore", "functions"],
+        "focus": "Firebase real-time listeners and cloud functions"
+      },
+      "devops-deployment": {
+        "primary": ["aws-serverless", "terraform", "powertools-aws"],
+        "secondary": ["kubernetes", "docker-hub"],
+        "focus": "AWS Lambda and CloudFront deployment"
+      }
+    }
+  },
+  
+  "agentMCPPriority": {
+    "database-architecture": {
+      "primary": ["convex", "knowledge-graph-memory", "appwrite"],
+      "secondary": ["neon", "prisma", "hasura"],
+      "advanced": ["fauna", "supabase-storage"],
+      "medical": ["convex", "appwrite"],
+      "stackAware": true,
+      "autoDeployTriggers": [
+        "schema changes",
+        "migration needs", 
+        "database performance",
+        "CRUD failures",
+        "data integrity"
+      ]
+    },
+    
+    "frontend-development": {
+      "primary": ["storybook", "figma", "tailwindcss"],
+      "secondary": ["chromatic", "lighthouse", "shadcn-ui"],
+      "advanced": ["magicui", "browsertools"],
+      "medical": ["storybook", "lighthouse", "shadcn-ui"],
+      "autoDeployTriggers": [
+        "ui changes",
+        "component updates",
+        "responsive issues",
+        "design system updates",
+        "css modifications"
+      ]
+    },
+    
+    "authentication-security": {
+      "primary": ["auth0", "snyk", "okta"],
+      "secondary": ["cloudflare-access", "hashicorp-vault"],
+      "advanced": ["memory-bank", "ip2location"],
+      "medical": ["auth0", "snyk"],
+      "autoDeployTriggers": [
+        "security vulnerabilities",
+        "auth failures",
+        "compliance issues",
+        "permission problems",
+        "session failures"
+      ]
+    },
+    
+    "api-integration": {
+      "primary": ["fetch", "rapidapi", "zapier"],
+      "secondary": ["n8n", "ref", "posthog"],
+      "advanced": ["context7"],
+      "medical": ["fetch", "ref"],
+      "autoDeployTriggers": [
+        "api failures",
+        "integration issues",
+        "webhook problems",
+        "sync errors",
+        "service outages"
+      ]
+    },
+    
+    "workflow-orchestration": {
+      "primary": ["temporal", "airflow", "bullmq"],
+      "secondary": ["context7", "knowledge-graph-memory"],
+      "advanced": ["ref"],
+      "medical": ["temporal", "bullmq"],
+      "autoDeployTriggers": [
+        "cicd failures",
+        "background job issues",
+        "automation needs",
+        "process optimization",
+        "task coordination"
+      ]
+    },
+    
+    "testing-qa": {
+      "primary": ["playwright", "cypress", "percy"],
+      "secondary": ["testcafe", "browserstack", "lighthouse"],
+      "advanced": ["operative-browser-agent"],
+      "medical": ["playwright", "lighthouse", "percy"],
+      "autoDeployTriggers": [
+        "test failures",
+        "qa needs",
+        "regression issues",
+        "browser problems",
+        "accessibility testing"
+      ]
+    },
+    
+    "devops-deployment": {
+      "primary": ["terraform", "kubernetes", "docker-hub"],
+      "secondary": ["netlify", "aws-serverless", "globalping"],
+      "advanced": ["powertools-aws"],
+      "medical": ["netlify", "terraform"],
+      "autoDeployTriggers": [
+        "deployment failures",
+        "infrastructure changes",
+        "scaling needs",
+        "container issues",
+        "service outages"
+      ]
+    },
+    
+    "performance-optimization": {
+      "primary": ["lighthouse", "new-relic", "webpagetest"],
+      "secondary": ["cloudflare-analytics", "browsertools"],
+      "advanced": ["globalping"],
+      "medical": ["lighthouse", "webpagetest"],
+      "autoDeployTriggers": [
+        "performance degradation",
+        "slow loading",
+        "optimization needs",
+        "core web vitals",
+        "user complaints"
+      ]
+    },
+    
+    "documentation-knowledge": {
+      "primary": ["docusaurus", "readme", "algolia-docsearch"],
+      "secondary": ["ref", "knowledge-graph-memory"],
+      "advanced": ["context7"],
+      "medical": ["docusaurus", "readme"],
+      "autoDeployTriggers": [
+        "documentation updates",
+        "knowledge management",
+        "content organization",
+        "api documentation",
+        "search issues"
+      ]
+    },
+    
+    "search-discovery": {
+      "primary": ["elasticsearch", "pinecone", "serpapi"],
+      "secondary": ["exa-search", "firecrawl", "fetch"],
+      "advanced": ["vector-search"],
+      "medical": ["elasticsearch", "pinecone"],
+      "autoDeployTriggers": [
+        "search broken",
+        "discovery issues",
+        "vector optimization",
+        "semantic search",
+        "query performance"
+      ]
+    },
+    
+    "analytics-monitoring": {
+      "primary": ["datadog", "mixpanel", "sentry"],
+      "secondary": ["posthog", "browsertools"],
+      "advanced": ["memory-bank"],
+      "medical": ["sentry", "mixpanel"],
+      "autoDeployTriggers": [
+        "analytics broken",
+        "monitoring failures",
+        "tracking problems",
+        "behavior analysis",
+        "performance monitoring"
+      ]
+    },
+    
+    "code-quality": {
+      "primary": ["eslint", "prettier", "sonarqube"],
+      "secondary": ["coderabbit", "prisma"],
+      "advanced": ["ref"],
+      "medical": ["eslint", "sonarqube"],
+      "autoDeployTriggers": [
+        "linting errors",
+        "formatting issues",
+        "quality decline",
+        "technical debt",
+        "refactoring needs"
+      ]
+    },
+    
+    "infrastructure": {
+      "primary": ["google-cloud", "azure", "hashicorp-vault"],
+      "secondary": ["aws-serverless", "powertools-aws"],
+      "advanced": ["neon"],
+      "medical": ["hashicorp-vault", "azure"],
+      "autoDeployTriggers": [
+        "infrastructure scaling",
+        "cloud resources",
+        "service mesh",
+        "container orchestration",
+        "multi-cloud management"
+      ]
+    },
+    
+    "ai-llm-integration": {
+      "primary": ["openai", "huggingface", "cohere"],
+      "secondary": ["minimax-mcp", "context7"],
+      "advanced": ["knowledge-graph-memory"],
+      "medical": ["openai", "huggingface"],
+      "autoDeployTriggers": [
+        "ai features",
+        "llm integration",
+        "intelligent automation",
+        "nlp tasks",
+        "ml deployment"
+      ]
+    },
+    
+    "browser-automation": {
+      "primary": ["selenium", "playwright", "puppeteer"],
+      "secondary": ["browsertools", "operative-browser-agent"],
+      "advanced": ["firecrawl"],
+      "medical": ["playwright", "selenium"],
+      "autoDeployTriggers": [
+        "browser compatibility",
+        "automation testing",
+        "web scraping",
+        "browser bugs",
+        "ui automation"
+      ]
+    }
+  },
+  
+  "deploymentPatterns": {
+    "single-issue": {
+      "accessibility": ["accessibility", "testing"],
+      "performance": ["performance", "infrastructure"],
+      "security": ["security", "infrastructure"],
+      "ui": ["frontend", "accessibility"],
+      "database": ["database", "api"],
+      "api": ["api", "testing"]
+    },
+    
+    "feature-development": {
+      "new-feature": ["frontend", "database", "testing", "performance"],
+      "major-update": ["frontend", "database", "testing", "security", "performance"],
+      "ui-update": ["frontend", "accessibility", "browser", "testing"]
+    },
+    
+    "production-deployment": {
+      "pre-deployment": [
+        "testing", "performance", "security", 
+        "accessibility", "browser", "e2e-testing", "code-quality"
+      ],
+      "post-deployment": [
+        "performance", "infrastructure", "analytics", "security"
+      ]
+    },
+    
+    "comprehensive-audit": [
+      "accessibility", "frontend", "e2e-testing", "performance", 
+      "browser", "security", "code-quality", "infrastructure"
+    ]
+  },
+  
+  "contextualEnhancements": {
+    "medical-education": {
+      "additionalMCPs": ["accessibility", "security", "performance"],
+      "focusAreas": ["WCAG compliance", "HIPAA compliance", "medical content"],
+      "specializations": ["USMLE preparation", "clinical scenarios", "medical terminology"]
+    },
+    
+    "production-environment": {
+      "additionalMCPs": ["monitoring", "error-tracking", "security"],
+      "focusAreas": ["reliability", "performance", "security"],
+      "specializations": ["uptime", "scalability", "compliance"]
+    },
+    
+    "mobile-optimization": {
+      "additionalMCPs": ["browser-testing", "performance", "accessibility"],
+      "focusAreas": ["responsive design", "touch interactions", "mobile performance"],
+      "specializations": ["clinical rotations", "on-the-go studying", "glove compatibility"]
+    }
+  },
+  
+  "automationRules": {
+    "healthMetrics": {
+      "lighthouseScore": {
+        "threshold": 90,
+        "belowThreshold": ["performance", "accessibility"]
+      },
+      "testFailures": {
+        "threshold": 0,
+        "aboveThreshold": ["testing", "code-quality"]
+      },
+      "bundleSize": {
+        "threshold": 500,
+        "aboveThreshold": ["performance", "code-quality"]
+      },
+      "accessibilityScore": {
+        "threshold": 90,
+        "belowThreshold": ["accessibility", "testing"]
+      }
+    },
+    
+    "errorPatterns": {
+      "authenticationErrors": ["security", "infrastructure"],
+      "performanceIssues": ["performance", "infrastructure"],
+      "uiProblems": ["frontend", "accessibility"],
+      "databaseIssues": ["database", "api"]
+    }
+  },
+  
+  "medicalEducationSpecific": {
+    "usmleFocus": {
+      "agents": ["testing", "performance", "accessibility"],
+      "mcps": ["playwright", "lighthouse", "storybook"],
+      "criteria": ["clinical accuracy", "medical terminology", "student workflow"]
+    },
+    
+    "hospitalEnvironment": {
+      "agents": ["browser", "performance", "security"],
+      "mcps": ["selenium", "webpagetest", "auth0"],
+      "criteria": ["restricted networks", "shared computers", "compliance"]
+    },
+    
+    "mobileStudying": {
+      "agents": ["browser", "performance", "frontend"],
+      "mcps": ["playwright", "lighthouse", "tailwindcss"],
+      "criteria": ["one-handed use", "glove compatibility", "offline capability"]
+    }
+  }
+}

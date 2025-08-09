@@ -1,0 +1,214 @@
+{
+  "timestamp": "2025-08-08T19:52:08.744Z",
+  "platform": "MedQuiz Pro - Medical Education API Performance",
+  "summary": {
+    "overallAPIPerformance": "NEEDS_IMPROVEMENT",
+    "authenticationPerformance": "NEEDS_IMPROVEMENT",
+    "questionLoadingPerformance": "EXCELLENT",
+    "totalRecommendations": 3,
+    "criticalIssues": 1
+  },
+  "authentication": {
+    "loginTime": 5387,
+    "loginSuccess": false,
+    "loginError": "Navigation timeout of 5000 ms exceeded",
+    "sessionValidationTime": 747,
+    "requests": [
+      {
+        "url": "http://localhost:4175/assets/convex-B3ilR6nI.js",
+        "status": 200,
+        "timing": {
+          "requestTime": 26490.198348,
+          "proxyStart": -1,
+          "proxyEnd": -1,
+          "dnsStart": 2.15,
+          "dnsEnd": 2.164,
+          "connectStart": 2.187,
+          "connectEnd": 23.071,
+          "sslStart": -1,
+          "sslEnd": -1,
+          "workerStart": -1,
+          "workerReady": -1,
+          "workerFetchStart": -1,
+          "workerRespondWithSettled": -1,
+          "sendStart": 24.519,
+          "sendEnd": 24.735,
+          "pushStart": 0,
+          "pushEnd": 0,
+          "receiveHeadersStart": 36.439,
+          "receiveHeadersEnd": 36.499
+        },
+        "headers": {
+          "access-control-allow-origin": "http://localhost:4175",
+          "cache-control": "no-cache",
+          "connection": "keep-alive",
+          "content-encoding": "gzip",
+          "content-type": "text/javascript",
+          "date": "Fri, 08 Aug 2025 19:51:54 GMT",
+          "etag": "W/\"48967-1754682508960\"",
+          "keep-alive": "timeout=5",
+          "last-modified": "Fri, 08 Aug 2025 19:48:28 GMT",
+          "transfer-encoding": "chunked",
+          "vary": "Origin"
+        }
+      },
+      {
+        "url": "http://localhost:4175/assets/convex-B3ilR6nI.js",
+        "status": 200,
+        "timing": {
+          "requestTime": 26496.436418,
+          "proxyStart": -1,
+          "proxyEnd": -1,
+          "dnsStart": -1,
+          "dnsEnd": -1,
+          "connectStart": -1,
+          "connectEnd": -1,
+          "sslStart": -1,
+          "sslEnd": -1,
+          "workerStart": 0.002,
+          "workerReady": 1.219,
+          "workerFetchStart": 1.219,
+          "workerRespondWithSettled": 4.029,
+          "sendStart": 0.005,
+          "sendEnd": 0.005,
+          "pushStart": 0,
+          "pushEnd": 0,
+          "receiveHeadersStart": 4.29,
+          "receiveHeadersEnd": 4.29
+        },
+        "headers": {
+          "cache-control": "no-cache",
+          "content-encoding": "gzip",
+          "etag": "W/\"48967-1754682508960\"",
+          "access-control-allow-origin": "http://localhost:4175",
+          "date": "Fri, 08 Aug 2025 19:51:55 GMT",
+          "content-type": "text/javascript",
+          "last-modified": "Fri, 08 Aug 2025 19:48:28 GMT",
+          "vary": "Origin"
+        }
+      }
+    ],
+    "averageResponseTime": 20.3945
+  },
+  "questionLoading": {
+    "totalLoadTime": 3005,
+    "requests": [
+      {
+        "url": "http://localhost:4175/assets/quiz-components-DTS4i5yB.js",
+        "status": 200,
+        "timing": {
+          "requestTime": 26497.322347,
+          "proxyStart": -1,
+          "proxyEnd": -1,
+          "dnsStart": -1,
+          "dnsEnd": -1,
+          "connectStart": -1,
+          "connectEnd": -1,
+          "sslStart": -1,
+          "sslEnd": -1,
+          "workerStart": 0.001,
+          "workerReady": 10.815,
+          "workerFetchStart": 10.815,
+          "workerRespondWithSettled": 42.986,
+          "sendStart": 0.002,
+          "sendEnd": 0.002,
+          "pushStart": 0,
+          "pushEnd": 0,
+          "receiveHeadersStart": 45.276,
+          "receiveHeadersEnd": 45.276
+        },
+        "size": 0
+      },
+      {
+        "url": "http://localhost:4175/assets/questions-data-CPAvPb88.js",
+        "status": 200,
+        "timing": {
+          "requestTime": 26497.322174,
+          "proxyStart": -1,
+          "proxyEnd": -1,
+          "dnsStart": -1,
+          "dnsEnd": -1,
+          "connectStart": -1,
+          "connectEnd": -1,
+          "sslStart": -1,
+          "sslEnd": -1,
+          "workerStart": 0.002,
+          "workerReady": 6.857,
+          "workerFetchStart": 6.857,
+          "workerRespondWithSettled": 37.328,
+          "sendStart": 0.002,
+          "sendEnd": 0.002,
+          "pushStart": 0,
+          "pushEnd": 0,
+          "receiveHeadersStart": 38.13,
+          "receiveHeadersEnd": 38.13
+        },
+        "size": 0
+      }
+    ],
+    "questionCount": 1,
+    "averageQuestionSize": 0,
+    "averageResponseTime": 42
+  },
+  "quizSession": {
+    "interactions": [
+      {
+        "type": "answer_submission",
+        "time": 12,
+        "questionIndex": 0
+      },
+      {
+        "type": "answer_submission",
+        "time": 1,
+        "questionIndex": 1
+      },
+      {
+        "type": "answer_submission",
+        "time": 1,
+        "questionIndex": 2
+      }
+    ],
+    "averageAnswerTime": 4.666666666666667,
+    "sessionRequests": [],
+    "totalSessionRequests": 0
+  },
+  "realTimeFeatures": {},
+  "errorHandling": {
+    "errorPageLoadTime": 1120,
+    "errorRequests": [],
+    "consoleErrors": [
+      {
+        "text": "Error while trying to use the following icon from the Manifest: http://localhost:4175/pwa-192x192.png (Download error or resource isn't a valid image)",
+        "timestamp": 1754682726720
+      },
+      {
+        "text": "Error while trying to use the following icon from the Manifest: http://localhost:4175/pwa-192x192.png (Download error or resource isn't a valid image)",
+        "timestamp": 1754682727796
+      }
+    ],
+    "gracefulDegradation": "GOOD"
+  },
+  "recommendations": [
+    {
+      "category": "Authentication Optimization",
+      "priority": "HIGH",
+      "issue": "Login time (5387ms) exceeds target (200ms)",
+      "solution": "Optimize authentication flow, implement token caching, reduce API round trips",
+      "medicalImpact": "Faster login improves study session initiation for medical students"
+    },
+    {
+      "category": "Error Handling & Reliability",
+      "priority": "MEDIUM",
+      "issue": "2 console errors detected",
+      "solution": "Fix console errors, implement proper error boundaries, improve error messaging",
+      "medicalImpact": "Reliable error handling prevents study session interruptions"
+    },
+    {
+      "category": "Medical Education Optimization",
+      "priority": "MEDIUM",
+      "issue": "API performance can be optimized for medical education use cases",
+      "solution": "Implement medical image lazy loading, question prefetching, and study session persistence",
+      "medicalImpact": "Specialized optimizations improve learning efficiency for medical students"
+    }
+  ]
+}

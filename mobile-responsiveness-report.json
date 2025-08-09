@@ -1,0 +1,305 @@
+{
+  "timestamp": "2025-08-08T19:22:51.261Z",
+  "testSuite": "Mobile Responsiveness Tests",
+  "results": [
+    {
+      "device": "iPhone SE",
+      "testName": "Layout Responsive",
+      "status": "PASS",
+      "details": "Body width: 375px, Device width: 375px",
+      "timestamp": "2025-08-08T19:22:52.791Z"
+    },
+    {
+      "device": "iPhone SE",
+      "testName": "Navigation Accessible",
+      "status": "PASS",
+      "details": "Navigation elements found: 4",
+      "timestamp": "2025-08-08T19:22:52.798Z"
+    },
+    {
+      "device": "iPhone SE",
+      "testName": "Text Readable",
+      "status": "PASS",
+      "details": "Elements with readable text: 10",
+      "timestamp": "2025-08-08T19:22:52.933Z"
+    },
+    {
+      "device": "iPhone SE",
+      "testName": "Form Fits Screen",
+      "status": "PASS",
+      "details": "Form width: 276.99999237060547px",
+      "timestamp": "2025-08-08T19:22:53.137Z"
+    },
+    {
+      "device": "iPhone SE",
+      "testName": "Touch Friendly Inputs",
+      "status": "PASS",
+      "details": "Touch-friendly elements: 3",
+      "timestamp": "2025-08-08T19:22:53.173Z"
+    },
+    {
+      "device": "iPhone SE",
+      "testName": "Mobile Dashboard",
+      "status": "PASS",
+      "details": "Dashboard elements: 8",
+      "timestamp": "2025-08-08T19:22:56.641Z"
+    },
+    {
+      "device": "iPhone 12",
+      "testName": "Layout Responsive",
+      "status": "PASS",
+      "details": "Body width: 390px, Device width: 390px",
+      "timestamp": "2025-08-08T19:22:58.076Z"
+    },
+    {
+      "device": "iPhone 12",
+      "testName": "Navigation Accessible",
+      "status": "PASS",
+      "details": "Navigation elements found: 4",
+      "timestamp": "2025-08-08T19:22:58.082Z"
+    },
+    {
+      "device": "iPhone 12",
+      "testName": "Text Readable",
+      "status": "PASS",
+      "details": "Elements with readable text: 10",
+      "timestamp": "2025-08-08T19:22:58.245Z"
+    },
+    {
+      "device": "iPhone 12",
+      "testName": "Form Fits Screen",
+      "status": "PASS",
+      "details": "Form width: 48px",
+      "timestamp": "2025-08-08T19:22:58.697Z"
+    },
+    {
+      "device": "iPhone 12",
+      "testName": "Touch Friendly Inputs",
+      "status": "PASS",
+      "details": "Touch-friendly elements: 5",
+      "timestamp": "2025-08-08T19:22:58.815Z"
+    },
+    {
+      "device": "iPad",
+      "testName": "Layout Responsive",
+      "status": "PASS",
+      "details": "Body width: 768px, Device width: 768px",
+      "timestamp": "2025-08-08T19:23:00.702Z"
+    },
+    {
+      "device": "iPad",
+      "testName": "Navigation Accessible",
+      "status": "PASS",
+      "details": "Navigation elements found: 4",
+      "timestamp": "2025-08-08T19:23:00.708Z"
+    },
+    {
+      "device": "iPad",
+      "testName": "Text Readable",
+      "status": "PASS",
+      "details": "Elements with readable text: 10",
+      "timestamp": "2025-08-08T19:23:00.851Z"
+    },
+    {
+      "device": "iPad",
+      "testName": "Form Fits Screen",
+      "status": "PASS",
+      "details": "Form width: 256px",
+      "timestamp": "2025-08-08T19:23:01.457Z"
+    },
+    {
+      "device": "iPad",
+      "testName": "Touch Friendly Inputs",
+      "status": "PASS",
+      "details": "Touch-friendly elements: 4",
+      "timestamp": "2025-08-08T19:23:01.622Z"
+    },
+    {
+      "device": "Android Phone",
+      "testName": "Layout Responsive",
+      "status": "PASS",
+      "details": "Body width: 360px, Device width: 360px",
+      "timestamp": "2025-08-08T19:23:03.162Z"
+    },
+    {
+      "device": "Android Phone",
+      "testName": "Navigation Accessible",
+      "status": "PASS",
+      "details": "Navigation elements found: 4",
+      "timestamp": "2025-08-08T19:23:03.168Z"
+    },
+    {
+      "device": "Android Phone",
+      "testName": "Text Readable",
+      "status": "PASS",
+      "details": "Elements with readable text: 10",
+      "timestamp": "2025-08-08T19:23:03.358Z"
+    },
+    {
+      "device": "Android Phone",
+      "testName": "Form Fits Screen",
+      "status": "PASS",
+      "details": "Form width: 48px",
+      "timestamp": "2025-08-08T19:23:03.865Z"
+    },
+    {
+      "device": "Android Phone",
+      "testName": "Touch Friendly Inputs",
+      "status": "PASS",
+      "details": "Touch-friendly elements: 5",
+      "timestamp": "2025-08-08T19:23:03.967Z"
+    },
+    {
+      "device": "Samsung Galaxy",
+      "testName": "Layout Responsive",
+      "status": "PASS",
+      "details": "Body width: 412px, Device width: 412px",
+      "timestamp": "2025-08-08T19:23:05.135Z"
+    },
+    {
+      "device": "Samsung Galaxy",
+      "testName": "Navigation Accessible",
+      "status": "PASS",
+      "details": "Navigation elements found: 4",
+      "timestamp": "2025-08-08T19:23:05.140Z"
+    },
+    {
+      "device": "Samsung Galaxy",
+      "testName": "Text Readable",
+      "status": "PASS",
+      "details": "Elements with readable text: 10",
+      "timestamp": "2025-08-08T19:23:05.270Z"
+    },
+    {
+      "device": "Samsung Galaxy",
+      "testName": "Form Fits Screen",
+      "status": "PASS",
+      "details": "Form width: 48px",
+      "timestamp": "2025-08-08T19:23:05.696Z"
+    },
+    {
+      "device": "Samsung Galaxy",
+      "testName": "Touch Friendly Inputs",
+      "status": "PASS",
+      "details": "Touch-friendly elements: 5",
+      "timestamp": "2025-08-08T19:23:05.761Z"
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "01-landing-page",
+      "device": "iPhone SE",
+      "description": "Landing page responsive layout",
+      "filename": "mobile-test-01-landing-page-iPhone_SE-1754680972261.png",
+      "filepath": "/root/repo/mobile-test-screenshots/mobile-test-01-landing-page-iPhone_SE-1754680972261.png",
+      "timestamp": 1754680972261
+    },
+    {
+      "name": "02-login-page",
+      "device": "iPhone SE",
+      "description": "Login page responsive layout",
+      "filename": "mobile-test-02-login-page-iPhone_SE-1754680972985.png",
+      "filepath": "/root/repo/mobile-test-screenshots/mobile-test-02-login-page-iPhone_SE-1754680972985.png",
+      "timestamp": 1754680972985
+    },
+    {
+      "name": "03-after-login",
+      "device": "iPhone SE",
+      "description": "Dashboard after login",
+      "filename": "mobile-test-03-after-login-iPhone_SE-1754680976502.png",
+      "filepath": "/root/repo/mobile-test-screenshots/mobile-test-03-after-login-iPhone_SE-1754680976502.png",
+      "timestamp": 1754680976502
+    },
+    {
+      "name": "01-landing-page",
+      "device": "iPhone 12",
+      "description": "Landing page responsive layout",
+      "filename": "mobile-test-01-landing-page-iPhone_12-1754680977492.png",
+      "filepath": "/root/repo/mobile-test-screenshots/mobile-test-01-landing-page-iPhone_12-1754680977492.png",
+      "timestamp": 1754680977492
+    },
+    {
+      "name": "02-login-page",
+      "device": "iPhone 12",
+      "description": "Login page responsive layout",
+      "filename": "mobile-test-02-login-page-iPhone_12-1754680978298.png",
+      "filepath": "/root/repo/mobile-test-screenshots/mobile-test-02-login-page-iPhone_12-1754680978298.png",
+      "timestamp": 1754680978298
+    },
+    {
+      "name": "01-landing-page",
+      "device": "iPad",
+      "description": "Landing page responsive layout",
+      "filename": "mobile-test-01-landing-page-iPad-1754680979958.png",
+      "filepath": "/root/repo/mobile-test-screenshots/mobile-test-01-landing-page-iPad-1754680979958.png",
+      "timestamp": 1754680979958
+    },
+    {
+      "name": "02-login-page",
+      "device": "iPad",
+      "description": "Login page responsive layout",
+      "filename": "mobile-test-02-login-page-iPad-1754680980905.png",
+      "filepath": "/root/repo/mobile-test-screenshots/mobile-test-02-login-page-iPad-1754680980905.png",
+      "timestamp": 1754680980905
+    },
+    {
+      "name": "01-landing-page",
+      "device": "Android Phone",
+      "description": "Landing page responsive layout",
+      "filename": "mobile-test-01-landing-page-Android_Phone-1754680982537.png",
+      "filepath": "/root/repo/mobile-test-screenshots/mobile-test-01-landing-page-Android_Phone-1754680982537.png",
+      "timestamp": 1754680982537
+    },
+    {
+      "name": "02-login-page",
+      "device": "Android Phone",
+      "description": "Login page responsive layout",
+      "filename": "mobile-test-02-login-page-Android_Phone-1754680983438.png",
+      "filepath": "/root/repo/mobile-test-screenshots/mobile-test-02-login-page-Android_Phone-1754680983438.png",
+      "timestamp": 1754680983438
+    },
+    {
+      "name": "01-landing-page",
+      "device": "Samsung Galaxy",
+      "description": "Landing page responsive layout",
+      "filename": "mobile-test-01-landing-page-Samsung_Galaxy-1754680984671.png",
+      "filepath": "/root/repo/mobile-test-screenshots/mobile-test-01-landing-page-Samsung_Galaxy-1754680984671.png",
+      "timestamp": 1754680984671
+    },
+    {
+      "name": "02-login-page",
+      "device": "Samsung Galaxy",
+      "description": "Login page responsive layout",
+      "filename": "mobile-test-02-login-page-Samsung_Galaxy-1754680985319.png",
+      "filepath": "/root/repo/mobile-test-screenshots/mobile-test-02-login-page-Samsung_Galaxy-1754680985319.png",
+      "timestamp": 1754680985319
+    }
+  ],
+  "devices": [
+    {
+      "name": "iPhone SE",
+      "width": 375,
+      "height": 667
+    },
+    {
+      "name": "iPhone 12",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "iPad",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "name": "Android Phone",
+      "width": 360,
+      "height": 640
+    },
+    {
+      "name": "Samsung Galaxy",
+      "width": 412,
+      "height": 915
+    }
+  ]
+}
