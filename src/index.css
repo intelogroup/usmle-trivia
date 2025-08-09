@@ -85,4 +85,13 @@
   .text-medical-pharmacology {
     color: hsl(var(--medical-pharmacology));
   }
+
+  /* Mobile native styling */
+  .safe-area-pb {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .tap-highlight-transparent {
+    -webkit-tap-highlight-color: transparent;
+  }
 }

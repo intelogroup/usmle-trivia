@@ -144,9 +144,9 @@ export const DashboardGrid: React.FC = () => {
                 </div>
               )) : (
                 <div className="text-center py-8">
-                  <Target className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
-                  <p className="text-sm text-muted-foreground">No quizzes taken yet</p>
-                  <p className="text-xs text-muted-foreground mt-1">Start a quiz to see your activity!</p>
+                  <div className="text-4xl mb-2">📋</div>
+                  <p className="text-sm text-gray-600">No quizzes taken yet</p>
+                  <p className="text-xs text-gray-500 mt-1">Start a quiz to see your activity!</p>
                 </div>
               )}
             </div>
