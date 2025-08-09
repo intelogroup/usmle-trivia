@@ -38,6 +38,7 @@ export const Quiz: React.FC = () => {
   } | null>(null);
   const [startError, setStartError] = useState<string | null>(null);
   const [customQuizConfig, setCustomQuizConfig] = useState<any>(null);
+  const [timedQuizConfig, setTimedQuizConfig] = useState<TimedQuizConfigType | null>(null);
   
   // Simplified state management without complex session hooks
   
