@@ -207,7 +207,7 @@ export const Quiz: React.FC = () => {
     );
   }
   
-  // Quiz setup screen for quick and timed modes
+  // Quiz setup screen for quick mode only (timed mode has its own config)
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-4">
