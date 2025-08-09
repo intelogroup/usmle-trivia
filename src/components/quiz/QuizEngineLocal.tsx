@@ -98,8 +98,15 @@ export const QuizEngineLocal: React.FC<QuizEngineProps> = ({ mode, config, onBac
       try {
         if (!user) throw new Error('User not authenticated');
         
-        const config = getQuizConfig();
-        const questionData = await getRandomQuestions(config.numQuestions);
+        const quizConfig = getQuizConfig();
+
+        // Prepare filters for question selection
+        const filters: { difficulty?: 'easy' | 'medium' | 'hard' } = {};
+        if (config?.difficulty && config.difficulty !== 'mixed') {
+          filters.difficulty = config.difficulty;
+        }
+
+        const questionData = await getRandomQuestions(quizConfig.numQuestions, filters);
 
         if (questionData && questionData.length > 0) {
           const questions = questionData.map((q, index) => convertToQuestion(q, index));
