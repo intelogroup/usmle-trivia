@@ -165,9 +165,26 @@ export const Quiz: React.FC = () => {
   
   // Show quiz engine when active
   if (quizState === 'active') {
+    // Prepare configuration based on mode
+    let quizConfig = undefined;
+    if (mode === 'timed' && timedQuizConfig) {
+      quizConfig = {
+        questionCount: timedQuizConfig.questionCount,
+        difficulty: timedQuizConfig.difficulty,
+        timeLimit: timedQuizConfig.timeLimit
+      };
+    } else if (mode === 'custom' && customQuizConfig) {
+      quizConfig = {
+        questionCount: customQuizConfig.questionCount,
+        difficulty: customQuizConfig.difficulty?.[0] || 'mixed', // Take first difficulty if array
+        timeLimit: customQuizConfig.timeLimit ? customQuizConfig.timeLimit * 60 : undefined
+      };
+    }
+
     return (
-      <QuizEngine 
+      <QuizEngine
         mode={mode}
+        config={quizConfig}
         onBack={() => setQuizState('setup')}
         onComplete={handleQuizComplete}
       />
