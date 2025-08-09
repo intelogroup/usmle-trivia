@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, Bell, Search, User, LogOut, Settings, Stethoscope } from 'lucide-react';
+import { Menu, Bell, Search, User, LogOut, Settings, Stethoscope, Moon, Sun, Trophy } from 'lucide-react';
 import { useAppStore } from '../../store';
 import { useNavigate } from 'react-router-dom';
 
 export const TopBar: React.FC = () => {
-  const { toggleSidebar, user, logout } = useAppStore();
+  const { toggleSidebar, user, logout, theme, toggleTheme } = useAppStore();
   const navigate = useNavigate();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -35,7 +35,7 @@ export const TopBar: React.FC = () => {
   }, [userMenuOpen]);
 
   return (
-    <header className="h-16 border-b bg-background px-4 flex items-center justify-between">
+    <header className="h-16 bg-background px-4 flex items-center justify-between">
       <div className="flex items-center gap-4">
         <button
           onClick={toggleSidebar}
@@ -55,6 +55,28 @@ export const TopBar: React.FC = () => {
       </div>
 
       <div className="flex items-center gap-4">
+        {/* User Points */}
+        {user && (
+          <div className="flex items-center gap-2 px-3 py-1 bg-accent/50 rounded-full">
+            <Trophy className="h-4 w-4 text-yellow-600" />
+            <span className="text-sm font-medium font-mono">{user.points || 0}</span>
+          </div>
+        )}
+        
+        {/* Theme Toggle */}
+        <button 
+          onClick={toggleTheme}
+          className="p-2 rounded-md hover:bg-accent transition-colors"
+          title={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+        >
+          {theme === 'light' ? (
+            <Moon className="h-5 w-5" />
+          ) : (
+            <Sun className="h-5 w-5" />
+          )}
+        </button>
+        
+        {/* Notifications */}
         <button className="relative p-2 rounded-md hover:bg-accent">
           <Bell className="h-5 w-5" />
           <span className="absolute top-0 right-0 h-2 w-2 bg-destructive rounded-full" />

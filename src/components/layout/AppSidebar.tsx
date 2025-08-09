@@ -131,8 +131,8 @@ export const AppSidebar: React.FC = () => {
             <div className="flex items-center gap-2">
               <Stethoscope className="h-8 w-8 text-primary" />
               <div>
-                <h2 className="text-lg font-semibold">MedQuiz Pro</h2>
-                <p className="text-xs text-muted-foreground">Medical Excellence</p>
+                <h2 className="text-lg font-heading font-semibold">MedQuiz Pro</h2>
+                <p className="text-xs text-muted-foreground font-sans">Medical Excellence</p>
               </div>
             </div>
             <button
@@ -217,35 +217,6 @@ export const AppSidebar: React.FC = () => {
             </ul>
           </nav>
 
-          {/* User Profile */}
-          <div className="border-t p-4">
-            {user ? (
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <User className="h-5 w-5 text-primary" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">{user.name}</p>
-                  <p className="text-xs text-muted-foreground truncate">{user.email}</p>
-                </div>
-                <button
-                  onClick={logout}
-                  className="p-2 rounded-md hover:bg-accent"
-                  title="Logout"
-                >
-                  <LogOut className="h-4 w-4" />
-                </button>
-              </div>
-            ) : (
-              <Link
-                to="/login"
-                className="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium hover:bg-accent"
-              >
-                <User className="h-4 w-4" />
-                <span>Login</span>
-              </Link>
-            )}
-          </div>
         </div>
       </aside>
     </>

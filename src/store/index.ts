@@ -15,6 +15,7 @@ interface AppState {
   // UI state
   sidebarOpen: boolean;
   isMobile: boolean;
+  theme: 'light' | 'dark';
   
   // Notifications
   notifications: INotification[];
@@ -34,6 +35,7 @@ interface AppState {
   // UI actions
   toggleSidebar: () => void;
   setIsMobile: (isMobile: boolean) => void;
+  toggleTheme: () => void;
   
   // Notification actions
   addNotification: (notification: Omit<INotification, 'id'>) => void;
@@ -52,6 +54,7 @@ export const useAppStore = create<AppState>()(
         currentQuiz: null,
         sidebarOpen: true,
         isMobile: false,
+        theme: 'light',
         notifications: [],
         
         // User actions
@@ -162,6 +165,9 @@ export const useAppStore = create<AppState>()(
         // UI actions
         toggleSidebar: () => set((state) => ({ sidebarOpen: !state.sidebarOpen })),
         setIsMobile: (isMobile) => set({ isMobile }),
+        toggleTheme: () => set((state) => ({ 
+          theme: state.theme === 'light' ? 'dark' : 'light' 
+        })),
         
         // Notification actions
         addNotification: (notification) => {
@@ -192,6 +198,7 @@ export const useAppStore = create<AppState>()(
           user: state.user,
           isAuthenticated: state.isAuthenticated,
           sidebarOpen: state.sidebarOpen,
+          theme: state.theme,
         }),
       }
     )

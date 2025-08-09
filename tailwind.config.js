@@ -46,7 +46,9 @@ export default {
         'medical-pharmacology': 'hsl(var(--medical-pharmacology))'
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif']
+        sans: ['IBM Plex Sans', 'system-ui', 'sans-serif'],
+        heading: ['Fira Code', 'Consolas', 'Monaco', 'monospace'],
+        mono: ['Fira Code', 'Consolas', 'Monaco', 'monospace']
       },
       borderRadius: {
         lg: "var(--radius)",
