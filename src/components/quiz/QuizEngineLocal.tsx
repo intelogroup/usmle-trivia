@@ -13,6 +13,11 @@ import type { QuestionData } from '../../data/sampleQuestions';
 
 interface QuizEngineProps {
   mode: 'quick' | 'timed' | 'custom';
+  config?: {
+    questionCount?: number;
+    difficulty?: 'easy' | 'medium' | 'hard' | 'mixed';
+    timeLimit?: number; // in seconds
+  };
   onBack: () => void;
   onComplete: (session: QuizSession, enhancedResults?: {
     pointsEarned: number;
@@ -51,7 +56,7 @@ function convertToQuestion(questionData: QuestionData, index: number): Question 
   };
 }
 
-export const QuizEngineLocal: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete }) => {
+export const QuizEngineLocal: React.FC<QuizEngineProps> = ({ mode, config, onBack, onComplete }) => {
   const { user } = useAppStore();
   const [error, setError] = useState<string | null>(null);
   
@@ -65,19 +70,27 @@ export const QuizEngineLocal: React.FC<QuizEngineProps> = ({ mode, onBack, onCom
     hasAnswered: false,
   });
 
-  // Quiz configuration based on mode
+  // Quiz configuration based on mode and props
   const getQuizConfig = useCallback(() => {
+    // Use config props if provided, otherwise use defaults
+    if (config) {
+      return {
+        numQuestions: config.questionCount || 15,
+        timeLimit: config.timeLimit || null
+      };
+    }
+
     switch (mode) {
       case 'quick':
         return { numQuestions: 5, timeLimit: null };
       case 'timed':
-        return { numQuestions: 10, timeLimit: 600 }; // 10 minutes
+        return { numQuestions: 15, timeLimit: 30 * 60 }; // 30 minutes default
       case 'custom':
         return { numQuestions: 8, timeLimit: null };
       default:
         return { numQuestions: 5, timeLimit: null };
     }
-  }, [mode]);
+  }, [mode, config]);
 
   // Initialize quiz
   useEffect(() => {
@@ -85,8 +98,15 @@ export const QuizEngineLocal: React.FC<QuizEngineProps> = ({ mode, onBack, onCom
       try {
         if (!user) throw new Error('User not authenticated');
         
-        const config = getQuizConfig();
-        const questionData = await getRandomQuestions(config.numQuestions);
+        const quizConfig = getQuizConfig();
+
+        // Prepare filters for question selection
+        const filters: { difficulty?: 'easy' | 'medium' | 'hard' } = {};
+        if (config?.difficulty && config.difficulty !== 'mixed') {
+          filters.difficulty = config.difficulty;
+        }
+
+        const questionData = await getRandomQuestions(quizConfig.numQuestions, filters);
 
         if (questionData && questionData.length > 0) {
           const questions = questionData.map((q, index) => convertToQuestion(q, index));
@@ -98,7 +118,7 @@ export const QuizEngineLocal: React.FC<QuizEngineProps> = ({ mode, onBack, onCom
             ...prev,
             questions,
             answers: new Array(questions.length).fill(null),
-            timeRemaining: config.timeLimit,
+            timeRemaining: quizConfig.timeLimit,
           }));
 
           // Create local quiz session

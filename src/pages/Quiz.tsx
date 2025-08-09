@@ -9,6 +9,7 @@ import { QuizResultsSummary } from '../components/quiz/QuizResultsSummary';
 import { TransitionScreen } from '../components/ui/LoadingStates';
 // Removed complex session components for simpler architecture
 import { CustomQuizConfig } from '../components/quiz/CustomQuizConfig';
+import { TimedQuizConfig, type TimedQuizConfig as TimedQuizConfigType } from '../components/quiz/TimedQuizConfig';
 // Simplified architecture without complex session hooks
 import { useAppStore } from '../store';
 import { quizModes } from '../data/sampleQuestions';
@@ -37,6 +38,7 @@ export const Quiz: React.FC = () => {
   } | null>(null);
   const [startError, setStartError] = useState<string | null>(null);
   const [customQuizConfig, setCustomQuizConfig] = useState<any>(null);
+  const [timedQuizConfig, setTimedQuizConfig] = useState<TimedQuizConfigType | null>(null);
   
   // Simplified state management without complex session hooks
   
@@ -72,10 +74,13 @@ export const Quiz: React.FC = () => {
       if (mode === 'custom' && customQuizConfig) {
         questionCount = customQuizConfig.questionCount;
         timeLimit = customQuizConfig.timeLimit ? customQuizConfig.timeLimit * 60 : undefined; // convert minutes to seconds
+      } else if (mode === 'timed' && timedQuizConfig) {
+        questionCount = timedQuizConfig.questionCount;
+        timeLimit = timedQuizConfig.timeLimit; // already in seconds
       } else {
         // Default values for quick and timed modes
-        questionCount = mode === 'quick' ? 5 : mode === 'timed' ? 10 : 8;
-        timeLimit = mode === 'timed' ? 600 : mode === 'custom' ? 480 : undefined; // seconds
+        questionCount = mode === 'quick' ? 5 : mode === 'timed' ? 15 : 8;
+        timeLimit = mode === 'timed' ? 30 * 60 : mode === 'custom' ? 480 : undefined; // seconds
       }
       
       // Generate question IDs based on mode
@@ -99,6 +104,11 @@ export const Quiz: React.FC = () => {
 
   const handleCustomQuizConfig = (config: any) => {
     setCustomQuizConfig(config);
+    handleStartQuiz();
+  };
+
+  const handleTimedQuizConfig = (config: TimedQuizConfigType) => {
+    setTimedQuizConfig(config);
     handleStartQuiz();
   };
   
@@ -155,9 +165,26 @@ export const Quiz: React.FC = () => {
   
   // Show quiz engine when active
   if (quizState === 'active') {
+    // Prepare configuration based on mode
+    let quizConfig = undefined;
+    if (mode === 'timed' && timedQuizConfig) {
+      quizConfig = {
+        questionCount: timedQuizConfig.questionCount,
+        difficulty: timedQuizConfig.difficulty,
+        timeLimit: timedQuizConfig.timeLimit
+      };
+    } else if (mode === 'custom' && customQuizConfig) {
+      quizConfig = {
+        questionCount: customQuizConfig.questionCount,
+        difficulty: customQuizConfig.difficulty?.[0] || 'mixed', // Take first difficulty if array
+        timeLimit: customQuizConfig.timeLimit ? customQuizConfig.timeLimit * 60 : undefined
+      };
+    }
+
     return (
-      <QuizEngine 
+      <QuizEngine
         mode={mode}
+        config={quizConfig}
         onBack={() => setQuizState('setup')}
         onComplete={handleQuizComplete}
       />
@@ -178,17 +205,26 @@ export const Quiz: React.FC = () => {
   // Get quiz mode configuration
   const modeConfig = quizModes[mode];
 
-  // Quiz setup screen - show custom config for custom mode
+  // Quiz setup screen - show config for custom and timed modes
   if (mode === 'custom') {
     return (
-      <CustomQuizConfig 
+      <CustomQuizConfig
         onStartQuiz={handleCustomQuizConfig}
         onBack={handleBack}
       />
     );
   }
+
+  if (mode === 'timed') {
+    return (
+      <TimedQuizConfig
+        onStartQuiz={handleTimedQuizConfig}
+        onBack={handleBack}
+      />
+    );
+  }
   
-  // Quiz setup screen for quick and timed modes
+  // Quiz setup screen for quick mode only (timed mode has its own config)
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-4">
