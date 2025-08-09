@@ -12,6 +12,7 @@ const Dashboard = lazy(() => import('./pages/Dashboard').then(module => ({ defau
 const Quiz = lazy(() => import('./pages/Quiz').then(module => ({ default: module.Quiz })));
 const Progress = lazy(() => import('./pages/Progress').then(module => ({ default: module.Progress })));
 const Analytics = lazy(() => import('./pages/Analytics').then(module => ({ default: module.Analytics })));
+const Social = lazy(() => import('./pages/Social').then(module => ({ default: module.Social })));
 const Leaderboard = lazy(() => import('./pages/Leaderboard').then(module => ({ default: module.Leaderboard })));
 const Login = lazy(() => import('./pages/Login').then(module => ({ default: module.Login })));
 const Register = lazy(() => import('./pages/Register').then(module => ({ default: module.Register })));
@@ -153,6 +154,19 @@ function App() {
           }
         />
         <Route
+<<<<<<< HEAD
+          path="/social/*"
+          element={
+            <ProtectedRoute>
+              <AppLayout>
+                <Social />
+              </AppLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+=======
+>>>>>>> origin/main
           path="/leaderboard"
           element={
             <ProtectedRoute>
