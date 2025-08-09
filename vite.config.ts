@@ -11,7 +11,7 @@ export default defineConfig({
   build: {
     target: 'esnext',
     minify: 'esbuild',
-    cssMinify: 'lightningcss',
+    cssMinify: true,
     sourcemap: false, // Disable sourcemaps for smaller bundle
     rollupOptions: {
       output: {
