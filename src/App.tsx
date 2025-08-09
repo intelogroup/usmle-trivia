@@ -154,6 +154,7 @@ function App() {
           }
         />
         <Route
+<<<<<<< HEAD
           path="/social/*"
           element={
             <ProtectedRoute>
@@ -164,6 +165,8 @@ function App() {
           }
         />
         <Route
+=======
+>>>>>>> origin/main
           path="/leaderboard"
           element={
             <ProtectedRoute>
