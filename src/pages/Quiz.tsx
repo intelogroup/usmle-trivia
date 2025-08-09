@@ -106,6 +106,11 @@ export const Quiz: React.FC = () => {
     setCustomQuizConfig(config);
     handleStartQuiz();
   };
+
+  const handleTimedQuizConfig = (config: TimedQuizConfigType) => {
+    setTimedQuizConfig(config);
+    handleStartQuiz();
+  };
   
   const handleQuizComplete = (session: QuizSession, enhancedData?: {
     pointsEarned: number;
