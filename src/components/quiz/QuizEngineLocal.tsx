@@ -4,12 +4,12 @@ import { Button } from '../ui/Button';
 import { XCircle } from 'lucide-react';
 import { type Question, type QuizSession } from '../../services/quiz';
 import { useAppStore } from '../../store';
-import { useAsyncError } from '../../hooks/useAsyncError';
-import { useGetRandomQuestions, useCreateQuizSession, useSubmitAnswer, useCompleteQuizWithStats } from '../../services/convexQuiz';
+import { getRandomQuestions } from '../../services/questionService';
 import { analyticsService } from '../../services/analytics';
 import { QuizHeader } from './QuizHeader';
 import { QuizProgress } from './QuizProgress';
 import { QuizQuestion } from './QuizQuestion';
+import type { QuestionData } from '../../data/sampleQuestions';
 
 interface QuizEngineProps {
   mode: 'quick' | 'timed' | 'custom';
@@ -33,9 +33,27 @@ interface QuizState {
   hasAnswered: boolean;
 }
 
-export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete }) => {
+// Convert QuestionData to Question format
+function convertToQuestion(questionData: QuestionData, index: number): Question {
+  return {
+    id: `q_${index}_${questionData.question.substring(0, 20).replace(/\s+/g, '_').toLowerCase()}`,
+    question: questionData.question,
+    options: questionData.options,
+    correctAnswer: questionData.correctAnswer,
+    explanation: questionData.explanation,
+    category: questionData.category,
+    difficulty: questionData.difficulty,
+    usmleCategory: questionData.usmleCategory,
+    tags: questionData.tags,
+    medicalReferences: questionData.medicalReferences,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+}
+
+export const QuizEngineLocal: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete }) => {
   const { user } = useAppStore();
-  const { handleAsyncError, error } = useAsyncError();
+  const [error, setError] = useState<string | null>(null);
   
   const [quizState, setQuizState] = useState<QuizState>({
     questions: [],
@@ -61,83 +79,55 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
     }
   }, [mode]);
 
-  const config = getQuizConfig();
-
-  // Convex hooks
-  const questions = useGetRandomQuestions({
-    count: config.numQuestions,
-    difficulty: undefined,
-    category: undefined
-  });
-  const createQuizSession = useCreateQuizSession();
-  const submitAnswer = useSubmitAnswer();
-  const completeQuizWithStats = useCompleteQuizWithStats();
-
   // Initialize quiz
   useEffect(() => {
     const initializeQuiz = async () => {
       try {
-        if (!user || !questions || questions.length === 0) return;
+        if (!user) throw new Error('User not authenticated');
         
-        // Only initialize once
-        if (quizState.questions.length > 0) return;
+        const config = getQuizConfig();
+        const questionData = await getRandomQuestions(config.numQuestions);
 
-        // Track question view for first question
-        analyticsService.trackQuestionView(questions[0]._id, 0);
-        
-        // Convert ConvexQuestion to Question format
-        const convertedQuestions = questions.map(q => ({
-          id: q._id,
-          question: q.question,
-          options: q.options,
-          correctAnswer: q.correctAnswer,
-          explanation: q.explanation,
-          category: q.category,
-          difficulty: q.difficulty,
-          usmleCategory: q.usmleCategory,
-          tags: q.tags,
-          medicalReferences: q.medicalReferences,
-          imageUrl: q.imageUrl,
-          lastReviewed: q.lastReviewed ? new Date(q.lastReviewed) : undefined,
-          createdAt: new Date(q._creationTime),
-          updatedAt: new Date(q._creationTime),
-        }));
-        
-        setQuizState(prev => ({
-          ...prev,
-          questions: convertedQuestions,
-          answers: new Array(convertedQuestions.length).fill(null),
-          timeRemaining: config.timeLimit,
-        }));
+        if (questionData && questionData.length > 0) {
+          const questions = questionData.map((q, index) => convertToQuestion(q, index));
+          
+          // Track question view for first question
+          analyticsService.trackQuestionView(questions[0].id, 0);
+          
+          setQuizState(prev => ({
+            ...prev,
+            questions,
+            answers: new Array(questions.length).fill(null),
+            timeRemaining: config.timeLimit,
+          }));
 
-        // Create quiz session
-        const sessionId = await createQuizSession({
-          userId: user.id,
-          mode,
-          questionIds: questions.map(q => q._id),
-        });
-
-        setQuizState(prev => ({
-          ...prev,
-          session: {
-            id: sessionId,
+          // Create local quiz session
+          const session: QuizSession = {
+            id: `session_${Date.now()}_${user.id}`,
             userId: user.id,
             mode,
-            questions: questions.map(q => q._id),
+            questions: questions.map(q => q.id),
             answers: [],
             score: 0,
-            status: 'in_progress',
-            startTime: prev.startTime,
+            status: 'active',
+            createdAt: new Date(),
+            updatedAt: new Date(),
             timeSpent: 0,
-          } as QuizSession
-        }));
+          };
+
+          setQuizState(prev => ({
+            ...prev,
+            session
+          }));
+        }
       } catch (error) {
         console.error('Failed to initialize quiz:', error);
+        setError(error instanceof Error ? error.message : 'Failed to initialize quiz');
       }
     };
 
     initializeQuiz();
-  }, [user, questions, createQuizSession, mode, config.timeLimit, quizState.questions.length]);
+  }, [user, mode, getQuizConfig]);
 
   // Handle answer selection
   const handleAnswerSelect = useCallback(async (answerIndex: number) => {
@@ -159,16 +149,7 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
       hasAnswered: true,
       showExplanation: true,
     }));
-
-    // Submit answer to backend
-    await handleAsyncError(async () => {
-      await submitAnswer({
-        sessionId: quizState.session!.id,
-        questionIndex: quizState.currentQuestionIndex,
-        answer: answerIndex,
-      });
-    }, 'Submit Answer');
-  }, [quizState.hasAnswered, quizState.session, quizState.questions, quizState.currentQuestionIndex, quizState.answers, handleAsyncError, submitAnswer]);
+  }, [quizState.hasAnswered, quizState.session, quizState.questions, quizState.currentQuestionIndex, quizState.answers]);
 
   // Handle next question
   const handleNextQuestion = useCallback(() => {
@@ -194,39 +175,78 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
 
     setQuizState(prev => ({ ...prev, isSubmitting: true }));
 
-    await handleAsyncError(async () => {
+    try {
       const finalTimeSpent = Math.floor((Date.now() - quizState.startTime.getTime()) / 1000);
       
-      const enhancedResult = await completeQuizWithStats({
-        sessionId: quizState.session!.id,
-        finalTimeSpent: finalTimeSpent,
-      });
+      // Calculate score
+      const totalCorrect = quizState.answers.filter((answer, index) => 
+        answer === quizState.questions[index]?.correctAnswer
+      ).length;
+      
+      const score = Math.round((totalCorrect / quizState.questions.length) * 100);
 
-      if (enhancedResult && enhancedResult.session) {
-        const session: QuizSession = {
-          ...quizState.session!,
-          score: enhancedResult.session.score,
-          status: 'completed',
-          answers: enhancedResult.session.answers,
-          timeSpent: enhancedResult.session.timeSpent,
-          completedAt: new Date(enhancedResult.session.completedAt || Date.now()),
-          updatedAt: new Date(),
-        };
-        
-        // Track quiz completion
-        const totalCorrect = quizState.answers.filter((answer, index) => 
-          answer === quizState.questions[index]?.correctAnswer
-        ).length;
-        analyticsService.trackQuizComplete(totalCorrect, quizState.questions.length, finalTimeSpent);
-        
-        onComplete(session, {
-          pointsEarned: enhancedResult.results.pointsEarned,
-          userStats: enhancedResult.userStats,
-          performanceMetrics: enhancedResult.results.performanceMetrics
-        });
+      const completedSession: QuizSession = {
+        ...quizState.session,
+        score,
+        status: 'completed',
+        answers: quizState.answers,
+        timeSpent: finalTimeSpent,
+        completedAt: new Date(),
+        updatedAt: new Date(),
+      };
+      
+      // Track quiz completion
+      analyticsService.trackQuizComplete(totalCorrect, quizState.questions.length, finalTimeSpent);
+      
+      // Calculate points earned
+      const pointsEarned = quizState.questions.reduce((total, question, index) => {
+        const isCorrect = quizState.answers[index] === question.correctAnswer;
+        return total + (isCorrect ? 10 : 0); // 10 points per correct answer
+      }, 0);
+
+      onComplete(completedSession, {
+        pointsEarned,
+        userStats: {
+          totalQuestions: quizState.questions.length,
+          correctAnswers: totalCorrect,
+          accuracy: score,
+          timeSpent: finalTimeSpent
+        },
+        performanceMetrics: {
+          averageTimePerQuestion: finalTimeSpent / quizState.questions.length,
+          difficultyBreakdown: calculateDifficultyBreakdown(),
+          categoryBreakdown: calculateCategoryBreakdown()
+        }
+      });
+    } catch (error) {
+      console.error('Failed to complete quiz:', error);
+      setError('Failed to complete quiz. Please try again.');
+    }
+  }, [quizState.session, quizState.isSubmitting, quizState.startTime, quizState.answers, quizState.questions, onComplete]);
+
+  // Calculate difficulty breakdown for performance metrics
+  const calculateDifficultyBreakdown = useCallback(() => {
+    const breakdown = { easy: 0, medium: 0, hard: 0 };
+    quizState.questions.forEach((question, index) => {
+      const isCorrect = quizState.answers[index] === question.correctAnswer;
+      if (isCorrect) {
+        breakdown[question.difficulty]++;
       }
-    }, 'Complete Quiz');
-  }, [quizState.session, quizState.isSubmitting, quizState.startTime, quizState.answers, quizState.questions, handleAsyncError, completeQuizWithStats, onComplete]);
+    });
+    return breakdown;
+  }, [quizState.questions, quizState.answers]);
+
+  // Calculate category breakdown for performance metrics
+  const calculateCategoryBreakdown = useCallback(() => {
+    const breakdown: Record<string, number> = {};
+    quizState.questions.forEach((question, index) => {
+      const isCorrect = quizState.answers[index] === question.correctAnswer;
+      if (isCorrect) {
+        breakdown[question.category] = (breakdown[question.category] || 0) + 1;
+      }
+    });
+    return breakdown;
+  }, [quizState.questions, quizState.answers]);
 
   // Timer for timed quizzes
   useEffect(() => {
@@ -256,7 +276,7 @@ export const QuizEngine: React.FC<QuizEngineProps> = ({ mode, onBack, onComplete
             <XCircle className="h-12 w-12 text-red-500 mx-auto" />
             <div>
               <h3 className="text-lg font-semibold">Quiz Error</h3>
-              <p className="text-muted-foreground">{error.userMessage}</p>
+              <p className="text-muted-foreground">{error}</p>
             </div>
             <Button onClick={onBack}>Back to Dashboard</Button>
           </div>

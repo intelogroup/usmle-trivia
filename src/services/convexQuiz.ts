@@ -330,8 +330,8 @@ export const useGetQuestions = (filters?: { category?: string; difficulty?: stri
   useQuery(api.quiz.getQuestions, filters);
 export const useGetQuestion = (questionId: string) => 
   useQuery(api.quiz.getQuestion, { questionId });
-export const useGetRandomQuestions = (count: number, difficulty?: string, category?: string) => 
-  useQuery(api.quiz.getRandomQuestions, { count, difficulty, category });
+export const useGetRandomQuestions = (args: { count: number; difficulty?: string; category?: string }) => 
+  useQuery(api.quiz.getRandomQuestions, args);
 export const useCreateQuizSession = () => useMutation(api.quiz.createQuizSession);
 export const useGetQuizSession = (sessionId: string) => 
   useQuery(api.quiz.getQuizSession, { sessionId });
