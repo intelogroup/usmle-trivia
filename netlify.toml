@@ -14,8 +14,6 @@
 # Environment variables for production
 [context.production.environment]
   VITE_CONVEX_URL = "https://formal-sardine-916.convex.cloud"
-  NODE_ENV = "production"
-  VITE_NODE_ENV = "production"
   # Build optimizations for production
   VITE_BUILD_SOURCEMAP = "false"
   VITE_BUILD_MINIFY = "true"
@@ -24,14 +22,10 @@
 # Preview deployments (for testing)
 [context.deploy-preview.environment]
   VITE_CONVEX_URL = "https://formal-sardine-916.convex.cloud"
-  NODE_ENV = "staging"
-  VITE_NODE_ENV = "staging"
 
 # Branch deployments
 [context.branch-deploy.environment]
   VITE_CONVEX_URL = "https://formal-sardine-916.convex.cloud"
-  NODE_ENV = "development"
-  VITE_NODE_ENV = "development"
 
 # Single Page Application routing
 [[redirects]]

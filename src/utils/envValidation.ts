@@ -6,8 +6,7 @@
 
 interface EnvironmentConfig {
   convexUrl: string;
-  nodeEnv: 'development' | 'staging' | 'production';
-  viteEnv: string;
+  nodeEnv: 'development' | 'production';
   logLevel: 'error' | 'warn' | 'info' | 'debug';
   features: {
     analytics: boolean;
@@ -71,9 +70,8 @@ export function validateEnvironment(): EnvironmentConfig {
       // Convex backend configuration
       convexUrl: getEnvVar('VITE_CONVEX_URL'),
       
-      // Environment settings
-      nodeEnv: (getEnvVar('NODE_ENV', 'development') as EnvironmentConfig['nodeEnv']),
-      viteEnv: getEnvVar('VITE_NODE_ENV', 'development'),
+      // Environment settings - determined by Vite automatically
+      nodeEnv: (import.meta.env.PROD ? 'production' : 'development') as EnvironmentConfig['nodeEnv'],
       logLevel: (getEnvVar('VITE_LOG_LEVEL', 'info') as EnvironmentConfig['logLevel']),
       
       // Feature flags
@@ -102,10 +100,8 @@ export function validateEnvironment(): EnvironmentConfig {
       throw new Error('VITE_CONVEX_URL must be a valid HTTPS URL');
     }
     
-    // Validate environment consistency
-    if (config.nodeEnv === 'production' && config.viteEnv !== 'production') {
-      console.warn('⚠️ Environment mismatch: NODE_ENV is production but VITE_NODE_ENV is not');
-    }
+    // Environment is automatically determined by Vite (import.meta.env.PROD/DEV)
+    // No manual NODE_ENV validation needed
     
     // Log configuration summary
     console.info('✅ Environment validation successful');
