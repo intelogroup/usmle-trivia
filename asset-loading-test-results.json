@@ -1,0 +1,20 @@
+{
+  "scripts": [
+    {
+      "url": "/assets/index-B0fWWtjP.js",
+      "status": 404,
+      "working": false
+    }
+  ],
+  "stylesheets": [
+    {
+      "url": "/assets/css/index-DHgJvVea.css",
+      "status": 404,
+      "working": false
+    }
+  ],
+  "summary": {
+    "working": 0,
+    "failing": 2
+  }
+}

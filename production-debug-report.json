@@ -1,0 +1,114 @@
+{
+  "timestamp": "2025-08-10T23:13:37.877Z",
+  "diagnostics": {
+    "buildHealth": {
+      "status": "success",
+      "exitCode": 0,
+      "bundleSize": 776.8100000000001,
+      "chunkCount": 23,
+      "hasSourcemaps": false,
+      "output": [
+        "dist/assets/AppLayout-Bp7u3v3_.js         10.51 kB │ gzip:  3.16 kB",
+        "dist/assets/services-DJ4wepkZ.js          11.36 kB │ gzip:  4.46 kB",
+        "dist/assets/vendor-toJsCgd-.js            29.95 kB │ gzip: 10.10 kB",
+        "dist/assets/quiz-components-YMY0VTo8.js   34.75 kB │ gzip:  9.30 kB",
+        "dist/assets/Social-B8xsVdfV.js            37.87 kB │ gzip:  6.33 kB",
+        "dist/assets/convex-BUk7Ld6w.js            54.48 kB │ gzip: 15.06 kB",
+        "dist/assets/questions-data-BygSDF2j.js   259.37 kB │ gzip: 67.67 kB",
+        "dist/assets/react-vendor-BSpJr3PW.js     261.87 kB │ gzip: 82.27 kB",
+        "✓ built in 6.86s",
+        ""
+      ]
+    },
+    "environmentVariables": {
+      "convexUrlPresent": true,
+      "environmentVariables": "",
+      "bundleFiles": 23,
+      "distExists": true
+    },
+    "cspAnalysis": {
+      "rawCSP": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://formal-sardine-916.convex.cloud https://formal-sardine-916.convex.site wss://formal-sardine-916.convex.cloud; font-src 'self' data:; object-src 'none';",
+      "policies": {
+        "default-src": [
+          "'self'"
+        ],
+        "script-src": [
+          "'self'",
+          "'unsafe-inline'",
+          "'unsafe-eval'"
+        ],
+        "style-src": [
+          "'self'",
+          "'unsafe-inline'"
+        ],
+        "img-src": [
+          "'self'",
+          "data:",
+          "https:"
+        ],
+        "connect-src": [
+          "'self'",
+          "https://formal-sardine-916.convex.cloud",
+          "https://formal-sardine-916.convex.site",
+          "wss://formal-sardine-916.convex.cloud"
+        ],
+        "font-src": [
+          "'self'",
+          "data:"
+        ],
+        "object-src": [
+          "'none'"
+        ],
+        "": []
+      },
+      "reactCompatible": true,
+      "issues": []
+    },
+    "networkRequests": [
+      {
+        "url": "https://medquiz-pro.netlify.app/register",
+        "method": "GET",
+        "resourceType": "document"
+      },
+      {
+        "url": "https://medquiz-pro.netlify.app/favicon.ico",
+        "method": "GET",
+        "resourceType": "other"
+      }
+    ],
+    "javascriptErrors": [
+      {
+        "message": "Failed to load resource: the server responded with a status of 404 ()",
+        "type": "console-error"
+      },
+      {
+        "message": "Failed to load resource: the server responded with a status of 404 ()",
+        "type": "console-error"
+      },
+      {
+        "message": "Page navigation failed: Waiting for selector `form` failed: Waiting failed: 10000ms exceeded",
+        "type": "navigation-error"
+      }
+    ],
+    "formFunctionality": {
+      "working": false,
+      "errors": []
+    },
+    "convexConnection": {
+      "established": false,
+      "errors": []
+    }
+  },
+  "issues": [
+    "Registration form JavaScript not functioning",
+    "3 JavaScript errors found"
+  ],
+  "solutions": [
+    {
+      "issue": "Form JavaScript not working",
+      "solution": "Debug React component mounting and event handlers",
+      "action": "Check browser console for React hydration errors"
+    }
+  ],
+  "summary": null
+}
