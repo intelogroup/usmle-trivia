@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Stethoscope, Loader2 } from 'lucide-react';
 import { useAuth } from '../services/convexAuth';
 import { Button } from '../components/ui/Button';
+import { validateEmail, validatePassword, checkRateLimit, AUTH_ERRORS } from '../services/authVerification';
 
 export const Register: React.FC = () => {
   const navigate = useNavigate();
@@ -19,31 +20,42 @@ export const Register: React.FC = () => {
     e.preventDefault();
     setError('');
     
-    console.log('📝 Registration form submitted for:', formData.email);
+    // Validate email format
+    if (!validateEmail(formData.email)) {
+      setError(AUTH_ERRORS.INVALID_EMAIL);
+      return;
+    }
     
     // Validate passwords match
     if (formData.password !== formData.confirmPassword) {
-      console.error('❌ Passwords do not match');
       setError('Passwords do not match');
       return;
     }
-
+    
     // Validate password strength
-    if (formData.password.length < 8) {
-      console.error('❌ Password too short');
-      setError('Password must be at least 8 characters long');
+    const passwordValidation = validatePassword(formData.password);
+    if (!passwordValidation.isValid) {
+      setError(passwordValidation.errors.join('. '));
+      return;
+    }
+    
+    // Check rate limiting
+    if (!checkRateLimit(formData.email)) {
+      setError(AUTH_ERRORS.RATE_LIMITED);
       return;
     }
     
     try {
-      console.log('🚀 Calling register function via authService...');
-      // Store's register function internally uses authService.createAccount
-      await register(formData.email, formData.password, formData.name);
-      console.log('✅ authService.createAccount successful, navigating to dashboard');
-      navigate('/dashboard');
+      const result = await register(formData.email, formData.password, formData.name);
+      
+      if (result.success) {
+        navigate('/dashboard');
+      } else {
+        setError(result.error || AUTH_ERRORS.SERVER_ERROR);
+      }
     } catch (err: unknown) {
-      console.error('❌ authService.createAccount failed:', err);
-      setError((err instanceof Error ? err.message : String(err)) || 'Registration failed. Please try again.');
+      console.error('Registration error:', err);
+      setError(AUTH_ERRORS.NETWORK_ERROR);
     }
   };
 

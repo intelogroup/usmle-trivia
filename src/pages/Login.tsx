@@ -1,32 +1,50 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Stethoscope } from 'lucide-react';
 import { useAuth } from '../services/convexAuth';
+import { validateEmail, checkRateLimit, AUTH_ERRORS } from '../services/authVerification';
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { login, isLoading } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
   const [error, setError] = useState('');
+  
+  // Get redirect location from state (if user was redirected here)
+  const from = location.state?.from || '/dashboard';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     
-    console.log('🔐 Login form submitted for:', formData.email);
+    // Validate email format
+    if (!validateEmail(formData.email)) {
+      setError(AUTH_ERRORS.INVALID_EMAIL);
+      return;
+    }
+    
+    // Check rate limiting
+    if (!checkRateLimit(formData.email)) {
+      setError(AUTH_ERRORS.RATE_LIMITED);
+      return;
+    }
     
     try {
-      console.log('🚀 Calling login function via authService...');
-      // Store's login function internally uses authService.login
-      await login(formData.email, formData.password);
-      console.log('✅ authService.login successful, navigating to dashboard');
-      navigate('/dashboard');
+      const result = await login(formData.email, formData.password);
+      
+      if (result.success) {
+        // Navigate to the original requested page or dashboard
+        navigate(from, { replace: true });
+      } else {
+        setError(result.error || AUTH_ERRORS.INVALID_CREDENTIALS);
+      }
     } catch (error) {
-      console.error('❌ authService.login failed:', error);
-      setError('Invalid email or password');
+      console.error('Login error:', error);
+      setError(AUTH_ERRORS.NETWORK_ERROR);
     }
   };
 

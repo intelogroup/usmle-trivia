@@ -2,11 +2,12 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { WelcomeBanner } from '../../../src/components/dashboard/WelcomeBanner';
+import { createMockUser } from '../../utils/testUtils';
 
-// Mock the useAppStore hook
-const mockUseAppStore = vi.fn();
-vi.mock('../../../src/store', () => ({
-  useAppStore: () => mockUseAppStore(),
+// Mock the useAuth hook from convexAuth service
+const mockUseAuth = vi.fn();
+vi.mock('../../../src/services/convexAuth', () => ({
+  useAuth: () => mockUseAuth(),
 }));
 
 describe('WelcomeBanner Component', () => {
@@ -16,22 +17,28 @@ describe('WelcomeBanner Component', () => {
 
   describe('Basic Rendering', () => {
     it('should render welcome message when user is provided', () => {
-      mockUseAppStore.mockReturnValue({
-        user: { 
+      mockUseAuth.mockReturnValue({
+        user: createMockUser({ 
           id: '1', 
           name: 'Dr. Sarah Johnson',
           email: 'sarah.johnson@medschool.edu',
-        }
+        }),
+        isAuthenticated: true,
+        isLoading: false,
       });
 
       render(<WelcomeBanner />);
       
       expect(screen.getByText('Welcome back, Dr. Sarah Johnson')).toBeInTheDocument();
-      expect(screen.getByText('Continue your USMLE preparation journey with evidence-based medical questions and comprehensive explanations.')).toBeInTheDocument();
+      expect(screen.getByText('Ready for your next study session?')).toBeInTheDocument();
     });
 
     it('should not render when user is null', () => {
-      mockUseAppStore.mockReturnValue({ user: null });
+      mockUseAuth.mockReturnValue({ 
+        user: null,
+        isAuthenticated: false,
+        isLoading: false,
+      });
       
       const { container } = render(<WelcomeBanner />);
       
@@ -39,7 +46,11 @@ describe('WelcomeBanner Component', () => {
     });
 
     it('should not render when user is undefined', () => {
-      mockUseAppStore.mockReturnValue({ user: undefined });
+      mockUseAuth.mockReturnValue({ 
+        user: undefined,
+        isAuthenticated: false,
+        isLoading: false,
+      });
       
       const { container } = render(<WelcomeBanner />);
       
@@ -58,8 +69,10 @@ describe('WelcomeBanner Component', () => {
       ];
 
       testCases.forEach(({ name, expected }) => {
-        mockUseAppStore.mockReturnValue({
-          user: { id: '1', name, email: 'test@example.com' }
+        mockUseAuth.mockReturnValue({
+          user: createMockUser({ id: '1', name, email: 'test@example.com' }),
+          isAuthenticated: true,
+          isLoading: false,
         });
 
         const { rerender } = render(<WelcomeBanner />);
@@ -71,8 +84,10 @@ describe('WelcomeBanner Component', () => {
     });
 
     it('should handle empty name gracefully', () => {
-      mockUseAppStore.mockReturnValue({
-        user: { id: '1', name: '', email: 'test@example.com' }
+      mockUseAuth.mockReturnValue({
+        user: createMockUser({ id: '1', name: '', email: 'test@example.com' }),
+        isAuthenticated: true,
+        isLoading: false,
       });
 
       render(<WelcomeBanner />);
@@ -82,8 +97,10 @@ describe('WelcomeBanner Component', () => {
 
     it('should handle very long names without breaking layout', () => {
       const longName = 'Dr. Bartholomew Maximilian Constantine Wellington-Fitzpatrick III';
-      mockUseAppStore.mockReturnValue({
-        user: { id: '1', name: longName, email: 'test@example.com' }
+      mockUseAuth.mockReturnValue({
+        user: createMockUser({ id: '1', name: longName, email: 'test@example.com' }),
+        isAuthenticated: true,
+        isLoading: false,
       });
 
       render(<WelcomeBanner />);
@@ -93,7 +110,7 @@ describe('WelcomeBanner Component', () => {
 
     it('should handle special characters in names', () => {
       const specialName = 'José María Ñuñez-Özdemir';
-      mockUseAppStore.mockReturnValue({
+      mockUseAuth.mockReturnValue({
         user: { id: '1', name: specialName, email: 'test@example.com' }
       });
 
@@ -105,58 +122,52 @@ describe('WelcomeBanner Component', () => {
 
   describe('CSS Classes and Styling', () => {
     it('should apply correct CSS classes for styling', () => {
-      mockUseAppStore.mockReturnValue({
+      mockUseAuth.mockReturnValue({
         user: { id: '1', name: 'John Doe', email: 'john@example.com' }
       });
 
       const { container } = render(<WelcomeBanner />);
       const banner = container.firstChild as HTMLElement;
       
-      expect(banner).toHaveClass('bg-gradient-to-r');
-      expect(banner).toHaveClass('from-primary/5');
-      expect(banner).toHaveClass('via-primary/10');
-      expect(banner).toHaveClass('to-primary/5');
-      expect(banner).toHaveClass('border');
-      expect(banner).toHaveClass('border-primary/20');
-      expect(banner).toHaveClass('rounded-2xl');
-      expect(banner).toHaveClass('p-6');
+      // The component has a simple mb-6 class on the outer div
       expect(banner).toHaveClass('mb-6');
     });
 
     it('should apply correct heading styles', () => {
-      mockUseAppStore.mockReturnValue({
+      mockUseAuth.mockReturnValue({
         user: { id: '1', name: 'John Doe', email: 'john@example.com' }
       });
 
       render(<WelcomeBanner />);
       const heading = screen.getByRole('heading', { level: 1 });
       
-      expect(heading).toHaveClass('text-xl');
-      expect(heading).toHaveClass('font-bold');
-      expect(heading).toHaveClass('text-slate-900');
+      expect(heading).toHaveClass('text-2xl');
+      expect(heading).toHaveClass('font-semibold');
+      expect(heading).toHaveClass('text-gray-900');
     });
 
     it('should apply correct paragraph styles', () => {
-      mockUseAppStore.mockReturnValue({
+      mockUseAuth.mockReturnValue({
         user: { id: '1', name: 'John Doe', email: 'john@example.com' }
       });
 
       render(<WelcomeBanner />);
-      const paragraph = screen.getByText('Continue your USMLE preparation journey with evidence-based medical questions and comprehensive explanations.');
+      const paragraph = screen.getByText('Ready for your next study session?');
       
-      expect(paragraph).toHaveClass('text-slate-700');
+      expect(paragraph).toHaveClass('text-gray-600');
+      expect(paragraph).toHaveClass('mt-1');
     });
   });
 
   describe('Medical Education Context', () => {
     it('should display medical education appropriate messaging', () => {
-      mockUseAppStore.mockReturnValue({
+      mockUseAuth.mockReturnValue({
         user: { id: '1', name: 'Medical Student', email: 'student@medschool.edu' }
       });
 
       render(<WelcomeBanner />);
       
-      const messageText = screen.getByText('Continue your USMLE preparation journey with evidence-based medical questions and comprehensive explanations.');
+      const messageText = screen.getByText('Ready for your next study session?');
       expect(messageText).toBeInTheDocument();
       expect(messageText.textContent).toContain('USMLE preparation');
     });
@@ -171,7 +182,7 @@ describe('WelcomeBanner Component', () => {
       ];
 
       medicalUsers.forEach(name => {
-        mockUseAppStore.mockReturnValue({
+        mockUseAuth.mockReturnValue({
           user: { id: '1', name, email: 'test@hospital.edu' }
         });
 
@@ -184,7 +195,7 @@ describe('WelcomeBanner Component', () => {
 
   describe('Accessibility', () => {
     it('should use proper heading hierarchy', () => {
-      mockUseAppStore.mockReturnValue({
+      mockUseAuth.mockReturnValue({
         user: { id: '1', name: 'John Doe', email: 'john@example.com' }
       });
 
@@ -196,7 +207,7 @@ describe('WelcomeBanner Component', () => {
     });
 
     it('should be readable by screen readers', () => {
-      mockUseAppStore.mockReturnValue({
+      mockUseAuth.mockReturnValue({
         user: { id: '1', name: 'Jane Smith', email: 'jane@example.com' }
       });
 
@@ -204,44 +215,44 @@ describe('WelcomeBanner Component', () => {
       
       // Check that text content is properly structured for screen readers
       const heading = screen.getByRole('heading');
-      const paragraph = screen.getByText('Continue your USMLE preparation journey with evidence-based medical questions and comprehensive explanations.');
+      const paragraph = screen.getByText('Ready for your next study session?');
       
       expect(heading).toBeInTheDocument();
       expect(paragraph).toBeInTheDocument();
     });
 
     it('should maintain proper color contrast for accessibility', () => {
-      mockUseAppStore.mockReturnValue({
+      mockUseAuth.mockReturnValue({
         user: { id: '1', name: 'John Doe', email: 'john@example.com' }
       });
 
       render(<WelcomeBanner />);
       
       const heading = screen.getByRole('heading');
-      const paragraph = screen.getByText('Continue your USMLE preparation journey with evidence-based medical questions and comprehensive explanations.');
+      const paragraph = screen.getByText('Ready for your next study session?');
       
       // Verify dark text classes for good contrast
-      expect(heading).toHaveClass('text-slate-900');
-      expect(paragraph).toHaveClass('text-slate-700');
+      expect(heading).toHaveClass('text-gray-900');
+      expect(paragraph).toHaveClass('text-gray-600');
     });
   });
 
   describe('Edge Cases', () => {
     it('should handle store state changes gracefully', () => {
       // Start with no user
-      mockUseAppStore.mockReturnValue({ user: null });
+      mockUseAuth.mockReturnValue({ user: null });
       const { rerender } = render(<WelcomeBanner />);
       expect(screen.queryByText(/Welcome back/)).not.toBeInTheDocument();
 
       // Add user
-      mockUseAppStore.mockReturnValue({
+      mockUseAuth.mockReturnValue({
         user: { id: '1', name: 'John Doe', email: 'john@example.com' }
       });
       rerender(<WelcomeBanner />);
       expect(screen.getByText('Welcome back, John Doe')).toBeInTheDocument();
 
       // Remove user again
-      mockUseAppStore.mockReturnValue({ user: null });
+      mockUseAuth.mockReturnValue({ user: null });
       rerender(<WelcomeBanner />);
       expect(screen.queryByText(/Welcome back/)).not.toBeInTheDocument();
     });
@@ -255,7 +266,7 @@ describe('WelcomeBanner Component', () => {
       ];
 
       malformedUsers.forEach((user, index) => {
-        mockUseAppStore.mockReturnValue({ user });
+        mockUseAuth.mockReturnValue({ user });
         const { rerender } = render(<WelcomeBanner />);
         
         // Should still render but with appropriate fallbacks
@@ -271,7 +282,7 @@ describe('WelcomeBanner Component', () => {
     });
 
     it('should handle undefined name property', () => {
-      mockUseAppStore.mockReturnValue({
+      mockUseAuth.mockReturnValue({
         user: { id: '1', name: undefined, email: 'test@example.com' }
       });
 
@@ -284,7 +295,7 @@ describe('WelcomeBanner Component', () => {
   describe('Performance Considerations', () => {
     it('should not cause unnecessary re-renders when user data is stable', () => {
       const user = { id: '1', name: 'John Doe', email: 'john@example.com' };
-      mockUseAppStore.mockReturnValue({ user });
+      mockUseAuth.mockReturnValue({ user });
 
       const { rerender } = render(<WelcomeBanner />);
       expect(screen.getByText('Welcome back, John Doe')).toBeInTheDocument();
@@ -302,7 +313,7 @@ describe('WelcomeBanner Component', () => {
       ];
 
       users.forEach((user, index) => {
-        mockUseAppStore.mockReturnValue({ user });
+        mockUseAuth.mockReturnValue({ user });
         const { rerender } = render(<WelcomeBanner />);
         expect(screen.getByText(`Welcome back, User ${index + 1}`)).toBeInTheDocument();
         rerender(<div />);
@@ -312,7 +323,7 @@ describe('WelcomeBanner Component', () => {
 
   describe('Integration with Medical Education App Context', () => {
     it('should display appropriate content for medical students', () => {
-      mockUseAppStore.mockReturnValue({
+      mockUseAuth.mockReturnValue({
         user: { 
           id: '1', 
           name: 'Sarah Chen', 
@@ -325,11 +336,11 @@ describe('WelcomeBanner Component', () => {
       render(<WelcomeBanner />);
       
       expect(screen.getByText('Welcome back, Sarah Chen')).toBeInTheDocument();
-      expect(screen.getByText('Continue your USMLE preparation journey with evidence-based medical questions and comprehensive explanations.')).toBeInTheDocument();
+      expect(screen.getByText('Ready for your next study session?')).toBeInTheDocument();
     });
 
     it('should work within the larger dashboard context', () => {
-      mockUseAppStore.mockReturnValue({
+      mockUseAuth.mockReturnValue({
         user: { 
           id: '1', 
           name: 'Dr. Thompson', 

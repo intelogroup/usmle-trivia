@@ -1,6 +1,7 @@
 import { useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './services/convexAuth';
+import { AuthGuard } from './components/auth/AuthGuard';
 import { validateEnvironment, logEnvironmentInfo, isDevelopment } from './utils/envValidation';
 import { analyticsService } from './services/analytics';
 
@@ -28,22 +29,25 @@ const LoadingSpinner = () => (
   </div>
 );
 
-// Protected Route Component - now uses Convex Auth
+// Protected Route Component using AuthGuard
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isAuthenticated, isLoading } = useAuth();
-  
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
-  
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
-  
   return (
-    <Suspense fallback={<LoadingSpinner />}>
-      {children}
-    </Suspense>
+    <AuthGuard requireAuth={true}>
+      <Suspense fallback={<LoadingSpinner />}>
+        {children}
+      </Suspense>
+    </AuthGuard>
+  );
+};
+
+// Public Route Component for login/register pages
+const PublicRoute = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <AuthGuard requireAuth={false}>
+      <Suspense fallback={<LoadingSpinner />}>
+        {children}
+      </Suspense>
+    </AuthGuard>
   );
 };
 
@@ -79,15 +83,32 @@ function App() {
     <Router>
       <Suspense fallback={<LoadingSpinner />}>
         <Routes>
-        {/* Public routes */}
-        <Route path="/" element={<Landing />} />
+        {/* Landing page - redirect to dashboard if authenticated, otherwise to login */}
+        <Route 
+          path="/" 
+          element={
+            isAuthenticated ? 
+            <Navigate to="/dashboard" replace /> : 
+            <Navigate to="/login" replace />
+          } 
+        />
+        
+        {/* Public routes - only accessible when NOT authenticated */}
         <Route 
           path="/login" 
-          element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <Login />} 
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          } 
         />
         <Route 
           path="/register" 
-          element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <Register />} 
+          element={
+            <PublicRoute>
+              <Register />
+            </PublicRoute>
+          } 
         />
         
         {/* Protected routes */}
