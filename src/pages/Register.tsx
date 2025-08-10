@@ -4,6 +4,8 @@ import { Stethoscope, Loader2 } from 'lucide-react';
 import { useAuth } from '../services/convexAuth';
 import { Button } from '../components/ui/Button';
 import { validateEmail, validatePassword, checkRateLimit, AUTH_ERRORS } from '../services/authVerification';
+import { PasswordStrengthIndicator } from '../components/ui/PasswordStrengthIndicator';
+import { ButtonLoadingSpinner } from '../components/ui/LoadingSpinner';
 
 export const Register: React.FC = () => {
   const navigate = useNavigate();
@@ -129,9 +131,7 @@ export const Register: React.FC = () => {
                 className="w-full px-4 py-3 border-2 border-muted rounded-xl bg-background/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 text-base"
                 placeholder="••••••••"
               />
-              <p className="text-xs text-muted-foreground font-medium">
-                Must be at least 8 characters long
-              </p>
+              <PasswordStrengthIndicator password={formData.password} />
             </div>
 
             <div className="space-y-2">
@@ -155,10 +155,7 @@ export const Register: React.FC = () => {
               className="w-full py-4 px-6 bg-gradient-to-r from-primary to-primary/90 text-white rounded-xl font-semibold text-base shadow-custom-md hover:shadow-custom-lg hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 transition-all duration-200"
             >
               {isLoading ? (
-                <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Creating account...
-                </>
+                <ButtonLoadingSpinner />
               ) : (
                 'Create account'
               )}

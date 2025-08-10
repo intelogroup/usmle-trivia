@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Stethoscope } from 'lucide-react';
 import { useAuth } from '../services/convexAuth';
 import { validateEmail, checkRateLimit, AUTH_ERRORS } from '../services/authVerification';
+import { ButtonLoadingSpinner } from '../components/ui/LoadingSpinner';
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -117,7 +118,7 @@ export const Login: React.FC = () => {
               disabled={isLoading}
               className="w-full py-4 px-6 bg-gradient-to-r from-primary to-primary/90 text-white rounded-xl font-semibold text-base shadow-custom-md hover:shadow-custom-lg hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 transition-all duration-200"
             >
-              {isLoading ? 'Signing in...' : 'Sign in'}
+              {isLoading ? <ButtonLoadingSpinner /> : 'Sign in'}
             </button>
           </form>
 
