@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, Bell, Search, User, LogOut, Settings, Stethoscope, Moon, Sun, Trophy } from 'lucide-react';
 import { useAppStore } from '../../store';
+import { useAuth } from '../../services/convexAuth';
 import { useNavigate } from 'react-router-dom';
 
 export const TopBar: React.FC = () => {
-  const { toggleSidebar, user, logout, theme, toggleTheme } = useAppStore();
+  const { toggleSidebar, theme, toggleTheme } = useAppStore();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);

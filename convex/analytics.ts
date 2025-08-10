@@ -23,22 +23,72 @@ export const trackEvent = mutation({
     deviceType: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    const timestamp = Date.now();
-    
-    // Create analytics event
-    await ctx.db.insert("analytics", {
-      eventType: args.eventType,
-      userId: args.userId,
-      sessionId: args.sessionId,
-      questionId: args.questionId,
-      metadata: args.metadata,
-      timestamp,
-      userAgent: args.userAgent,
-      deviceType: args.deviceType,
-      // Note: ipAddress would be hashed in production for privacy
-    });
+    try {
+      // Validate event type
+      const validEventTypes = [
+        "quiz_start", "quiz_complete", "question_view", "answer_selected",
+        "login", "logout", "registration", "page_view"
+      ];
+      
+      if (!validEventTypes.includes(args.eventType)) {
+        console.warn(`Unknown event type: ${args.eventType}`);
+      }
+      
+      const timestamp = Date.now();
+      
+      // Validate user exists if provided
+      if (args.userId) {
+        const user = await ctx.db.get(args.userId);
+        if (!user) {
+          console.warn(`Event tracking: User ${args.userId} not found`);
+          // Continue tracking event but note the issue
+        }
+      }
+      
+      // Validate session exists if provided
+      if (args.sessionId) {
+        const session = await ctx.db.get(args.sessionId);
+        if (!session) {
+          console.warn(`Event tracking: Session ${args.sessionId} not found`);
+        }
+      }
+      
+      // Create analytics event with error recovery
+      const eventId = await ctx.db.insert("analytics", {
+        eventType: args.eventType,
+        userId: args.userId,
+        sessionId: args.sessionId,
+        questionId: args.questionId,
+        metadata: args.metadata,
+        timestamp,
+        userAgent: args.userAgent,
+        deviceType: args.deviceType,
+        // Note: ipAddress would be hashed in production for privacy
+      });
 
-    return { success: true };
+      return { success: true, eventId };
+      
+    } catch (error) {
+      console.error(`Failed to track event ${args.eventType}:`, error);
+      
+      // Try to insert a minimal event record for debugging
+      try {
+        await ctx.db.insert("analytics", {
+          eventType: "error_tracking_failed",
+          userId: args.userId,
+          metadata: { 
+            originalEventType: args.eventType,
+            error: error instanceof Error ? error.message : String(error)
+          },
+          timestamp: Date.now(),
+        });
+      } catch (fallbackError) {
+        console.error("Failed to insert fallback event:", fallbackError);
+      }
+      
+      // Don't throw error for analytics - return success to avoid breaking user flows
+      return { success: false, error: error instanceof Error ? error.message : String(error) };
+    }
   },
 });
 
@@ -48,93 +98,151 @@ export const generateDailyMetrics = mutation({
     date: v.string(), // Format: "2025-01-15"
   },
   handler: async (ctx, args) => {
-    const startTime = new Date(args.date).getTime();
-    const endTime = startTime + (24 * 60 * 60 * 1000); // 24 hours
-
-    // Get all analytics events for the day
-    const dayEvents = await ctx.db
-      .query("analytics")
-      .withIndex("by_timestamp", (q) => q.gte("timestamp", startTime).lt("timestamp", endTime))
-      .collect();
-
-    // Calculate Daily Active Users (DAU)
-    const uniqueUsers = new Set(dayEvents.filter(e => e.userId).map(e => e.userId));
-    const dau = uniqueUsers.size;
-
-    // Quiz completion rate
-    const quizStartEvents = dayEvents.filter(e => e.eventType === "quiz_start");
-    const quizCompleteEvents = dayEvents.filter(e => e.eventType === "quiz_complete");
-    const completionRate = quizStartEvents.length > 0 
-      ? Math.round((quizCompleteEvents.length / quizStartEvents.length) * 100) 
-      : 0;
-
-    // Average session length
-    const sessionLengths = quizCompleteEvents
-      .map(e => e.metadata?.timeSpent)
-      .filter(t => t !== undefined) as number[];
-    const avgSessionLength = sessionLengths.length > 0
-      ? Math.round(sessionLengths.reduce((sum, length) => sum + length, 0) / sessionLengths.length)
-      : 0;
-
-    // Average quiz score
-    const quizScores = quizCompleteEvents
-      .map(e => e.metadata?.score)
-      .filter(s => s !== undefined) as number[];
-    const avgQuizScore = quizScores.length > 0
-      ? Math.round(quizScores.reduce((sum, score) => sum + score, 0) / quizScores.length)
-      : 0;
-
-    // Page views
-    const pageViews = dayEvents.filter(e => e.eventType === "page_view").length;
-
-    // Question attempts
-    const questionAttempts = dayEvents.filter(e => e.eventType === "question_attempt").length;
-
-    // User registrations
-    const registrations = dayEvents.filter(e => e.eventType === "user_register").length;
-
-    // Logins
-    const logins = dayEvents.filter(e => e.eventType === "login").length;
-
-    const now = Date.now();
-    const metrics = [
-      { metricType: "daily_active_users", period: args.date, value: dau },
-      { metricType: "quiz_completion_rate", period: args.date, value: completionRate },
-      { metricType: "avg_session_length", period: args.date, value: avgSessionLength },
-      { metricType: "avg_quiz_score", period: args.date, value: avgQuizScore },
-      { metricType: "page_views", period: args.date, value: pageViews },
-      { metricType: "question_attempts", period: args.date, value: questionAttempts },
-      { metricType: "user_registrations", period: args.date, value: registrations },
-      { metricType: "user_logins", period: args.date, value: logins },
-    ];
-
-    // Insert metrics into database
-    for (const metric of metrics) {
-      // Check if metric already exists for this date
-      const existing = await ctx.db
-        .query("metrics")
-        .withIndex("by_type_period", (q) => 
-          q.eq("metricType", metric.metricType).eq("period", metric.period)
-        )
-        .first();
-
-      if (existing) {
-        // Update existing metric
-        await ctx.db.patch(existing._id, {
-          value: metric.value,
-          updatedAt: now,
-        });
-      } else {
-        // Create new metric
-        await ctx.db.insert("metrics", {
-          ...metric,
-          createdAt: now,
-          updatedAt: now,
-        });
+    try {
+      // Validate date format
+      const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+      if (!dateRegex.test(args.date)) {
+        throw new ConvexError("Invalid date format. Expected YYYY-MM-DD");
       }
-    }
 
-    return { success: true, metricsGenerated: metrics.length };
+      const startTime = new Date(args.date).getTime();
+      
+      // Validate date is valid
+      if (isNaN(startTime)) {
+        throw new ConvexError("Invalid date provided");
+      }
+      
+      const endTime = startTime + (24 * 60 * 60 * 1000); // 24 hours
+
+      // Get all analytics events for the day with error handling
+      let dayEvents;
+      try {
+        dayEvents = await ctx.db
+          .query("analytics")
+          .withIndex("by_timestamp", (q) => q.gte("timestamp", startTime).lt("timestamp", endTime))
+          .collect();
+      } catch (error) {
+        console.error(`Failed to query analytics for date ${args.date}:`, error);
+        throw new ConvexError("Failed to retrieve analytics data");
+      }
+
+      // Calculate metrics with error handling
+      let dau = 0;
+      let completionRate = 0;
+      let avgSessionLength = 0;
+      let avgQuizScore = 0;
+      let pageViews = 0;
+      let questionAttempts = 0;
+      let registrations = 0;
+      let logins = 0;
+
+      try {
+        // Calculate Daily Active Users (DAU)
+        const uniqueUsers = new Set(dayEvents.filter(e => e.userId).map(e => e.userId));
+        dau = uniqueUsers.size;
+
+        // Quiz completion rate
+        const quizStartEvents = dayEvents.filter(e => e.eventType === "quiz_start");
+        const quizCompleteEvents = dayEvents.filter(e => e.eventType === "quiz_complete");
+        completionRate = quizStartEvents.length > 0 
+          ? Math.round((quizCompleteEvents.length / quizStartEvents.length) * 100) 
+          : 0;
+
+        // Average session length
+        const sessionLengths = quizCompleteEvents
+          .map(e => e.metadata?.timeSpent)
+          .filter(t => typeof t === 'number' && t > 0) as number[];
+        avgSessionLength = sessionLengths.length > 0
+          ? Math.round(sessionLengths.reduce((sum, length) => sum + length, 0) / sessionLengths.length)
+          : 0;
+
+        // Average quiz score
+        const quizScores = quizCompleteEvents
+          .map(e => e.metadata?.score)
+          .filter(s => typeof s === 'number' && s >= 0) as number[];
+        avgQuizScore = quizScores.length > 0
+          ? Math.round(quizScores.reduce((sum, score) => sum + score, 0) / quizScores.length)
+          : 0;
+
+        // Count events
+        pageViews = dayEvents.filter(e => e.eventType === "page_view").length;
+        questionAttempts = dayEvents.filter(e => e.eventType === "question_attempt").length;
+        registrations = dayEvents.filter(e => e.eventType === "user_register" || e.eventType === "registration").length;
+        logins = dayEvents.filter(e => e.eventType === "login").length;
+        
+      } catch (error) {
+        console.error(`Error calculating metrics for date ${args.date}:`, error);
+        // Continue with default values (0) rather than failing completely
+      }
+
+      const now = Date.now();
+      const metrics = [
+        { metricType: "daily_active_users", period: args.date, value: dau },
+        { metricType: "quiz_completion_rate", period: args.date, value: completionRate },
+        { metricType: "avg_session_length", period: args.date, value: avgSessionLength },
+        { metricType: "avg_quiz_score", period: args.date, value: avgQuizScore },
+        { metricType: "page_views", period: args.date, value: pageViews },
+        { metricType: "question_attempts", period: args.date, value: questionAttempts },
+        { metricType: "user_registrations", period: args.date, value: registrations },
+        { metricType: "user_logins", period: args.date, value: logins },
+      ];
+
+      // Insert metrics into database with individual error handling
+      let successfulInserts = 0;
+      const failedMetrics = [];
+
+      for (const metric of metrics) {
+        try {
+          // Check if metric already exists for this date
+          const existing = await ctx.db
+            .query("metrics")
+            .withIndex("by_type_period", (q) => 
+              q.eq("metricType", metric.metricType).eq("period", metric.period)
+            )
+            .first();
+
+          if (existing) {
+            // Update existing metric
+            await ctx.db.patch(existing._id, {
+              value: metric.value,
+              updatedAt: now,
+            });
+          } else {
+            // Create new metric
+            await ctx.db.insert("metrics", {
+              ...metric,
+              createdAt: now,
+              updatedAt: now,
+            });
+          }
+          successfulInserts++;
+          
+        } catch (error) {
+          console.error(`Failed to insert metric ${metric.metricType} for ${args.date}:`, error);
+          failedMetrics.push(metric.metricType);
+        }
+      }
+
+      if (failedMetrics.length > 0) {
+        console.warn(`Failed to insert ${failedMetrics.length} metrics: ${failedMetrics.join(', ')}`);
+      }
+
+      return { 
+        success: true, 
+        metricsGenerated: successfulInserts,
+        totalEvents: dayEvents.length,
+        failedMetrics: failedMetrics.length > 0 ? failedMetrics : undefined
+      };
+      
+    } catch (error) {
+      console.error(`Failed to generate daily metrics for ${args.date}:`, error);
+      
+      if (error instanceof ConvexError) {
+        throw error;
+      }
+      
+      throw new ConvexError(`Failed to generate daily metrics: ${error instanceof Error ? error.message : String(error)}`);
+    }
   },
 });
 

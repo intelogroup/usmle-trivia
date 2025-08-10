@@ -3,7 +3,7 @@ import { Card, CardContent } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { XCircle } from 'lucide-react';
 import { type Question, type QuizSession } from '../../services/quiz';
-import { useAppStore } from '../../store';
+import { useAuth } from '../../services/convexAuth';
 import { getRandomQuestions } from '../../services/questionService';
 import { analyticsService } from '../../services/analytics';
 import { QuizHeader } from './QuizHeader';
@@ -57,7 +57,7 @@ function convertToQuestion(questionData: QuestionData, index: number): Question 
 }
 
 export const QuizEngineLocal: React.FC<QuizEngineProps> = ({ mode, config, onBack, onComplete }) => {
-  const { user } = useAppStore();
+  const { user } = useAuth();
   const [error, setError] = useState<string | null>(null);
   
   const [quizState, setQuizState] = useState<QuizState>({

@@ -362,3 +362,198 @@ export const logoutUser = mutation({
     return { message: "Logged out successfully" };
   },
 });
+
+// Get current user from auth token (for Convex Auth integration)
+export const getCurrentUserFromToken = query({
+  args: {},
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return null;
+    }
+    
+    // Find user by email from identity
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_email", (q) => q.eq("email", identity.email!))
+      .first();
+    
+    return user;
+  },
+});
+
+// Update user statistics after quiz completion (CRITICAL - was missing)
+export const updateUserStats = mutation({
+  args: {
+    userId: v.id("users"),
+    quizScore: v.number(),
+    questionsCount: v.number(),
+    pointsEarned: v.number(),
+    timeSpent: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    console.log(`📊 Updating user stats for ${args.userId}: +${args.pointsEarned} points, ${args.quizScore}% score`);
+    
+    const user = await ctx.db.get(args.userId);
+    if (!user) {
+      throw new ConvexError("User not found");
+    }
+
+    // Calculate new totals
+    const currentPoints = user.points || 0;
+    const currentTotalQuizzes = user.totalQuizzes || 0;
+    const currentAccuracy = user.accuracy || 0;
+    
+    // Update points
+    const newPoints = currentPoints + args.pointsEarned;
+    
+    // Update total quizzes
+    const newTotalQuizzes = currentTotalQuizzes + 1;
+    
+    // Calculate new weighted accuracy (more recent quizzes have slightly more weight)
+    const newAccuracy = currentTotalQuizzes === 0 
+      ? args.quizScore 
+      : Math.round((currentAccuracy * currentTotalQuizzes + args.quizScore) / newTotalQuizzes);
+    
+    // Calculate new level (every 100 points = 1 level)
+    const newLevel = Math.floor(newPoints / 100) + 1;
+    
+    // Update study streak (if quiz was taken today)
+    const today = new Date().toISOString().split('T')[0];
+    const lastStudyDate = user.lastStudyDate;
+    
+    let newStreak = user.currentStreak || 0;
+    let newLongestStreak = user.longestStreak || 0;
+    
+    if (lastStudyDate !== today) {
+      // Check if this maintains the streak (yesterday or today)
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const yesterdayStr = yesterday.toISOString().split('T')[0];
+      
+      if (lastStudyDate === yesterdayStr) {
+        // Continuing streak
+        newStreak = newStreak + 1;
+      } else {
+        // Streak broken or first quiz
+        newStreak = 1;
+      }
+      
+      // Update longest streak
+      if (newStreak > newLongestStreak) {
+        newLongestStreak = newStreak;
+      }
+    }
+    
+    // Update user record
+    await ctx.db.patch(args.userId, {
+      points: newPoints,
+      level: newLevel,
+      totalQuizzes: newTotalQuizzes,
+      accuracy: newAccuracy,
+      currentStreak: newStreak,
+      longestStreak: newLongestStreak,
+      lastStudyDate: today,
+      updatedAt: Date.now(),
+    });
+
+    console.log(`✅ User stats updated: Points: ${currentPoints} → ${newPoints}, Accuracy: ${currentAccuracy} → ${newAccuracy}%, Level: ${user.level || 1} → ${newLevel}`);
+
+    // Return updated user stats for immediate UI feedback
+    const updatedUser = await ctx.db.get(args.userId);
+    return {
+      success: true,
+      user: updatedUser,
+      changes: {
+        pointsEarned: args.pointsEarned,
+        newPoints,
+        newLevel,
+        newAccuracy,
+        newTotalQuizzes,
+        streakContinued: newStreak > (user.currentStreak || 0),
+        newStreak,
+        levelUp: newLevel > (user.level || 1),
+      },
+      message: `Great job! You earned ${args.pointsEarned} points and scored ${args.quizScore}%`
+    };
+  },
+});
+
+// Get leaderboard
+export const getLeaderboard = query({
+  args: {
+    limit: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const users = await ctx.db
+      .query("users")
+      .withIndex("by_points")
+      .order("desc")
+      .take(args.limit || 10);
+    
+    return users.map((user, index) => ({
+      userId: user._id,
+      userName: user.name,
+      points: user.points || 0,
+      accuracy: user.accuracy || 0,
+      totalQuizzes: user.totalQuizzes || 0,
+      rank: index + 1,
+      level: user.level || 1,
+      streak: user.currentStreak || 0,
+      avgSessionLength: 0, // Calculate if needed
+    }));
+  },
+});
+
+// Get user profile
+export const getUserProfile = query({
+  args: {
+    userId: v.id("users"),
+  },
+  handler: async (ctx, args) => {
+    const user = await ctx.db.get(args.userId);
+    return user;
+  },
+});
+
+// Update user profile
+export const updateUserProfile = mutation({
+  args: {
+    userId: v.id("users"),
+    updates: v.object({
+      name: v.optional(v.string()),
+      medicalLevel: v.optional(v.string()),
+      studyGoals: v.optional(v.string()),
+      avatar: v.optional(v.string()),
+    }),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.userId, {
+      ...args.updates,
+      updatedAt: Date.now(),
+    });
+    
+    return await ctx.db.get(args.userId);
+  },
+});
+
+// Search users
+export const searchUsers = query({
+  args: {
+    searchTerm: v.string(),
+    limit: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    // Simple search by name
+    const users = await ctx.db.query("users").collect();
+    
+    const filtered = users
+      .filter(user => 
+        user.name.toLowerCase().includes(args.searchTerm.toLowerCase()) ||
+        user.email.toLowerCase().includes(args.searchTerm.toLowerCase())
+      )
+      .slice(0, args.limit || 20);
+    
+    return filtered;
+  },
+});

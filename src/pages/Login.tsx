@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Stethoscope } from 'lucide-react';
-import { useAppStore } from '../store';
+import { useAuth } from '../services/convexAuth';
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
-  const { login, isLoading } = useAppStore();
+  const { login, isLoading } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: '',

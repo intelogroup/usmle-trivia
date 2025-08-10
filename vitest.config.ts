@@ -9,7 +9,7 @@ export default defineConfig({
     globals: true,
     setupFiles: './src/test/setup.ts',
     // Only run unit, integration, and accessibility tests, exclude e2e
-    include: ['tests/unit/**/*.test.{ts,tsx}', 'tests/integration/**/*.test.{ts,tsx}', 'tests/accessibility/**/*.test.{ts,tsx}', 'src/**/*.test.{ts,tsx}'],
+    include: ['tests/unit/**/*.test.{ts,tsx}', 'tests/integration/**/*.test.{ts,tsx}', 'tests/accessibility/**/*.test.{ts,tsx}', 'tests/authentication/**/*.test.{ts,tsx}', 'src/**/*.test.{ts,tsx}'],
     exclude: ['tests/e2e/**/*', '**/*.spec.{js,ts}', '**/node_modules/**'],
   },
   resolve: {

@@ -89,6 +89,11 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
                 role="radio"
                 aria-checked={isSelected}
                 aria-label={`Option ${optionLabel}: ${option}${showResult && isCorrect ? ' (Correct answer)' : ''}${showResult && isSelected && !isCorrect ? ' (Your incorrect answer)' : ''}`}
+                {...getAnalyticsAttributes('answer_option_click', {
+                  questionId: question.id,
+                  optionIndex: index.toString(),
+                  questionNumber: questionNumber.toString()
+                })}
                 {...getAnalyticsAttributes('answer_selected', { 
                   questionId: question.id, 
                   optionIndex: index.toString(),

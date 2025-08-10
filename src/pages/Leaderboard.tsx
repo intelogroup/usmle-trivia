@@ -1,90 +1,60 @@
 import React, { useState } from 'react';
+import { useQuery } from 'convex/react';
+import { api } from '../../convex/_generated/api';
+import { useAuth } from '../services/convexAuth';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
+import { LoadingSpinner } from '../components/ui/LoadingStates';
 import { TrendingUp, Calendar, CalendarDays, BookOpen, Trophy, Medal, Award, Search, Users, Star, Lightbulb, Flame } from 'lucide-react';
 
-// Mock data for demonstration - in real app this would come from the database
-const mockLeaderboardData = [
-  {
-    id: 1,
-    name: "Alex Chen",
-    points: 2850,
-    level: 12,
-    accuracy: 89,
-    totalQuizzes: 47,
-    streak: 15,
-    rank: 1,
-    avatar: "AC",
-    medicalLevel: "3rd Year"
-  },
-  {
-    id: 2,
-    name: "Sarah Johnson", 
-    points: 2720,
-    level: 11,
-    accuracy: 87,
-    totalQuizzes: 42,
-    streak: 22,
-    rank: 2,
-    avatar: "SJ",
-    medicalLevel: "4th Year"
-  },
-  {
-    id: 3,
-    name: "Michael Rodriguez",
-    points: 2650,
-    level: 11,
-    accuracy: 85,
-    totalQuizzes: 39,
-    streak: 8,
-    rank: 3,
-    avatar: "MR",
-    medicalLevel: "2nd Year"
-  },
-  {
-    id: 4,
-    name: "Jay Veedz", // Our test user
-    points: 1250,
-    level: 8,
-    accuracy: 78,
-    totalQuizzes: 28,
-    streak: 3,
-    rank: 15,
-    avatar: "JV",
-    medicalLevel: "2nd Year"
-  },
-  {
-    id: 5,
-    name: "Emily Zhang",
-    points: 2400,
-    level: 10,
-    accuracy: 91,
-    totalQuizzes: 35,
-    streak: 12,
-    rank: 4,
-    avatar: "EZ",
-    medicalLevel: "3rd Year"
-  },
-  {
-    id: 6,
-    name: "David Kim",
-    points: 2100,
-    level: 9,
-    accuracy: 83,
-    totalQuizzes: 31,
-    streak: 5,
-    rank: 5,
-    avatar: "DK",
-    medicalLevel: "1st Year"
-  }
-].sort((a, b) => b.points - a.points);
+// Helper function to generate avatar initials from name
+const getAvatarInitials = (name: string) => {
+  return name
+    .split(' ')
+    .map(part => part[0]?.toUpperCase() || '')
+    .join('')
+    .slice(0, 2);
+};
 
 type LeaderboardCategory = 'all' | 'weekly' | 'monthly' | 'by-level';
 
 export const Leaderboard: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<LeaderboardCategory>('all');
   const [selectedLevel, setSelectedLevel] = useState<string>('all');
+  
+  // Get current user information
+  const { user } = useAuth();
+  
+  // Fetch leaderboard data from Convex backend
+  const leaderboardData = useQuery(api.auth.getLeaderboard, { 
+    limit: 50 // Get top 50 users for comprehensive leaderboard
+  });
+  
+  // Loading state
+  if (leaderboardData === undefined) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-center space-y-4">
+          <LoadingSpinner size="lg" />
+          <p className="text-gray-600">Loading leaderboard...</p>
+        </div>
+      </div>
+    );
+  }
+  
+  // No data state  
+  if (!leaderboardData || leaderboardData.length === 0) {
+    return (
+      <div className="text-center space-y-4 py-8">
+        <Trophy className="h-12 w-12 text-gray-400 mx-auto" />
+        <div>
+          <h3 className="text-lg font-medium text-gray-900">No leaderboard data yet</h3>
+          <p className="text-gray-600">Start taking quizzes to see the leaderboard!</p>
+        </div>
+      </div>
+    );
+  }
 
   const getRankIcon = (rank: number) => {
     if (rank === 1) return <Trophy className="h-6 w-6 text-yellow-500" />;
@@ -109,7 +79,21 @@ export const Leaderboard: React.FC = () => {
 
   const medicalLevels = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
 
-  const filteredData = mockLeaderboardData.filter(user => {
+  // Transform and filter the real leaderboard data
+  const processedData = leaderboardData.map((user, index) => ({
+    id: user.userId,
+    name: user.userName || 'Anonymous User',
+    points: user.points || 0,
+    level: user.level || 1,
+    accuracy: user.accuracy || 0,
+    totalQuizzes: user.totalQuizzes || 0,
+    streak: user.streak || 0,
+    rank: user.rank,
+    avatar: getAvatarInitials(user.userName || 'Anonymous User'),
+    medicalLevel: 'Student' // Default for now, could be enhanced later
+  }));
+  
+  const filteredData = processedData.filter(user => {
     if (selectedCategory === 'by-level' && selectedLevel !== 'all') {
       return user.medicalLevel === selectedLevel;
     }
@@ -181,29 +165,29 @@ export const Leaderboard: React.FC = () => {
 
       {/* Top 3 Podium */}
       <div className="grid md:grid-cols-3 gap-4">
-        {filteredData.slice(0, 3).map((user, index) => (
-          <Card key={user.id} className={`text-center ${getRankColor(user.rank)}`}>
+        {filteredData.slice(0, 3).map((leaderboardUser, index) => (
+          <Card key={leaderboardUser.id} className={`text-center ${getRankColor(leaderboardUser.rank)}`}>
             <CardContent className="pt-6">
               <div className="flex justify-center mb-3">
-                {getRankIcon(user.rank)}
+                {getRankIcon(leaderboardUser.rank)}
               </div>
               <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xl font-bold mx-auto mb-3">
-                {user.avatar}
+                {leaderboardUser.avatar}
               </div>
-              <h3 className="font-bold text-lg">{user.name}</h3>
+              <h3 className="font-bold text-lg">{leaderboardUser.name}</h3>
               <Badge variant="secondary" className="mb-2">
-                {user.medicalLevel}
+                {leaderboardUser.medicalLevel}
               </Badge>
               <div className="space-y-1">
                 <div className="text-2xl font-bold text-primary">
-                  {user.points.toLocaleString()} pts
+                  {leaderboardUser.points.toLocaleString()} pts
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  Level {user.level} • {user.accuracy}% accuracy
+                  Level {leaderboardUser.level} • {leaderboardUser.accuracy}% accuracy
                 </div>
                 <div className="text-xs text-muted-foreground flex items-center justify-center gap-1">
                   <Flame className="h-3 w-3 text-orange-500" />
-                  {user.streak} day streak
+                  {leaderboardUser.streak} day streak
                 </div>
               </div>
             </CardContent>
@@ -221,44 +205,44 @@ export const Leaderboard: React.FC = () => {
         </CardHeader>
         <CardContent>
           <div className="space-y-2">
-            {filteredData.map((user, index) => (
+            {filteredData.map((leaderboardUser, index) => (
               <div 
-                key={user.id}
+                key={leaderboardUser.id}
                 className={`flex items-center p-4 rounded-lg border transition-colors hover:bg-accent ${
-                  user.name === 'Jay Veedz' ? 'bg-blue-50 border-blue-200' : getRankColor(user.rank)
+                  leaderboardUser.id === user?.userId ? 'bg-blue-50 border-blue-200' : getRankColor(leaderboardUser.rank)
                 }`}
               >
                 <div className="flex items-center gap-4 flex-1">
                   <div className="flex items-center justify-center w-8">
-                    {getRankIcon(user.rank)}
+                    {getRankIcon(leaderboardUser.rank)}
                   </div>
                   
                   <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
-                    {user.avatar}
+                    {leaderboardUser.avatar}
                   </div>
                   
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <h4 className="font-medium">{user.name}</h4>
-                      {user.name === 'Jay Veedz' && (
+                      <h4 className="font-medium">{leaderboardUser.name}</h4>
+                      {leaderboardUser.id === user?.userId && (
                         <Badge variant="default" className="text-xs">You</Badge>
                       )}
                       <Badge variant="outline" className="text-xs">
-                        {user.medicalLevel}
+                        {leaderboardUser.medicalLevel}
                       </Badge>
                     </div>
                     <div className="text-sm text-muted-foreground">
-                      Level {user.level} • {user.totalQuizzes} quizzes • {user.accuracy}% accuracy
+                      Level {leaderboardUser.level} • {leaderboardUser.totalQuizzes} quizzes • {leaderboardUser.accuracy}% accuracy
                     </div>
                   </div>
                   
                   <div className="text-right">
                     <div className="text-lg font-bold text-primary">
-                      {user.points.toLocaleString()}
+                      {leaderboardUser.points.toLocaleString()}
                     </div>
                     <div className="text-xs text-muted-foreground flex items-center gap-1">
                       <Flame className="h-3 w-3 text-orange-500" />
-                      {user.streak} days
+                      {leaderboardUser.streak} days
                     </div>
                   </div>
                 </div>

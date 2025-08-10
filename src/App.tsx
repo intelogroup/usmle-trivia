@@ -1,9 +1,8 @@
 import { useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useAppStore } from './store';
-import { authService } from './services/auth';
+import { useAuth } from './services/convexAuth';
 import { validateEnvironment, logEnvironmentInfo, isDevelopment } from './utils/envValidation';
-import { quizSessionManager } from './services/QuizSessionManager';
+import { analyticsService } from './services/analytics';
 
 // Lazy load components to enable code splitting
 const AppLayout = lazy(() => import('./components/layout/AppLayout').then(module => ({ default: module.AppLayout })));
@@ -29,9 +28,9 @@ const LoadingSpinner = () => (
   </div>
 );
 
-// Protected Route Component
+// Protected Route Component - now uses Convex Auth
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isAuthenticated, isLoading } = useAppStore();
+  const { isAuthenticated, isLoading } = useAuth();
   
   if (isLoading) {
     return <LoadingSpinner />;
@@ -49,7 +48,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 };
 
 function App() {
-  const { setUser, setLoading, isAuthenticated } = useAppStore();
+  const { isAuthenticated, isLoading, user } = useAuth();
 
   useEffect(() => {
     // Validate environment configuration on app startup
@@ -57,35 +56,24 @@ function App() {
       validateEnvironment();
       if (isDevelopment()) {
         logEnvironmentInfo();
+        console.log('🔐 Using Convex Auth for JWT-based authentication');
+      }
+      
+      // Initialize analytics service
+      if (user) {
+        analyticsService.initialize(user._id);
       }
     } catch (error) {
       console.error('❌ Environment configuration error:', error);
       // In production, this would prevent the app from starting
       // In development, we allow it to continue with warnings
     }
-
-    // Check if user is logged in on app load
-    const checkAuth = async () => {
-      try {
-        const user = await authService.getCurrentUser();
-        setUser(user);
-      } catch (error) {
-        console.error('Auth check failed:', error);
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    checkAuth();
-  }, [setUser, setLoading]);
-
-  // Cleanup session manager on app unmount
-  useEffect(() => {
-    return () => {
-      quizSessionManager.cleanup();
-    };
   }, []);
+
+  // Show loading while auth state is being determined
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <Router>

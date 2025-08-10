@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Stethoscope, Loader2 } from 'lucide-react';
-import { useAppStore } from '../store';
+import { useAuth } from '../services/convexAuth';
 import { Button } from '../components/ui/Button';
 
 export const Register: React.FC = () => {
   const navigate = useNavigate();
-  const { register, isLoading } = useAppStore();
+  const { register, isLoading } = useAuth();
   const [formData, setFormData] = useState({
     name: '',
     email: '',

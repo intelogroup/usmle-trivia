@@ -4,13 +4,11 @@ import { StatsCard } from './StatsCard';
 import { QuizModeSelector } from './QuizModeSelector';
 import { WelcomeBanner } from './WelcomeBanner';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
-import { useAppStore } from '../../store';
-import { useGetUserQuizHistory } from '../../services/convexQuiz';
-import { useGetLeaderboard } from '../../services/convexAuth';
+import { useAuth, useGetUserQuizHistory, useGetLeaderboard } from '../../services/convexAuth';
 import { useNavigate } from 'react-router-dom';
 
 export const DashboardGrid: React.FC = () => {
-  const { user } = useAppStore();
+  const { user } = useAuth();
   const navigate = useNavigate();
   
   // Fetch user quiz history

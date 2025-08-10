@@ -15,45 +15,95 @@ export const createTag = mutation({
     createdBy: v.id("users"),
   },
   handler: async (ctx, args) => {
-    const user = await ctx.db.get(args.createdBy);
-    if (!user || !["editor", "moderator", "admin"].includes(user.role)) {
-      throw new ConvexError("Insufficient permissions to create tags");
+    try {
+      // Validate input
+      if (!args.name || args.name.trim().length === 0) {
+        throw new ConvexError("Tag name cannot be empty");
+      }
+      
+      if (args.name.trim().length > 50) {
+        throw new ConvexError("Tag name cannot exceed 50 characters");
+      }
+      
+      // Validate color format if provided
+      if (args.color && !/^#[0-9A-Fa-f]{6}$/.test(args.color)) {
+        throw new ConvexError("Invalid color format. Use hex format like #3B82F6");
+      }
+
+      // Check user permissions
+      const user = await ctx.db.get(args.createdBy);
+      if (!user) {
+        throw new ConvexError("User not found");
+      }
+      
+      if (!["editor", "moderator", "admin"].includes(user.role)) {
+        throw new ConvexError("Insufficient permissions to create tags");
+      }
+
+      const tagName = args.name.trim().toLowerCase();
+      
+      // Check if tag already exists with better error handling
+      let existingTag;
+      try {
+        existingTag = await ctx.db
+          .query("tags")
+          .withIndex("by_name", (q) => q.eq("name", tagName))
+          .first();
+      } catch (error) {
+        console.error("Error checking for existing tag:", error);
+        throw new ConvexError("Failed to verify tag uniqueness");
+      }
+
+      if (existingTag) {
+        throw new ConvexError(`Tag "${args.name.trim()}" already exists`);
+      }
+
+      const now = Date.now();
+
+      // Create tag with error handling
+      let tagId;
+      try {
+        tagId = await ctx.db.insert("tags", {
+          name: tagName,
+          description: args.description?.trim(),
+          category: args.category?.trim(),
+          color: args.color || "#3B82F6", // Default blue
+          isActive: true,
+          createdBy: args.createdBy,
+          createdAt: now,
+          questionCount: 0,
+        });
+      } catch (error) {
+        console.error("Error creating tag:", error);
+        throw new ConvexError("Failed to create tag");
+      }
+
+      // Log tag creation with fallback
+      try {
+        await ctx.db.insert("auditLog", {
+          entityType: "tag",
+          entityId: String(tagId),
+          action: "create",
+          userId: args.createdBy,
+          notes: `Tag created: ${args.name}`,
+          timestamp: now,
+        });
+      } catch (error) {
+        console.error("Failed to log tag creation:", error);
+        // Continue without failing - audit log is not critical for functionality
+      }
+
+      return { tagId, success: true, name: tagName };
+      
+    } catch (error) {
+      console.error("Error in createTag:", error);
+      
+      if (error instanceof ConvexError) {
+        throw error;
+      }
+      
+      throw new ConvexError(`Failed to create tag: ${error instanceof Error ? error.message : String(error)}`);
     }
-
-    // Check if tag already exists
-    const existingTag = await ctx.db
-      .query("tags")
-      .withIndex("by_name", (q) => q.eq("name", args.name.toLowerCase()))
-      .first();
-
-    if (existingTag) {
-      throw new ConvexError("Tag with this name already exists");
-    }
-
-    const now = Date.now();
-
-    const tagId = await ctx.db.insert("tags", {
-      name: args.name.toLowerCase(),
-      description: args.description,
-      category: args.category,
-      color: args.color || "#3B82F6", // Default blue
-      isActive: true,
-      createdBy: args.createdBy,
-      createdAt: now,
-      questionCount: 0,
-    });
-
-    // Log tag creation
-    await ctx.db.insert("auditLog", {
-      entityType: "tag",
-      entityId: tagId,
-      action: "create",
-      userId: args.createdBy,
-      notes: `Tag created: ${args.name}`,
-      timestamp: now,
-    });
-
-    return { tagId, success: true };
   },
 });
 
@@ -430,48 +480,166 @@ export const cleanupExpiredData = mutation({
     daysToKeep: v.optional(v.number()), // Default 90 days
   },
   handler: async (ctx, args) => {
-    const admin = await ctx.db.get(args.adminUserId);
-    if (!admin || admin.role !== "admin") {
-      throw new ConvexError("Admin access required");
+    try {
+      // Validate admin permissions
+      const admin = await ctx.db.get(args.adminUserId);
+      if (!admin) {
+        throw new ConvexError("Admin user not found");
+      }
+      
+      if (admin.role !== "admin") {
+        throw new ConvexError("Admin access required");
+      }
+
+      // Validate daysToKeep parameter
+      const daysToKeep = args.daysToKeep || 90;
+      if (daysToKeep < 7) {
+        throw new ConvexError("Cannot delete data newer than 7 days for safety");
+      }
+      
+      if (daysToKeep > 365) {
+        console.warn(`Large cleanup period specified: ${daysToKeep} days`);
+      }
+
+      const cutoffTime = Date.now() - (daysToKeep * 24 * 60 * 60 * 1000);
+      const startTime = Date.now();
+      
+      console.log(`Starting data cleanup: deleting data older than ${daysToKeep} days`);
+
+      // Clean up old analytics events with batch processing
+      let deletedAnalytics = 0;
+      let analyticsErrors = 0;
+      
+      try {
+        const oldAnalytics = await ctx.db
+          .query("analytics")
+          .withIndex("by_timestamp", (q) => q.lt("timestamp", cutoffTime))
+          .collect();
+
+        console.log(`Found ${oldAnalytics.length} analytics events to delete`);
+
+        for (const event of oldAnalytics) {
+          try {
+            await ctx.db.delete(event._id);
+            deletedAnalytics++;
+            
+            // Log progress every 100 deletions
+            if (deletedAnalytics % 100 === 0) {
+              console.log(`Deleted ${deletedAnalytics}/${oldAnalytics.length} analytics events`);
+            }
+          } catch (error) {
+            console.error(`Failed to delete analytics event ${event._id}:`, error);
+            analyticsErrors++;
+          }
+        }
+      } catch (error) {
+        console.error("Error querying analytics for cleanup:", error);
+        throw new ConvexError("Failed to query analytics data for cleanup");
+      }
+
+      // Clean up old audit logs (keep more recent ones)
+      let deletedAuditLogs = 0;
+      let auditErrors = 0;
+      
+      try {
+        const auditCutoffTime = Date.now() - (365 * 24 * 60 * 60 * 1000); // 1 year
+        const oldAuditLogs = await ctx.db
+          .query("auditLog")
+          .withIndex("by_timestamp", (q) => q.lt("timestamp", auditCutoffTime))
+          .collect();
+
+        console.log(`Found ${oldAuditLogs.length} audit logs to delete`);
+
+        for (const log of oldAuditLogs) {
+          try {
+            await ctx.db.delete(log._id);
+            deletedAuditLogs++;
+            
+            if (deletedAuditLogs % 50 === 0) {
+              console.log(`Deleted ${deletedAuditLogs}/${oldAuditLogs.length} audit logs`);
+            }
+          } catch (error) {
+            console.error(`Failed to delete audit log ${log._id}:`, error);
+            auditErrors++;
+          }
+        }
+      } catch (error) {
+        console.error("Error querying audit logs for cleanup:", error);
+        // Continue with other cleanup operations
+      }
+
+      // Clean up old expired sessions
+      let deletedSessions = 0;
+      let sessionErrors = 0;
+      
+      try {
+        const now = Date.now();
+        const expiredSessions = await ctx.db
+          .query("userSessions")
+          .withIndex("by_expires", (q) => q.lt("expiresAt", now))
+          .filter((q) => q.eq(q.field("isActive"), false))
+          .collect();
+
+        console.log(`Found ${expiredSessions.length} expired sessions to delete`);
+
+        for (const session of expiredSessions) {
+          try {
+            await ctx.db.delete(session._id);
+            deletedSessions++;
+          } catch (error) {
+            console.error(`Failed to delete session ${session._id}:`, error);
+            sessionErrors++;
+          }
+        }
+      } catch (error) {
+        console.error("Error querying expired sessions:", error);
+        // Continue with cleanup completion
+      }
+
+      const duration = Date.now() - startTime;
+      const summary = {
+        success: true,
+        deletedAnalytics,
+        deletedAuditLogs, 
+        deletedSessions,
+        errors: {
+          analyticsErrors,
+          auditErrors,
+          sessionErrors
+        },
+        daysToKeep,
+        durationMs: duration
+      };
+
+      console.log(`Data cleanup completed in ${duration}ms:`, summary);
+
+      // Log cleanup activity
+      try {
+        await ctx.db.insert("auditLog", {
+          entityType: "system",
+          entityId: "cleanup",
+          action: "data_cleanup",
+          userId: args.adminUserId,
+          notes: `Deleted ${deletedAnalytics + deletedAuditLogs + deletedSessions} records (${daysToKeep} day retention)`,
+          timestamp: Date.now(),
+        });
+      } catch (error) {
+        console.error("Failed to log cleanup activity:", error);
+      }
+
+      return summary;
+      
+    } catch (error) {
+      console.error("Error in cleanupExpiredData:", error);
+      
+      if (error instanceof ConvexError) {
+        throw error;
+      }
+      
+      throw new ConvexError(`Data cleanup failed: ${error instanceof Error ? error.message : String(error)}`);
     }
-
-    const daysToKeep = args.daysToKeep || 90;
-    const cutoffTime = Date.now() - (daysToKeep * 24 * 60 * 60 * 1000);
-
-    // Clean up old analytics events
-    const oldAnalytics = await ctx.db
-      .query("analytics")
-      .withIndex("by_timestamp", (q) => q.lt("timestamp", cutoffTime))
-      .collect();
-
-    let deletedAnalytics = 0;
-    for (const event of oldAnalytics) {
-      await ctx.db.delete(event._id);
-      deletedAnalytics++;
-    }
-
-    // Clean up old audit logs (keep more recent ones)
-    const auditCutoffTime = Date.now() - (365 * 24 * 60 * 60 * 1000); // 1 year
-    const oldAuditLogs = await ctx.db
-      .query("auditLog")
-      .withIndex("by_timestamp", (q) => q.lt("timestamp", auditCutoffTime))
-      .collect();
-
-    let deletedAuditLogs = 0;
-    for (const log of oldAuditLogs) {
-      await ctx.db.delete(log._id);
-      deletedAuditLogs++;
-    }
-
-    // Clean up old expired sessions
-    const now = Date.now();
-    const expiredSessions = await ctx.db
-      .query("userSessions")
-      .withIndex("by_expires", (q) => q.lt("expiresAt", now))
-      .filter((q) => q.eq(q.field("isActive"), false))
-      .collect();
-
-    let deletedSessions = 0;
+  },
+});
     for (const session of expiredSessions) {
       await ctx.db.delete(session._id);
       deletedSessions++;
