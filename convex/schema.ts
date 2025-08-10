@@ -5,6 +5,31 @@ import { authTables } from "@convex-dev/auth/server";
 export default defineSchema({
   ...authTables, // Official Convex Auth tables
   
+  // TEMPORARY: Override users table to allow existing medical fields during migration
+  users: defineTable({
+    // Standard Convex Auth fields
+    email: v.optional(v.string()),
+    emailVerificationTime: v.optional(v.float64()),
+    image: v.optional(v.string()),
+    isAnonymous: v.optional(v.boolean()),
+    name: v.optional(v.string()),
+    phone: v.optional(v.string()),
+    phoneVerificationTime: v.optional(v.float64()),
+    // TEMPORARY: Allow existing medical fields for migration
+    accuracy: v.optional(v.number()),
+    points: v.optional(v.number()),
+    level: v.optional(v.number()),
+    streak: v.optional(v.number()),
+    totalQuizzes: v.optional(v.number()),
+    createdAt: v.optional(v.number()),
+    updatedAt: v.optional(v.number()),
+    emailVerified: v.optional(v.boolean()),
+    isActive: v.optional(v.boolean()),
+    role: v.optional(v.string()),
+    passwordHash: v.optional(v.string()),
+    lastLogin: v.optional(v.number()),
+  }),
+  
   // Medical app user profiles (separate from auth)
   userProfiles: defineTable({
     userId: v.string(), // Links to Convex Auth user
@@ -120,7 +145,7 @@ export default defineSchema({
     category: v.optional(v.string()),
     color: v.optional(v.string()), // For UI display
     isActive: v.boolean(),
-    createdBy: v.optional(v.string() // Convex Auth user ID),
+    createdBy: v.optional(v.string()), // Convex Auth user ID
     createdAt: v.number(),
     questionCount: v.number(), // How many questions use this tag
   })
@@ -131,7 +156,7 @@ export default defineSchema({
 
   // Individual question attempts (SPEC.md Section 5 - separate from sessions)
   attempts: defineTable({
-    userId: v.string() // Convex Auth user ID,
+    userId: v.string(), // Convex Auth user ID
     questionId: v.id("questions"),
     answer: v.number(), // User's selected answer
     isCorrect: v.boolean(),
@@ -153,7 +178,7 @@ export default defineSchema({
   // Analytics and reporting data (SPEC.md Section 9)
   analytics: defineTable({
     eventType: v.string(), // "quiz_start", "quiz_complete", "question_view", "login", etc.
-    userId: v.optional(v.string() // Convex Auth user ID),
+    userId: v.optional(v.string()), // Convex Auth user ID
     sessionId: v.optional(v.id("quizSessions")),
     questionId: v.optional(v.id("questions")),
     metadata: v.optional(v.object({
@@ -200,7 +225,7 @@ export default defineSchema({
     entityType: v.string(), // "question", "user", "tag"
     entityId: v.string(), // ID of the entity
     action: v.string(), // "create", "update", "delete", "publish", "approve", "reject"
-    userId: v.string() // Convex Auth user ID, // Who performed the action
+    userId: v.string(), // Convex Auth user ID - Who performed the action
     oldValues: v.optional(v.string()), // JSON string of previous values
     newValues: v.optional(v.string()), // JSON string of new values
     notes: v.optional(v.string()),
@@ -217,7 +242,7 @@ export default defineSchema({
 
   // Enhanced leaderboard with more tracking
   leaderboard: defineTable({
-    userId: v.string() // Convex Auth user ID,
+    userId: v.string(), // Convex Auth user ID
     userName: v.string(),
     points: v.number(),
     level: v.number(),
@@ -239,7 +264,7 @@ export default defineSchema({
 
   // Bookmarked questions for users
   bookmarks: defineTable({
-    userId: v.string() // Convex Auth user ID,
+    userId: v.string(), // Convex Auth user ID
     questionId: v.id("questions"),
     createdAt: v.number(),
     notes: v.optional(v.string()), // User's personal notes
@@ -251,12 +276,12 @@ export default defineSchema({
 
   // Flagged questions for review (enhanced)
   flaggedQuestions: defineTable({
-    userId: v.string() // Convex Auth user ID,
+    userId: v.string(), // Convex Auth user ID
     questionId: v.id("questions"),
     reason: v.string(),
     description: v.optional(v.string()), // Detailed description
     status: v.union(v.literal("pending"), v.literal("reviewed"), v.literal("resolved"), v.literal("dismissed")),
-    reviewedBy: v.optional(v.string() // Convex Auth user ID),
+    reviewedBy: v.optional(v.string()), // Convex Auth user ID
     reviewNotes: v.optional(v.string()),
     createdAt: v.number(),
     reviewedAt: v.optional(v.number()),
@@ -271,8 +296,8 @@ export default defineSchema({
 
   // User relationships for friends/study groups
   friendships: defineTable({
-    userId1: v.string() // Convex Auth user ID,
-    userId2: v.string() // Convex Auth user ID,
+    userId1: v.string(), // Convex Auth user ID
+    userId2: v.string(), // Convex Auth user ID
     status: v.union(v.literal("pending"), v.literal("accepted"), v.literal("blocked")),
     createdAt: v.number(),
     acceptedAt: v.optional(v.number()),
@@ -287,8 +312,8 @@ export default defineSchema({
   studyGroups: defineTable({
     name: v.string(),
     description: v.optional(v.string()),
-    creatorId: v.string() // Convex Auth user ID,
-    members: v.array(v.string() // Convex Auth user ID),
+    creatorId: v.string(), // Convex Auth user ID
+    members: v.array(v.string()), // Convex Auth user ID
     isPublic: v.boolean(),
     category: v.optional(v.string()),
     createdAt: v.number(),
@@ -306,13 +331,13 @@ export default defineSchema({
 
   // Quiz challenges between users (enhanced)
   challenges: defineTable({
-    challengerId: v.string() // Convex Auth user ID,
-    challengedId: v.string() // Convex Auth user ID,
+    challengerId: v.string(), // Convex Auth user ID
+    challengedId: v.string(), // Convex Auth user ID
     quizSessionId: v.optional(v.id("quizSessions")),
     status: v.union(v.literal("pending"), v.literal("accepted"), v.literal("completed"), v.literal("declined"), v.literal("expired")),
     challengerScore: v.optional(v.number()),
     challengedScore: v.optional(v.number()),
-    winnerId: v.optional(v.string() // Convex Auth user ID),
+    winnerId: v.optional(v.string()), // Convex Auth user ID
     category: v.optional(v.string()),
     difficulty: v.optional(v.string()),
     questionCount: v.number(),
@@ -333,7 +358,7 @@ export default defineSchema({
   // Content review workflow
   contentReviews: defineTable({
     questionId: v.id("questions"),
-    reviewerId: v.string() // Convex Auth user ID,
+    reviewerId: v.string(), // Convex Auth user ID
     reviewType: v.union(v.literal("editorial"), v.literal("fact-check"), v.literal("quality")),
     status: v.union(v.literal("pending"), v.literal("approved"), v.literal("rejected"), v.literal("needs-revision")),
     score: v.optional(v.number()), // Quality score 1-5
@@ -351,7 +376,7 @@ export default defineSchema({
 
   // Notification system
   notifications: defineTable({
-    userId: v.string() // Convex Auth user ID,
+    userId: v.string(), // Convex Auth user ID
     type: v.string(), // "friend_request", "challenge", "achievement", "system"
     title: v.string(),
     message: v.string(),
@@ -372,7 +397,7 @@ export default defineSchema({
     value: v.string(), // JSON string
     description: v.optional(v.string()),
     isActive: v.boolean(),
-    updatedBy: v.string() // Convex Auth user ID,
+    updatedBy: v.string(), // Convex Auth user ID
     updatedAt: v.number(),
     category: v.optional(v.string()), // "feature-flags", "settings", "limits"
   })
@@ -382,7 +407,7 @@ export default defineSchema({
 
   // MVP: Seen questions tracking to prevent repetition
   seenQuestions: defineTable({
-    userId: v.string() // Convex Auth user ID,
+    userId: v.string(), // Convex Auth user ID
     questionId: v.id("questions"),
     seenAt: v.number(), // Timestamp when first seen
     seenCount: v.number(), // How many times seen
@@ -441,7 +466,7 @@ export default defineSchema({
   // Backward compatibility alias for quiz_sessions (referenced by testing framework)
   quiz_sessions: defineTable({
     // This is an alias for quizSessions table to support legacy references
-    userId: v.string() // Convex Auth user ID,
+    userId: v.string(), // Convex Auth user ID
     mode: v.union(v.literal("quick"), v.literal("timed"), v.literal("custom")),
     questions: v.array(v.id("questions")),
     answers: v.array(v.union(v.number(), v.null())),

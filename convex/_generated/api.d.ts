@@ -15,15 +15,15 @@ import type {
 } from "convex/server";
 import type * as analytics from "../analytics.js";
 import type * as auth from "../auth.js";
-import type * as authEnhanced from "../authEnhanced.js";
-import type * as authSecure from "../authSecure.js";
+import type * as clearDatabase from "../clearDatabase.js";
 import type * as contentManagement from "../contentManagement.js";
+import type * as http from "../http.js";
+import type * as migration from "../migration.js";
 import type * as quiz from "../quiz.js";
 import type * as quizSessionManagement from "../quizSessionManagement.js";
-import type * as schemaEnhanced from "../schemaEnhanced.js";
-import type * as schemaOriginal from "../schemaOriginal.js";
 import type * as social from "../social.js";
 import type * as systemManagement from "../systemManagement.js";
+import type * as userProfiles from "../userProfiles.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -36,15 +36,15 @@ import type * as systemManagement from "../systemManagement.js";
 declare const fullApi: ApiFromModules<{
   analytics: typeof analytics;
   auth: typeof auth;
-  authEnhanced: typeof authEnhanced;
-  authSecure: typeof authSecure;
+  clearDatabase: typeof clearDatabase;
   contentManagement: typeof contentManagement;
+  http: typeof http;
+  migration: typeof migration;
   quiz: typeof quiz;
   quizSessionManagement: typeof quizSessionManagement;
-  schemaEnhanced: typeof schemaEnhanced;
-  schemaOriginal: typeof schemaOriginal;
   social: typeof social;
   systemManagement: typeof systemManagement;
+  userProfiles: typeof userProfiles;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,
