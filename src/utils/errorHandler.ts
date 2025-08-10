@@ -325,18 +325,24 @@ export class ErrorHandler {
    * Send error to monitoring service
    */
   private static async sendToMonitoring(report: ErrorReport): Promise<void> {
-    // Implementation depends on monitoring service (Sentry, DataDog, etc.)
-    // Example with fetch:
+    // For MVP: Store errors in Convex instead of external monitoring service
+    // In production, this would integrate with Sentry, DataDog, etc.
     try {
-      await fetch('/api/errors', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(report)
-      });
+      // TODO: Implement Convex mutation for error logging
+      // await ctx.api.analytics.logError(report);
+      
+      // For now, just log to console in production
+      if (import.meta.env.PROD) {
+        console.error('Error Report:', {
+          id: report.id,
+          type: report.type,
+          severity: report.severity,
+          timestamp: report.timestamp
+        });
+      }
     } catch {
-      throw new Error('Failed to send error report');
+      // Silently fail for now - don't throw to avoid infinite error loops
+      console.warn('Failed to send error report');
     }
   }
 
