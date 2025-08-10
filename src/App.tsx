@@ -2,6 +2,7 @@ import { useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './services/convexAuth';
 import { validateEnvironment, logEnvironmentInfo, isDevelopment } from './utils/envValidation';
+import { analyticsService } from './services/analytics';
 
 // Lazy load components to enable code splitting
 const AppLayout = lazy(() => import('./components/layout/AppLayout').then(module => ({ default: module.AppLayout })));
@@ -47,7 +48,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 };
 
 function App() {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading, user } = useAuth();
 
   useEffect(() => {
     // Validate environment configuration on app startup
@@ -56,6 +57,11 @@ function App() {
       if (isDevelopment()) {
         logEnvironmentInfo();
         console.log('🔐 Using Convex Auth for JWT-based authentication');
+      }
+      
+      // Initialize analytics service
+      if (user) {
+        analyticsService.initialize(user._id);
       }
     } catch (error) {
       console.error('❌ Environment configuration error:', error);
