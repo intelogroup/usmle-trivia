@@ -34,6 +34,8 @@ The `/docs` directory provides:
   - `failures.md` - Document any issues or bugs encountered
   - `success.md` - Track completed features and achievements  
   - `DEVELOPER_HANDOFF.md` - Update with new implementations
+- **Don't spam documentation at the end of your runs or implementations** - Don't create summary documentation
+- **You will either update existing docs** like `DEVELOPER_HANDOFF.md`, `failures.md`, `success.md`
 - **Follow /docs specifications religiously** - No feature creep beyond documented requirements
 - **Use agile BMAD framework** - Build, Measure, Analyze, Decide with subagents
 
