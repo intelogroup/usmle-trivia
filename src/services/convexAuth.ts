@@ -15,11 +15,22 @@ export function useAuth() {
   // Use the token to get current user from our database
   const user = useQuery(api.auth.getCurrentUserFromToken, token ? {} : "skip");
   
+  // Enhanced loading states
+  const isInitializing = user === undefined && !token;
+  const isAuthenticating = user === undefined && !!token;
+  const isFullyLoaded = user !== undefined || (!token && user === null);
+  
   return {
-    // User state
+    // Enhanced user state with granular loading states
     user: user ? convertConvexUserToIUser(user) : null,
     isAuthenticated: !!user,
     isLoading: user === undefined,
+    isInitializing,
+    isAuthenticating,
+    isFullyLoaded,
+    
+    // Connection state
+    hasConnection: !!token,
     
     // Auth actions with medical platform specifics
     async login(email: string, password: string) {
@@ -27,9 +38,19 @@ export function useAuth() {
       try {
         await signIn("password", { email, password, flow: "signIn" });
         console.log('✅ Convex Auth: Sign in successful');
-      } catch (error) {
+      } catch (error: any) {
         console.error('❌ Convex Auth: Sign in failed:', error);
-        throw error;
+        
+        // Enhanced error handling with user-friendly messages
+        if (error?.message?.includes('Invalid email or password')) {
+          throw new Error('Invalid email or password. Please check your credentials.');
+        } else if (error?.message?.includes('Account is deactivated')) {
+          throw new Error('Your account has been deactivated. Please contact support.');
+        } else if (error?.message?.includes('network') || error?.message?.includes('fetch')) {
+          throw new Error('Network error. Please check your connection and try again.');
+        } else {
+          throw new Error(error?.message || 'Login failed. Please try again.');
+        }
       }
     },
     
@@ -45,9 +66,21 @@ export function useAuth() {
           flow: "signUp" 
         });
         console.log('✅ Convex Auth: Registration successful');
-      } catch (error) {
+      } catch (error: any) {
         console.error('❌ Convex Auth: Registration failed:', error);
-        throw error;
+        
+        // Enhanced error handling for registration
+        if (error?.message?.includes('User already exists')) {
+          throw new Error('An account with this email already exists. Please sign in instead.');
+        } else if (error?.message?.includes('Invalid email')) {
+          throw new Error('Please enter a valid email address.');
+        } else if (error?.message?.includes('Password')) {
+          throw new Error('Password must be at least 8 characters long.');
+        } else if (error?.message?.includes('network') || error?.message?.includes('fetch')) {
+          throw new Error('Network error. Please check your connection and try again.');
+        } else {
+          throw new Error(error?.message || 'Registration failed. Please try again.');
+        }
       }
     },
     
@@ -56,9 +89,16 @@ export function useAuth() {
       try {
         await signOut();
         console.log('✅ Convex Auth: Sign out successful');
-      } catch (error) {
+      } catch (error: any) {
         console.error('❌ Convex Auth: Sign out failed:', error);
-        throw error;
+        
+        // Enhanced logout error handling
+        if (error?.message?.includes('network') || error?.message?.includes('fetch')) {
+          console.warn('Network error during logout - clearing local session');
+          // Continue with logout even if network fails
+        } else {
+          throw new Error(error?.message || 'Logout failed. Please try again.');
+        }
       }
     },
   };
