@@ -10,8 +10,7 @@ configure({
 });
 
 // Mock environment variables for tests
-process.env.VITE_APPWRITE_PROJECT_ID = 'test-project-id';
-process.env.VITE_APPWRITE_ENDPOINT = 'https://test.appwrite.io/v1';
+process.env.VITE_CONVEX_URL = 'https://test-deployment.convex.cloud';
 
 // Global test setup for accessibility testing
 global.ResizeObserver = vi.fn().mockImplementation(() => ({

@@ -463,7 +463,7 @@ test.describe('MedQuiz Pro - Medical Education Performance Tests', () => {
       
       // Monitor network requests
       page.on('request', request => {
-        if (request.url().includes('/api/') || request.url().includes('appwrite.io')) {
+        if (request.url().includes('/api/') || request.url().includes('convex.cloud')) {
           apiCalls.push({
             url: request.url(),
             method: request.method(),
