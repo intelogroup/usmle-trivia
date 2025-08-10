@@ -640,46 +640,6 @@ export const cleanupExpiredData = mutation({
     }
   },
 });
-    for (const session of expiredSessions) {
-      await ctx.db.delete(session._id);
-      deletedSessions++;
-    }
-
-    // Clean up old notifications (older than 6 months)
-    const notificationCutoff = Date.now() - (180 * 24 * 60 * 60 * 1000);
-    const oldNotifications = await ctx.db
-      .query("notifications")
-      .withIndex("by_created", (q) => q.lt("createdAt", notificationCutoff))
-      .filter((q) => q.eq(q.field("isRead"), true))
-      .collect();
-
-    let deletedNotifications = 0;
-    for (const notification of oldNotifications) {
-      await ctx.db.delete(notification._id);
-      deletedNotifications++;
-    }
-
-    // Log cleanup operation
-    await ctx.db.insert("auditLog", {
-      entityType: "system",
-      entityId: "cleanup",
-      action: "data_cleanup",
-      userId: args.adminUserId,
-      notes: `Cleaned up: ${deletedAnalytics} analytics, ${deletedAuditLogs} audit logs, ${deletedSessions} sessions, ${deletedNotifications} notifications`,
-      timestamp: Date.now(),
-    });
-
-    return {
-      success: true,
-      summary: {
-        analyticsDeleted: deletedAnalytics,
-        auditLogsDeleted: deletedAuditLogs,
-        sessionsDeleted: deletedSessions,
-        notificationsDeleted: deletedNotifications,
-      },
-    };
-  },
-});
 
 // Export data for compliance/backup
 export const exportUserData = query({
