@@ -11,7 +11,7 @@ import { CustomQuizConfig } from '../components/quiz/CustomQuizConfig';
 import { TimedQuizConfig, type TimedQuizConfig as TimedQuizConfigType } from '../components/quiz/TimedQuizConfig';
 // Simplified architecture without complex session hooks
 import { useAppStore } from '../store';
-import { useAuth } from '../services/convexAuth';
+import { useAuth, useUpdateUserStats } from '../services/convexAuth';
 import { quizModes } from '../data/sampleQuestions';
 import type { QuizSession } from '../services/quiz';
 import type { Question } from '../services/quiz';
@@ -26,6 +26,7 @@ export const Quiz: React.FC = () => {
   const navigate = useNavigate();
   const quizMode = location.state?.mode;
   const { user } = useAuth();
+  const updateUserStats = useUpdateUserStats();
   
   const [quizState, setQuizState] = useState<QuizState>('setup');
   const [completedSession, setCompletedSession] = useState<QuizSession | null>(null);
@@ -112,17 +113,28 @@ export const Quiz: React.FC = () => {
     handleStartQuiz();
   };
   
-  const handleQuizComplete = (session: QuizSession, enhancedData?: {
+  const handleQuizComplete = async (session: QuizSession, enhancedData?: {
     pointsEarned: number;
     userStats: any;
     performanceMetrics: any;
   }) => {
     setCompletedSession(session);
-    if (enhancedData) {
+    if (enhancedData && user) {
       setEnhancedResults(enhancedData);
       
-      // Update user stats in real-time for immediate UI feedback
-      if (user && enhancedData.pointsEarned > 0) {
+      try {
+        // Update user stats in the database first
+        await updateUserStats({
+          userId: user.userId,
+          quizScore: enhancedData.userStats.accuracy,
+          questionsCount: enhancedData.userStats.totalQuestions,
+          pointsEarned: enhancedData.pointsEarned,
+          timeSpent: enhancedData.userStats.timeSpent
+        });
+        
+        console.log(`✅ Successfully updated user stats: +${enhancedData.pointsEarned} points, ${enhancedData.userStats.accuracy}% accuracy`);
+        
+        // Update local store for immediate UI feedback
         const currentPoints = user.points || 0;
         const newPoints = currentPoints + enhancedData.pointsEarned;
         const newLevel = Math.floor(newPoints / 100) + 1;
@@ -132,12 +144,23 @@ export const Quiz: React.FC = () => {
           ? enhancedData.userStats.accuracy 
           : Math.round((((user.accuracy || 0) * currentTotalQuizzes) + enhancedData.userStats.accuracy) / newTotalQuizzes);
         
-        // Update user stats in store for immediate UI feedback
         useAppStore.getState().updateUserStats({
           points: newPoints,
           level: newLevel,
           totalQuizzes: newTotalQuizzes,
           accuracy: newAccuracy,
+        });
+        
+      } catch (error) {
+        console.error('Failed to update user stats in database:', error);
+        // Still update local store for UI feedback even if backend fails
+        const currentPoints = user.points || 0;
+        const newPoints = currentPoints + enhancedData.pointsEarned;
+        const newLevel = Math.floor(newPoints / 100) + 1;
+        
+        useAppStore.getState().updateUserStats({
+          points: newPoints,
+          level: newLevel,
         });
       }
     }
