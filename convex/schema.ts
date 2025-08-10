@@ -79,7 +79,7 @@ export default defineSchema({
   quizSessions: defineTable({
     // Medical education quiz sessions for USMLE preparation
     // Also aliased as quiz_sessions for backward compatibility
-    userId: v.string() // Convex Auth user ID,
+    userId: v.string(), // Convex Auth user ID
     mode: v.union(v.literal("quick"), v.literal("timed"), v.literal("custom")),
     questions: v.array(v.id("questions")),
     answers: v.array(v.union(v.number(), v.null())),

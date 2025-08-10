@@ -77,24 +77,93 @@ export const getCurrentUserProfile = query({
   },
 });
 
-// Update user profile
+// Get current user with combined auth + profile data (for main auth hook)
+export const getCurrentUser = query({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return null;
+    }
+    
+    // Get or create user profile
+    let profile = await ctx.db
+      .query("userProfiles")
+      .withIndex("by_user", q => q.eq("userId", identity.subject))
+      .first();
+    
+    // Auto-create profile if it doesn't exist
+    if (!profile) {
+      console.log(`🏥 Auto-creating profile for user ${identity.subject}`);
+      const profileId = await ctx.db.insert("userProfiles", {
+        userId: identity.subject,
+        email: identity.email || "",
+        name: identity.name || "Medical Student",
+        medicalLevel: "Medical Student",
+        studyGoals: "USMLE Preparation",
+        points: 0,
+        level: 1,
+        currentStreak: 0,
+        longestStreak: 0,
+        totalQuizzes: 0,
+        accuracy: 0,
+        isActive: true,
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+        lastStudyDate: new Date().toISOString().split('T')[0],
+        streakFreezeCount: 3,
+      });
+      
+      profile = await ctx.db.get(profileId);
+    }
+    
+    if (!profile) {
+      return null;
+    }
+    
+    // Return combined user data in IUser format
+    return {
+      id: profile.userId,
+      _id: profile.userId, // For compatibility
+      email: profile.email || identity.email || "",
+      name: profile.name || identity.name || "Medical Student",
+      role: "user",
+      points: profile.points || 0,
+      level: profile.level || 1,
+      currentStreak: profile.currentStreak || 0,
+      longestStreak: profile.longestStreak || 0,
+      totalQuizzes: profile.totalQuizzes || 0,
+      accuracy: profile.accuracy || 0,
+      medicalLevel: profile.medicalLevel || "Medical Student",
+      studyGoals: profile.studyGoals || "USMLE Preparation",
+      lastStudyDate: profile.lastStudyDate || new Date().toISOString().split('T')[0],
+      streakFreezeCount: profile.streakFreezeCount || 3,
+      isActive: profile.isActive !== false,
+      createdAt: profile.createdAt || Date.now(),
+      updatedAt: profile.updatedAt || Date.now(),
+    };
+  },
+});
+
+// Update user profile (uses authenticated user)
 export const updateUserProfile = mutation({
   args: {
-    userId: v.string(),
     updates: v.object({
+      name: v.optional(v.string()),
       medicalLevel: v.optional(v.string()),
       studyGoals: v.optional(v.string()),
-      preferences: v.optional(v.object({
-        theme: v.optional(v.string()),
-        notifications: v.optional(v.boolean()),
-        difficulty: v.optional(v.string()),
-      })),
+      avatar: v.optional(v.string()),
     }),
   },
   handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new ConvexError("Not authenticated");
+    }
+    
     const profile = await ctx.db
       .query("userProfiles")
-      .withIndex("by_user", q => q.eq("userId", args.userId))
+      .withIndex("by_user", q => q.eq("userId", identity.subject))
       .first();
       
     if (!profile) {
@@ -110,21 +179,25 @@ export const updateUserProfile = mutation({
   },
 });
 
-// Update user stats after quiz completion
+// Update user stats after quiz completion (uses authenticated user)
 export const updateUserStats = mutation({
   args: {
-    userId: v.string(),
     pointsEarned: v.number(),
     quizScore: v.number(),
     questionsCount: v.number(),
     timeSpent: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
-    console.log(`📊 Updating stats for user ${args.userId}: +${args.pointsEarned} points, ${args.quizScore}% score`);
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new ConvexError("Not authenticated");
+    }
+    
+    console.log(`📊 Updating stats for user ${identity.subject}: +${args.pointsEarned} points, ${args.quizScore}% score`);
     
     const profile = await ctx.db
       .query("userProfiles")
-      .withIndex("by_user", q => q.eq("userId", args.userId))
+      .withIndex("by_user", q => q.eq("userId", identity.subject))
       .first();
       
     if (!profile) {
