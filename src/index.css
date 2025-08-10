@@ -1,6 +1,5 @@
-/* Professional font imports */
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+/* System font stack - no external dependencies */
+/* Using modern system fonts for better performance and native feel */
 
 /* Minimal light theme for production */
 @import './styles/accessibility.css';
@@ -80,13 +79,17 @@
     @apply font-heading font-medium;
   }
   
-  /* Ensure consistent font application */
+  /* System font stack application */
   .font-sans {
-    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   }
   
-  .font-heading, .font-mono {
-    font-family: 'Fira Code', Consolas, Monaco, monospace;
+  .font-heading {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  }
+  
+  .font-mono {
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
   }
   
   /* Simple focus ring */

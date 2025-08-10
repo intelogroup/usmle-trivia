@@ -8,6 +8,8 @@ export default defineSchema({
   // Medical app user profiles (separate from auth)
   userProfiles: defineTable({
     userId: v.string(), // Links to Convex Auth user
+    email: v.optional(v.string()),
+    name: v.optional(v.string()),
     medicalLevel: v.optional(v.string()), // "student", "resident", "physician"
     specialties: v.optional(v.array(v.string())),
     studyGoals: v.optional(v.string()), // "USMLE Step 1", "USMLE Step 2", etc.
@@ -26,6 +28,7 @@ export default defineSchema({
     accuracy: v.optional(v.number()),
     lastStudyDate: v.optional(v.string()), // YYYY-MM-DD
     streakFreezeCount: v.optional(v.number()),
+    isActive: v.optional(v.boolean()),
     // Metadata
     createdAt: v.optional(v.number()),
     updatedAt: v.optional(v.number()),
