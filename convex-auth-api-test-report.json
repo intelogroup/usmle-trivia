@@ -1,0 +1,149 @@
+{
+  "timestamp": "2025-08-10T13:56:22.676Z",
+  "testSuite": "Convex Auth API Test",
+  "results": [
+    {
+      "testName": "Convex Auth Import",
+      "status": "PASS",
+      "message": "Official @convex-dev/auth imported",
+      "details": {},
+      "timestamp": "2025-08-10T13:56:22.683Z"
+    },
+    {
+      "testName": "Password Provider",
+      "status": "PASS",
+      "message": "Password authentication provider configured",
+      "details": {},
+      "timestamp": "2025-08-10T13:56:22.684Z"
+    },
+    {
+      "testName": "User Creation Callback",
+      "status": "PASS",
+      "message": "User creation callback configured",
+      "details": {},
+      "timestamp": "2025-08-10T13:56:22.684Z"
+    },
+    {
+      "testName": "Session Configuration",
+      "status": "PASS",
+      "message": "Session management configured",
+      "details": {},
+      "timestamp": "2025-08-10T13:56:22.684Z"
+    },
+    {
+      "testName": "Auth Hooks",
+      "status": "PASS",
+      "message": "All 6 required auth hooks found",
+      "details": {},
+      "timestamp": "2025-08-10T13:56:22.685Z"
+    },
+    {
+      "testName": "Medical Integration Hooks",
+      "status": "PASS",
+      "message": "All medical integration hooks found",
+      "details": {},
+      "timestamp": "2025-08-10T13:56:22.685Z"
+    },
+    {
+      "testName": "Error Handling",
+      "status": "PASS",
+      "message": "Error handling implemented in auth service",
+      "details": {},
+      "timestamp": "2025-08-10T13:56:22.685Z"
+    },
+    {
+      "testName": "Get Current User Function",
+      "status": "PASS",
+      "message": "getCurrentUser function implemented",
+      "details": {},
+      "timestamp": "2025-08-10T13:56:22.686Z"
+    },
+    {
+      "testName": "Medical Profile Fields",
+      "status": "PASS",
+      "message": "7/7 medical fields found",
+      "details": {},
+      "timestamp": "2025-08-10T13:56:22.686Z"
+    },
+    {
+      "testName": "Auth Context Integration",
+      "status": "PASS",
+      "message": "Auth context properly integrated in user profiles",
+      "details": {},
+      "timestamp": "2025-08-10T13:56:22.686Z"
+    },
+    {
+      "testName": "Auth Tables Integration",
+      "status": "PASS",
+      "message": "Official Convex Auth tables integrated",
+      "details": {},
+      "timestamp": "2025-08-10T13:56:22.686Z"
+    },
+    {
+      "testName": "User Profiles Table",
+      "status": "PASS",
+      "message": "User profiles table defined in schema",
+      "details": {},
+      "timestamp": "2025-08-10T13:56:22.686Z"
+    },
+    {
+      "testName": "Medical Fields in Schema",
+      "status": "PASS",
+      "message": "Medical fields defined in schema",
+      "details": {},
+      "timestamp": "2025-08-10T13:56:22.686Z"
+    },
+    {
+      "testName": "ConvexAuthProvider Setup",
+      "status": "PASS",
+      "message": "ConvexAuthProvider properly configured",
+      "details": {},
+      "timestamp": "2025-08-10T13:56:22.687Z"
+    },
+    {
+      "testName": "App Auth Integration",
+      "status": "PASS",
+      "message": "App properly uses auth hooks",
+      "details": {},
+      "timestamp": "2025-08-10T13:56:22.687Z"
+    },
+    {
+      "testName": "Convex URL Configuration",
+      "status": "PASS",
+      "message": "Convex URL properly configured",
+      "details": {},
+      "timestamp": "2025-08-10T13:56:22.687Z"
+    },
+    {
+      "testName": "Environment Validation",
+      "status": "PASS",
+      "message": "Environment validation implemented",
+      "details": {},
+      "timestamp": "2025-08-10T13:56:22.688Z"
+    },
+    {
+      "testName": "Production Build",
+      "status": "PASS",
+      "message": "Production build successful",
+      "details": {},
+      "timestamp": "2025-08-10T13:56:32.968Z"
+    },
+    {
+      "testName": "Auth Build Integration",
+      "status": "PASS",
+      "message": "Auth modules properly bundled",
+      "details": {},
+      "timestamp": "2025-08-10T13:56:32.968Z"
+    }
+  ],
+  "config": {
+    "convexUrl": "\"https://formal-sardine-916.convex.cloud\""
+  },
+  "statistics": {
+    "total": 19,
+    "passed": 19,
+    "failed": 0,
+    "warnings": 0,
+    "successRate": 100
+  }
+}
