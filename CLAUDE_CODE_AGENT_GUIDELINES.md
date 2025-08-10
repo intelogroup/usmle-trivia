@@ -94,9 +94,9 @@ const PHASE_DETECTION = {
 ### **🗄️ Database Architecture Agent**
 ```javascript
 const DATABASE_MCPS = {
-  primary: ['appwrite', 'neon', 'prisma'],      // Use these first
+  primary: ['convex', 'neon', 'prisma'],      // Use these first
   secondary: ['hasura', 'fauna', 'supabase-storage'], // Use for advanced features
-  medical: ['appwrite', 'neon']                  // Optimized for medical data
+  medical: ['convex', 'neon']                  // Optimized for medical data
 };
 ```
 
