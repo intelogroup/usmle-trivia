@@ -16,8 +16,8 @@ export function useAuth() {
   const { isLoading: convexLoading, isAuthenticated } = useConvexAuth();
   const { signIn, signOut, signUp } = useAuthActions();
   
-  // Get current user data from our userProfiles table
-  const user = useQuery(api.userProfiles.getCurrentUser) as IUser | null;
+  // Get current user data from our userProfiles table (only when authenticated)
+  const user = useQuery(api.userProfiles.getCurrentUser, isAuthenticated ? {} : "skip") as IUser | null;
   
   // Loading state: true if Convex Auth is loading OR if authenticated but user data not yet loaded
   const isLoading = convexLoading || (isAuthenticated && user === undefined);
@@ -39,10 +39,8 @@ export function useAuth() {
       return { success: true };
     } catch (error: any) {
       console.error('Registration error:', error);
-      return { 
-        success: false, 
-        error: error.message || 'Registration failed. Please try again.' 
-      };
+      // Re-throw the error so components can handle specific error types
+      throw error;
     }
   };
 
@@ -56,10 +54,8 @@ export function useAuth() {
       return { success: true };
     } catch (error: any) {
       console.error('Login error:', error);
-      return { 
-        success: false, 
-        error: error.message || 'Invalid email or password. Please try again.' 
-      };
+      // Re-throw the error so components can handle specific error types
+      throw error;
     }
   };
 
@@ -164,5 +160,5 @@ export function useUpdateUserProfile() {
   };
 }
 
-// Export auth utilities for advanced use cases
-export { useConvexAuth, useAuthActions } from "@convex-dev/auth/react";
+// Export auth utilities for advanced use cases (already imported above)
+// export { useConvexAuth, useAuthActions } from "@convex-dev/auth/react";

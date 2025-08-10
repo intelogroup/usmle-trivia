@@ -39,11 +39,24 @@ export const Register: React.FC = () => {
       console.log('🚀 Calling register function via authService...');
       // Store's register function internally uses authService.createAccount
       await register(formData.email, formData.password, formData.name);
+      
       console.log('✅ authService.createAccount successful, navigating to dashboard');
       navigate('/dashboard');
     } catch (err: unknown) {
-      console.error('❌ authService.createAccount failed:', err);
-      setError((err instanceof Error ? err.message : String(err)) || 'Registration failed. Please try again.');
+      console.error('❌ authService.createAccount exception:', err);
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      
+      if (errorMessage.includes('User already exists') || errorMessage.includes('already registered')) {
+        setError('An account with this email already exists. Please sign in instead.');
+      } else if (errorMessage.includes('invalid email')) {
+        setError('Please enter a valid email address.');
+      } else if (errorMessage.includes('password') && errorMessage.includes('weak')) {
+        setError('Password is too weak. Please use at least 8 characters with letters and numbers.');
+      } else if (errorMessage.includes('network')) {
+        setError('Network error. Please check your connection and try again.');
+      } else {
+        setError(errorMessage || 'Registration failed. Please try again.');
+      }
     }
   };
 

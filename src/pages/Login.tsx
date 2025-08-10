@@ -22,11 +22,25 @@ export const Login: React.FC = () => {
       console.log('🚀 Calling login function via authService...');
       // Store's login function internally uses authService.login
       await login(formData.email, formData.password);
+      
       console.log('✅ authService.login successful, navigating to dashboard');
       navigate('/dashboard');
     } catch (error) {
-      console.error('❌ authService.login failed:', error);
-      setError('Invalid email or password');
+      console.error('❌ authService.login exception:', error);
+      // Parse specific error messages from Convex Auth
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      
+      if (errorMessage.includes('Invalid login credentials')) {
+        setError('Invalid email or password. Please check your credentials and try again.');
+      } else if (errorMessage.includes('User not found')) {
+        setError('No account found with this email address. Please check your email or create a new account.');
+      } else if (errorMessage.includes('network')) {
+        setError('Network error. Please check your connection and try again.');
+      } else if (errorMessage.includes('email') && errorMessage.includes('invalid')) {
+        setError('Please enter a valid email address.');
+      } else {
+        setError(errorMessage || 'Login failed. Please try again.');
+      }
     }
   };
 
