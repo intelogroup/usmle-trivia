@@ -1,0 +1,191 @@
+{
+  "testSuite": "Clerk Authentication System Test",
+  "timestamp": "2025-08-11T01:30:38.031Z",
+  "baseUrl": "http://localhost:5173",
+  "testEmail": "testuser+clerk_test@example.com",
+  "results": [
+    {
+      "test": "Landing Page Title",
+      "status": "PASS",
+      "details": "USMLE title found correctly",
+      "error": null,
+      "timestamp": "2025-08-11T01:29:26.777Z"
+    },
+    {
+      "test": "Sign In Button",
+      "status": "PASS",
+      "details": "Clerk sign-in button is visible",
+      "error": null,
+      "timestamp": "2025-08-11T01:29:26.785Z"
+    },
+    {
+      "test": "Sign Up Button",
+      "status": "PASS",
+      "details": "Clerk sign-up button is visible",
+      "error": null,
+      "timestamp": "2025-08-11T01:29:26.788Z"
+    },
+    {
+      "test": "Protected Route /dashboard",
+      "status": "PASS",
+      "details": "Correctly redirected to Clerk authentication",
+      "error": null,
+      "timestamp": "2025-08-11T01:29:31.511Z"
+    },
+    {
+      "test": "Protected Route /quiz",
+      "status": "PASS",
+      "details": "Correctly redirected to Clerk authentication",
+      "error": null,
+      "timestamp": "2025-08-11T01:29:36.177Z"
+    },
+    {
+      "test": "Protected Route /progress",
+      "status": "PASS",
+      "details": "Correctly redirected to Clerk authentication",
+      "error": null,
+      "timestamp": "2025-08-11T01:29:40.790Z"
+    },
+    {
+      "test": "Protected Route /analytics",
+      "status": "PASS",
+      "details": "Correctly redirected to Clerk authentication",
+      "error": null,
+      "timestamp": "2025-08-11T01:29:45.385Z"
+    },
+    {
+      "test": "Protected Route /profile",
+      "status": "PASS",
+      "details": "Correctly redirected to Clerk authentication",
+      "error": null,
+      "timestamp": "2025-08-11T01:29:50.326Z"
+    },
+    {
+      "test": "Sign-Up Modal",
+      "status": "PASS",
+      "details": "Clerk sign-up modal opened successfully",
+      "error": null,
+      "timestamp": "2025-08-11T01:29:53.019Z"
+    },
+    {
+      "test": "Sign-Up Continue",
+      "status": "FAIL",
+      "details": "Continue button not found",
+      "error": null,
+      "timestamp": "2025-08-11T01:29:53.799Z"
+    },
+    {
+      "test": "Sign-In Flow",
+      "status": "FAIL",
+      "details": "Error during sign-in process",
+      "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('button:has-text(\"Continue\"), button:has-text(\"Sign in\"), button[type=\"submit\"]').first()\n    - locator resolved to <button component=\"SignInButton\" class=\"text-gray-600 hover:text-gray-900 font-medium\">Sign In</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <div class=\"cl-modalBackdrop 🔒️ cl-internal-bkuiv1\">…</div> from <div id=\":r2:\" data-floating-ui-portal=\"\">…</div> subtree intercepts pointer events\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <div class=\"cl-modalBackdrop 🔒️ cl-internal-bkuiv1\">…</div> from <div id=\":r2:\" data-floating-ui-portal=\"\">…</div> subtree intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    58 × waiting for element to be visible, enabled and stable\n       - element is visible, enabled and stable\n       - scrolling into view if needed\n       - done scrolling\n       - <div class=\"cl-modalBackdrop 🔒️ cl-internal-bkuiv1\">…</div> from <div id=\":r2:\" data-floating-ui-portal=\"\">…</div> subtree intercepts pointer events\n     - retrying click action\n       - waiting 500ms\n",
+      "timestamp": "2025-08-11T01:30:27.252Z"
+    },
+    {
+      "test": "UserButton Visibility",
+      "status": "FAIL",
+      "details": "UserButton not visible - user may not be authenticated",
+      "error": null,
+      "timestamp": "2025-08-11T01:30:29.937Z"
+    },
+    {
+      "test": "Responsive Mobile",
+      "status": "PASS",
+      "details": "Authentication buttons visible at 375x667",
+      "error": null,
+      "timestamp": "2025-08-11T01:30:32.832Z"
+    },
+    {
+      "test": "Responsive Tablet",
+      "status": "PASS",
+      "details": "Authentication buttons visible at 768x1024",
+      "error": null,
+      "timestamp": "2025-08-11T01:30:35.441Z"
+    },
+    {
+      "test": "Responsive Desktop",
+      "status": "PASS",
+      "details": "Authentication buttons visible at 1280x720",
+      "error": null,
+      "timestamp": "2025-08-11T01:30:38.030Z"
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "landing-page",
+      "description": "Initial landing page load",
+      "filepath": "screenshots/1754875766444-landing-page.png"
+    },
+    {
+      "name": "protected-route-dashboard",
+      "description": "Clerk auth challenge for /dashboard",
+      "filepath": "screenshots/1754875771511-protected-route-dashboard.png"
+    },
+    {
+      "name": "protected-route-quiz",
+      "description": "Clerk auth challenge for /quiz",
+      "filepath": "screenshots/1754875776177-protected-route-quiz.png"
+    },
+    {
+      "name": "protected-route-progress",
+      "description": "Clerk auth challenge for /progress",
+      "filepath": "screenshots/1754875780790-protected-route-progress.png"
+    },
+    {
+      "name": "protected-route-analytics",
+      "description": "Clerk auth challenge for /analytics",
+      "filepath": "screenshots/1754875785385-protected-route-analytics.png"
+    },
+    {
+      "name": "protected-route-profile",
+      "description": "Clerk auth challenge for /profile",
+      "filepath": "screenshots/1754875790326-protected-route-profile.png"
+    },
+    {
+      "name": "clerk-signup-modal",
+      "description": "Clerk sign-up modal opened",
+      "filepath": "screenshots/1754875792751-clerk-signup-modal.png"
+    },
+    {
+      "name": "clerk-email-filled",
+      "description": "Test email entered",
+      "filepath": "screenshots/1754875793588-clerk-email-filled.png"
+    },
+    {
+      "name": "clerk-signin-modal",
+      "description": "Clerk sign-in modal opened",
+      "filepath": "screenshots/1754875795740-clerk-signin-modal.png"
+    },
+    {
+      "name": "clerk-signin-form",
+      "description": "Sign-in form with test email",
+      "filepath": "screenshots/1754875796525-clerk-signin-form.png"
+    },
+    {
+      "name": "signin-error",
+      "description": "Sign-in flow error state",
+      "filepath": "screenshots/1754875827253-signin-error.png"
+    },
+    {
+      "name": "responsive-mobile",
+      "description": "Mobile responsive design",
+      "filepath": "screenshots/1754875832618-responsive-mobile.png"
+    },
+    {
+      "name": "responsive-tablet",
+      "description": "Tablet responsive design",
+      "filepath": "screenshots/1754875835221-responsive-tablet.png"
+    },
+    {
+      "name": "responsive-desktop",
+      "description": "Desktop responsive design",
+      "filepath": "screenshots/1754875837812-responsive-desktop.png"
+    }
+  ],
+  "summary": {
+    "total": 15,
+    "passed": 12,
+    "failed": 3,
+    "partial": 0
+  }
+}
