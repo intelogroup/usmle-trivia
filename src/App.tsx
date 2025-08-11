@@ -1,9 +1,6 @@
 import { useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useAuth } from './services/convexAuth';
-import { AuthGuard } from './components/auth/AuthGuard';
 import { validateEnvironment, logEnvironmentInfo, isDevelopment } from './utils/envValidation';
-import { analyticsService } from './services/analytics';
 
 // Lazy load components to enable code splitting
 const AppLayout = lazy(() => import('./components/layout/AppLayout').then(module => ({ default: module.AppLayout })));
@@ -14,8 +11,6 @@ const Progress = lazy(() => import('./pages/Progress').then(module => ({ default
 const Analytics = lazy(() => import('./pages/Analytics').then(module => ({ default: module.Analytics })));
 const Social = lazy(() => import('./pages/Social').then(module => ({ default: module.Social })));
 const Leaderboard = lazy(() => import('./pages/Leaderboard').then(module => ({ default: module.Leaderboard })));
-const Login = lazy(() => import('./pages/Login').then(module => ({ default: module.Login })));
-const Register = lazy(() => import('./pages/Register').then(module => ({ default: module.Register })));
 const UserProfile = lazy(() => import('./components/profile/UserProfile').then(module => ({ default: module.UserProfile })));
 const NotFound = lazy(() => import('./pages/NotFound').then(module => ({ default: module.NotFound })));
 
@@ -29,30 +24,7 @@ const LoadingSpinner = () => (
   </div>
 );
 
-// Protected Route Component using AuthGuard
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <AuthGuard requireAuth={true}>
-      <Suspense fallback={<LoadingSpinner />}>
-        {children}
-      </Suspense>
-    </AuthGuard>
-  );
-};
-
-// Public Route Component for login/register pages
-const PublicRoute = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <AuthGuard requireAuth={false}>
-      <Suspense fallback={<LoadingSpinner />}>
-        {children}
-      </Suspense>
-    </AuthGuard>
-  );
-};
-
 function App() {
-  const { isAuthenticated, isLoading, user } = useAuth();
 
   useEffect(() => {
     // Validate environment configuration on app startup
@@ -60,12 +32,7 @@ function App() {
       validateEnvironment();
       if (isDevelopment()) {
         logEnvironmentInfo();
-        console.log('🔐 Using Convex Auth for JWT-based authentication');
-      }
-      
-      // Initialize analytics service
-      if (user) {
-        analyticsService.initialize(user._id);
+        console.log('🚀 Running MedQuiz Pro without authentication');
       }
     } catch (error) {
       console.error('❌ Environment configuration error:', error);
@@ -74,132 +41,105 @@ function App() {
     }
   }, []);
 
-  // Show loading while auth state is being determined
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
-
   return (
     <Router>
       <Suspense fallback={<LoadingSpinner />}>
         <Routes>
-        {/* Landing page - redirect to dashboard if authenticated, otherwise to login */}
+        {/* Landing page - now redirect directly to dashboard */}
         <Route 
           path="/" 
-          element={
-            isAuthenticated ? 
-            <Navigate to="/dashboard" replace /> : 
-            <Navigate to="/login" replace />
-          } 
+          element={<Navigate to="/dashboard" replace />} 
         />
         
-        {/* Public routes - only accessible when NOT authenticated */}
-        <Route 
-          path="/login" 
-          element={
-            <PublicRoute>
-              <Login />
-            </PublicRoute>
-          } 
-        />
-        <Route 
-          path="/register" 
-          element={
-            <PublicRoute>
-              <Register />
-            </PublicRoute>
-          } 
-        />
-        
-        {/* Protected routes */}
+        {/* Public routes - no authentication required */}
         <Route
           path="/dashboard"
           element={
-            <ProtectedRoute>
+            <Suspense fallback={<LoadingSpinner />}>
               <AppLayout>
                 <Dashboard />
               </AppLayout>
-            </ProtectedRoute>
+            </Suspense>
           }
         />
         <Route
           path="/quiz"
           element={
-            <ProtectedRoute>
+            <Suspense fallback={<LoadingSpinner />}>
               <AppLayout>
                 <Quiz />
               </AppLayout>
-            </ProtectedRoute>
+            </Suspense>
           }
         />
         <Route
           path="/quiz/:mode"
           element={
-            <ProtectedRoute>
+            <Suspense fallback={<LoadingSpinner />}>
               <AppLayout>
                 <Quiz />
               </AppLayout>
-            </ProtectedRoute>
+            </Suspense>
           }
         />
         <Route
           path="/progress"
           element={
-            <ProtectedRoute>
+            <Suspense fallback={<LoadingSpinner />}>
               <AppLayout>
                 <Progress />
               </AppLayout>
-            </ProtectedRoute>
+            </Suspense>
           }
         />
         <Route
           path="/analytics"
           element={
-            <ProtectedRoute>
+            <Suspense fallback={<LoadingSpinner />}>
               <AppLayout>
                 <Analytics />
               </AppLayout>
-            </ProtectedRoute>
+            </Suspense>
           }
         />
         <Route
           path="/social/*"
           element={
-            <ProtectedRoute>
+            <Suspense fallback={<LoadingSpinner />}>
               <AppLayout>
                 <Social />
               </AppLayout>
-            </ProtectedRoute>
+            </Suspense>
           }
         />
         <Route
           path="/leaderboard"
           element={
-            <ProtectedRoute>
+            <Suspense fallback={<LoadingSpinner />}>
               <AppLayout>
                 <Leaderboard />
               </AppLayout>
-            </ProtectedRoute>
+            </Suspense>
           }
         />
         <Route
           path="/review"
           element={
-            <ProtectedRoute>
+            <Suspense fallback={<LoadingSpinner />}>
               <AppLayout>
                 <div>Review Page</div>
               </AppLayout>
-            </ProtectedRoute>
+            </Suspense>
           }
         />
         <Route
           path="/profile"
           element={
-            <ProtectedRoute>
+            <Suspense fallback={<LoadingSpinner />}>
               <AppLayout>
                 <UserProfile />
               </AppLayout>
-            </ProtectedRoute>
+            </Suspense>
           }
         />
         

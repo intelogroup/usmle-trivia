@@ -3,33 +3,7 @@ import { render } from '@testing-library/react';
 import { vi } from 'vitest';
 
 /**
- * Mock Convex Auth provider for testing
- * This provides a minimal implementation that satisfies the auth context requirements
- */
-export const mockConvexAuth = {
-  isAuthenticated: false,
-  isLoading: false,
-  user: null,
-};
-
-/**
- * Mock useAuth hook for testing
- */
-export const createMockUseAuth = (overrides = {}) => ({
-  isAuthenticated: false,
-  isLoading: false,
-  user: null,
-  login: vi.fn(),
-  logout: vi.fn(),
-  register: vi.fn(),
-  signIn: vi.fn(),
-  signOut: vi.fn(),
-  signUp: vi.fn(),
-  ...overrides,
-});
-
-/**
- * Test wrapper component that provides necessary context for Convex Auth
+ * Test wrapper component that provides necessary context
  */
 export const TestWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return <>{children}</>;
@@ -46,33 +20,22 @@ export const renderWithProviders = (ui: React.ReactElement, options = {}) => {
 };
 
 /**
- * Setup mocks for Convex auth modules
- * Call this in test files that use auth-dependent components
+ * Setup mocks for Convex modules
+ * Call this in test files that use Convex-dependent components
  */
-export const setupAuthMocks = () => {
+export const setupConvexMocks = () => {
   // Mock the convex/react module
   vi.mock('convex/react', () => ({
-    useConvexAuth: () => mockConvexAuth,
     useQuery: vi.fn(() => null),
     useMutation: vi.fn(() => vi.fn()),
     ConvexReactClient: vi.fn(),
-  }));
-
-  // Mock the @convex-dev/auth/react module
-  vi.mock('@convex-dev/auth/react', () => ({
-    useAuthActions: () => ({
-      signIn: vi.fn(),
-      signOut: vi.fn(),
-      signUp: vi.fn(),
-    }),
-    ConvexAuthProvider: ({ children }: any) => children,
+    ConvexProvider: ({ children }: any) => children,
   }));
 
   // Mock the generated API
   vi.mock('../../convex/_generated/api', () => ({
     api: {
       userProfiles: {
-        getCurrentUser: vi.fn(),
         updateUserStats: vi.fn(),
         getLeaderboard: vi.fn(),
         getCurrentUserProfile: vi.fn(),
@@ -114,11 +77,9 @@ export const createMockQuizSession = (overrides = {}) => ({
 });
 
 export default {
-  mockConvexAuth,
-  createMockUseAuth,
   TestWrapper,
   renderWithProviders,
-  setupAuthMocks,
+  setupConvexMocks,
   createMockUser,
   createMockQuizSession,
 };

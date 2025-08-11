@@ -1,10 +1,7 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
-import { authTables } from "@convex-dev/auth/server";
 
 export default defineSchema({
-  ...authTables, // Official Convex Auth tables
-  
   // TEMPORARY: Override users table to allow existing medical fields during migration
   users: defineTable({
     // Standard Convex Auth fields
