@@ -8,18 +8,24 @@ export const clearUserData = mutation({
     
     let deletedCounts = {
       users: 0,
+      userProfiles: 0,
       userSessions: 0,
       quizSessions: 0,
+      quiz_sessions: 0,
       analytics: 0,
       attempts: 0,
       bookmarks: 0,
       flaggedQuestions: 0,
       friendships: 0,
+      studyGroups: 0,
       challenges: 0,
+      contentReviews: 0,
       notifications: 0,
       auditLog: 0,
       seenQuestions: 0,
       quizResults: 0,
+      leaderboard: 0,
+      metrics: 0,
     };
     
     try {
@@ -28,6 +34,13 @@ export const clearUserData = mutation({
       for (const user of users) {
         await ctx.db.delete(user._id);
         deletedCounts.users++;
+      }
+      
+      // Clear userProfiles table  
+      const userProfiles = await ctx.db.query("userProfiles").collect();
+      for (const profile of userProfiles) {
+        await ctx.db.delete(profile._id);
+        deletedCounts.userProfiles++;
       }
       
       // Clear userSessions table  
@@ -113,6 +126,41 @@ export const clearUserData = mutation({
         deletedCounts.quizResults++;
       }
       
+      // Clear quiz_sessions (backward compatibility table)
+      const quiz_sessions = await ctx.db.query("quiz_sessions").collect();
+      for (const session of quiz_sessions) {
+        await ctx.db.delete(session._id);
+        deletedCounts.quiz_sessions++;
+      }
+      
+      // Clear leaderboard
+      const leaderboard = await ctx.db.query("leaderboard").collect();
+      for (const entry of leaderboard) {
+        await ctx.db.delete(entry._id);
+        deletedCounts.leaderboard++;
+      }
+      
+      // Clear study groups
+      const studyGroups = await ctx.db.query("studyGroups").collect();
+      for (const group of studyGroups) {
+        await ctx.db.delete(group._id);
+        deletedCounts.studyGroups++;
+      }
+      
+      // Clear content reviews
+      const contentReviews = await ctx.db.query("contentReviews").collect();
+      for (const review of contentReviews) {
+        await ctx.db.delete(review._id);
+        deletedCounts.contentReviews++;
+      }
+      
+      // Clear metrics (user-specific metrics)
+      const metrics = await ctx.db.query("metrics").collect();
+      for (const metric of metrics) {
+        await ctx.db.delete(metric._id);
+        deletedCounts.metrics++;
+      }
+      
       console.log("✅ Database clearing completed:", deletedCounts);
       
       return {
@@ -140,18 +188,24 @@ export const verifyDatabaseEmpty = mutation({
   handler: async (ctx) => {
     const counts = {
       users: (await ctx.db.query("users").collect()).length,
+      userProfiles: (await ctx.db.query("userProfiles").collect()).length,
       userSessions: (await ctx.db.query("userSessions").collect()).length,
       quizSessions: (await ctx.db.query("quizSessions").collect()).length,
+      quiz_sessions: (await ctx.db.query("quiz_sessions").collect()).length,
       analytics: (await ctx.db.query("analytics").collect()).length,
       attempts: (await ctx.db.query("attempts").collect()).length,
       bookmarks: (await ctx.db.query("bookmarks").collect()).length,
       flaggedQuestions: (await ctx.db.query("flaggedQuestions").collect()).length,
       friendships: (await ctx.db.query("friendships").collect()).length,
+      studyGroups: (await ctx.db.query("studyGroups").collect()).length,
       challenges: (await ctx.db.query("challenges").collect()).length,
+      contentReviews: (await ctx.db.query("contentReviews").collect()).length,
       notifications: (await ctx.db.query("notifications").collect()).length,
       auditLog: (await ctx.db.query("auditLog").collect()).length,
       seenQuestions: (await ctx.db.query("seenQuestions").collect()).length,
       quizResults: (await ctx.db.query("quizResults").collect()).length,
+      leaderboard: (await ctx.db.query("leaderboard").collect()).length,
+      metrics: (await ctx.db.query("metrics").collect()).length,
     };
     
     const totalRecords = Object.values(counts).reduce((sum, count) => sum + count, 0);
@@ -160,6 +214,34 @@ export const verifyDatabaseEmpty = mutation({
       isEmpty: totalRecords === 0,
       counts,
       totalRecords,
+      timestamp: Date.now(),
+    };
+  },
+});
+
+// Verify what data will be preserved (questions, tags, system config)
+export const verifyPreservedData = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const preservedData = {
+      questions: (await ctx.db.query("questions").collect()).length,
+      tags: (await ctx.db.query("tags").collect()).length,
+      systemConfig: (await ctx.db.query("systemConfig").collect()).length,
+    };
+    
+    // Get a sample of questions to verify they exist
+    const sampleQuestions = await ctx.db.query("questions").take(5);
+    const questionSamples = sampleQuestions.map(q => ({
+      id: q._id,
+      question: q.question.substring(0, 50) + "...",
+      category: q.category,
+      difficulty: q.difficulty,
+    }));
+    
+    return {
+      preservedData,
+      questionSamples,
+      message: "This data will be preserved after user data cleanup",
       timestamp: Date.now(),
     };
   },

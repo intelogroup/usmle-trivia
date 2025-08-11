@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery } from 'convex/react';
 import { api } from '../../convex/_generated/api';
-import { useAuth } from '../services/convexAuth';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
@@ -23,11 +22,11 @@ export const Leaderboard: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<LeaderboardCategory>('all');
   const [selectedLevel, setSelectedLevel] = useState<string>('all');
   
-  // Get current user information
-  const { user } = useAuth();
+  // Mock user for demo purposes
+  const user = { name: 'Demo User', _id: 'demo-user' };
   
   // Fetch leaderboard data from Convex backend
-  const leaderboardData = useQuery(api.auth.getLeaderboard, { 
+  const leaderboardData = useQuery(api.userProfiles.getLeaderboard, { 
     limit: 50 // Get top 50 users for comprehensive leaderboard
   });
   

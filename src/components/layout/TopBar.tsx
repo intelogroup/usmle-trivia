@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, Bell, Search, User, LogOut, Settings, Stethoscope, Moon, Sun, Trophy } from 'lucide-react';
+import { Menu, Bell, Search, User, Settings, Stethoscope, Moon, Sun, Trophy } from 'lucide-react';
 import { useAppStore } from '../../store';
-import { useAuth } from '../../services/convexAuth';
 import { useNavigate } from 'react-router-dom';
 
 export const TopBar: React.FC = () => {
   const { toggleSidebar, theme, toggleTheme } = useAppStore();
-  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  
+  // Mock user data for demo purposes (remove when implementing new auth)
+  const user = { name: 'Demo User', email: 'demo@example.com', points: 1250 };
 
   // Close dropdown when clicking outside or pressing escape
   useEffect(() => {
@@ -125,15 +126,16 @@ export const TopBar: React.FC = () => {
                 </button>
                 
                 <button
-                  onClick={async () => {
+                  onClick={() => {
                     setUserMenuOpen(false);
-                    await logout();
-                    navigate('/login');
+                    // No logout functionality without auth
+                    console.log('Logout clicked - will be implemented with new auth provider');
                   }}
-                  className="flex items-center gap-2 w-full px-3 py-2 text-sm rounded-md hover:bg-accent text-destructive hover:text-destructive transition-colors"
+                  className="flex items-center gap-2 w-full px-3 py-2 text-sm rounded-md hover:bg-accent text-muted-foreground cursor-not-allowed"
+                  disabled
                 >
-                  <LogOut className="w-4 h-4" />
-                  Logout
+                  <Settings className="w-4 h-4" />
+                  Logout (Coming Soon)
                 </button>
               </div>
             </div>

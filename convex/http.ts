@@ -1,9 +1,8 @@
 import { httpRouter } from "convex/server";
-import { auth } from "./auth";
 
 const http = httpRouter();
 
-// Handle auth routes
-auth.addHttpRoutes(http);
+// HTTP routes will be configured here when needed
+// No auth routes since authentication has been removed
 
 export default http;
