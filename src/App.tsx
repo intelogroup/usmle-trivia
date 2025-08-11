@@ -33,7 +33,7 @@ function App() {
       validateEnvironment();
       if (isDevelopment()) {
         logEnvironmentInfo();
-        console.log('🚀 Running MedQuiz Pro with Clerk Authentication');
+        console.log('🚀 Running Usmle Trivia with Clerk Authentication');
       }
     } catch (error) {
       console.error('❌ Environment configuration error:', error);
