@@ -15,7 +15,7 @@ export const Landing: React.FC = () => {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-2">
               <Stethoscope className="h-6 w-6 text-blue-600" />
-              <span className="text-xl font-semibold text-gray-900">MedQuiz Pro</span>
+              <span className="text-xl font-semibold text-gray-900">Usmle Trivia</span>
             </div>
             <div className="flex items-center space-x-4">
               <SignedOut>
@@ -179,7 +179,7 @@ export const Landing: React.FC = () => {
       {/* Footer */}
       <footer className="bg-gray-900 text-gray-400 py-8 px-6">
         <div className="max-w-6xl mx-auto text-center">
-          <p>&copy; 2025 MedQuiz Pro. All rights reserved.</p>
+          <p>&copy; 2025 Usmle Trivia. All rights reserved.</p>
         </div>
       </footer>
     </div>

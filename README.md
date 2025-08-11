@@ -1,10 +1,10 @@
-# 🏥 MedQuiz Pro - USMLE Medical Quiz Platform
+# 🏥 Usmle Trivia - USMLE Medical Quiz Platform
 
 > **Enterprise-Grade Medical Education Platform with Clerk Authentication & Convex Real-Time Database**
 
 ## 🎯 Overview
 
-MedQuiz Pro is a comprehensive medical quiz application designed for USMLE preparation, featuring interactive medical questions, real-time progress tracking, and professional authentication. The platform rivals industry leaders like UWorld and AMBOSS with its advanced feature set and modern architecture.
+Usmle Trivia is a comprehensive medical quiz application designed for USMLE preparation, featuring interactive medical questions, real-time progress tracking, and professional authentication. The platform rivals industry leaders like UWorld and AMBOSS with its advanced feature set and modern architecture.
 
 ## ✨ Key Features
 
@@ -204,15 +204,34 @@ Phone: +15555550100
 - [ ] Test authentication flow
 - [ ] Verify database permissions
 
-### **Netlify Deployment**
+### **Netlify Deployment - usmle-trivia.netlify.app**
+
+**Domain**: `https://usmle-trivia.netlify.app`
+
+#### **Manual Deployment**
 ```bash
 # Build and deploy
 npm run build
 npm run netlify:deploy:prod
 
-# Or use CI/CD with git push to main branch
+# Verify deployment
+npm run preview
+```
+
+#### **Automated CI/CD Deployment** 
+```bash
+# Push to main branch triggers automatic deployment
+git add .
+git commit -m "feat: update for production deployment"
 git push origin main
 ```
+
+#### **Environment Configuration**
+- **Site Name**: `usmle-trivia`
+- **Build Command**: `npm run build`
+- **Publish Directory**: `dist`
+- **Node Version**: 20
+- **Environment Variables**: Set in Netlify Dashboard
 
 ## 📊 Analytics & Monitoring
 
