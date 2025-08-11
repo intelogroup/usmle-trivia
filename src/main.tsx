@@ -1,8 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ConvexReactClient } from "convex/react"
-import { ConvexProvider } from "convex/react"
 import { ClerkProvider } from "@clerk/clerk-react"
+import { ConvexClerkProvider } from './providers/ConvexClerkProvider'
 import { getConvexUrl, logEnvironmentInfo } from './utils/envValidation'
 import './index.css'
 import App from './App.tsx'
@@ -27,7 +27,7 @@ try {
   }
 }
 
-// Initialize Convex client with validated URL
+// Initialize Convex client with validated URL and authentication
 const convex = new ConvexReactClient(getConvexUrl())
 
 // Get Clerk publishable key
@@ -40,9 +40,9 @@ if (!CLERK_PUBLISHABLE_KEY) {
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY} afterSignOutUrl="/">
-      <ConvexProvider client={convex}>
+      <ConvexClerkProvider client={convex}>
         <App />
-      </ConvexProvider>
+      </ConvexClerkProvider>
     </ClerkProvider>
   </StrictMode>,
 )

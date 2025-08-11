@@ -54,6 +54,8 @@
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.40.0",
+    "@clerk/nextjs": "^6.30.0",
+    "@convex-dev/auth": "^0.0.88",
     "@missionsquad/mcp-github": "^0.10.7",
     "@netlify/mcp": "^1.10.0",
     "@radix-ui/react-collapsible": "^1.1.11",
