@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Console for Usmle Trivia</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #1e1e1e;
+            color: #fff;
+            padding: 20px;
+        }
+        .console-output {
+            background: #000;
+            padding: 15px;
+            border-radius: 5px;
+            min-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        .error { color: #ff6b6b; }
+        .warn { color: #feca57; }
+        .info { color: #48cae4; }
+        .log { color: #a8e6cf; }
+        #iframe-container {
+            width: 100%;
+            height: 600px;
+            border: 2px solid #555;
+            margin: 20px 0;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        button {
+            background: #0984e3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #0770cc;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Usmle Trivia Debug Console</h1>
+    <div>
+        <button onclick="loadApp()">🚀 Load Live App</button>
+        <button onclick="clearConsole()">🧹 Clear Console</button>
+        <button onclick="checkNetworkErrors()">🌐 Check Network</button>
+    </div>
+    
+    <div id="iframe-container">
+        <iframe id="app-iframe" src="about:blank"></iframe>
+    </div>
+    
+    <div>
+        <h2>📋 Console Output:</h2>
+        <div id="console-output" class="console-output">
+            Waiting for app to load...
+        </div>
+    </div>
+
+    <script>
+        let consoleOutput = document.getElementById('console-output');
+        let appIframe = document.getElementById('app-iframe');
+        let logs = [];
+
+        function log(level, message, ...args) {
+            const timestamp = new Date().toLocaleTimeString();
+            const fullMessage = `[${timestamp}] ${level.toUpperCase()}: ${message} ${args.length ? args.map(a => JSON.stringify(a, null, 2)).join(' ') : ''}`;
+            logs.push(fullMessage);
+            
+            const div = document.createElement('div');
+            div.className = level;
+            div.textContent = fullMessage;
+            consoleOutput.appendChild(div);
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+
+        // Override console methods to capture logs
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+        const originalInfo = console.info;
+
+        console.log = function(...args) {
+            log('log', '', ...args);
+            originalLog.apply(console, args);
+        };
+
+        console.error = function(...args) {
+            log('error', '', ...args);
+            originalError.apply(console, args);
+        };
+
+        console.warn = function(...args) {
+            log('warn', '', ...args);
+            originalWarn.apply(console, args);
+        };
+
+        console.info = function(...args) {
+            log('info', '', ...args);
+            originalInfo.apply(console, args);
+        };
+
+        function loadApp() {
+            log('info', '🚀 Loading Usmle Trivia app...');
+            
+            // Listen for iframe load events
+            appIframe.onload = function() {
+                log('info', '✅ Iframe loaded successfully');
+                
+                try {
+                    // Try to access iframe console (will fail for cross-origin)
+                    const iframeWindow = appIframe.contentWindow;
+                    const iframeDocument = appIframe.contentDocument;
+                    
+                    if (iframeDocument && iframeWindow) {
+                        log('info', '📄 Iframe document accessible');
+                        
+                        // Override console methods in iframe
+                        const iframeConsole = iframeWindow.console;
+                        if (iframeConsole) {
+                            const originalIframeError = iframeConsole.error;
+                            const originalIframeLog = iframeConsole.log;
+                            const originalIframeWarn = iframeConsole.warn;
+                            
+                            iframeConsole.error = function(...args) {
+                                log('error', '[IFRAME]', ...args);
+                                originalIframeError.apply(iframeConsole, args);
+                            };
+                            
+                            iframeConsole.log = function(...args) {
+                                log('log', '[IFRAME]', ...args);
+                                originalIframeLog.apply(iframeConsole, args);
+                            };
+                            
+                            iframeConsole.warn = function(...args) {
+                                log('warn', '[IFRAME]', ...args);
+                                originalIframeWarn.apply(iframeConsole, args);
+                            };
+                        }
+                        
+                        // Listen for errors in iframe
+                        iframeWindow.addEventListener('error', function(e) {
+                            log('error', '[IFRAME ERROR]', {
+                                message: e.message,
+                                filename: e.filename,
+                                line: e.lineno,
+                                column: e.colno,
+                                stack: e.error ? e.error.stack : 'No stack trace'
+                            });
+                        });
+                        
+                        // Listen for unhandled promise rejections in iframe
+                        iframeWindow.addEventListener('unhandledrejection', function(e) {
+                            log('error', '[IFRAME PROMISE REJECTION]', e.reason);
+                        });
+                        
+                    }
+                } catch (e) {
+                    log('warn', '⚠️ Cannot access iframe contents (cross-origin):', e.message);
+                    log('info', '📝 Will monitor from parent window instead');
+                }
+            };
+            
+            appIframe.onerror = function(e) {
+                log('error', '🚨 Iframe failed to load:', e);
+            };
+            
+            // Load the live app
+            appIframe.src = 'https://usmle-trivia.netlify.app';
+        }
+
+        function clearConsole() {
+            consoleOutput.innerHTML = 'Console cleared...';
+            logs = [];
+        }
+
+        function checkNetworkErrors() {
+            log('info', '🌐 Checking network connectivity...');
+            
+            fetch('https://usmle-trivia.netlify.app')
+                .then(response => {
+                    log('info', `✅ Network check: ${response.status} ${response.statusText}`);
+                    return response.text();
+                })
+                .then(html => {
+                    if (html.includes('<!DOCTYPE html>')) {
+                        log('info', '✅ HTML content received');
+                    } else {
+                        log('warn', '⚠️ Unexpected content type');
+                    }
+                })
+                .catch(error => {
+                    log('error', '🚨 Network error:', error.message);
+                });
+        }
+
+        // Global error handlers
+        window.addEventListener('error', function(e) {
+            log('error', '[GLOBAL ERROR]', {
+                message: e.message,
+                filename: e.filename,
+                line: e.lineno,
+                column: e.colno,
+                stack: e.error ? e.error.stack : 'No stack trace'
+            });
+        });
+
+        window.addEventListener('unhandledrejection', function(e) {
+            log('error', '[GLOBAL PROMISE REJECTION]', e.reason);
+        });
+
+        // Initial load
+        setTimeout(() => {
+            log('info', '🔧 Debug console initialized');
+            log('info', '👆 Click "Load Live App" to start debugging');
+        }, 100);
+    </script>
+</body>
+</html>
