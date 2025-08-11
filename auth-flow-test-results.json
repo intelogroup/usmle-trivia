@@ -1,0 +1,61 @@
+{
+  "timestamp": "2025-08-10T23:30:16.573Z",
+  "tests": [
+    {
+      "name": "Application Loads",
+      "status": "FAIL",
+      "details": "net::ERR_CONNECTION_REFUSED at http://localhost:5173",
+      "timestamp": "2025-08-10T23:30:17.190Z"
+    },
+    {
+      "name": "Auth Redirect Working",
+      "status": "FAIL",
+      "details": "page.waitForTimeout is not a function",
+      "timestamp": "2025-08-10T23:30:17.192Z"
+    },
+    {
+      "name": "Login Form Elements",
+      "status": "FAIL",
+      "details": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/login",
+      "timestamp": "2025-08-10T23:30:17.240Z"
+    },
+    {
+      "name": "Login with Test Credentials",
+      "status": "FAIL",
+      "details": "Execution context was destroyed, most likely because of a navigation.",
+      "timestamp": "2025-08-10T23:30:17.279Z"
+    },
+    {
+      "name": "Registration Form Elements",
+      "status": "FAIL",
+      "details": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/register",
+      "timestamp": "2025-08-10T23:30:17.293Z"
+    },
+    {
+      "name": "Convex Backend Connectivity",
+      "status": "FAIL",
+      "details": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/login",
+      "timestamp": "2025-08-10T23:30:17.314Z"
+    },
+    {
+      "name": "No \"n is not a function\" Error",
+      "status": "FAIL",
+      "details": "page.waitForTimeout is not a function",
+      "timestamp": "2025-08-10T23:30:19.296Z"
+    }
+  ],
+  "summary": {
+    "total": 7,
+    "passed": 0,
+    "failed": 7,
+    "errors": [
+      "Application Loads: net::ERR_CONNECTION_REFUSED at http://localhost:5173",
+      "Auth Redirect Working: page.waitForTimeout is not a function",
+      "Login Form Elements: net::ERR_CONNECTION_REFUSED at http://localhost:5173/login",
+      "Login with Test Credentials: Execution context was destroyed, most likely because of a navigation.",
+      "Registration Form Elements: net::ERR_CONNECTION_REFUSED at http://localhost:5173/register",
+      "Convex Backend Connectivity: net::ERR_CONNECTION_REFUSED at http://localhost:5173/login",
+      "No \"n is not a function\" Error: page.waitForTimeout is not a function"
+    ]
+  }
+}

@@ -1,0 +1,351 @@
+{
+  "timestamp": "2025-08-10T23:40:59.215Z",
+  "tests": [
+    "✅ Site loaded successfully",
+    "Auth hooks available: {\"hasAuth\":false,\"hasConvexAuth\":false,\"reactVersion\":\"Not available\"}",
+    "✅ Registration form submitted",
+    "✅ Login form submitted"
+  ],
+  "errors": [],
+  "networkRequests": [
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/css/index-DHgJvVea.css",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/index-B0fWWtjP.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/state-DYtstKl8.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/vendor-toJsCgd-.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/convex-BUk7Ld6w.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/radix-ui-Dc_FVRD7.js",
+      "status": 200,
+      "headersCount": 17
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/services-DJ4wepkZ.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/react-vendor-BSpJr3PW.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/ui-components-Dzqr7y6S.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/quiz-components-YMY0VTo8.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/questions-data-BygSDF2j.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/Login-B4ScVZVT.js",
+      "status": 200,
+      "headersCount": 18
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/login",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/index-B0fWWtjP.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/vendor-toJsCgd-.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/convex-BUk7Ld6w.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/state-DYtstKl8.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/radix-ui-Dc_FVRD7.js",
+      "status": 200,
+      "headersCount": 17
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/react-vendor-BSpJr3PW.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/services-DJ4wepkZ.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/css/index-DHgJvVea.css",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/Login-B4ScVZVT.js",
+      "status": 200,
+      "headersCount": 18
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/ui-components-Dzqr7y6S.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/quiz-components-YMY0VTo8.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/questions-data-BygSDF2j.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/register",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/index-B0fWWtjP.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/vendor-toJsCgd-.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/convex-BUk7Ld6w.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/state-DYtstKl8.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/radix-ui-Dc_FVRD7.js",
+      "status": 200,
+      "headersCount": 17
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/react-vendor-BSpJr3PW.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/services-DJ4wepkZ.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/css/index-DHgJvVea.css",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/ui-components-Dzqr7y6S.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/quiz-components-YMY0VTo8.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/questions-data-BygSDF2j.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/Register-CufQJGem.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/login",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/index-B0fWWtjP.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/vendor-toJsCgd-.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/convex-BUk7Ld6w.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/state-DYtstKl8.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/radix-ui-Dc_FVRD7.js",
+      "status": 200,
+      "headersCount": 17
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/react-vendor-BSpJr3PW.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/services-DJ4wepkZ.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/css/index-DHgJvVea.css",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/Login-B4ScVZVT.js",
+      "status": 200,
+      "headersCount": 18
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/ui-components-Dzqr7y6S.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/quiz-components-YMY0VTo8.js",
+      "status": 200,
+      "headersCount": 19
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/questions-data-BygSDF2j.js",
+      "status": 200,
+      "headersCount": 19
+    }
+  ],
+  "convexRequests": [
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/convex-BUk7Ld6w.js",
+      "status": 200,
+      "timestamp": "2025-08-10T23:40:59.476Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/convex-BUk7Ld6w.js",
+      "status": 200,
+      "timestamp": "2025-08-10T23:41:00.294Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/convex-BUk7Ld6w.js",
+      "status": 200,
+      "timestamp": "2025-08-10T23:41:02.890Z"
+    },
+    {
+      "method": "GET",
+      "url": "https://usmle-trivia.netlify.app/assets/convex-BUk7Ld6w.js",
+      "status": 200,
+      "timestamp": "2025-08-10T23:41:09.710Z"
+    }
+  ],
+  "authErrors": []
+}

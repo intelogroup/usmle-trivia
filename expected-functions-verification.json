@@ -1,0 +1,280 @@
+{
+  "timestamp": "2025-08-10T23:45:02.520Z",
+  "expectedFunctions": [
+    "analytics.getDashboardMetrics (query)",
+    "analytics.getUserAnalytics (query)",
+    "analytics.getSystemAnalytics (query)",
+    "analytics.trackEvent (mutation)",
+    "analytics.generateDailyMetrics (mutation)",
+    "analytics.trackQuestionAttempt (mutation)",
+    "clearDatabase.clearUserData (mutation)",
+    "clearDatabase.verifyDatabaseEmpty (mutation)",
+    "contentManagement.getQuestionsByStatus (query)",
+    "contentManagement.getPendingReviews (query)",
+    "contentManagement.getContentStats (query)",
+    "contentManagement.createQuestionDraft (mutation)",
+    "contentManagement.submitQuestionForReview (mutation)",
+    "contentManagement.reviewQuestion (mutation)",
+    "contentManagement.moderatorApproval (mutation)",
+    "contentManagement.assignReviewer (mutation)",
+    "contentManagement.flagQuestionContent (mutation)",
+    "contentManagement.bulkUpdateQuestions (mutation)",
+    "quiz.getQuestions (query)",
+    "quiz.getQuestion (query)",
+    "quiz.getRandomQuestions (query)",
+    "quiz.getQuizSession (query)",
+    "quiz.getUserQuizHistory (query)",
+    "quiz.searchQuestions (query)",
+    "quiz.getQuestionsByIds (query)",
+    "quiz.getUserBookmarks (query)",
+    "quiz.getUserQuizResults (query)",
+    "quiz.getUserQuizAnalytics (query)",
+    "quiz.getQuestionPointValues (query)",
+    "quiz.calculateQuizPotentialPoints (query)",
+    "quiz.createQuestion (mutation)",
+    "quiz.createQuizSession (mutation)",
+    "quiz.submitAnswer (mutation)",
+    "quiz.completeQuizSession (mutation)",
+    "quiz.batchCreateQuestions (mutation)",
+    "quiz.bookmarkQuestion (mutation)",
+    "quiz.flagQuestion (mutation)",
+    "quiz.saveQuizResults (mutation)",
+    "quiz.completeQuizWithStats (mutation)",
+    "quizSessionManagement.getResumableQuizzes (query)",
+    "quizSessionManagement.getFreshQuestions (query)",
+    "quizSessionManagement.getUserQuestionStats (query)",
+    "quizSessionManagement.abandonQuizSession (mutation)",
+    "quizSessionManagement.resumeQuizSession (mutation)",
+    "quizSessionManagement.markQuestionToAvoid (mutation)",
+    "quizSessionManagement.cleanupOldAbandonedSessions (mutation)",
+    "social.getUserFriends (query)",
+    "social.getPendingRequests (query)",
+    "social.getUserStudyGroups (query)",
+    "social.getPublicStudyGroups (query)",
+    "social.getUserChallenges (query)",
+    "social.sendFriendRequest (mutation)",
+    "social.acceptFriendRequest (mutation)",
+    "social.removeFriend (mutation)",
+    "social.createStudyGroup (mutation)",
+    "social.joinStudyGroup (mutation)",
+    "social.leaveStudyGroup (mutation)",
+    "social.createChallenge (mutation)",
+    "social.acceptChallenge (mutation)",
+    "social.completeChallenge (mutation)",
+    "systemManagement.getTags (query)",
+    "systemManagement.getUserNotifications (query)",
+    "systemManagement.getNotificationCount (query)",
+    "systemManagement.getSystemConfig (query)",
+    "systemManagement.getSystemHealth (query)",
+    "systemManagement.exportUserData (query)",
+    "systemManagement.getFeatureFlags (query)",
+    "systemManagement.createTag (mutation)",
+    "systemManagement.updateTagUsage (mutation)",
+    "systemManagement.createNotification (mutation)",
+    "systemManagement.markNotificationsRead (mutation)",
+    "systemManagement.setSystemConfig (mutation)",
+    "systemManagement.cleanupExpiredData (mutation)",
+    "systemManagement.setFeatureFlag (mutation)",
+    "userProfiles.getUserProfile (query)",
+    "userProfiles.getCurrentUserProfile (query)",
+    "userProfiles.getCurrentUser (query)",
+    "userProfiles.getLeaderboard (query)",
+    "userProfiles.searchUserProfiles (query)",
+    "userProfiles.createUserProfile (mutation)",
+    "userProfiles.updateUserProfile (mutation)",
+    "userProfiles.updateUserStats (mutation)",
+    "userProfiles.initializeUserProfileFromAuth (mutation)"
+  ],
+  "fileAnalysis": [
+    {
+      "filename": "analytics.ts",
+      "queries": [
+        "getDashboardMetrics",
+        "getUserAnalytics",
+        "getSystemAnalytics"
+      ],
+      "mutations": [
+        "trackEvent",
+        "generateDailyMetrics",
+        "trackQuestionAttempt"
+      ],
+      "httpRoutes": [],
+      "exports": []
+    },
+    {
+      "filename": "auth.ts",
+      "queries": [],
+      "mutations": [],
+      "httpRoutes": [],
+      "exports": [
+        "convexAuth configured",
+        "Password provider"
+      ]
+    },
+    {
+      "filename": "clearDatabase.ts",
+      "queries": [],
+      "mutations": [
+        "clearUserData",
+        "verifyDatabaseEmpty"
+      ],
+      "httpRoutes": [],
+      "exports": []
+    },
+    {
+      "filename": "contentManagement.ts",
+      "queries": [
+        "getQuestionsByStatus",
+        "getPendingReviews",
+        "getContentStats"
+      ],
+      "mutations": [
+        "createQuestionDraft",
+        "submitQuestionForReview",
+        "reviewQuestion",
+        "moderatorApproval",
+        "assignReviewer",
+        "flagQuestionContent",
+        "bulkUpdateQuestions"
+      ],
+      "httpRoutes": [],
+      "exports": []
+    },
+    {
+      "filename": "http.ts",
+      "queries": [],
+      "mutations": [],
+      "httpRoutes": [
+        "HTTP router configured",
+        "Auth routes configured"
+      ],
+      "exports": []
+    },
+    {
+      "filename": "migration.ts",
+      "queries": [],
+      "mutations": [],
+      "httpRoutes": [],
+      "exports": []
+    },
+    {
+      "filename": "quiz.ts",
+      "queries": [
+        "getQuestions",
+        "getQuestion",
+        "getRandomQuestions",
+        "getQuizSession",
+        "getUserQuizHistory",
+        "searchQuestions",
+        "getQuestionsByIds",
+        "getUserBookmarks",
+        "getUserQuizResults",
+        "getUserQuizAnalytics",
+        "getQuestionPointValues",
+        "calculateQuizPotentialPoints"
+      ],
+      "mutations": [
+        "createQuestion",
+        "createQuizSession",
+        "submitAnswer",
+        "completeQuizSession",
+        "batchCreateQuestions",
+        "bookmarkQuestion",
+        "flagQuestion",
+        "saveQuizResults",
+        "completeQuizWithStats"
+      ],
+      "httpRoutes": [],
+      "exports": []
+    },
+    {
+      "filename": "quizSessionManagement.ts",
+      "queries": [
+        "getResumableQuizzes",
+        "getFreshQuestions",
+        "getUserQuestionStats"
+      ],
+      "mutations": [
+        "abandonQuizSession",
+        "resumeQuizSession",
+        "markQuestionToAvoid",
+        "cleanupOldAbandonedSessions"
+      ],
+      "httpRoutes": [],
+      "exports": []
+    },
+    {
+      "filename": "schema.ts",
+      "queries": [],
+      "mutations": [],
+      "httpRoutes": [],
+      "exports": []
+    },
+    {
+      "filename": "social.ts",
+      "queries": [
+        "getUserFriends",
+        "getPendingRequests",
+        "getUserStudyGroups",
+        "getPublicStudyGroups",
+        "getUserChallenges"
+      ],
+      "mutations": [
+        "sendFriendRequest",
+        "acceptFriendRequest",
+        "removeFriend",
+        "createStudyGroup",
+        "joinStudyGroup",
+        "leaveStudyGroup",
+        "createChallenge",
+        "acceptChallenge",
+        "completeChallenge"
+      ],
+      "httpRoutes": [],
+      "exports": []
+    },
+    {
+      "filename": "systemManagement.ts",
+      "queries": [
+        "getTags",
+        "getUserNotifications",
+        "getNotificationCount",
+        "getSystemConfig",
+        "getSystemHealth",
+        "exportUserData",
+        "getFeatureFlags"
+      ],
+      "mutations": [
+        "createTag",
+        "updateTagUsage",
+        "createNotification",
+        "markNotificationsRead",
+        "setSystemConfig",
+        "cleanupExpiredData",
+        "setFeatureFlag"
+      ],
+      "httpRoutes": [],
+      "exports": []
+    },
+    {
+      "filename": "userProfiles.ts",
+      "queries": [
+        "getUserProfile",
+        "getCurrentUserProfile",
+        "getCurrentUser",
+        "getLeaderboard",
+        "searchUserProfiles"
+      ],
+      "mutations": [
+        "createUserProfile",
+        "updateUserProfile",
+        "updateUserStats",
+        "initializeUserProfileFromAuth"
+      ],
+      "httpRoutes": [],
+      "exports": []
+    }
+  ],
+  "httpRoutes": [],
+  "issues": []
+}

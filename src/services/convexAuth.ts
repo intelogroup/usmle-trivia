@@ -14,7 +14,7 @@ import type { IUser } from "../types";
 export function useAuth() {
   // Official Convex Auth hooks
   const { isLoading: convexLoading, isAuthenticated } = useConvexAuth();
-  const { signIn, signOut, signUp } = useAuthActions();
+  const { signIn, signOut } = useAuthActions();
   
   // Get current user data from our userProfiles table
   const user = useQuery(api.userProfiles.getCurrentUser) as IUser | null;
@@ -24,14 +24,18 @@ export function useAuth() {
 
   /**
    * Register a new user with email and password
+   * Note: Convex Auth uses signIn for both registration and login
+   * The Password provider will create a new user if one doesn't exist
    */
   const register = async (email: string, password: string, name: string, medicalLevel?: string, studyGoals?: string) => {
     try {
-      // Use official Convex Auth signUp
-      await signUp("password", { 
+      // For registration, we use signIn with flow: "signUp"
+      // The Password provider will create the user if they don't exist
+      await signIn("password", { 
         email, 
         password, 
         name,
+        flow: "signUp", // This tells Convex Auth to create a new user
         // Additional medical fields will be handled by userProfiles creation
         medicalLevel,
         studyGoals
@@ -51,8 +55,12 @@ export function useAuth() {
    */
   const login = async (email: string, password: string) => {
     try {
-      // Use official Convex Auth signIn
-      await signIn("password", { email, password });
+      // Use official Convex Auth signIn with flow: "signIn"
+      await signIn("password", { 
+        email, 
+        password,
+        flow: "signIn" // This tells Convex Auth to sign in existing user
+      });
       return { success: true };
     } catch (error: any) {
       console.error('Login error:', error);
@@ -91,10 +99,9 @@ export function useAuth() {
     logout,
     register,
     
-    // Additional utilities
+    // Additional utilities for direct use
     signIn,
     signOut,
-    signUp,
   };
 }
 

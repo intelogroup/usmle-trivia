@@ -1,0 +1,26 @@
+{
+  "timestamp": "2025-08-10T23:38:21.331Z",
+  "testResults": [
+    "✅ Homepage loaded successfully",
+    "⚠️ Registration completed but redirected to login",
+    "❌ Login failed - no dashboard indicators found",
+    "❌ Known credentials login failed"
+  ],
+  "screenshots": [
+    "production-auth-01-homepage.png",
+    "production-auth-02-register-page.png",
+    "production-auth-03-register-filled.png",
+    "production-auth-04-after-registration.png",
+    "production-auth-05-login-page.png",
+    "production-auth-06-login-filled.png",
+    "production-auth-07-after-login.png",
+    "production-auth-10-known-credentials.png",
+    "production-auth-11-known-login-result.png",
+    "production-auth-12-final-state.png"
+  ],
+  "errors": [
+    "Login Error: [CONVEX A(auth:signIn)] [Request ID: c47ed1530aa2a8c3] Server Error\n  Called by client",
+    "Known Credentials Error: [CONVEX A(auth:signIn)] [Request ID: 1f3f8542cf76d95c] Server Error\n  Called by client"
+  ],
+  "networkLogs": []
+}

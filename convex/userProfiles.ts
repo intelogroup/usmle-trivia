@@ -81,23 +81,26 @@ export const getCurrentUserProfile = query({
 export const getCurrentUser = query({
   args: {},
   handler: async (ctx) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      return null;
-    }
-    
-    // Get or create user profile
-    let profile = await ctx.db
-      .query("userProfiles")
-      .withIndex("by_user", q => q.eq("userId", identity.subject))
-      .first();
-    
-    // Auto-create profile if it doesn't exist
-    if (!profile) {
-      console.log(`🏥 Auto-creating profile for user ${identity.subject}`);
-      const profileId = await ctx.db.insert("userProfiles", {
-        userId: identity.subject,
-        email: identity.email || "",
+    try {
+      const identity = await ctx.auth.getUserIdentity();
+      if (!identity) {
+        return null;
+      }
+      
+      // Get or create user profile
+      let profile = await ctx.db
+        .query("userProfiles")
+        .withIndex("by_user", q => q.eq("userId", identity.subject))
+        .first();
+      
+      // Auto-create profile if it doesn't exist
+      if (!profile) {
+        console.log(`🏥 Auto-creating profile for user ${identity.subject}`);
+        
+        try {
+          const profileId = await ctx.db.insert("userProfiles", {
+            userId: identity.subject,
+            email: identity.email || "",
         name: identity.name || "Medical Student",
         medicalLevel: "Medical Student",
         studyGoals: "USMLE Preparation",
@@ -114,34 +117,62 @@ export const getCurrentUser = query({
         streakFreezeCount: 3,
       });
       
-      profile = await ctx.db.get(profileId);
-    }
-    
-    if (!profile) {
+          profile = await ctx.db.get(profileId);
+        } catch (error) {
+          console.error(`❌ Failed to auto-create profile:`, error);
+          // Return basic user info even if profile creation fails
+          return {
+            id: identity.subject,
+            _id: identity.subject,
+            email: identity.email || "",
+            name: identity.name || "Medical Student",
+            role: "user",
+            points: 0,
+            level: 1,
+            currentStreak: 0,
+            longestStreak: 0,
+            totalQuizzes: 0,
+            accuracy: 0,
+            medicalLevel: "Medical Student",
+            studyGoals: "USMLE Preparation",
+            lastStudyDate: new Date().toISOString().split('T')[0],
+            streakFreezeCount: 3,
+            isActive: true,
+            createdAt: Date.now(),
+            updatedAt: Date.now(),
+          };
+        }
+      }
+      
+      if (!profile) {
+        return null;
+      }
+      
+      // Return combined user data in IUser format
+      return {
+        id: profile.userId,
+        _id: profile.userId, // For compatibility
+        email: profile.email || identity.email || "",
+        name: profile.name || identity.name || "Medical Student",
+        role: "user",
+        points: profile.points || 0,
+        level: profile.level || 1,
+        currentStreak: profile.currentStreak || 0,
+        longestStreak: profile.longestStreak || 0,
+        totalQuizzes: profile.totalQuizzes || 0,
+        accuracy: profile.accuracy || 0,
+        medicalLevel: profile.medicalLevel || "Medical Student",
+        studyGoals: profile.studyGoals || "USMLE Preparation",
+        lastStudyDate: profile.lastStudyDate || new Date().toISOString().split('T')[0],
+        streakFreezeCount: profile.streakFreezeCount || 3,
+        isActive: profile.isActive !== false,
+        createdAt: profile.createdAt || Date.now(),
+        updatedAt: profile.updatedAt || Date.now(),
+      };
+    } catch (error) {
+      console.error(`❌ Error in getCurrentUser:`, error);
       return null;
     }
-    
-    // Return combined user data in IUser format
-    return {
-      id: profile.userId,
-      _id: profile.userId, // For compatibility
-      email: profile.email || identity.email || "",
-      name: profile.name || identity.name || "Medical Student",
-      role: "user",
-      points: profile.points || 0,
-      level: profile.level || 1,
-      currentStreak: profile.currentStreak || 0,
-      longestStreak: profile.longestStreak || 0,
-      totalQuizzes: profile.totalQuizzes || 0,
-      accuracy: profile.accuracy || 0,
-      medicalLevel: profile.medicalLevel || "Medical Student",
-      studyGoals: profile.studyGoals || "USMLE Preparation",
-      lastStudyDate: profile.lastStudyDate || new Date().toISOString().split('T')[0],
-      streakFreezeCount: profile.streakFreezeCount || 3,
-      isActive: profile.isActive !== false,
-      createdAt: profile.createdAt || Date.now(),
-      updatedAt: profile.updatedAt || Date.now(),
-    };
   },
 });
 

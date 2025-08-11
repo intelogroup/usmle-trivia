@@ -1,0 +1,130 @@
+Focused Test with credentials: {
+  email: 'test-auth-focused-2025-08-11T00-29-50-457Z@medquiz.test',
+  name: 'Focused Test User'
+}
+Testing with credentials: {
+  email: 'test-auth-2025-08-11T00-29-50-463Z@medquiz.test',
+  name: 'Auth Test User',
+  password: '***HIDDEN***'
+}
+{
+  "config": {
+    "configFile": "/root/repo/playwright.config.js",
+    "rootDir": "/root/repo",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {},
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/root/repo/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/root/repo",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 120000
+      },
+      {
+        "outputDir": "/root/repo/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Mobile Chrome",
+        "name": "Mobile Chrome",
+        "testDir": "/root/repo",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 120000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.54.2",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [],
+  "errors": [
+    {
+      "message": "TypeError: Cannot redefine property: Symbol($$jest-matchers-object)",
+      "stack": "TypeError: Cannot redefine property: Symbol($$jest-matchers-object)\n    at /root/repo/node_modules/vitest/node_modules/@vitest/expect/dist/index.js:589:10"
+    },
+    {
+      "message": "SyntaxError: The requested module '@convex-dev/auth/react' does not provide an export named 'useConvexAuth'",
+      "stack": "SyntaxError: The requested module '@convex-dev/auth/react' does not provide an export named 'useConvexAuth'"
+    },
+    {
+      "message": "TypeError: Cannot redefine property: Symbol($$jest-matchers-object)",
+      "stack": "TypeError: Cannot redefine property: Symbol($$jest-matchers-object)\n    at /root/repo/node_modules/vitest/node_modules/@vitest/expect/dist/index.js:589:10"
+    },
+    {
+      "message": "TypeError: Cannot redefine property: Symbol($$jest-matchers-object)",
+      "stack": "TypeError: Cannot redefine property: Symbol($$jest-matchers-object)\n    at /root/repo/node_modules/vitest/node_modules/@vitest/expect/dist/index.js:589:10"
+    },
+    {
+      "message": "TypeError: Cannot redefine property: Symbol($$jest-matchers-object)",
+      "stack": "TypeError: Cannot redefine property: Symbol($$jest-matchers-object)\n    at /root/repo/node_modules/vitest/node_modules/@vitest/expect/dist/index.js:589:10"
+    },
+    {
+      "message": "TypeError: Cannot redefine property: Symbol($$jest-matchers-object)",
+      "stack": "TypeError: Cannot redefine property: Symbol($$jest-matchers-object)\n    at /root/repo/node_modules/vitest/node_modules/@vitest/expect/dist/index.js:589:10"
+    },
+    {
+      "message": "SyntaxError: The requested module '@convex-dev/auth/react' does not provide an export named 'useConvexAuth'",
+      "stack": "SyntaxError: The requested module '@convex-dev/auth/react' does not provide an export named 'useConvexAuth'"
+    },
+    {
+      "message": "TypeError: Cannot redefine property: Symbol($$jest-matchers-object)",
+      "stack": "TypeError: Cannot redefine property: Symbol($$jest-matchers-object)\n    at /root/repo/node_modules/vitest/node_modules/@vitest/expect/dist/index.js:589:10"
+    },
+    {
+      "message": "TypeError: Cannot redefine property: Symbol($$jest-matchers-object)",
+      "stack": "TypeError: Cannot redefine property: Symbol($$jest-matchers-object)\n    at /root/repo/node_modules/vitest/node_modules/@vitest/expect/dist/index.js:589:10"
+    },
+    {
+      "message": "TypeError: Cannot redefine property: Symbol($$jest-matchers-object)",
+      "stack": "TypeError: Cannot redefine property: Symbol($$jest-matchers-object)\n    at /root/repo/node_modules/vitest/node_modules/@vitest/expect/dist/index.js:589:10"
+    },
+    {
+      "message": "TypeError: Cannot redefine property: Symbol($$jest-matchers-object)",
+      "stack": "TypeError: Cannot redefine property: Symbol($$jest-matchers-object)\n    at /root/repo/node_modules/vitest/node_modules/@vitest/expect/dist/index.js:589:10"
+    },
+    {
+      "message": "Error: No tests found",
+      "stack": "Error: No tests found"
+    }
+  ],
+  "stats": {
+    "startTime": "2025-08-11T00:29:50.296Z",
+    "duration": 2507.842,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

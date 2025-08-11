@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-08-11T00:16:36.664Z",
+  "loginCredentials": {
+    "email": "jayveedz19@gmail.com"
+  },
+  "results": {
+    "loginSuccess": false
+  },
+  "consoleErrors": [],
+  "screenshots": [
+    "/root/repo/final-login-01-page.png",
+    "/root/repo/final-login-02-filled.png",
+    "/root/repo/final-login-03-result.png"
+  ],
+  "overallSuccess": false
+}

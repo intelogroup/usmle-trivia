@@ -1,0 +1,555 @@
+{
+  "timestamp": "2025-08-11T00:33:43.462Z",
+  "tests": {
+    "registration": {
+      "testData": {
+        "name": "Network Test User",
+        "email": "network-test-1754872426766@medquiz.test",
+        "password": "NetworkTest2025!"
+      },
+      "currentUrl": "https://usmle-trivia.netlify.app/register",
+      "wasRedirected": false,
+      "newRequests": 0,
+      "requestDetails": []
+    },
+    "login": {
+      "currentUrl": "https://usmle-trivia.netlify.app/login",
+      "wasRedirected": false,
+      "newRequests": 0,
+      "requestDetails": []
+    }
+  },
+  "networkRequests": [
+    {
+      "url": "https://usmle-trivia.netlify.app/register",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:43.470Z",
+      "headers": {
+        "upgrade-insecure-requests": "1",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Linux\""
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/index-B0fWWtjP.js",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:43.762Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://usmle-trivia.netlify.app/register",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/vendor-toJsCgd-.js",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:43.762Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://usmle-trivia.netlify.app/register",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/convex-BUk7Ld6w.js",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:43.763Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://usmle-trivia.netlify.app/register",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/state-DYtstKl8.js",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:43.764Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://usmle-trivia.netlify.app/register",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/radix-ui-Dc_FVRD7.js",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:43.764Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://usmle-trivia.netlify.app/register",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/react-vendor-BSpJr3PW.js",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:43.764Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://usmle-trivia.netlify.app/register",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/services-DJ4wepkZ.js",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:43.765Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://usmle-trivia.netlify.app/register",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/css/index-DHgJvVea.css",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:43.765Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://usmle-trivia.netlify.app/register",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/Register-CufQJGem.js",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:43.996Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/ui-components-Dzqr7y6S.js",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:43.997Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/quiz-components-YMY0VTo8.js",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:43.998Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/questions-data-BygSDF2j.js",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:43.998Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/login",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:52.277Z",
+      "headers": {
+        "upgrade-insecure-requests": "1",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Linux\""
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/index-B0fWWtjP.js",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:52.393Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://usmle-trivia.netlify.app/login",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/vendor-toJsCgd-.js",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:52.394Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://usmle-trivia.netlify.app/login",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/convex-BUk7Ld6w.js",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:52.395Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://usmle-trivia.netlify.app/login",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/state-DYtstKl8.js",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:52.395Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://usmle-trivia.netlify.app/login",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/radix-ui-Dc_FVRD7.js",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:52.396Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://usmle-trivia.netlify.app/login",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/react-vendor-BSpJr3PW.js",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:52.397Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://usmle-trivia.netlify.app/login",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/services-DJ4wepkZ.js",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:52.397Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://usmle-trivia.netlify.app/login",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/css/index-DHgJvVea.css",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:52.398Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "https://usmle-trivia.netlify.app/login",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/Login-B4ScVZVT.js",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:52.425Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/ui-components-Dzqr7y6S.js",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:52.425Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/quiz-components-YMY0VTo8.js",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:52.426Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/questions-data-BygSDF2j.js",
+      "method": "GET",
+      "timestamp": "2025-08-11T00:33:52.427Z",
+      "headers": {
+        "origin": "https://usmle-trivia.netlify.app",
+        "sec-ch-ua-platform": "\"Linux\"",
+        "referer": "",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/139.0.7258.5 Safari/537.36",
+        "sec-ch-ua": "\"Not;A=Brand\";v=\"99\", \"HeadlessChrome\";v=\"139\", \"Chromium\";v=\"139\"",
+        "sec-ch-ua-mobile": "?0"
+      },
+      "postData": null
+    }
+  ],
+  "networkResponses": [
+    {
+      "url": "https://usmle-trivia.netlify.app/register",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:43.750Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/convex-BUk7Ld6w.js",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:43.876Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/index-B0fWWtjP.js",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:43.877Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/state-DYtstKl8.js",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:43.878Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/css/index-DHgJvVea.css",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:43.918Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/services-DJ4wepkZ.js",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:43.927Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/radix-ui-Dc_FVRD7.js",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:43.929Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/vendor-toJsCgd-.js",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:43.929Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/react-vendor-BSpJr3PW.js",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:43.934Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/Register-CufQJGem.js",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:44.088Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/quiz-components-YMY0VTo8.js",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:44.090Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/ui-components-Dzqr7y6S.js",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:44.090Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/questions-data-BygSDF2j.js",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:44.097Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/login",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:52.373Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/index-B0fWWtjP.js",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:52.394Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/vendor-toJsCgd-.js",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:52.394Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/convex-BUk7Ld6w.js",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:52.395Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/state-DYtstKl8.js",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:52.396Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/radix-ui-Dc_FVRD7.js",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:52.396Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/react-vendor-BSpJr3PW.js",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:52.397Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/services-DJ4wepkZ.js",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:52.397Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/css/index-DHgJvVea.css",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:52.398Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/ui-components-Dzqr7y6S.js",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:52.426Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/quiz-components-YMY0VTo8.js",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:52.427Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/questions-data-BygSDF2j.js",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:52.428Z"
+    },
+    {
+      "url": "https://usmle-trivia.netlify.app/assets/Login-B4ScVZVT.js",
+      "status": 200,
+      "statusText": "",
+      "timestamp": "2025-08-11T00:33:52.506Z"
+    }
+  ],
+  "failedRequests": [],
+  "consoleLogs": [],
+  "errors": [],
+  "screenshots": [
+    "network-01-register.png",
+    "network-02-filled.png",
+    "network-03-after-submit.png",
+    "network-04-login.png",
+    "network-05-login-filled.png",
+    "network-06-login-result.png"
+  ]
+}

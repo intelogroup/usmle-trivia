@@ -1,0 +1,27 @@
+{
+  "timestamp": "2025-08-10T23:39:35.823Z",
+  "diagnostics": [
+    "✅ .env.local exists",
+    "✅ VITE_CONVEX_URL configured",
+    "✅ Valid Convex URL format",
+    "📡 Convex URL: https://formal-sardine-916.convex.cloud",
+    "📦 @convex-dev/auth version: ^0.0.88",
+    "📦 convex version: ^1.25.4",
+    "✅ Site loads successfully",
+    "✅ Login page loads successfully",
+    "✅ Auth request triggered",
+    "✅ Users table in schema",
+    "✅ UserProfiles table in schema",
+    "✅ Auth configuration in schema",
+    "✅ convex/_generated/api.d.ts",
+    "✅ convex/_generated/api.js",
+    "✅ convex/_generated/dataModel.d.ts",
+    "✅ convex/_generated/server.d.ts",
+    "✅ convex/_generated/server.js"
+  ],
+  "errors": [],
+  "networkLogs": [
+    "200 https://usmle-trivia.netlify.app/assets/convex-BUk7Ld6w.js",
+    "200 https://usmle-trivia.netlify.app/assets/convex-BUk7Ld6w.js"
+  ]
+}
