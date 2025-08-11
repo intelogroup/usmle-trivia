@@ -182,7 +182,8 @@ export function logEnvironmentInfo(): void {
   
   console.group('🌍 Environment Information');
   console.info('Node Environment:', config.nodeEnv);
-  console.info('Vite Environment:', config.viteEnv);
+  console.info('Vite Mode:', import.meta.env.MODE);
+  console.info('Vite Production:', import.meta.env.PROD);
   console.info('Convex URL:', config.convexUrl);
   console.info('Features:', config.features);
   console.info('Quiz Config:', config.quiz);
