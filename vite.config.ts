@@ -4,7 +4,10 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    react()
+    react({
+      // Use the automatic JSX runtime for React 19
+      jsxRuntime: 'automatic'
+    })
   ],
   
   // Optimizations for production
@@ -18,7 +21,8 @@ export default defineConfig({
         manualChunks: (id) => {
           // Create separate chunks for better caching
           if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom')) {
+            // Keep React and React-DOM together to avoid initialization issues
+            if (id.includes('react') && !id.includes('react-router') && !id.includes('lucide-react')) {
               return 'react-vendor';
             }
             if (id.includes('react-router')) {
@@ -35,6 +39,9 @@ export default defineConfig({
             }
             if (id.includes('zustand')) {
               return 'state';
+            }
+            if (id.includes('@clerk')) {
+              return 'clerk';
             }
             return 'vendor'; // All other node_modules
           }
@@ -124,7 +131,8 @@ export default defineConfig({
   
   // Additional build optimizations for production
   esbuild: {
-    drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
+    // Temporarily keep console logs for debugging
+    drop: process.env.NODE_ENV === 'production' ? ['debugger'] : [],
     minifyIdentifiers: true,
     minifySyntax: true,
     minifyWhitespace: true
