@@ -4,11 +4,10 @@ import { Password } from "@convex-dev/auth/providers/Password";
 /**
  * Official Convex Auth Configuration
  * Medical Education Platform (MedQuiz Pro)
- * Enhanced for USMLE preparation with secure authentication
+ * Fixed authentication with proper provider configuration
  */
 export const { auth, signIn, signOut, store } = convexAuth({
   providers: [
-    // Password-based authentication with minimal profile
     Password,
   ],
 });
