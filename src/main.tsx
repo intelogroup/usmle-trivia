@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ConvexReactClient } from "convex/react"
 import { ConvexProvider } from "convex/react"
+import { ClerkProvider } from "@clerk/clerk-react"
 import { getConvexUrl, logEnvironmentInfo } from './utils/envValidation'
 import './index.css'
 import App from './App.tsx'
@@ -29,10 +30,19 @@ try {
 // Initialize Convex client with validated URL
 const convex = new ConvexReactClient(getConvexUrl())
 
+// Get Clerk publishable key
+const CLERK_PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+
+if (!CLERK_PUBLISHABLE_KEY) {
+  throw new Error("Missing Clerk Publishable Key")
+}
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ConvexProvider client={convex}>
-      <App />
-    </ConvexProvider>
+    <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY} afterSignOutUrl="/">
+      <ConvexProvider client={convex}>
+        <App />
+      </ConvexProvider>
+    </ClerkProvider>
   </StrictMode>,
 )

@@ -1,5 +1,6 @@
 import { useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
 import { validateEnvironment, logEnvironmentInfo, isDevelopment } from './utils/envValidation';
 
 // Lazy load components to enable code splitting
@@ -32,7 +33,7 @@ function App() {
       validateEnvironment();
       if (isDevelopment()) {
         logEnvironmentInfo();
-        console.log('🚀 Running MedQuiz Pro without authentication');
+        console.log('🚀 Running MedQuiz Pro with Clerk Authentication');
       }
     } catch (error) {
       console.error('❌ Environment configuration error:', error);
@@ -45,105 +46,132 @@ function App() {
     <Router>
       <Suspense fallback={<LoadingSpinner />}>
         <Routes>
-        {/* Landing page - now redirect directly to dashboard */}
-        <Route 
-          path="/" 
-          element={<Navigate to="/dashboard" replace />} 
-        />
-        
-        {/* Public routes - no authentication required */}
-        <Route
-          path="/dashboard"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <AppLayout>
-                <Dashboard />
-              </AppLayout>
-            </Suspense>
-          }
-        />
-        <Route
-          path="/quiz"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <AppLayout>
-                <Quiz />
-              </AppLayout>
-            </Suspense>
-          }
-        />
-        <Route
-          path="/quiz/:mode"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <AppLayout>
-                <Quiz />
-              </AppLayout>
-            </Suspense>
-          }
-        />
-        <Route
-          path="/progress"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <AppLayout>
-                <Progress />
-              </AppLayout>
-            </Suspense>
-          }
-        />
-        <Route
-          path="/analytics"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <AppLayout>
-                <Analytics />
-              </AppLayout>
-            </Suspense>
-          }
-        />
-        <Route
-          path="/social/*"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <AppLayout>
-                <Social />
-              </AppLayout>
-            </Suspense>
-          }
-        />
-        <Route
-          path="/leaderboard"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <AppLayout>
-                <Leaderboard />
-              </AppLayout>
-            </Suspense>
-          }
-        />
-        <Route
-          path="/review"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <AppLayout>
-                <div>Review Page</div>
-              </AppLayout>
-            </Suspense>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <AppLayout>
-                <UserProfile />
-              </AppLayout>
-            </Suspense>
-          }
-        />
-        
-          {/* Catch-all route for 404 errors */}
+          {/* Public landing page */}
+          <Route path="/" element={<Landing />} />
+          
+          {/* Protected routes - require authentication */}
+          <Route
+            path="/dashboard"
+            element={
+              <>
+                <SignedIn>
+                  <AppLayout>
+                    <Dashboard />
+                  </AppLayout>
+                </SignedIn>
+                <SignedOut>
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            }
+          />
+          <Route
+            path="/quiz"
+            element={
+              <>
+                <SignedIn>
+                  <AppLayout>
+                    <Quiz />
+                  </AppLayout>
+                </SignedIn>
+                <SignedOut>
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            }
+          />
+          <Route
+            path="/quiz/:mode"
+            element={
+              <>
+                <SignedIn>
+                  <AppLayout>
+                    <Quiz />
+                  </AppLayout>
+                </SignedIn>
+                <SignedOut>
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            }
+          />
+          <Route
+            path="/progress"
+            element={
+              <>
+                <SignedIn>
+                  <AppLayout>
+                    <Progress />
+                  </AppLayout>
+                </SignedIn>
+                <SignedOut>
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            }
+          />
+          <Route
+            path="/analytics"
+            element={
+              <>
+                <SignedIn>
+                  <AppLayout>
+                    <Analytics />
+                  </AppLayout>
+                </SignedIn>
+                <SignedOut>
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            }
+          />
+          <Route
+            path="/social"
+            element={
+              <>
+                <SignedIn>
+                  <AppLayout>
+                    <Social />
+                  </AppLayout>
+                </SignedIn>
+                <SignedOut>
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            }
+          />
+          <Route
+            path="/leaderboard"
+            element={
+              <>
+                <SignedIn>
+                  <AppLayout>
+                    <Leaderboard />
+                  </AppLayout>
+                </SignedIn>
+                <SignedOut>
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <>
+                <SignedIn>
+                  <AppLayout>
+                    <UserProfile />
+                  </AppLayout>
+                </SignedIn>
+                <SignedOut>
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            }
+          />
+          
+          {/* 404 page */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
