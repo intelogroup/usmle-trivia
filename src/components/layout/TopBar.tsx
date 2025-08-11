@@ -1,41 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, Bell, Search, User, Settings, Stethoscope, Moon, Sun, Trophy } from 'lucide-react';
+import { Menu, Bell, Search, Moon, Sun, Trophy, LogOut } from 'lucide-react';
+import { UserButton, useUser, SignInButton, SignedIn, SignedOut } from '@clerk/clerk-react';
 import { useAppStore } from '../../store';
 import { useNavigate } from 'react-router-dom';
 
 export const TopBar: React.FC = () => {
   const { toggleSidebar, theme, toggleTheme } = useAppStore();
   const navigate = useNavigate();
-  const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const { user } = useUser();
   
-  // Mock user data for demo purposes (remove when implementing new auth)
-  const user = { name: 'Demo User', email: 'demo@example.com', points: 1250 };
-
-  // Close dropdown when clicking outside or pressing escape
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setUserMenuOpen(false);
-      }
-    };
-
-    const handleEscapeKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setUserMenuOpen(false);
-      }
-    };
-
-    if (userMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-      document.addEventListener('keydown', handleEscapeKey);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleEscapeKey);
-    };
-  }, [userMenuOpen]);
+  // Mock points for demo (will be fetched from database later)
+  const userPoints = 1250;
 
   return (
     <header className="h-16 bg-background px-4 flex items-center justify-between">
@@ -58,13 +33,13 @@ export const TopBar: React.FC = () => {
       </div>
 
       <div className="flex items-center gap-4">
-        {/* User Points */}
-        {user && (
+        {/* User Points - Only show when signed in */}
+        <SignedIn>
           <div className="flex items-center gap-2 px-3 py-1 bg-accent/50 rounded-full">
             <Trophy className="h-4 w-4 text-yellow-600" />
-            <span className="text-sm font-medium font-mono">{user.points || 0}</span>
+            <span className="text-sm font-medium font-mono">{userPoints}</span>
           </div>
-        )}
+        </SignedIn>
         
         {/* Theme Toggle */}
         <button 
@@ -79,68 +54,36 @@ export const TopBar: React.FC = () => {
           )}
         </button>
         
-        {/* Notifications */}
-        <button className="relative p-2 rounded-md hover:bg-accent">
-          <Bell className="h-5 w-5" />
-          <span className="absolute top-0 right-0 h-2 w-2 bg-destructive rounded-full" />
-        </button>
-        
-        {/* User Menu */}
-        <div className="relative" ref={dropdownRef}>
-          <button
-            onClick={() => setUserMenuOpen(!userMenuOpen)}
-            className="flex items-center gap-2 p-2 rounded-md hover:bg-accent transition-colors"
-          >
-            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-              <User className="w-4 h-4 text-primary-foreground" />
-            </div>
-            {user && (
-              <span className="hidden md:block text-sm font-medium">
-                {user.name}
-              </span>
-            )}
+        {/* Notifications - Only show when signed in */}
+        <SignedIn>
+          <button className="relative p-2 rounded-md hover:bg-accent">
+            <Bell className="h-5 w-5" />
+            <span className="absolute top-0 right-0 h-2 w-2 bg-destructive rounded-full" />
           </button>
-          
-          {/* Dropdown Menu */}
-          {userMenuOpen && (
-            <div className="absolute right-0 mt-2 w-56 bg-background border rounded-md shadow-lg z-50">
-              <div className="p-3 border-b">
-                <div className="flex items-center gap-2 mb-2">
-                  <Stethoscope className="h-4 w-4 text-primary" />
-                  <span className="text-xs font-medium text-primary">MedQuiz Pro</span>
-                </div>
-                <p className="text-sm font-medium">{user?.name}</p>
-                <p className="text-xs text-muted-foreground">{user?.email}</p>
-              </div>
-              
-              <div className="p-1">
-                <button
-                  onClick={() => {
-                    setUserMenuOpen(false);
-                    // Navigate to profile/settings if implemented
-                  }}
-                  className="flex items-center gap-2 w-full px-3 py-2 text-sm rounded-md hover:bg-accent transition-colors"
-                >
-                  <Settings className="w-4 h-4" />
-                  Settings
-                </button>
-                
-                <button
-                  onClick={() => {
-                    setUserMenuOpen(false);
-                    // No logout functionality without auth
-                    console.log('Logout clicked - will be implemented with new auth provider');
-                  }}
-                  className="flex items-center gap-2 w-full px-3 py-2 text-sm rounded-md hover:bg-accent text-muted-foreground cursor-not-allowed"
-                  disabled
-                >
-                  <Settings className="w-4 h-4" />
-                  Logout (Coming Soon)
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
+        </SignedIn>
+        
+        {/* User Menu - Clerk UserButton for signed-in users */}
+        <SignedIn>
+          <UserButton 
+            afterSignOutUrl="/"
+            appearance={{
+              elements: {
+                avatarBox: "w-8 h-8",
+                userButtonTrigger: "focus:outline-none focus:ring-2 focus:ring-primary rounded-md"
+              }
+            }}
+          />
+        </SignedIn>
+        
+        {/* Sign In Button for signed-out users */}
+        <SignedOut>
+          <SignInButton mode="modal">
+            <button className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors">
+              <LogOut className="w-4 h-4" />
+              <span className="text-sm font-medium">Sign In</span>
+            </button>
+          </SignInButton>
+        </SignedOut>
       </div>
     </header>
   );

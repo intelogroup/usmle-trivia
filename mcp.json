@@ -665,6 +665,17 @@
         "ERROR_RECOVERY_SCENARIOS": "true",
         "SCREENSHOT_ON_FAILURE": "true"
       }
+    },
+    "clerk": {
+      "command": "npx",
+      "args": ["-y", "@clerk/clerk-mcp@latest"],
+      "env": {
+        "CLERK_PUBLISHABLE_KEY": "pk_test_bG9naWNhbC1zcGlkZXItNDAuY2xlcmsuYWNjb3VudHMuZGV2JA",
+        "CLERK_SECRET_KEY": "${CLERK_SECRET_KEY:-}",
+        "CLERK_JWT_KEY": "${CLERK_JWT_KEY:-}",
+        "CLERK_WEBHOOK_SECRET": "${CLERK_WEBHOOK_SECRET:-}",
+        "CLERK_API_URL": "https://api.clerk.com/v1"
+      }
     }
   },
   "clientInfo": {
